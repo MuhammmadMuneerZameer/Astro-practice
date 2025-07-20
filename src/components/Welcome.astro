@@ -1,20 +1,18 @@
 ---
-import astroLogo from '../assets/astro.svg';
-import background from '../assets/background.svg';
 import '../styles/global.css'
+import Navbar from './Navbar.astro'
 ---
 
 <div id="container">
+	<Navbar/>
 	  <div id="welcome">
-	<!-- <img src={"astroLogo"} alt="Astro Logo" /> -->
-	<h1>Welcome to Astro!</h1>
+	
+	<h1 class="text-yellow-400">Welcome to Astro!</h1>
 	<p>
 	  This is a starter template for building fast, modern websites with Astro.
 	  Explore the code, customize it, and start building your next project!
 	</p>
   </div>
-  <!-- <img id="background" src={background} alt="Background Image" /> -->
-
 </div>
 	
 
