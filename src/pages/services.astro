@@ -2,6 +2,8 @@
 import Navbar from '../components/Navbar.astro';
 import ChatBot from '../components/ChatBot.jsx';
 import '../styles/global.css';
+import Footer from '../components/Footer.astro';
+import Layout from '../layouts/Layout.astro';
 
 const services = [
   { name: 'Web Development', description: 'Professional web development services.', link: '/services/web' },
@@ -9,7 +11,8 @@ const services = [
   { name: 'SEO', description: 'Improve your site ranking with our SEO expertise.', link: '/services/seo' },
 ];
 ---
-
+<Layout>
+  
 <Navbar />
 
 <main class="max-w-4xl mx-auto py-10 px-4">
@@ -25,3 +28,5 @@ const services = [
 </main>
 
 <ChatBot client:visible />
+<Footer/>
+</Layout>

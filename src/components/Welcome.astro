@@ -3,16 +3,15 @@ import '../styles/global.css'
 import Navbar from './Navbar.astro'
 ---
 
-<div id="container">
-	<Navbar/>
-	  <div id="welcome">
-	
-	<h1 class="text-yellow-400">Welcome to Astro!</h1>
-	<p>
-	  This is a starter template for building fast, modern websites with Astro.
-	  Explore the code, customize it, and start building your next project!
-	</p>
-  </div>
+<div class="bg-blue-900 min-h-[60vh] flex flex-col items-center justify-center text-center px-4">
+  
+  <h1 class="text-4xl md:text-6xl font-bold text-yellow-400 mb-4">Welcome to Astro!</h1>
+  <p class="text-white text-lg md:text-2xl mb-6">
+    Build fast, modern websites with ease. Start your next project today!
+  </p>
+  <a href="/contact" class="bg-yellow-400 text-blue-900 px-6 py-3 rounded font-semibold hover:bg-yellow-300 transition">
+    Get Started
+  </a>
 </div>
 	
 

@@ -4,10 +4,18 @@ import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 import Footer from '../components/Footer.astro';
 import ChatBot from '../components/ChatBot';
+import Navbar from '../components/Navbar.astro';
+import FeatureSection from '../components/FeatureSection.astro';
+import FeatureListSection from '../components/FeatureListSection.astro';
+import ServicesSection from '../components/ServicesSection.astro';
 ---
 
 <Layout>
+	<Navbar/>
 	<Welcome/>
+	<FeatureSection/>
+	<ServicesSection/>
+	<FeatureListSection/>
 	<ChatBot client:visible />
 	<Footer/>
 
