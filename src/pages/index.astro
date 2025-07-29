@@ -4,20 +4,34 @@ import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 import Footer from '../components/Footer.astro';
 import ChatBot from '../components/ChatBot';
-import Navbar from '../components/Navbar.astro';
+import Navbar from '../components/Navbar.jsx';
 import FeatureSection from '../components/FeatureSection.astro';
 import FeatureListSection from '../components/FeatureListSection.astro';
 import ServicesSection from '../components/ServicesSection.astro';
+import FAQsection from '../components/FAQsection.astro';
+import EcommerceProducts from '../components/EcommerceProducts.astro';
+import TestimonialSection from '../components/TestimonialSection.jsx';
+import '../styles/global.css';
+import CTAsection from '../components/CTAsection.astro';
+import NesLSection from '../components/NesLSection.astro';
+const title='Home Page';
+interface Props {
+  title?: string;
+  lang?: string;
+}
 ---
 
-<Layout>
-	<Navbar/>
+<Layout title={title} lang="en">
+	
 	<Welcome/>
 	<FeatureSection/>
 	<ServicesSection/>
 	<FeatureListSection/>
-	<ChatBot client:visible />
-	<Footer/>
+	<EcommerceProducts/>
+	<TestimonialSection client:visible/>
+	<FAQsection/>
+	<NesLSection/>
+	<CTAsection/>
 
 </Layout>
 	

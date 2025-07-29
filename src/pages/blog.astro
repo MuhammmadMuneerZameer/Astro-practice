@@ -1,19 +1,21 @@
 ---
 import ChatBot from '../components/ChatBot';
 import Footer from '../components/Footer.astro';
-import Navbar from '../components/Navbar.astro';
+import Navbar from '../components/Navbar.jsx';
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 ---
 
 
- <Layout>
-    <Navbar/>
-    <ChatBot client:visible />
-  <h1 class="font-bold text-blue-500 ">this is muneer blog section</h1>
+<Layout>
 
-  <p class="text-green-700">
-    this was the blog section of the website. Here you can find various articles and posts related to different topics.
-  </p>
-  <Footer/>
+
+  <main class="max-w-4xl mx-auto py-10 px-4 bg:var(--color-background)">
+    <h1 class="font-bold text-3xl mb-4" style="color: var(--color-primary);">
+      This is Muneer Blog Section
+    </h1>
+    <p style="color: var(--color-accent);">
+      This was the blog section of the website. Here you can find various articles and posts related to different topics.
+    </p>
+  </main>
 </Layout>

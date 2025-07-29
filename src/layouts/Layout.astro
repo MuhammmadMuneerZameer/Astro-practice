@@ -1,3 +1,10 @@
+---
+import ChatBot from "../components/ChatBot";
+import Footer from "../components/Footer.astro";
+import Navbar from "../components/Navbar";
+
+
+---
 <!doctype html>
 <html lang="en">
 	<head>
@@ -5,10 +12,13 @@
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title></title>
 	</head>
 	<body>
+		<Navbar/>
 		<slot />
+		 <ChatBot client:visible />
+        <Footer />
 	</body>
 </html>
 

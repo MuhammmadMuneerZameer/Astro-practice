@@ -1,20 +1,25 @@
 ---
 import '../styles/global.css'
-import Navbar from './Navbar.astro'
+import { ClientRouter, fade, slide } from 'astro:transitions';
 ---
-
-<div class="bg-blue-900 min-h-[60vh] flex flex-col items-center justify-center text-center px-4">
-  
-  <h1 class="text-4xl md:text-6xl font-bold text-yellow-400 mb-4">Welcome to Astro!</h1>
-  <p class="text-white text-lg md:text-2xl mb-6">
+<ClientRouter />
+<div
+  class="min-h-[60vh] flex flex-col items-center justify-center text-center px-4"
+  style="background: var(--color-primary);"
+>
+  <h1 class="text-4xl md:text-6xl font-bold mb-4" style="color: var(--color-accent);">
+    Welcome to Astro!
+  </h1>
+  <p class="text-lg md:text-2xl mb-6" style="color: var(--color-text);">
     Build fast, modern websites with ease. Start your next project today!
   </p>
-  <a href="/contact" class="bg-yellow-400 text-blue-900 px-6 py-3 rounded font-semibold hover:bg-yellow-300 transition">
+  <a
+    href="/contact"
+    class="px-6 py-3 rounded font-semibold transition"
+    style="background: var(--color-accent); color: var(--color-primary);"
+    onmouseover="this.style.background= 'var(--color-accent-hover)'"
+    onmouseout="this.style.background= 'var(--color-accent)'"
+  >
     Get Started
   </a>
 </div>
-	
-
-<style>
-
-</style>

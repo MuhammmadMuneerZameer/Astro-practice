@@ -1,0 +1,64 @@
+---
+const products = [
+  {
+    title: "Instagram Carousel Templates",
+    price: "$19",
+    badge: "Bestseller",
+    image: "/images/products/instagram-carousel.jpg",
+    description: "Editable Canva templates to boost engagement and sales on social media."
+  },
+  {
+    title: "E-commerce Brand Kit",
+    price: "$29",
+    badge: "New",
+    image: "/images/products/brand-kit.jpg",
+    description: "Complete branding kit including logos, fonts, color palette, and mockups."
+  },
+  {
+    title: "Notion Business Planner",
+    price: "$15",
+    badge: null,
+    image: "/images/products/notion-planner.jpg",
+    description: "All-in-one productivity dashboard to manage your digital business with ease."
+  },
+  {
+    title: "Email Marketing Templates",
+    price: "$25",
+    badge: null,
+    image: "/images/products/email-templates.jpg",
+    description: "Convert subscribers into customers with high-performing email sequences."
+  }
+];
+---
+
+<section class="max-w-7xl mx-auto px-4 py-20">
+  <h2 class="text-4xl font-bold text-center mb-4">Popular Digital Products</h2>
+  <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+    Boost your digital presence and streamline your business with our top-selling, ready-to-use digital products.
+  </p>
+
+  <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    {products.map(product => (
+      <div class="bg-white shadow-md rounded-2xl overflow-hidden transition hover:shadow-xl">
+        <img src={product.image} alt={product.title} class="w-full h-48 object-cover" />
+        <div class="p-5 flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-semibold text-gray-800">{product.title}</h3>
+            {product.badge && (
+              <span class="text-xs bg-indigo-100 text-indigo-600 px-2 py-0.5 rounded-full uppercase tracking-wide font-medium">
+                {product.badge}
+              </span>
+            )}
+          </div>
+          <p class="text-sm text-gray-600">{product.description}</p>
+          <div class="flex items-center justify-between mt-4">
+            <span class="text-base font-bold text-indigo-600">{product.price}</span>
+            <a href="#" class="text-sm font-medium text-white bg-indigo-600 px-4 py-2 rounded-md hover:bg-indigo-700 transition">
+              Buy Now
+            </a>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
