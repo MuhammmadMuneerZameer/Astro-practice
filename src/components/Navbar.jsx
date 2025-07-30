@@ -13,7 +13,7 @@ export default function Navbar() {
       }}
     >
       <div className="flex items-center gap-3">
-        <div className="font-bold text-lg text-white">Hydra Fox</div>
+        <div className="font-bold text-lg text-white">Hydra Fox Designs</div>
         <button
           className="px-2 py-1 rounded-full transition-all duration-300 backdrop-blur-sm border"
           style={{
