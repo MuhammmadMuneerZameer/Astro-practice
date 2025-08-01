@@ -14,15 +14,20 @@ import TestimonialSection from '../components/TestimonialSection.jsx';
 import '../styles/global.css';
 import CTAsection from '../components/CTAsection.astro';
 import NesLSection from '../components/NesLSection.astro';
+import ProjectShowcase from '../components/ProjectShowcase';
 const title='Home Page';
 ---
 
-<Layout title={title} lang="en">
+<Layout style={{backgroundColor: 'black'}} title={title} lang="en">
 	
 	<Welcome/>
 	<FeatureSection/>
 	<ServicesSection/>
 	<FeatureListSection/>
+	<div class="grid gap-8 md:grid-cols-2">
+  <ProjectShowcase />
+  <ProjectShowcase />
+</div>
 	<TestimonialSection client:visible/>
 	<FAQsection/>
 	<NesLSection/>
@@ -30,3 +35,6 @@ const title='Home Page';
 
 </Layout>
 	
+<style>
+
+</style>

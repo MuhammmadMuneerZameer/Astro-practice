@@ -4,179 +4,88 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav
-      className=" absolute px-5 py-4 flex items-center justify-center items-center w-full md:space-between backdrop-blur-md border-b"
-      style={{
-        background: "rgba(255, 255, 255, 0.1)",
-        borderColor: "rgba(255, 255, 255, 0.2)",
-        boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
-      }}
-    >
-      <div className="flex items-center gap-3">
-        <div className="font-bold text-lg text-white">Hydra Fox Designs</div>
+    <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50">
+      <div
+        className="w-[90vw] max-w-[720px] rounded-full border backdrop-blur-md px-4 py-2 flex justify-between items-center shadow-md transition-all duration-300"
+        style={{
+          background: "rgba(0, 0, 0, 0.6)",
+          borderColor: "rgba(255, 255, 255, 0.2)",
+        }}
+      >
+        {/* Logo */}
+        <div className="flex items-center gap-2">
+          <img
+            src="./images/hfd-logo-withoutBg.png"
+            alt="Hydra Fox Designs Logo"
+            className="w-7 h-7 object-contain"
+          />
+        </div>
+
+        {/* Hamburger Icon (Mobile Only) */}
         <button
-          className="px-2 py-1 rounded-full transition-all duration-300 backdrop-blur-sm border"
-          style={{
-            background: "rgba(255, 255, 255, 0.15)",
-            borderColor: "rgba(255, 255, 255, 0.3)",
-            color: "white",
-          }}
-          onClick={() => {
-            document.documentElement.classList.toggle("dark");
-          }}
-          aria-label="Toggle Theme"
+          className="md:hidden flex flex-col justify-between w-6 h-5 focus:outline-none z-50"
+          onClick={() => setOpen(!open)}
+          aria-label="Toggle Menu"
+        >
+          <span
+            className={`h-0.5 w-full bg-white transform transition duration-300 ${
+              open ? "rotate-45 translate-y-2" : ""
+            }`}
+          />
+          <span
+            className={`h-0.5 w-full bg-white transition-opacity duration-300 ${
+              open ? "opacity-0" : "opacity-100"
+            }`}
+          />
+          <span
+            className={`h-0.5 w-full bg-white transform transition duration-300 ${
+              open ? "-rotate-45 -translate-y-2" : ""
+            }`}
+          />
+        </button>
+
+        {/* Desktop Menu */}
+        <ul className="hidden md:flex items-center gap-6 text-white text-sm font-medium">
+          <li><a href="/" className="hover:text-green-400">Home</a></li>
+          <li><a href="/services" className="hover:text-green-400">Services</a></li>
+          <li><a href="/aboutUs" className="hover:text-green-400">About Us</a></li>
+          <li><a href="/blog" className="hover:text-green-400">Blog</a></li>
+          <li><a href="/contact" className="hover:text-green-400">Contact Us</a></li>
+        </ul>
+
+        {/* CTA Button */}
+        <a
+          href="/contact"
+          className="hidden md:flex items-center justify-center w-8 h-8 border border-green-400 rounded-full text-green-400 hover:bg-green-400 hover:text-black transition"
         >
           <svg
-            xmlns="http://www.w3.org/2000/svg"
             className="h-4 w-4"
             fill="none"
-            viewBox="0 0 24 24"
             stroke="currentColor"
+            strokeWidth={2}
+            viewBox="0 0 24 24"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 3v1m0 16v1m8.66-13.66l-.71.71M4.05 19.07l-.71.71M21 12h-1M4 12H3m16.95 7.07l-.71-.71M4.05 4.93l-.71-.71M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
           </svg>
-        </button>
+        </a>
       </div>
-      
-      {/* Hamburger Icon */}
-      <button
-        className="md:hidden flex flex-col justify-center items-center w-8 h-8 focus:outline-none"
-        aria-label="Toggle Menu"
-        onClick={() => setOpen(!open)}
-      >
-        <span
-          className={`block h-0.5 w-5 transition-transform duration-300 bg-white`}
-          style={{
-            transform: open ? "rotate(45deg) translateY(4px)" : "none"
-          }}
-        ></span>
-        <span
-          className={`block h-0.5 w-5 my-1 transition-opacity duration-300 bg-white`}
-          style={{
-            opacity: open ? 0 : 1,
-          }}
-        ></span>
-        <span
-          className={`block h-0.5 w-5 transition-transform duration-300 bg-white`}
-          style={{
-            transform: open ? "rotate(-45deg) translateY(-4px)" : "none"
-          }}
-        ></span>
-      </button>
 
-      {/* Desktop Menu */}
-      <ul className="hidden md:flex items-center gap-10 px-8">
-        <li>
-          <a href="/" className="text-white/90 hover:text-white transition-colors text-sm">
-            Home
-          </a>
-        </li>
-        <li>
-          <a href="/aboutUs" className="text-white/90 hover:text-white transition-colors text-sm">
-            About
-          </a>
-        </li>
-        <li>
-          <a href="/blog" className="text-white/90 hover:text-white transition-colors text-sm">
-            Blog
-          </a>
-        </li>
-        <li className="relative group">
-          <button className="text-white/90 hover:text-white transition-colors text-sm focus:outline-none">
-            Services
-          </button>
-          <ul 
-            className="absolute left-0 mt-2 rounded-lg shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 min-w-[140px] z-10 backdrop-blur-md border"
-            style={{ 
-              background: "rgba(255, 255, 255, 0.1)",
-              borderColor: "rgba(255, 255, 255, 0.2)",
-              boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)"
-            }}
-          >
-            <li>
-              <a href="/services/web" className="block px-3 py-2 text-white/90 hover:text-white hover:bg-white/10 text-sm">
-                Web Dev
-              </a>
-            </li>
-            <li>
-              <a href="/services/app" className="block px-3 py-2 text-white/90 hover:text-white hover:bg-white/10 text-sm">
-                App Dev
-              </a>
-            </li>
-            <li>
-              <a href="/services/seo" className="block px-3 py-2 text-white/90 hover:text-white hover:bg-white/10 text-sm">
-                SEO
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="/product" className="text-white/90 hover:text-white transition-colors text-sm">
-            Products
-          </a>
-        </li>
-      </ul>
-
-      <a
-        href="/book-call"
-        className="hidden md:inline-block font-medium rounded-full px-4 py-1.5 transition-all duration-300 text-sm backdrop-blur-sm border"
-        style={{
-          background: "rgba(255, 255, 255, 0.2)",
-          borderColor: "rgba(255, 255, 255, 0.3)",
-          color: "white",
-        }}
-      >
-        Book Call
-      </a>
-
-      {/* Mobile Menu */}
+      {/* Mobile Dropdown Menu */}
       <div
-        className={`absolute top-full left-0 w-full transition-all duration-300 z-20 backdrop-blur-md border-t ${
-          open ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+        className={`md:hidden transition-all duration-300 ease-in-out mt-2 overflow-hidden w-[90vw] max-w-[720px] mx-auto rounded-xl border backdrop-blur-md px-4 ${
+          open ? "max-h-[400px] opacity-100 py-4" : "max-h-0 opacity-0 py-0"
         }`}
-        style={{ 
-          background: "rgba(255, 255, 255, 0.1)",
+        style={{
+          background: "rgba(0, 0, 0, 0.6)",
           borderColor: "rgba(255, 255, 255, 0.2)",
-          boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)"
         }}
       >
-        <ul className="flex flex-col items-center gap-3 py-4">
-          <li><a href="/" className="text-white/90 hover:text-white transition-colors text-sm">Home</a></li>
-          <li><a href="/aboutUs" className="text-white/90 hover:text-white transition-colors text-sm">About</a></li>
-          <li><a href="/blog" className="text-white/90 hover:text-white transition-colors text-sm">Blog</a></li>
-          <li className="text-center">
-            <button className="text-white/90 hover:text-white transition-colors text-sm mb-2">Services</button>
-            <div 
-              className="rounded-lg backdrop-blur-sm border p-2"
-              style={{ 
-                background: "rgba(255, 255, 255, 0.1)",
-                borderColor: "rgba(255, 255, 255, 0.2)"
-              }}
-            >
-              <a href="/services/web" className="block px-3 py-1 text-white/90 hover:text-white text-sm">Web Dev</a>
-              <a href="/services/app" className="block px-3 py-1 text-white/90 hover:text-white text-sm">App Dev</a>
-              <a href="/services/seo" className="block px-3 py-1 text-white/90 hover:text-white text-sm">SEO</a>
-            </div>
-          </li>
-          <li><a href="/product" className="text-white/90 hover:text-white transition-colors text-sm">Products</a></li>
-          <li>
-            <a
-              href="/book-call"
-              className="font-medium rounded-full px-4 py-1.5 transition-all duration-300 text-sm backdrop-blur-sm border"
-              style={{
-                background: "rgba(255, 255, 255, 0.2)",
-                borderColor: "rgba(255, 255, 255, 0.3)",
-                color: "white",
-              }}
-            >
-              Book Call
-            </a>
-          </li>
+        <ul className="flex flex-col items-center gap-4 text-white text-sm font-medium">
+          <li><a href="/" className="hover:text-green-400">Home</a></li>
+          <li><a href="/services" className="hover:text-green-400">Services</a></li>
+          <li><a href="/aboutUs" className="hover:text-green-400">About Us</a></li>
+          <li><a href="/blog" className="hover:text-green-400">Blog</a></li>
+          <li><a href="/contact" className="hover:text-green-400">Contact Us</a></li>
         </ul>
       </div>
     </nav>
