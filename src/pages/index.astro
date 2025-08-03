@@ -1,5 +1,5 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import Welcome from '../components/Welcome.jsx';
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 import Footer from '../components/Footer.astro';
@@ -15,15 +15,17 @@ import '../styles/global.css';
 import CTAsection from '../components/CTAsection.astro';
 import NesLSection from '../components/NesLSection.astro';
 import ProjectShowcase from '../components/ProjectShowcase';
+import SplineViewer from '../components/SplineViewer.astro';
 const title='Home Page';
 ---
 
-<Layout style={{backgroundColor: 'black'}} title={title} lang="en">
+<Layout title={title} lang="en">
 	
-	<Welcome/>
+	<Welcome client:visible/>
 	<FeatureSection/>
 	<ServicesSection/>
 	<FeatureListSection/>
+	<SplineViewer client:only />
 	<div class="grid gap-8 md:grid-cols-2">
   <ProjectShowcase />
   <ProjectShowcase />

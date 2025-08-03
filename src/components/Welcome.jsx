@@ -1,13 +1,30 @@
----
-import '../styles/global.css'
----
 
-<div
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap'; 
+import SplitText from '../plugins/SplitText';
+gsap.registerPlugin(SplitText);
+import '../styles/global.css';
+ 
+ const Welcome = () => {
+  useEffect(() => {
+    const split = new SplitText('.header', { 
+      type: 'chars, words',
+    });
+    gsap.from(split.chars, {
+      opacity: 0,   
+      y: 20,
+      stagger: 0.05,
+      duration: 1,
+      ease: 'power2.out',
+    });
+  }, []);
+   return (
+     <div
   class=" min-h-[100vh] flex flex-col items-center justify-center text-center px-4"
   style="
   background-image: url(images/bg.png); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;"
 >
-  <h1 class="text-4xl md:text-6xl font-bold mb-4" style="color: var(--color-accent);">
+  <h1 class="text-4xl md:text-6xl font-bold mb-4 header" style="color: var(--color-accent);">
     Welcome to Hydra Fox Designs
   </h1>
   <p class="text-lg md:text-2xl mb-6" style="color: var(--color-text);">
@@ -38,10 +55,15 @@ import '../styles/global.css'
 </a>
 
 </div>
+   )
+ }
+ 
+ export default Welcome
 
-<style>
+
+{/* <style>
   .hero-button{
     box-shadow: 0 4px 20px rgb(99, 253, 189);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-</style>
+</style> */}
