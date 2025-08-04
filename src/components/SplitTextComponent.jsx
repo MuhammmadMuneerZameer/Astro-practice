@@ -1,16 +1,18 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-// Adjust path to your downloaded plugin
-import SplitText from '../plugins/SplitText'; 
+import SplitText from '../plugins/SplitText'; // Make sure the path is correct
+import '../styles/global.css';
 
-// Register plugin
 gsap.registerPlugin(SplitText);
 
 export default function SplitTextComponent() {
   const textRef = useRef();
 
   useEffect(() => {
-    const split = new SplitText('.hello', {
+    if (!textRef.current) return;
+
+    // Split only this specific header element
+    const split = new SplitText(textRef.current, {
       type: 'chars, words',
     });
 
@@ -23,5 +25,21 @@ export default function SplitTextComponent() {
     });
   }, []);
 
-  return <h1  className='hello'>Hello from SplitText</h1>;
+  return (
+    <div>
+      <h1
+        ref={textRef}
+        className="text-4xl md:text-6xl font-bold mb-4"
+        style={{ color: 'var(--color-accent)' }}
+      >
+        Welcome to Hydra Fox Designs
+      </h1>
+      <p
+        className="text-lg md:text-2xl mb-6"
+        style={{ color: 'var(--color-text)' }}
+      >
+        Build fast, modern websites with ease. Start your next project today!
+      </p>
+    </div>
+  );
 }

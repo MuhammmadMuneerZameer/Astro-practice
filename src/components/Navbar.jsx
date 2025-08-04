@@ -2,6 +2,10 @@ import React, { useState } from "react";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const toggle=() => {
+    setOpen(!open); 
+    console.log(open)
+  }
 
   return (
     <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50">
@@ -24,12 +28,12 @@ export default function Navbar() {
         {/* Hamburger Icon (Mobile Only) */}
         <button
           className="md:hidden flex flex-col justify-between w-6 h-5 focus:outline-none z-50"
-          onClick={() => setOpen(!open)}
+          onClick={() => toggle()}
           aria-label="Toggle Menu"
         >
           <span
             className={`h-0.5 w-full bg-white transform transition duration-300 ${
-              open ? "rotate-45 translate-y-2" : ""
+              open ? "rotate-45 translate-y-2.5 " : ""
             }`}
           />
           <span
@@ -72,14 +76,14 @@ export default function Navbar() {
 
       {/* Mobile Dropdown Menu */}
       <div
-        className={`md:hidden transition-all duration-300 ease-in-out mt-2 overflow-hidden w-[90vw] max-w-[720px] mx-auto rounded-xl border backdrop-blur-md px-4 ${
-          open ? "max-h-[400px] opacity-100 py-4" : "max-h-0 opacity-0 py-0"
-        }`}
-        style={{
-          background: "rgba(0, 0, 0, 0.6)",
-          borderColor: "rgba(255, 255, 255, 0.2)",
-        }}
-      >
+  className={`md:hidden transition-all duration-300 ease-in-out mt-2 overflow-hidden w-[90vw] max-w-[720px] mx-auto rounded-xl border backdrop-blur-md px-4 ${
+    open ? "max-h-[400px] opacity-100 py-4" : "max-h-0 opacity-0 py-0"
+  }`}
+  style={{
+    background: "rgba(0, 0, 0, 0.6)",
+    borderColor: "rgba(255, 255, 255, 0.2)",
+  }}
+>
         <ul className="flex flex-col items-center gap-4 text-white text-sm font-medium">
           <li><a href="/" className="hover:text-green-400">Home</a></li>
           <li><a href="/services" className="hover:text-green-400">Services</a></li>

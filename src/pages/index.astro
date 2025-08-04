@@ -1,31 +1,25 @@
 ---
-import Welcome from '../components/Welcome.jsx';
+import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
-import Footer from '../components/Footer.astro';
-import ChatBot from '../components/ChatBot';
-import Navbar from '../components/Navbar.jsx';
 import FeatureSection from '../components/FeatureSection.astro';
 import FeatureListSection from '../components/FeatureListSection.astro';
 import ServicesSection from '../components/ServicesSection.astro';
 import FAQsection from '../components/FAQsection.astro';
-import EcommerceProducts from '../components/EcommerceProducts.astro';
 import TestimonialSection from '../components/TestimonialSection.jsx';
-import '../styles/global.css';
 import CTAsection from '../components/CTAsection.astro';
 import NesLSection from '../components/NesLSection.astro';
 import ProjectShowcase from '../components/ProjectShowcase';
-import SplineViewer from '../components/SplineViewer.astro';
-const title='Home Page';
+
+
 ---
 
-<Layout title={title} lang="en">
+<Layout>
 	
-	<Welcome client:visible/>
+	<Welcome />
 	<FeatureSection/>
 	<ServicesSection/>
 	<FeatureListSection/>
-	<SplineViewer client:only />
 	<div class="grid gap-8 md:grid-cols-2">
   <ProjectShowcase />
   <ProjectShowcase />
