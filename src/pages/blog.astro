@@ -1,24 +1,60 @@
 ---
-import ChatBot from '../components/ChatBot';
-import Footer from '../components/Footer.astro';
-import Navbar from '../components/Navbar.jsx';
+import BlogCard from '../components/BlogCard.astro';
+import posts from '../data/blogPost.js';
 import Layout from '../layouts/Layout.astro';
-import '../styles/global.css';
+
+
+const Posts = [
+  {
+    image: "/images/blog-1.jpg",
+    title: "Estimating the Unestimatable: Project Planning for Innovation",
+    description: "The Innovation Planning Paradox Traditional project management assumes we know what we’re building...",
+    tag: "Tips&Tricks"
+  },
+  {
+    image: "/images/services.jpg",
+    title: "How I Learned to Stop Worrying and Love the Handoff",
+    description: "The Communication Gap: More Than Just Speaking Different Languages...",
+    tag: "Developer"
+  },
+  {
+    image: "/images/blog2.jpg",
+    title: "Unlock Your Business Potential with Custom Website Development",
+    description: "In today’s digital landscape, your website is more than just an online presence...",
+    tag: null
+  },
+];
 ---
 
+<html lang="en">
+  <head>
+    <title>Our Blog</title>
+  </head>
+  <Layout>
+    <body class="bg-[#0f0f0f] text-white font-sans">
+    <section class="max-w-7xl mx-auto px-6 py-16">
+      <h1 class="text-4xl md:text-5xl font-bold text-center mb-10">Our blog</h1>
 
-<Layout>
+      <div class="flex justify-center mb-6">
+        <input
+          type="text"
+          placeholder="Start typing to search"
+          class="w-full max-w-md px-4 py-2 rounded-full text-black"
+        />
+      </div>
 
+      <div class="flex justify-center space-x-4 mb-12">
+        <button class="bg-green-500 px-4 py-1 rounded-full text-black font-semibold">All</button>
+        <button class="bg-[#1a1a1a] px-4 py-1 rounded-full">Development</button>
+        <button class="bg-[#1a1a1a] px-4 py-1 rounded-full">Motion Design</button>
+      </div>
 
-  <div class=" min-h-[50vh] flex flex-col items-center justify-center text-center px-4"  style="
-  background-image: url(images/bg.png); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;">
-    <main  class="max-w-4xl mx-auto py-10 px-4 bg:var(--color-background)">
-    <h1 class="font-bold text-3xl mb-4" style="color: var(--color-primary);">
-      This is Muneer Blog Section
-    </h1>
-    <p style="color: var(--color-accent);">
-      This was the blog section of the website. Here you can find various articles and posts related to different topics.
-    </p>
-  </main>
-  </div>
-</Layout>
+      <div class="grid md:grid-cols-3 gap-8">
+        {Posts.map(post => (
+          <BlogCard {...post} />
+        ))}
+      </div>
+    </section>
+  </body>
+  </Layout>
+</html>

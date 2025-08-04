@@ -1,31 +1,80 @@
-
-
 ---
-import Navbar from '../components/Navbar.jsx';
-import ChatBot from '../components/ChatBot.jsx';
-import '../styles/global.css';
-import Footer from '../components/Footer.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro"
+import "../styles/global.css"
+import TeamMemberCard from "../components/TeamMemberCard.jsx"
+title: "About Us"
+import Team from "./team.astro"
+
 ---
 
 <Layout>
-  <div class=" min-h-[50vh] flex flex-col items-center justify-center text-center px-4"  style="
-  background-image: url(images/bg.png); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;">
-     
-  <main class="max-w-4xl mx-auto py-10 px-4">
-    <h1 class="text-3xl font-bold text-blue-900 mb-6">About Us</h1>
-    <p class="text-gray-700 mb-4">
-      Welcome to our company! We are dedicated to providing top-notch services and products to our clients. Our team of experts is here to help you achieve your goals with innovative solutions and exceptional support.
-    </p>
-    <p class="text-gray-700">
-      Our mission is to deliver quality and value in everything we do, ensuring customer satisfaction and long-term relationships.
-    </p>
-  </main>
-  </div>
+  <section class="relative bg-black text-white min-h-screen overflow-hidden px-6 py-24 mt-0 pt-0 md:px-16 flex flex-col items-center text-center mb-0 pb-0">
   
-  
- 
+    <img src="/images/services.jpg" alt="background" class="absolute mt-0 pt-0 h-[60vh] w-full" style="background-image: url('/images/services.jpg'); background-attachment: fixed;" />
+
+
+  <!-- Content -->
+  <div class="relative z-10 max-w-3xl py-24">
+    <p class="text-sm uppercase tracking-widest text-gray-400 mb-2">
+      Local Time / <span id="local-time" class="text-white font-semibold">--:--:--</span>
+    </p>
+
+    <h1 class="text-4xl md:text-6xl font-bold text-[#b5ffdb] mb-4">(About) Us</h1>
+    <p class="text-base md:text-lg text-gray-300 mb-6">
+      The heartbeat behind every pixel, line of code, and strategic decision.
+    </p>
+
+    <a
+  href="#team"
+  class="hero-button group relative inline-flex items-center justify-center px-6 py-3 text-white font-medium rounded-full  bg-black/80 backdrop-blur-sm shadow-md transition-all duration-300 overflow-hidden"
+>
+  <span class="relative z-10 flex items-center gap-2">
+    who are we?
+    <svg
+      class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0"
+      fill="none"
+      stroke="currentColor"
+      stroke-width={2}
+      viewBox="0 0 24 24"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+    </svg>
+  </span>
+  <span
+    class="absolute inset-0 rounded-full bg-green-500 opacity-0 "
+  ></span>
+  <span
+    class="absolute inset-0 rounded-full border border-green-400 opacity-0 group-hover:opacity-100 transition-all duration-500"
+  ></span>
+</a>
+</div>
+<Team id="team"/>
+</section>
+
+<!-- Lower content -->
+<section class="bg-black text-white px-6 md:px-20 py-20 grid md:grid-cols-2 gap-12">
+  <h2 class="text-3xl md:text-5xl font-bold text-[#b5ffdb] leading-tight">
+    Our Fundamental Creative <br /> Collective
+  </h2>
+  <p  class="text-gray-300 text-lg leading-relaxed">
+    Welcome to the intersection of strategy and imagination — where forward-thinking minds collaborate to transform challenges into opportunities. Our studio culture fosters both individual brilliance and collective strength, creating an environment where exceptional work naturally emerges.
+  </p>
+</section>
 </Layout>
 
-
-
+<!-- Local time script -->
+<script is:inline>
+  const updateTime = () => {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString([], { hour12: false });
+    document.getElementById("local-time").textContent = timeString;
+  };
+  setInterval(updateTime, 1000);
+  updateTime();
+</script>
+<style>
+  .hero-button{
+    box-shadow: 0 4px 20px rgb(99, 253, 189);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+</style> 

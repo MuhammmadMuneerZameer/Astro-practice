@@ -1,0 +1,40 @@
+---
+import TeamMemberCard from "../components/TeamMemberCard.jsx";
+
+const team = [
+  {
+    name: "Muneer Zameer",
+    role: "CEO & Founder",
+    title: "Developer & Designer",
+    photo: "/images/avater1.png",
+    description:
+      "Muneer is a visionary designer specializing in motion and interaction. He brings still graphics to life with emotional precision.",
+    facebook: "https://www.facebook.com/muneer.zameer.5",
+    linkedin: "https://www.linkedin.com/in/muhammad-muneer-zameer-a9254a29a/om/embed/track/5mPvl9bFbyQn3hFfNCDYhJ",
+  },
+  {
+    name: "Farzam Ahmed",
+    role: "Co-Founder",
+    title: "Co-Founder",
+    photo: "/images/farzam.JPG",
+    description:
+      "farzam is a full-stack workaholic powered by caffeine and curiosity. He knows an unsettling number of random facts and has an endless appetite for innovation and 'just one more feature'.",
+    instagram: "https://instagram.com/",
+    linkedin: "https://linkedin.com/",
+    spotify: "https://open.spotify.com/embed/track/3PJ7Cf7XZvF1yxvVtxk1Ry",
+  },
+];
+---
+
+<html lang="en">
+  <head>
+    <title>Team</title>
+  </head>
+  <body class="bg-black text-white min-h-screen">
+    <section class="py-20 px-6 grid md:grid-cols-2 gap-12">
+      {team.map((member) => (
+        <TeamMemberCard client:only="react" member={member} />
+      ))}
+    </section>
+  </body>
+</html>
