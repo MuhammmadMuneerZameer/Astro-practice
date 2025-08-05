@@ -1,0 +1,39 @@
+---
+import projects from '../data/ProjectShowcase.js';
+import ProjectShowcase from '../components/ProjectShowcase.astro';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <section class="bg-black text-white relative">
+    <!-- Background image hero -->
+    <div class="relative h-[50vh] w-full overflow-hidden">
+      <img
+        src="/images/services.jpg"
+        alt="background"
+        class="absolute inset-0 w-full h-full object-cover"
+        style="background-attachment: fixed;"
+      />
+      <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+      <div class="relative z-10 flex items-center justify-center h-full">
+        <h1 class="text-4xl font-bold text-green-300 text-center">All Projects</h1>
+      </div>
+    </div>
+
+    <!-- Project Cards -->
+    <div class="max-w-5xl mx-auto px-4 py-20">
+      <div class="grid gap-6 md:grid-cols-1">
+        {projects.map(project => (
+          <a href={`/projects/${project.slug}`} class="block">
+            <ProjectShowcase {...project} />
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+<style>
+  .hero-button {
+    box-shadow: 0 2px 20px rgb(99, 253, 189);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }

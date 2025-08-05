@@ -9,7 +9,8 @@ import FAQsection from '../components/FAQsection.astro';
 import TestimonialSection from '../components/TestimonialSection.jsx';
 import CTAsection from '../components/CTAsection.astro';
 import NesLSection from '../components/NesLSection.astro';
-import ProjectShowcase from '../components/ProjectShowcase';
+import BlogSection from '../components/BlogSection.astro';
+import Projectsdisplay from '../components/Projectsdisplay.astro';
 
 
 ---
@@ -20,10 +21,8 @@ import ProjectShowcase from '../components/ProjectShowcase';
 	<FeatureSection/>
 	<ServicesSection/>
 	<FeatureListSection/>
-	<div class="grid gap-8 md:grid-cols-2">
-  <ProjectShowcase />
-  <ProjectShowcase />
-</div>
+	<Projectsdisplay/>
+	<BlogSection client:visible/>
 	<TestimonialSection client:visible/>
 	<FAQsection/>
 	<NesLSection/>

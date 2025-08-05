@@ -54,16 +54,18 @@ const faqs = [
 ];
 ---
 
-<section class="max-w-5xl mx-auto px-4 py-16">
-  <h2 class="text-3xl font-bold text-center mb-10">Frequently Asked Questions</h2>
+<section class=" bg-black  px-4 py-16">
+  
+  <div class="max-w-5xl mx-auto">
+   <h2 class="text-3xl font-bold text-center text-green-300 mb-10">Frequently Asked Questions</h2>
   
   {faqs.map((section) => (
     <div class="mb-12">
-      <h3 class="text-xl font-semibold mb-4 text-gray-800">{section.category}</h3>
+      <h3 class="text-xl font-semibold mb-4 text-gray-300">{section.category}</h3>
       <div class="space-y-4">
         {section.items.map((faq) => (
-          <details class="border border-gray-200 rounded-md p-4">
-            <summary class="cursor-pointer font-medium text-gray-700">
+          <details class="border border-gray-800 rounded-md p-4">
+            <summary class="cursor-pointer font-medium text-gray-300">
               {faq.question}
             </summary>
             <p class="mt-2 text-gray-600">{faq.answer}</p>
@@ -71,5 +73,6 @@ const faqs = [
         ))}
       </div>
     </div>
-  ))}
+  ))} 
+  </div>
 </section>

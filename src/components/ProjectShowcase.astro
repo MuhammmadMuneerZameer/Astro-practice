@@ -1,0 +1,18 @@
+---
+const { title, description, image, technologies, link } = Astro.props;
+---
+
+<a href={link} target="_blank" class="group block rounded-xl overflow-hidden bg-[#111] border border-gray-800 hover:shadow-xl transition-shadow duration-300">
+  <img src={image} alt={title} class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" />
+  
+  <div class="p-4">
+    <h3 class="text-xl font-semibold text-white">{title}</h3>
+    <p class="text-sm text-gray-400 mt-1">{description}</p>
+
+    <div class="flex flex-wrap gap-2 mt-3">
+      {technologies.map((tech: unknown) => (
+        <span class="text-xs bg-gray-700 text-white px-2 py-1 rounded">{tech}</span>
+      ))}
+    </div>
+  </div>
+</a>

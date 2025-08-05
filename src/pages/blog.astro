@@ -1,29 +1,8 @@
 ---
 import BlogCard from '../components/BlogCard.astro';
-import posts from '../data/blogPost.js';
+import Posts from '../data/blogPost.js';
 import Layout from '../layouts/Layout.astro';
-
-
-const Posts = [
-  {
-    image: "/images/blog-1.jpg",
-    title: "Estimating the Unestimatable: Project Planning for Innovation",
-    description: "The Innovation Planning Paradox Traditional project management assumes we know what we’re building...",
-    tag: "Tips&Tricks"
-  },
-  {
-    image: "/images/services.jpg",
-    title: "How I Learned to Stop Worrying and Love the Handoff",
-    description: "The Communication Gap: More Than Just Speaking Different Languages...",
-    tag: "Developer"
-  },
-  {
-    image: "/images/blog2.jpg",
-    title: "Unlock Your Business Potential with Custom Website Development",
-    description: "In today’s digital landscape, your website is more than just an online presence...",
-    tag: null
-  },
-];
+import '../styles/global.css';
 ---
 
 <html lang="en">
