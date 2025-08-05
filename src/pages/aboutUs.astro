@@ -4,14 +4,16 @@ import "../styles/global.css"
 import TeamMemberCard from "../components/TeamMemberCard.jsx"
 title: "About Us"
 import Team from "./Team.astro"
+import Splineanimation from "../components/Splineanimation"
 
 ---
 
 <Layout>
   <section class="relative bg-black text-white min-h-screen overflow-hidden px-6 py-24 mt-0 pt-0 md:px-16 flex flex-col items-center text-center mb-0 pb-0">
-  
-    <img src="/images/services.jpg" alt="background" class="absolute mt-0 pt-0 h-[60vh] w-full" style="background-image: url('/images/services.jpg'); background-attachment: fixed;" />
-
+ 
+  <div class="absolute inset-0 z-0  bg-black mt-0 pt-0 h-[50vh] opacity-50 blur w-full" >
+  <Splineanimation client:only="react" />
+  </div>
 
   <!-- Content -->
   <div class="relative z-10 max-w-3xl py-24">

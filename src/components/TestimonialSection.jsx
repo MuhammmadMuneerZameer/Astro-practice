@@ -32,33 +32,33 @@ export default function TestimonialSection() {
   }
 
   return (
-    <section className="py-12 px-4  dark:bg-gray-900" style={{background: "var(--color-card)"}}>
-      <div className="max-w-3xl mx-auto text-center">
-        <h2 className="text-3xl pt-4 md:text-4xl font-bold mb-8 dark:text-blue-400" style={{color: "var(--color-primaryC)"}}>
+    <section className="py-12 px-4 bg-[url(/images/texture.jpg)] bg-[var(--color-card)] bg-blend-multiply " >
+      <div className="max-w-3xl mx-auto text-center ">
+        <h2 className="text-3xl pt-4 md:text-4xl font-bold mb-8" style={{color: "var(--color-subtext)"}}>
           What Our Clients Say
         </h2>
         <div className="relative">
-          <div className="rounded-lg shadow-lg p-8 transition-all duration-500 bg-white dark:bg-gray-800 min-h-[220px]">
-            <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
+          <div className=" shadow-lg  transition-all duration-500 p-8 rounded-lg bg-gradient-to-r from-black to-gray-800  min-h-[220px]">
+            <p className="text-lg mb-4 text-gray-300 dark:text-gray-300">
               "{testimonials[current].text}"
             </p>
-            <div className="font-semibold text-xl mb-1 text-blue-600 dark:text-blue-400">
+            <div className="font-semibold text-xl mb-1 text-green-300">
               {testimonials[current].name}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-gray-400">
               {testimonials[current].role}
             </div>
           </div>
           <div className="flex justify-center gap-4 mt-6">
             <button
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold text-xl hover:bg-blue-200 transition dark:bg-blue-900 dark:text-blue-400 dark:hover:bg-blue-800"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-green-300 text-gray-800 hover:bg-green-400"
               onClick={prev}
               aria-label="Previous testimonial"
             >
               ←
             </button>
             <button
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold text-xl hover:bg-blue-200 transition dark:bg-blue-900 dark:text-blue-400 dark:hover:bg-blue-800"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-green-300 text-gray-800 hover:bg-green-400"
               onClick={next}
               aria-label="Next testimonial"
             >
@@ -71,8 +71,8 @@ export default function TestimonialSection() {
                 key={idx}
                 className={`inline-block w-3 h-3 rounded-full transition cursor-pointer ${
                   idx === current 
-                    ? 'bg-blue-500' 
-                    : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
+                    ? 'bg-green-300' 
+                    : 'bg-gray-400 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
                 }`}
                 onClick={() => setCurrent(idx)}
               />

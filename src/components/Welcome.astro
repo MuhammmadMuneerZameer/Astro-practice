@@ -2,15 +2,16 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';   
 import SplitTextComponent from './SplitTextComponent.jsx'; 
+import Splineanimation from './Splineanimation';
 
 ---
 
 <div
   class=" min-h-[100vh] flex flex-col items-center justify-center text-center px-4"
-  style="
-  background-image: url(images/bg.png); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;"
+ 
 >
 <SplitTextComponent client:only="react" />
+<Splineanimation client:only="react" />
  <a
   href="/contact"
   class="hero-button group relative inline-flex items-center justify-center px-6 py-3 text-white font-medium rounded-full  bg-black/80 backdrop-blur-sm shadow-md transition-all duration-300 overflow-hidden"

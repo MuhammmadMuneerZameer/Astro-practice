@@ -1,19 +1,29 @@
-<footer class="bg-black text-white py-8 px-4 w-full bottom-0 left-0">
-  <div class="max-w-6xl mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-8">
+---
+import Spline from "@splinetool/react-spline";
+import Splineanimation from "./Splineanimation";
+---
+<footer class="relative bg-black text-white py-16 px-4 w-full overflow-hidden">
+  <!-- ✅ Background Spline Animation -->
+  <div class="absolute inset-0 z-0 blur opacity-50 pointer-events-none">
+    <Splineanimation client:only="react" />
+  </div>
+
+  <!-- ✅ Foreground Footer Content -->
+  <div class="relative z-10 mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-8">
     <div>
       <h2 class="font-bold text-lg mb-2">Hydra Fox Designs</h2>
       <p class="text-gray-300 mb-2">Providing quality services and products to help you succeed.</p>
-      <p class="text-gray-400 text-sm">&copy; {new Date().getFullYear()} Your Company. All rights reserved.</p>
+      <p class="text-gray-400 text-sm">&copy; {new Date().getFullYear()} Hydra Fox. All rights reserved.</p>
     </div>
     <div>
       <h2 class="font-bold text-lg mb-2">Quick Links</h2>
       <ul>
-        <li><a href="/" class="hover:text-yellow-300">Home</a></li>
-        <li><a href="/aboutUs" class="hover:text-yellow-300">About Us</a></li>
-        <li><a href="/services" class="hover:text-yellow-300">Services</a></li>
-        <li><a href="/products" class="hover:text-yellow-300">Products</a></li>
-        <li><a href="/blog" class="hover:text-yellow-300">Blog</a></li>
-        <li><a href="/contact" class="hover:text-yellow-300">Contact</a></li>
+        <li><a href="/" class="hover:text-green-300">Home</a></li>
+        <li><a href="/aboutUs" class="hover:text-green-300">About Us</a></li>
+        <li><a href="/services" class="hover:text-green-300">Services</a></li>
+        <li><a href="/products" class="hover:text-green-300">Products</a></li>
+        <li><a href="/blog" class="hover:text-green-300">Blog</a></li>
+        <li><a href="/contact" class="hover:text-green-300">Contact</a></li>
       </ul>
     </div>
     <div>
@@ -21,9 +31,9 @@
       <p class="text-gray-300">Email: hydrafox345@gmail.com</p>
       <p class="text-gray-300">Phone: +92 3354345625</p>
       <div class="flex gap-3 mt-2">
-        <a href="https://www.facebook.com/hydrafoxdesign" aria-label="Facebook" class="hover:text-yellow-300">FB</a>
-        <a href="https://www.instagram.com/official_hydra_fox/" aria-label="Instagram" class="hover:text-yellow-300">TW</a>
-        <a href="https://www.linkedin.com/company/hydrafoxdesign" aria-label="LinkedIn" class="hover:text-yellow-300">LN</a>
+        <a href="https://www.facebook.com/hydrafoxdesign" aria-label="Facebook"><img src="/images/facebook (1).png" class="w-5 opacity-50 hover:opacity-100" /></a>
+        <a href="https://www.instagram.com/official_hydra_fox/" aria-label="Instagram"><img src="/images/instagram (1).png" class="w-5 opacity-50 hover:opacity-100" /></a>
+        <a href="https://www.linkedin.com/company/hydrafoxdesign" aria-label="LinkedIn"><img src="/images/linkedin.png" class="w-5 opacity-50 hover:opacity-100" /></a>
       </div>
     </div>
   </div>

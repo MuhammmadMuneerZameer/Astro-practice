@@ -1,5 +1,6 @@
 ---
 import Navbar from '../components/Navbar';
+import Splineanimation from '../components/Splineanimation';
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 title: "Our Services"
@@ -11,11 +12,14 @@ title: "Our Services"
   
 
   <!-- Heading -->
-<div class="h-[50vh] items-center align-middle pt-[20vh] w-full backgroungd-image ba bg-cover bg-center " style="background-image: url('/images/services.jpg'); background-attachment: fixed;">
-    <h1 class="text-4xl  md:text-6xl font-bold text-center mb-8 text-[#b5ffdb]">Our Services</h1>
+<div class="h-[50vh] items-center align-middle pt-[20vh] w-full backgroungd-image ba bg-cover bg-center bg-black " >
+    <div class="absolute inset-0 z-0 h-[50vh] blur opacity-50">
+    <Splineanimation client:only="react" />
+  </div>  
+  <h1 class="text-4xl relative md:text-6xl font-bold text-center mb-8 text-[#b5ffdb]">Our Services</h1>
 
   <!-- Service Tags -->
-  <div class="flex flex-wrap justify-center gap-4 mb-12">
+  <div class=" relative flex flex-wrap justify-center gap-4 mb-12">
     {["UX/UI design", "Development", "Mobile app", "Branding", "Video editing", "Product design", "Motion design"].map(service => (
       <span class=" text-white px-4 py-2 rounded-full border border-white/20 bg-white/5 text-sm hover:bg-[#00f19f] hover:text-black transition cursor-pointer" >
         {service}

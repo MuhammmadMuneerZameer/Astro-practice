@@ -1,5 +1,6 @@
 ---
 import BlogCard from '../components/BlogCard.astro';
+import Splineanimation from '../components/Splineanimation';
 import Posts from '../data/blogPost.js';
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
@@ -10,28 +11,45 @@ import '../styles/global.css';
     <title>Our Blog</title>
   </head>
   <Layout>
-    <body class="bg-[#0f0f0f] text-white font-sans">
-    <section class="max-w-7xl mx-auto px-6 py-16">
-      <h1 class="text-4xl md:text-5xl font-bold text-center mb-10">Our blog</h1>
+    <body class="bg-black text-white font-sans">
+       <div class="relative w-full h-[300px] flex flex-col items-center justify-center">
+  <!-- Spline animation background -->
+  <div class="absolute inset-0 z-0">
+    <Splineanimation client:only="react" />
+  </div>
 
-      <div class="flex justify-center mb-6">
-        <input
-          type="text"
-          placeholder="Start typing to search"
-          class="w-full max-w-md px-4 py-2 rounded-full text-black"
-        />
-      </div>
-
-      <div class="flex justify-center space-x-4 mb-12">
+  <!-- Overlay content -->
+  <div class="relative z-10 px-4 mt-24 text-center">
+    <h1 class="text-4xl md:text-5xl font-bold text-center mb-6 pt-24 text-green-300">Our Blog</h1>
+    <div class="flex justify-center">
+      <input
+        type="text"
+        placeholder="Start typing to search"
+        class="w-full max-w-md px-4 py-2 rounded-full text-black"
+      />
+      
+    </div>
+    <div class="flex justify-center space-x-4 mb-12 py-10">
         <button class="bg-green-500 px-4 py-1 rounded-full text-black font-semibold">All</button>
         <button class="bg-[#1a1a1a] px-4 py-1 rounded-full">Development</button>
         <button class="bg-[#1a1a1a] px-4 py-1 rounded-full">Motion Design</button>
       </div>
+  </div>
+</div>
+    <section class="max-w-7xl mx-auto px-6 py-20">
+      
+      
+
+      
 
       <div class="grid md:grid-cols-3 gap-8">
-        {Posts.map(post => (
+        
+          {Posts.map(post => (
+            <a href={`/blog/${post.slug}`}>
           <BlogCard {...post} />
+          </a>
         ))}
+       
       </div>
     </section>
   </body>

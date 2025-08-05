@@ -1,28 +1,39 @@
-<section class="py-12 px-4" style="background: var(--color-bg);">
-  <div class="max-w-xl mx-auto rounded-lg shadow-lg p-8 text-center" style="background: var(--color-card);">
-    <h2 class="text-2xl md:text-3xl font-bold mb-4" style="color: var(--color-primary);">
-      Subscribe to our Newsletter
-    </h2>
-    <p class="mb-6 text-lg" style="color: var(--color-text);">
-      Get the latest updates, news, and exclusive offers straight to your inbox.
-    </p>
-    <form class="flex flex-col md:flex-row gap-4 justify-center">
-      <input
-        type="email"
-        required
-        placeholder="Enter your email"
-        class="flex-1 px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition"
-        style="background: var(--color-bg); color: var(--color-text);"
-      />
-      <button
-        type="submit"
-        class="px-6 py-2 rounded font-semibold transition"
-        style="background: var(--color-accent); color: var(--color-primary);"
-        onmouseover="this.style.background= 'var(--color-accent-hover)'"
-        onmouseout="this.style.background= 'var(--color-accent)'"
-      >
-        Subscribe
-      </button>
-    </form>
+<section class="py-20 px-4 bg-gradient-to-r from-black to-gray-900 text-white">
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
+    
+    <!-- Left Text Content -->
+    <div class="max-w-xl">
+      <h2 class="text-4xl font-bold leading-tight text-green-300">
+        Join our newsletter <br /> & stay updated.
+      </h2>
+      <p class="mt-4 text-[var(--color-text-light)]">
+         Get the latest content in your inbox every week. We don’t spam.
+      </p>
+    </div>
+
+    <!-- Right Form -->
+    <div class="bg-black p-6 rounded-lg gap-6 w-full max-w-md shadow-md py-[10vh] ">
+      <form class="flex flex-col gap-4">
+        <input
+          type="email"
+          placeholder="Enter Your Email address"
+          required
+          class="w-full px-4 py-2 rounded-full border border-gray-700 bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
+        />
+        <button
+          type="submit"
+          class="w-full py-4 my-4 px-4 hero-button rounded-full  bg-black/80 backdrop-blur-sm shadow-md transition-all hover:text-black ease-in-out duration-300 overflow-hidden text-white font-medium hover:bg-[var(--color-accent-hover)] "
+        >
+          Subscribe Now
+        </button>
+     
+      </form>
+    </div>
   </div>
 </section>
+<style>
+  .hero-button{
+    box-shadow: 0 2px 15px rgb(99, 253, 189);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+</style> 
