@@ -1,35 +1,74 @@
-const Posts = [
-  {
-    image: "/images/blog-1.jpg",
-    title: "Estimating the Unestimatable: Project Planning for Innovation",
-    description: "this is something I want ot write s an a demo file ",
-    slug: "building-with-astro",
-    category: "Motion Design",
-    content: "Another blog content...",
-    tag: "Tips&Tricks",
-    date: "2025-07-29",
-  },
-  {
-    image: "/images/services.jpg",
-    title: "How I Learned to Stop Worrying and Love the Handoff",
-    slug: "how-i-learned-to-stop-worrying-and-love-the-handoff",
-    category: "Motion Design",
-    content: "Another blog content...",
-    description: "The Communication Gap: More Than Just Speaking Different Languages...",
-    tag: "Developer",
-    date: "2025-07-29",
-  },
-  {
-    image: "/images/blog2.jpg",
-    title: "Unlock Your Business Potential with Custom Website Development",
-    category: "Motion Design",
-    content: "Another blog content...",
-    slug: "unlock-your-business-potential-with-custom-website-development",
-    description: "In today’s digital landscape, your website is more than just an online presence...",
-    tag: null,
-    date: "2025-07-29",
-  },
-  // more posts...
-];
+// src/data/blogPost.js
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../lib/firebase";
 
-export default Posts;
+export async function getPosts() {
+  try {
+    console.log('🚀 Starting Firebase fetch...');
+    console.log('🔍 Database instance:', db);
+    
+    // Check if db is properly initialized
+    if (!db) {
+      throw new Error('Firebase database not initialized');
+    }
+
+    console.log('📦 Getting collection reference...');
+    const blogsCollection = collection(db, "post");
+    console.log('📦 Collection reference:', blogsCollection);
+
+    console.log('🔄 Fetching documents...');
+    const querySnapshot = await getDocs(blogsCollection);
+    console.log('📊 Query snapshot:', querySnapshot);
+    console.log('📊 Document count:', querySnapshot.size);
+
+    if (querySnapshot.empty) {
+      console.warn('⚠️ No documents found in blogs collection');
+      return [];
+    }
+
+    const posts = [];
+    querySnapshot.forEach((doc) => {
+      console.log(`📄 Processing document ${doc.id}`);
+      const data = doc.data();
+      console.log(`📄 Document data:`, data);
+
+      const post = {
+        id: doc.id,
+        title: data.title || 'Untitled',
+        slug: data.slug || doc.id,
+        content: data.content || '',
+        image: data.coverImage || 'https://via.placeholder.com/400x300',
+        description: data.excerpt || 'No description available',
+        tag: data.tag || null,
+        category: data.category || null,
+        date: data.date || null,
+      };
+
+      console.log(`✅ Processed post:`, post);
+      posts.push(post);
+    });
+
+    console.log('🎉 Final posts array:', posts);
+    return posts;
+
+  } catch (error) {
+    console.error('💥 Error in getPosts:', error);
+    console.error('💥 Error stack:', error.stack);
+    
+    // Return mock data for debugging
+    console.log('🔧 Returning mock data for debugging...');
+    return [
+      {
+        id: 'mock-1',
+        title: 'Mock Post 1',
+        slug: 'mock-post-1',
+        content: 'This is mock content',
+        image: 'https://via.placeholder.com/400x300',
+        description: 'This is a mock post for debugging',
+        tag: 'Debug',
+        category: 'Test',
+        date: '2024-01-01',
+      }
+    ];
+  }
+}

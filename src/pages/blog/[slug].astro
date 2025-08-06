@@ -1,10 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import BlogCard from '../../components/BlogCard.astro';
-import posts from '../../data/blogPost.js';
+import { getPosts } from '../../data/blogPost.js';
 
 export async function getStaticPaths() {
-  return posts.map(post => ({
+  const posts = await getPosts();
+  return posts.map(post  => ({
     params: { slug: post.slug },
     props: { post }
   }));
@@ -12,27 +13,27 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 
-// You can also get recommended posts (excluding current one)
-const recommended = posts.filter(p => p.slug !== post.slug).slice(0, 3);
+// Get all posts again to filter recommended ones
+const allPosts = await getPosts();
+const recommended = allPosts.filter(p => p.slug !== post.slug).slice(0, 3);
 ---
 
-<Layout >
-  <div class="bg-black text-white" >
-    <section class="max-w-3xl mx-auto py-20 px-4 text-whit bg-black">
-    <h1 class="text-4xl font-bold mb-4 text-green-400">{post.title}</h1>
-    <p class="text-gray-400 text-sm mb-8">{post.date}</p>
-    <img src={post.image} alt={post.title} class="w-full rounded-lg mb-6" />
-    <p class="text-lg leading-7">{post.description}</p>
-    <div class="mt-10">
-      <h2 class="text-2xl font-bold mb-4">Recommended Blogs</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        {recommended.map(post => (
-          <a href={`/blog/${post.slug}`}>
-            <BlogCard {...post} />
-          </a>
-        ))}
+<Layout>
+  <div class="bg-black text-white">
+    <section class="max-w-3xl mx-auto py-20 px-4 text-white bg-black">
+      <h1 class="text-4xl font-bold mb-4 text-green-400">{post.title}</h1>
+      <p class="text-gray-400 text-sm mb-8">{post.date}</p>
+      <img src={post.image} alt={post.title} class="w-full rounded-lg mb-6" />
+      <p class="text-lg leading-7">{post.content}</p>
+
+      <div class="mt-10">
+        <h2 class="text-2xl font-bold mb-4">Recommended Blogs</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          {recommended.map(post => (
+            <a href={`/blog/${post.slug}`}><BlogCard {...post} /></a>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
   </div>
 </Layout>

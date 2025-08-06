@@ -1,7 +1,10 @@
 ---
 import BlogCard from '../components/BlogCard.astro';
-import Posts from '../data/blogPost.js';
+import { getPosts } from '../data/blogPost.js';
+
+const posts = await getPosts();
 ---
+
 <section class="bg-black py-20 px-6 text-white">
   <div class="max-w-5xl mx-auto">
     <div class="flex justify-between items-center mb-10">
@@ -14,9 +17,13 @@ import Posts from '../data/blogPost.js';
     </div>
 
     <div class="grid gap-6 md:grid-cols-3">
-      {Posts.map(post => (
-        <BlogCard {...post} />
-      ))}
+     {posts.map((post) => (
+  <a href={`/blog/${post.slug}`} class="hover:opacity-80 transition duration-200">
+    <BlogCard {...post} />
+  </a>
+))}
+
+
     </div>
   </div>
 </section>
