@@ -1,12 +1,12 @@
 // /src/components/BlogList.jsx
 import { useEffect, useState } from "react";
-import { fetchBlogPosts } from "../data/blogPost";
+import { getPosts } from "../data/blogPost";
 
 export default function BlogList() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetchBlogPosts().then((data) => setPosts(data));
+    getPosts().then((data) => setPosts(data));
   }, []);
 
   return (

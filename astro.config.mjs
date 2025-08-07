@@ -10,5 +10,6 @@ export default defineConfig({
   integrations: [tailwind(), react()],
   devToolbar: {
     enabled: false
-  }
+  },
+   output: "static"
 });
