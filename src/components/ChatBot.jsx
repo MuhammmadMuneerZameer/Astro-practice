@@ -14,7 +14,7 @@ export default function ChatBot() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-6 right-6 z-[9999] pointer-events-auto">
       <button
         className="bg-blue-600 text-white rounded-full p-4 shadow-lg hover:bg-blue-700 transition"
         onClick={() => setOpen(!open)}
