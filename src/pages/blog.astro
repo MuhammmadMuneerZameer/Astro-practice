@@ -8,52 +8,83 @@ import '../styles/global.css';
 const Posts = await getPosts();
 ---
 
-
-  <Layout>
-    <title>Blog</title>
-    <body class="bg-black text-white font-sans">
-       <div class="relative w-full h-[300px] flex flex-col items-center justify-center">
-  <!-- Spline animation background -->
-  <div class="absolute inset-0 z-0">
-    <Splineanimation client:only="react" />
-  </div>
-
-  <!-- Overlay content -->
-  <div class="relative z-10 px-4 mt-24 text-center">
-    <h1 class="text-4xl md:text-5xl font-bold text-center mb-6 pt-24 text-green-300">Our Blog</h1>
-    <div class="flex justify-center">
-      <input
-        type="text"
-        placeholder="Start typing to search"
-        class="w-full max-w-md px-4 py-2 rounded-full text-black"
-      />
-      
+<Layout>
+  <!-- Hero/Search Section -->
+  <section class="relative w-full h-[300px] flex flex-col items-center justify-center bg-black text-white">
+    <div class="absolute inset-0 z-0">
+      <Splineanimation client:only="react" />
     </div>
-    <div class="flex justify-center space-x-4 mb-12 py-10">
-        <button class="bg-green-500 px-4 py-1 rounded-full text-black font-semibold">All</button>
-        <button class="bg-[#1a1a1a] px-4 py-1 rounded-full">Development</button>
-        <button class="bg-[#1a1a1a] px-4 py-1 rounded-full">Motion Design</button>
+
+    <div class="relative z-10 px-4 mt-24 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-center mb-6 pt-24 text-green-300">Our Blog</h1>
+      <div class="flex justify-center">
+        <input
+          id="blogSearch"
+          type="text"
+          placeholder="Start typing to search"
+          class="w-full max-w-md px-4 py-2 rounded-full text-black"
+        />
       </div>
-  </div>
-</div>
-   <div class="bg-black text-white">
-     <section class="max-w-7xl mx-auto px-6 py-20 ">
-      
-      
+      <div class="flex justify-center space-x-4 mb-12 py-10">
+        <button class="filter-btn bg-green-500 px-4 py-1 rounded-full text-black font-semibold" data-filter="all">All</button>
+        <button class="filter-btn bg-[#1a1a1a] px-4 py-1 rounded-full" data-filter="Development">Development</button>
+        <button class="filter-btn bg-[#1a1a1a] px-4 py-1 rounded-full" data-filter="Motion Design">Motion Design</button>
+      </div>
+    </div>
+  </section>
 
-      
-
-      <div class="grid md:grid-cols-3 gap-8">
-        
-          {Posts.map(post => (
-            <a href={`/blog/${post.slug}`}>
-          <BlogCard {...post} />
+  <!-- Posts Grid -->
+  <section class="bg-black text-white">
+    <div class="max-w-7xl mx-auto px-6 py-20">
+      <div id="blogGrid" class="grid md:grid-cols-3 gap-8">
+        {Posts.map(post => (
+          <a href={`/blog/${post.slug}`} class="blog-item block hover:opacity-80 transition duration-200" data-title={post.title} data-desc={post.description} data-category={post.category || ''} data-tag={post.tag || ''}>
+            <BlogCard {...post} />
           </a>
         ))}
-       
       </div>
-    </section>
-   </div>
-   </div>
-  </body>
-  </Layout>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('blogSearch') as HTMLInputElement | null;
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const items = Array.from(document.querySelectorAll('.blog-item')) as HTMLAnchorElement[];
+    let activeCategory = 'all';
+
+    function normalize(str) {
+      return (str || '').toString().toLowerCase().trim();
+    }
+
+    function applyFilters() {
+      const q = normalize(searchInput?.value || '');
+      items.forEach((el) => {
+        const title = normalize(el.getAttribute('data-title'));
+        const desc = normalize(el.getAttribute('data-desc'));
+        const cat = normalize(el.getAttribute('data-category'));
+        const tag = normalize(el.getAttribute('data-tag'));
+        const matchesText = !q || title.includes(q) || desc.includes(q) || tag.includes(q) || cat.includes(q);
+        const matchesCat = activeCategory === 'all' || cat === normalize(activeCategory);
+        el.style.display = matchesText && matchesCat ? '' : 'none';
+      });
+    }
+
+    searchInput?.addEventListener('input', applyFilters);
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        activeCategory = btn.getAttribute('data-filter') || 'all';
+        // toggle button styles
+        filterButtons.forEach((b) => {
+          b.classList.remove('bg-green-500', 'text-black');
+          b.classList.add('bg-[#1a1a1a]');
+        });
+        btn.classList.add('bg-green-500', 'text-black');
+        btn.classList.remove('bg-[#1a1a1a]');
+        applyFilters();
+      });
+    });
+  });
+</script>

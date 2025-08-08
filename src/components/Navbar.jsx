@@ -19,7 +19,7 @@ export default function Navbar() {
         {/* Logo */}
         <div className="flex items-center gap-2">
           <img
-            src="./images/hfd-logo-withoutBg.png"
+            src="/images/hfd-logo-withoutBg.png"
             alt="Hydra Fox Designs Logo"
             className="w-7 h-7 object-contain"
           />
