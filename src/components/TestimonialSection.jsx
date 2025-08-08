@@ -32,7 +32,7 @@ export default function TestimonialSection() {
   }
 
   return (
-    <section className="py-12 px-4 bg-[url(/images/texture.jpg)] bg-[var(--color-card)] bg-blend-multiply " >
+    <section className="py-12 px-4 overflow-x-hidden bg-[url(/images/texture.jpg)] bg-[var(--color-card)] bg-blend-multiply ">
       <div className="max-w-3xl mx-auto text-center ">
         <h2 className="text-3xl pt-4 md:text-4xl font-bold mb-8" style={{color: "var(--color-subtext)"}}>
           What Our Clients Say

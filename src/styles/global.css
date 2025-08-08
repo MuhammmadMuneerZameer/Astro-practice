@@ -24,6 +24,9 @@
     --color-subtext: #8e8d8d; 
 }
 
+/* Prevent horizontal scrolling on small devices */
+html, body { overflow-x: hidden; }
+
 @keyframes fade-scale {
   0% {
     opacity: 0;
