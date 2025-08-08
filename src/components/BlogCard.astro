@@ -3,7 +3,7 @@ const { image, title, description, tag } = Astro.props;
 ---
 
 <div class="bg-black rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
-  <img src={image} alt={title} class="w-full h-48 object-cover" />
+  <img src={image} alt={title} class="w-full h-48 object-cover" loading="lazy" />
   <div class="p-4">
     {tag && <span class="text-xs bg-purple-500 text-white px-2 py-1 rounded">{tag}</span>}
     <h3 class="mt-2 text-white text-lg font-semibold">{title}</h3>

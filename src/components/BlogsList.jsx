@@ -16,7 +16,7 @@ export default function BlogList() {
       ) : (
         posts.map((post) => (
           <div key={post.id} className="post">
-            <img src={post.image} alt={post.title} />
+            <img src={post.image} alt={post.title} loading="lazy" />
             <h3>{post.title}</h3>
             <p>{post.description}</p>
             <p>{post.date}</p>

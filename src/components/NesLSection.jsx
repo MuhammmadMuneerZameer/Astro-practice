@@ -48,7 +48,7 @@ export default function NesLSection() {
   };
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-r from-black to-gray-900 text-white">
+    <section className="py-20 px-4 overflow-x-hidden bg-gradient-to-r from-black to-gray-900 text-white">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
         {/* Left Text Content */}
         <div className="max-w-xl">
