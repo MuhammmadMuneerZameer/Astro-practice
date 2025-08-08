@@ -6,15 +6,15 @@ import '../styles/global.css';
 
 <Layout title="Contact Us - Let's Launch Something Great Together">
   <!-- Hero Section -->
-  <section class="bg-black py-20 px-6 relative overflow-hidden">
+  <section class="hero-section bg-black py-20 px-6 relative overflow-hidden">
     <div class="absolute inset-0 z-0 opacity-30">
       <Splineanimation client:only="react" />
     </div>
     <div class="max-w-4xl mx-auto text-center relative z-10">
-      <h1 class="text-4xl md:text-6xl font-bold mb-6 text-green-300">
+      <h1 class="hero-title text-4xl md:text-6xl font-bold mb-6 text-green-300">
         Let's Launch Something Great Together
       </h1>
-      <p class="text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">
+      <p class="hero-subtitle text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">
         We help online startups build bold, scroll-stopping brands from scratch. 
         Fill out the form and we'll connect within 24–48 hours.
       </p>
@@ -22,11 +22,11 @@ import '../styles/global.css';
   </section>
 
   <!-- Contact Form Section -->
-  <section class="bg-black py-20 px-6">
+  <section class="contact-section bg-black py-20 px-6">
     <div class="max-w-2xl mx-auto">
       <form id="contactForm" class="space-y-6">
         <div class="grid md:grid-cols-2 gap-6">
-          <div class="space-y-2">
+          <div class="form-field space-y-2">
             <label for="firstName" class="block text-sm font-medium text-gray-300">First Name *</label>
             <input 
               type="text" 
@@ -37,7 +37,7 @@ import '../styles/global.css';
               placeholder="John"
             >
           </div>
-          <div class="space-y-2">
+          <div class="form-field space-y-2">
             <label for="lastName" class="block text-sm font-medium text-gray-300">Last Name *</label>
             <input 
               type="text" 
@@ -50,7 +50,7 @@ import '../styles/global.css';
           </div>
         </div>
 
-        <div class="space-y-2">
+        <div class="form-field space-y-2">
           <label for="email" class="block text-sm font-medium text-gray-300">Email Address *</label>
           <input 
             type="email" 
@@ -62,7 +62,7 @@ import '../styles/global.css';
           >
         </div>
 
-        <div class="space-y-2">
+        <div class="form-field space-y-2">
           <label for="company" class="block text-sm font-medium text-gray-300">Company/Startup Name</label>
           <input 
             type="text" 
@@ -73,7 +73,7 @@ import '../styles/global.css';
           >
         </div>
 
-        <div class="space-y-2">
+        <div class="form-field space-y-2">
           <label for="budget" class="block text-sm font-medium text-gray-300">Project Budget</label>
           <select 
             id="budget" 
@@ -88,45 +88,43 @@ import '../styles/global.css';
           </select>
         </div>
 
-        <div class="space-y-2">
+        <div class="form-field space-y-2">
           <label class="block text-sm font-medium text-gray-300">Services Needed</label>
-          <div class="space-y-3">
-            <label class="flex items-center text-gray-300">
-              <input type="checkbox" name="services" value="Brand Identity" class="mr-3 accent-green-500">
-              <span>Brand Identity & Logo Design</span>
+          <div class="flex flex-wrap gap-3">
+            <label class="cursor-pointer">
+              <input type="checkbox" name="services" value="Brand Identity" class="peer sr-only">
+              <span class="inline-flex items-center px-4 py-2 rounded-full border border-gray-600 text-gray-300 bg-[#1a1a1a] hover:border-green-500 hover:text-green-400 transition-colors duration-200 peer-checked:bg-green-500 peer-checked:text-black peer-checked:border-green-500">
+                Brand Identity & Logo Design
+              </span>
             </label>
-            <label class="flex items-center text-gray-300">
-              <input type="checkbox" name="services" value="Web Development" class="mr-3 accent-green-500">
-              <span>Web Development</span>
+            <label class="cursor-pointer">
+              <input type="checkbox" name="services" value="Web Development" class="peer sr-only">
+              <span class="inline-flex items-center px-4 py-2 rounded-full border border-gray-600 text-gray-300 bg-[#1a1a1a] hover:border-green-500 hover:text-green-400 transition-colors duration-200 peer-checked:bg-green-500 peer-checked:text-black peer-checked:border-green-500">
+                Web Development
+              </span>
             </label>
-            <label class="flex items-center text-gray-300">
-              <input type="checkbox" name="services" value="UI/UX Design" class="mr-3 accent-green-500">
-              <span>UI/UX Design</span>
+            <label class="cursor-pointer">
+              <input type="checkbox" name="services" value="UI/UX Design" class="peer sr-only">
+              <span class="inline-flex items-center px-4 py-2 rounded-full border border-gray-600 text-gray-300 bg-[#1a1a1a] hover:border-green-500 hover:text-green-400 transition-colors duration-200 peer-checked:bg-green-500 peer-checked:text-black peer-checked:border-green-500">
+                UI/UX Design
+              </span>
             </label>
-            <label class="flex items-center text-gray-300">
-              <input type="checkbox" name="services" value="Digital Marketing" class="mr-3 accent-green-500">
-              <span>Digital Marketing</span>
+            <label class="cursor-pointer">
+              <input type="checkbox" name="services" value="Digital Marketing" class="peer sr-only">
+              <span class="inline-flex items-center px-4 py-2 rounded-full border border-gray-600 text-gray-300 bg-[#1a1a1a] hover:border-green-500 hover:text-green-400 transition-colors duration-200 peer-checked:bg-green-500 peer-checked:text-black peer-checked:border-green-500">
+                Digital Marketing
+              </span>
             </label>
-            <label class="flex items-center text-gray-300">
-              <input type="checkbox" name="services" value="Other" class="mr-3 accent-green-500">
-              <span>Other</span>
+            <label class="cursor-pointer">
+              <input type="checkbox" name="services" value="Other" class="peer sr-only">
+              <span class="inline-flex items-center px-4 py-2 rounded-full border border-gray-600 text-gray-300 bg-[#1a1a1a] hover:border-green-500 hover:text-green-400 transition-colors duration-200 peer-checked:bg-green-500 peer-checked:text-black peer-checked:border-green-500">
+                Other
+              </span>
             </label>
           </div>
         </div>
 
-        <div class="space-y-2">
-          <label for="message" class="block text-sm font-medium text-gray-300">Tell us about your project *</label>
-          <textarea 
-            id="message" 
-            name="message" 
-            rows="5" 
-            required
-            class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 resize-none text-white"
-            placeholder="Describe your project, goals, timeline, and what makes your startup unique..."
-          ></textarea>
-        </div>
-
-        <div class="flex items-center">
+        <div class="form-field flex items-center">
           <input type="checkbox" id="consent" name="consent" required class="mr-3 accent-green-500">
           <label for="consent" class="text-sm text-gray-300">
             I agree to receive communications about my project *
@@ -154,7 +152,7 @@ import '../styles/global.css';
   </section>
 
   <!-- Booking Calendar CTA -->
-  <section class="bg-black py-20 px-6">
+  <section class="cta-section bg-black py-20 px-6">
     <div class="max-w-4xl mx-auto text-center">
       <h2 class="text-3xl md:text-4xl font-bold mb-6 text-green-300">
         Ready to Start Immediately?
@@ -172,7 +170,7 @@ import '../styles/global.css';
   </section>
 
   <!-- Testimonials Slider -->
-  <section class="bg-black py-20 px-6">
+  <section class="testimonials-section bg-black py-20 px-6">
     <div class="max-w-6xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-green-300">
         What Our Clients Say
@@ -251,7 +249,7 @@ import '../styles/global.css';
   </section>
 
   <!-- Alternative Contact -->
-  <section class="bg-black py-20 px-6 border-t border-gray-800">
+  <section class="alternative-contact-section bg-black py-20 px-6 border-t border-gray-800">
     <div class="max-w-4xl mx-auto text-center relative">
       <div class="absolute inset-0 z-0 opacity-50 pointer-events-none">
         <Splineanimation client:only="react" />
@@ -287,7 +285,70 @@ import '../styles/global.css';
 </Layout>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', async () => {
+    // GSAP animations
+    try {
+      const { gsap } = await import('gsap');
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Hero intro
+      gsap.from('.hero-title', { y: 30, opacity: 0, duration: 0.9, ease: 'power3.out' });
+      gsap.from('.hero-subtitle', { y: 20, opacity: 0, duration: 0.9, ease: 'power3.out', delay: 0.15 });
+
+      // Form fields on scroll
+      gsap.from('.contact-section .form-field', {
+        opacity: 0,
+        y: 24,
+        duration: 0.6,
+        stagger: 0.08,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.contact-section',
+          start: 'top 75%',
+        },
+      });
+
+      // CTA fade in
+      gsap.from('.cta-section > div', {
+        opacity: 0,
+        y: 24,
+        duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.cta-section',
+          start: 'top 80%',
+        },
+      });
+
+      // Testimonials enter
+      gsap.from('.testimonials-section .testimonial-slide', {
+        opacity: 0,
+        y: 20,
+        duration: 0.6,
+        stagger: 0.12,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.testimonials-section',
+          start: 'top 80%',
+        },
+      });
+
+      // Alternative contact subtle fade
+      gsap.from('.alternative-contact-section .relative.z-10', {
+        opacity: 0,
+        y: 16,
+        duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.alternative-contact-section',
+          start: 'top 85%',
+        },
+      });
+    } catch (e) {
+      console.warn('GSAP not loaded or failed to initialize:', e);
+    }
+
     // Form handling
     const contactForm = document.getElementById('contactForm') as HTMLFormElement;
     const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
