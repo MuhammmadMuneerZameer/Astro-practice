@@ -3,7 +3,7 @@ const { title, description, image, technologies, link } = Astro.props;
 ---
 
 <a href={link} target="_blank" class="group block rounded-xl overflow-hidden bg-[#111] border border-gray-800 hover:shadow-xl transition-shadow duration-300">
-  <img src={image} alt={title} class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" />
+  <img src={image} alt={title} class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" sizes="(max-width: 768px) 100vw, 50vw" />
   
   <div class="p-4">
     <h3 class="text-xl font-semibold text-white">{title}</h3>
