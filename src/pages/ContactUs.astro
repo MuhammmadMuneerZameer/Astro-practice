@@ -6,13 +6,12 @@ import '../styles/global.css';
 
 <Layout title="Contact Us - Let's Launch Something Great Together">
   <!-- Hero Section -->
-   
- <section class="bg-black   py-20 px-6 relative overflow-hidden">
+  <section class="bg-black py-20 px-6 relative overflow-hidden">
     <div class="absolute inset-0 z-0 opacity-30">
       <Splineanimation client:only="react" />
     </div>
     <div class="max-w-4xl mx-auto text-center relative z-10">
-      <h1 class="text-2xl md:text-5xl font-bold mb-6 text-green-300">
+      <h1 class="text-4xl md:text-6xl font-bold mb-6 text-green-300">
         Let's Launch Something Great Together
       </h1>
       <p class="text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">
@@ -21,6 +20,7 @@ import '../styles/global.css';
       </p>
     </div>
   </section>
+
   <!-- Contact Form Section -->
   <section class="bg-black py-20 px-6">
     <div class="max-w-2xl mx-auto">
@@ -253,7 +253,9 @@ import '../styles/global.css';
   <!-- Alternative Contact -->
   <section class="bg-black py-20 px-6 border-t border-gray-800">
     <div class="max-w-4xl mx-auto text-center relative">
-    
+      <div class="absolute inset-0 z-0 opacity-50 pointer-events-none">
+        <Splineanimation client:only="react" />
+      </div>
       <div class="relative z-10">
         <h2 class="text-2xl md:text-3xl font-bold mb-6 text-green-300">
           Need Something Else?
@@ -266,16 +268,16 @@ import '../styles/global.css';
         
         <!-- Social Icons -->
         <div class="flex justify-center space-x-4">
-          <a href="https://instagram.com/hydrafoxdesigns" class="w-10 h-10 bg-[#1a1a1a] hover:bg-green-500 rounded-full flex items-center justify-center transition duration-300 group" aria-label="Instagram">
+          <a href="https://instagram.com/hydrafoxdesigns" target="blank" class="w-10 h-10 bg-[#1a1a1a] hover:bg-green-500 rounded-full flex items-center justify-center transition duration-300 group" aria-label="Instagram">
             <span class="text-green-500 group-hover:text-black">📷</span>
           </a>
-          <a href="https://twitter.com/yourhandle" class="w-10 h-10 bg-[#1a1a1a] hover:bg-green-500 rounded-full flex items-center justify-center transition duration-300 group" aria-label="Twitter">
+          <a href="https://twitter.com/yourhandle" target="blank" class="w-10 h-10 bg-[#1a1a1a] hover:bg-green-500 rounded-full flex items-center justify-center transition duration-300 group" aria-label="Twitter">
             <span class="text-green-500 group-hover:text-black">🐦</span>
           </a>
-          <a href="https://linkedin.com/company/youragency" class="w-10 h-10 bg-[#1a1a1a] hover:bg-green-500 rounded-full flex items-center justify-center transition duration-300 group" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/company/hydrafoxdesign/"target="blank" class="w-10 h-10 bg-[#1a1a1a] hover:bg-green-500 rounded-full flex items-center justify-center transition duration-300 group" aria-label="LinkedIn">
             <span class="text-green-500 group-hover:text-black">💼</span>
           </a>
-          <a href="https://dribbble.com/youragency" class="w-10 h-10 bg-[#1a1a1a] hover:bg-green-500 rounded-full flex items-center justify-center transition duration-300 group" aria-label="Dribbble">
+          <a href="https://www.behance.net/HYDRAFOXDESIGNS" target="blank" class="w-10 h-10 bg-[#1a1a1a] hover:bg-green-500 rounded-full flex items-center justify-center transition duration-300 group" aria-label="Dribbble">
             <span class="text-green-500 group-hover:text-black">🎨</span>
           </a>
         </div>
@@ -317,8 +319,17 @@ import '../styles/global.css';
           consent: formData.get('consent') === 'on'
         };
 
-        // Simulate form submission (replace with actual Firebase call)
-        await new Promise<void>(resolve => setTimeout(resolve, 1000));
+        console.log('Submitting form data:', contactData);
+
+        // Submit to Firebase
+        const { submitContactForm } = await import('../lib/contactForm.js');
+        const result = await submitContactForm(contactData);
+
+        console.log('Firebase result:', result);
+
+        if (!result.success) {
+          throw new Error(result.error);
+        }
         
         // Show success message
         if (successMessage) successMessage.classList.remove('hidden');

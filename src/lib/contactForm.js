@@ -1,5 +1,5 @@
 // src/utils/ContactUsForm.js
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../lib/firebase";
 
 export async function submitContactForm(formData) {
@@ -13,7 +13,7 @@ export async function submitContactForm(formData) {
       services: Array.isArray(formData.services) ? formData.services : [formData.services].filter(Boolean),
       message: formData.message,
       consent: formData.consent,
-      submittedAt: new Date().toISOString(),
+      submittedAt: serverTimestamp(), // Use Firestore server timestamp
       status: 'new',
       source: 'website'
     };
