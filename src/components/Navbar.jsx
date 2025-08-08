@@ -54,12 +54,12 @@ export default function Navbar() {
           <li><a href="/services" className="hover:text-green-400">Services</a></li>
           <li><a href="/aboutUs" className="hover:text-green-400">About Us</a></li>
           <li><a href="/blog" className="hover:text-green-400">Blog</a></li>
-          <li><a href="/contact" className="hover:text-green-400">Contact Us</a></li>
+          <li><a href="/ContactUs" className="hover:text-green-400">Contact Us</a></li>
         </ul>
 
         {/* CTA Button */}
         <a
-          href="/contact"
+          href="/ContactUs"
           className="hidden md:flex items-center justify-center w-8 h-8 border border-green-400 rounded-full text-green-400 hover:bg-green-400 hover:text-black transition"
         >
           <svg
@@ -89,7 +89,7 @@ export default function Navbar() {
           <li><a href="/services" className="hover:text-green-400">Services</a></li>
           <li><a href="/aboutUs" className="hover:text-green-400">About Us</a></li>
           <li><a href="/blog" className="hover:text-green-400">Blog</a></li>
-          <li><a href="/contact" className="hover:text-green-400">Contact Us</a></li>
+          <li><a href="/ContactUs" className="hover:text-green-400">Contact Us</a></li>
         </ul>
       </div>
     </nav>

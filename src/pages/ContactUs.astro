@@ -1,0 +1,376 @@
+---
+import Splineanimation from '../components/Splineanimation';
+import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';
+---
+
+<Layout title="Contact Us - Let's Launch Something Great Together">
+  <!-- Hero Section -->
+   
+ <section class="bg-black   py-20 px-6 relative overflow-hidden">
+    <div class="absolute inset-0 z-0 opacity-30">
+      <Splineanimation client:only="react" />
+    </div>
+    <div class="max-w-4xl mx-auto text-center relative z-10">
+      <h1 class="text-2xl md:text-5xl font-bold mb-6 text-green-300">
+        Let's Launch Something Great Together
+      </h1>
+      <p class="text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">
+        We help online startups build bold, scroll-stopping brands from scratch. 
+        Fill out the form and we'll connect within 24–48 hours.
+      </p>
+    </div>
+  </section>
+  <!-- Contact Form Section -->
+  <section class="bg-black py-20 px-6">
+    <div class="max-w-2xl mx-auto">
+      <form id="contactForm" class="space-y-6">
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="space-y-2">
+            <label for="firstName" class="block text-sm font-medium text-gray-300">First Name *</label>
+            <input 
+              type="text" 
+              id="firstName" 
+              name="firstName" 
+              required
+              class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 text-white"
+              placeholder="John"
+            >
+          </div>
+          <div class="space-y-2">
+            <label for="lastName" class="block text-sm font-medium text-gray-300">Last Name *</label>
+            <input 
+              type="text" 
+              id="lastName" 
+              name="lastName" 
+              required
+              class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 text-white"
+              placeholder="Doe"
+            >
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label for="email" class="block text-sm font-medium text-gray-300">Email Address *</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            required
+            class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 text-white"
+            placeholder="john@example.com"
+          >
+        </div>
+
+        <div class="space-y-2">
+          <label for="company" class="block text-sm font-medium text-gray-300">Company/Startup Name</label>
+          <input 
+            type="text" 
+            id="company" 
+            name="company"
+            class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 text-white"
+            placeholder="Your Company"
+          >
+        </div>
+
+        <div class="space-y-2">
+          <label for="budget" class="block text-sm font-medium text-gray-300">Project Budget</label>
+          <select 
+            id="budget" 
+            name="budget"
+            class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 text-white"
+          >
+            <option value="">Select Budget Range</option>
+            <option value="$5k-$10k">$5,000 - $10,000</option>
+            <option value="$10k-$25k">$10,000 - $25,000</option>
+            <option value="$25k-$50k">$25,000 - $50,000</option>
+            <option value="$50k+">$50,000+</option>
+          </select>
+        </div>
+
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-300">Services Needed</label>
+          <div class="space-y-3">
+            <label class="flex items-center text-gray-300">
+              <input type="checkbox" name="services" value="Brand Identity" class="mr-3 accent-green-500">
+              <span>Brand Identity & Logo Design</span>
+            </label>
+            <label class="flex items-center text-gray-300">
+              <input type="checkbox" name="services" value="Web Development" class="mr-3 accent-green-500">
+              <span>Web Development</span>
+            </label>
+            <label class="flex items-center text-gray-300">
+              <input type="checkbox" name="services" value="UI/UX Design" class="mr-3 accent-green-500">
+              <span>UI/UX Design</span>
+            </label>
+            <label class="flex items-center text-gray-300">
+              <input type="checkbox" name="services" value="Digital Marketing" class="mr-3 accent-green-500">
+              <span>Digital Marketing</span>
+            </label>
+            <label class="flex items-center text-gray-300">
+              <input type="checkbox" name="services" value="Other" class="mr-3 accent-green-500">
+              <span>Other</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label for="message" class="block text-sm font-medium text-gray-300">Tell us about your project *</label>
+          <textarea 
+            id="message" 
+            name="message" 
+            rows="5" 
+            required
+            class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 resize-none text-white"
+            placeholder="Describe your project, goals, timeline, and what makes your startup unique..."
+          ></textarea>
+        </div>
+
+        <div class="flex items-center">
+          <input type="checkbox" id="consent" name="consent" required class="mr-3 accent-green-500">
+          <label for="consent" class="text-sm text-gray-300">
+            I agree to receive communications about my project *
+          </label>
+        </div>
+
+        <button 
+          type="submit" 
+          id="submitBtn"
+          class="w-full bg-green-500 hover:bg-green-600 text-black font-bold py-4 px-8 rounded-full transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <span id="submitText">Send My Project Brief</span>
+          <span id="loadingIcon" class="hidden ml-2">...</span>
+        </button>
+      </form>
+
+      <!-- Success Message -->
+      <div id="successMessage" class="hidden mt-6 p-4 bg-green-500/20 border border-green-500 rounded-lg">
+        <div class="text-center">
+          <h3 class="font-bold text-green-400 mb-2">Message Sent Successfully!</h3>
+          <p class="text-green-300">We'll get back to you within 24-48 hours.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Calendar CTA -->
+  <section class="bg-black py-20 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-green-300">
+        Ready to Start Immediately?
+      </h2>
+      <p class="text-lg text-gray-300 mb-8">
+        Book a free 30-minute strategy call to discuss your project in detail
+      </p>
+      <a 
+        href="#" 
+        class="inline-block bg-green-500 hover:bg-green-600 text-black font-bold py-3 px-6 rounded-full transition duration-300"
+      >
+        Schedule Free Consultation ↗
+      </a>
+    </div>
+  </section>
+
+  <!-- Testimonials Slider -->
+  <section class="bg-black py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-green-300">
+        What Our Clients Say
+      </h2>
+      
+      <div class="testimonial-slider overflow-hidden relative">
+        <div class="testimonial-track flex transition-transform duration-500 ease-in-out">
+          <div class="testimonial-slide flex-shrink-0 w-full px-4">
+            <div class="bg-[#1a1a1a] p-6 rounded-xl max-w-2xl mx-auto">
+              <div class="flex text-green-500 mb-4">
+                ⭐⭐⭐⭐⭐
+              </div>
+              <p class="text-gray-300 mb-6 text-lg italic">
+                "The team completely transformed our startup's brand. The work helped us secure $2M in Series A funding."
+              </p>
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mr-4">
+                  <span class="font-bold text-black">SJ</span>
+                </div>
+                <div>
+                  <p class="font-bold text-white">Sarah Johnson</p>
+                  <p class="text-gray-400">CEO, TechStart Inc.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-slide flex-shrink-0 w-full px-4">
+            <div class="bg-[#1a1a1a] p-6 rounded-xl max-w-2xl mx-auto">
+              <div class="flex text-green-500 mb-4">
+                ⭐⭐⭐⭐⭐
+              </div>
+              <p class="text-gray-300 mb-6 text-lg italic">
+                "Working with this team was amazing. They understood our vision and created a brand that truly represents who we are."
+              </p>
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mr-4">
+                  <span class="font-bold text-black">MR</span>
+                </div>
+                <div>
+                  <p class="font-bold text-white">Mike Rodriguez</p>
+                  <p class="text-gray-400">Founder, Digital Dynamics</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-slide flex-shrink-0 w-full px-4">
+            <div class="bg-[#1a1a1a] p-6 rounded-xl max-w-2xl mx-auto">
+              <div class="flex text-green-500 mb-4">
+                ⭐⭐⭐⭐⭐
+              </div>
+              <p class="text-gray-300 mb-6 text-lg italic">
+                "The attention to detail and creative approach exceeded our expectations. Our conversion rates improved by 300%!"
+              </p>
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mr-4">
+                  <span class="font-bold text-black">AL</span>
+                </div>
+                <div>
+                  <p class="font-bold text-white">Alex Liu</p>
+                  <p class="text-gray-400">CTO, InnovateNow</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex justify-center mt-8 space-x-2">
+          <button class="testimonial-dot w-3 h-3 rounded-full bg-green-500" data-slide="0"></button>
+          <button class="testimonial-dot w-3 h-3 rounded-full bg-gray-600" data-slide="1"></button>
+          <button class="testimonial-dot w-3 h-3 rounded-full bg-gray-600" data-slide="2"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Alternative Contact -->
+  <section class="bg-black py-20 px-6 border-t border-gray-800">
+    <div class="max-w-4xl mx-auto text-center relative">
+    
+      <div class="relative z-10">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 text-green-300">
+          Need Something Else?
+        </h2>
+        <p class="text-lg text-gray-300 mb-8">
+          Email us at <a href="mailto:muneer@hydrafoxdesigns.com" class="text-green-500 hover:text-green-400 underline">muneer@hydrafoxdesigns.com</a>
+          <br class="md:hidden">
+          or find us on IG <a href="https://instagram.com/hydrafoxdesigns" class="text-green-500 hover:text-green-400 underline">@hydrafoxdesigns</a>
+        </p>
+        
+        <!-- Social Icons -->
+        <div class="flex justify-center space-x-4">
+          <a href="https://instagram.com/hydrafoxdesigns" class="w-10 h-10 bg-[#1a1a1a] hover:bg-green-500 rounded-full flex items-center justify-center transition duration-300 group" aria-label="Instagram">
+            <span class="text-green-500 group-hover:text-black">📷</span>
+          </a>
+          <a href="https://twitter.com/yourhandle" class="w-10 h-10 bg-[#1a1a1a] hover:bg-green-500 rounded-full flex items-center justify-center transition duration-300 group" aria-label="Twitter">
+            <span class="text-green-500 group-hover:text-black">🐦</span>
+          </a>
+          <a href="https://linkedin.com/company/youragency" class="w-10 h-10 bg-[#1a1a1a] hover:bg-green-500 rounded-full flex items-center justify-center transition duration-300 group" aria-label="LinkedIn">
+            <span class="text-green-500 group-hover:text-black">💼</span>
+          </a>
+          <a href="https://dribbble.com/youragency" class="w-10 h-10 bg-[#1a1a1a] hover:bg-green-500 rounded-full flex items-center justify-center transition duration-300 group" aria-label="Dribbble">
+            <span class="text-green-500 group-hover:text-black">🎨</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Form handling
+    const contactForm = document.getElementById('contactForm') as HTMLFormElement;
+    const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
+    const submitText = document.getElementById('submitText') as HTMLSpanElement;
+    const loadingIcon = document.getElementById('loadingIcon') as HTMLSpanElement;
+    const successMessage = document.getElementById('successMessage') as HTMLDivElement;
+
+    contactForm?.addEventListener('submit', async (e: Event) => {
+      e.preventDefault();
+      
+      // Show loading state
+      if (submitBtn) submitBtn.disabled = true;
+      if (submitText) submitText.textContent = 'Sending...';
+      if (loadingIcon) loadingIcon.classList.remove('hidden');
+
+      try {
+        // Get form data
+        const formData = new FormData(contactForm);
+        const services = Array.from(formData.getAll('services')) as string[];
+        
+        const contactData = {
+          firstName: formData.get('firstName') as string,
+          lastName: formData.get('lastName') as string,
+          email: formData.get('email') as string,
+          company: (formData.get('company') as string) || '',
+          budget: (formData.get('budget') as string) || '',
+          services: services,
+          message: formData.get('message') as string,
+          consent: formData.get('consent') === 'on'
+        };
+
+        // Simulate form submission (replace with actual Firebase call)
+        await new Promise<void>(resolve => setTimeout(resolve, 1000));
+        
+        // Show success message
+        if (successMessage) successMessage.classList.remove('hidden');
+        contactForm.reset();
+        successMessage?.scrollIntoView({ behavior: 'smooth' });
+
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        alert('There was an error sending your message. Please try again or email us directly.');
+      } finally {
+        // Reset button state
+        if (submitBtn) submitBtn.disabled = false;
+        if (submitText) submitText.textContent = 'Send My Project Brief';
+        if (loadingIcon) loadingIcon.classList.add('hidden');
+      }
+    });
+
+    // Testimonial slider
+    let currentSlide: number = 0;
+    const slides = document.querySelectorAll('.testimonial-slide');
+    const dots = document.querySelectorAll('.testimonial-dot');
+    const track = document.querySelector('.testimonial-track') as HTMLDivElement;
+
+    function goToSlide(slideIndex: number): void {
+      currentSlide = slideIndex;
+      if (track) {
+        track.style.transform = `translateX(-${slideIndex * 100}%)`;
+      }
+      
+      dots.forEach((dot, index) => {
+        const dotElement = dot as HTMLButtonElement;
+        if (index === slideIndex) {
+          dotElement.classList.remove('bg-gray-600');
+          dotElement.classList.add('bg-green-500');
+        } else {
+          dotElement.classList.remove('bg-green-500');
+          dotElement.classList.add('bg-gray-600');
+        }
+      });
+    }
+
+    dots.forEach((dot, index) => {
+      const dotElement = dot as HTMLButtonElement;
+      dotElement.addEventListener('click', () => goToSlide(index));
+    });
+
+    // Auto-advance testimonials
+    setInterval(() => {
+      if (slides.length > 0) {
+        currentSlide = (currentSlide + 1) % slides.length;
+        goToSlide(currentSlide);
+      }
+    }, 5000);
+  });
+</script>
