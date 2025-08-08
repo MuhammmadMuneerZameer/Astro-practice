@@ -6,11 +6,12 @@ export async function getStaticPaths() {
   const uniqueSlugs = Array.from(new Set(projects.map((p) => p.slug)));
   return uniqueSlugs.map((slug) => ({ params: { slug } }));
 }
+import Layout from '../../layouts/Layout.astro';
 
 const { slug } = Astro.params;
 const project = projects.find(p => p.slug === slug);
 ---
-
+<Layout>
 {project ? (
   <div>
     <h1>{project.title}</h1>
@@ -20,3 +21,4 @@ const project = projects.find(p => p.slug === slug);
 ) : (
   <p>Project not found.</p>
 )}
+</Layout>

@@ -2,6 +2,13 @@ import Spline from '@splinetool/react-spline';
 
 export default function Splineanimation() {
   return (
-    <Spline className='absolute z-[-1] scale-125 bg-black overflow-x-hidden' scene="https://prod.spline.design/3sYAExF09wA96xRS/scene.splinecode" />
+    <div className='absolute inset-0 w-full h-full overflow-hidden'>
+      <div className='w-full h-full scale-125 origin-center'>
+        <Spline 
+          className='w-full h-full bg-black' 
+          scene="https://prod.spline.design/3sYAExF09wA96xRS/scene.splinecode" 
+        />
+      </div>
+    </div>
   );
 }
