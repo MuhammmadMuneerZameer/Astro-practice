@@ -1,6 +1,45 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-export default function ChatBot() {
+// Error Boundary Component
+class ChatBotErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('ChatBot Error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{
+          position: 'fixed',
+          bottom: '20px',
+          right: '20px',
+          padding: '10px',
+          backgroundColor: '#ff6b6b',
+          color: 'white',
+          borderRadius: '8px',
+          fontSize: '12px',
+          maxWidth: '200px',
+          zIndex: 999999
+        }}>
+          ChatBot Error: {this.state.error?.message || 'Unknown error'}
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+function ChatBotComponent() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([
@@ -9,21 +48,37 @@ export default function ChatBot() {
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Get API key from environment variables
-  const OPENAI_API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
+  // Get API key from environment variables with error handling (Astro compatible)
+  const OPENAI_API_KEY = import.meta.env.PUBLIC_OPENAI_API_KEY || process.env.REACT_APP_OPENAI_API_KEY;
+  if (!OPENAI_API_KEY) {
+    console.error('OpenAI API key is not set. Please check your environment variables.');
+  }
+
+ 
+  
+  console.log('API Key status:', OPENAI_API_KEY ? 'Found' : 'Not found');
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    try {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    } catch (error) {
+      console.error('Scroll error:', error);
+    }
   };
 
   useEffect(() => {
-    scrollToBottom();
+    try {
+      scrollToBottom();
+    } catch (error) {
+      console.error('useEffect error:', error);
+    }
   }, [messages]);
 
   async function sendToOpenAI(userMessage) {
     try {
       if (!OPENAI_API_KEY) {
-        throw new Error('OpenAI API key not found. Please add REACT_APP_OPENAI_API_KEY to your .env file.');
+        console.warn('OpenAI API key not found');
+        return "API key not configured. Please contact support for assistance.";
       }
 
       const response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -57,106 +112,183 @@ export default function ChatBot() {
       return data.choices[0].message.content;
     } catch (error) {
       console.error('OpenAI API Error:', error);
-      return "I'm sorry, I'm having trouble connecting right now. Please try again in a moment or contact our support team directly.";
+      return "I'm sorry, I'm having trouble connecting right now. Please try again in a moment or contact our support team directly on muneer@hydrafoxdesigns.com.";
     }
   }
 
   async function handleSend(e) {
-    e.preventDefault();
-    if (input.trim() && !loading) {
-      const userMessage = input.trim();
-      
-      // Add user message
-      setMessages(prev => [...prev, { text: userMessage, from: 'user' }]);
-      setInput('');
-      setLoading(true);
+    try {
+      e.preventDefault();
+      if (input.trim() && !loading) {
+        const userMessage = input.trim();
+        
+        // Add user message
+        setMessages(prev => [...prev, { text: userMessage, from: 'user' }]);
+        setInput('');
+        setLoading(true);
 
-      // Get AI response
-      const botResponse = await sendToOpenAI(userMessage);
-      
-      // Add bot response
-      setMessages(prev => [...prev, { text: botResponse, from: 'bot' }]);
+        // Get AI response
+        const botResponse = await sendToOpenAI(userMessage);
+        
+        // Add bot response
+        setMessages(prev => [...prev, { text: botResponse, from: 'bot' }]);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error('handleSend error:', error);
       setLoading(false);
     }
   }
 
   function handleKeyPress(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSend(e);
+    try {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSend(e);
+      }
+    } catch (error) {
+      console.error('handleKeyPress error:', error);
     }
   }
 
+  console.log('ChatBot rendering...'); // Debug log
+
   return (
-    <div className="fixed bottom-6 right-6 z-[50]">
+    <div style={{
+      position: 'fixed',
+      bottom: '24px',
+      right: '24px',
+      zIndex: 999999
+    }}>
       {/* Chat Button */}
       <button
-        className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full p-4 shadow-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
-        onClick={() => setOpen(!open)}
-        aria-label="Open ChatBot"
-        style={{ 
-          position: 'fixed',
-          bottom: '24px',
-          right: '24px',
-          zIndex: 9999,
-          backgroundColor: 'blue' // Fallback color
+        onClick={() => {
+          console.log('Button clicked, current open state:', open);
+          setOpen(!open);
         }}
+        style={{
+          backgroundColor: 'var(--color-accent)',
+          color: 'white',
+          borderRadius: '50%',
+          padding: open ? '12px 16px' : '16px',
+          
+          border: 'none',
+          cursor: 'pointer',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+          transition: 'all 0.3s ease'
+        }}
+        aria-label="Open ChatBot"
       >
-        {open ? (
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        ) : (
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01" />
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-          </svg>
-        )}
+        {open ? '✕' : '💬'}
       </button>
 
       {/* Chat Window */}
       {open && (
-        <div className="bg-white rounded-lg shadow-2xl w-80 mt-4 border border-gray-200 overflow-hidden">
+        <div style={{
+          position: 'absolute',
+          bottom: '70px',
+          right: '0',
+          width: '320px',
+          backgroundColor: 'white',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+          border: '1px solid #e5e7eb',
+          overflow: 'hidden'
+        }}>
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="font-semibold">Hydra Fox Assistant</span>
-              </div>
-              <button 
-                onClick={() => setOpen(false)}
-                className="text-white hover:text-gray-200 transition-colors"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+          <div style={{
+            background: 'linear-gradient(to right, #3b82f6, #8b5cf6)',
+            color: 'white',
+            padding: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{
+                width: '12px',
+                height: '12px',
+                backgroundColor: '#10b981',
+                borderRadius: '50%'
+              }}></div>
+              <span style={{ fontWeight: '600' }}>Hydra Fox Assistant</span>
             </div>
+            <button 
+              onClick={() => setOpen(false)}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: 'white',
+                cursor: 'pointer',
+                fontSize: '18px',
+                padding: '0 10px',
+              }}
+            >
+              ✕
+            </button>
           </div>
 
           {/* Messages */}
-          <div className="h-64 overflow-y-auto p-4 bg-gray-50">
+          <div style={{
+            height: '256px',
+            overflowY: 'auto',
+            padding: '16px',
+            backgroundColor: '#f9fafb'
+          }}>
             {messages.map((msg, idx) => (
-              <div key={idx} className={`mb-3 ${msg.from === 'user' ? 'text-right' : 'text-left'}`}>
-                <div className={`inline-block max-w-xs p-3 rounded-lg ${
-                  msg.from === 'user' 
-                    ? 'bg-blue-600 text-white rounded-br-none' 
-                    : 'bg-white text-gray-800 border border-gray-200 rounded-bl-none shadow-sm'
-                }`}>
-                  <div className="text-sm">{msg.text}</div>
+              <div key={idx} style={{
+                marginBottom: '12px',
+                textAlign: msg.from === 'user' ? 'right' : 'left'
+              }}>
+                <div style={{
+                  display: 'inline-block',
+                  maxWidth: '240px',
+                  padding: '12px',
+                  borderRadius: '12px',
+                  fontSize: '14px',
+                  backgroundColor: msg.from === 'user' ? '#3b82f6' : 'white',
+                  color: msg.from === 'user' ? 'white' : '#374151',
+                  border: msg.from === 'user' ? 'none' : '1px solid #e5e7eb',
+                  boxShadow: msg.from === 'user' ? 'none' : '0 1px 3px rgba(0,0,0,0.1)'
+                }}>
+                  {msg.text}
                 </div>
               </div>
             ))}
             
             {/* Loading indicator */}
             {loading && (
-              <div className="text-left mb-3">
-                <div className="inline-block bg-white border border-gray-200 p-3 rounded-lg rounded-bl-none shadow-sm">
-                  <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+              <div style={{ textAlign: 'left', marginBottom: '12px' }}>
+                <div style={{
+                  display: 'inline-block',
+                  backgroundColor: 'white',
+                  border: '1px solid #e5e7eb',
+                  padding: '12px',
+                  borderRadius: '12px',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+                }}>
+                  <div style={{ display: 'flex', gap: '4px' }}>
+                    <div style={{
+                      width: '8px',
+                      height: '8px',
+                      backgroundColor: '#9ca3af',
+                      borderRadius: '50%',
+                      animation: 'bounce 1s infinite'
+                    }}></div>
+                    <div style={{
+                      width: '8px',
+                      height: '8px',
+                      backgroundColor: '#9ca3af',
+                      borderRadius: '50%',
+                      animation: 'bounce 1s infinite 0.1s'
+                    }}></div>
+                    <div style={{
+                      width: '8px',
+                      height: '8px',
+                      backgroundColor: '#9ca3af',
+                      borderRadius: '50%',
+                      animation: 'bounce 1s infinite 0.2s'
+                    }}></div>
                   </div>
                 </div>
               </div>
@@ -166,11 +298,22 @@ export default function ChatBot() {
           </div>
 
           {/* Input */}
-          <div className="p-4 border-t border-gray-200 bg-white">
-            <form onSubmit={handleSend} className="flex gap-2">
+          <div style={{
+            padding: '16px',
+            borderTop: '1px solid #e5e7eb',
+            backgroundColor: 'white'
+          }}>
+            <form onSubmit={handleSend} style={{ display: 'flex', gap: '8px' }}>
               <input
                 type="text"
-                className="border border-gray-300 rounded-lg px-3 py-2 flex-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                style={{
+                  flex: 1,
+                  border: '1px solid #d1d5db',
+                  borderRadius: '8px',
+                  padding: '8px 12px',
+                  fontSize: '14px',
+                  outline: 'none'
+                }}
                 placeholder="Ask me anything..."
                 value={input}
                 onChange={e => setInput(e.target.value)}
@@ -180,16 +323,30 @@ export default function ChatBot() {
               <button 
                 type="submit" 
                 disabled={loading || !input.trim()}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{
+                  background: 'linear-gradient(to right, #3b82f6, #8b5cf6)',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                  padding: '8px 16px',
+                  cursor: loading || !input.trim() ? 'not-allowed' : 'pointer',
+                  opacity: loading || !input.trim() ? 0.5 : 1
+                }}
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                </svg>
+                Send
               </button>
             </form>
           </div>
         </div>
       )}
     </div>
+  );
+}
+
+export default function ChatBot() {
+  return (
+    <ChatBotErrorBoundary>
+      <ChatBotComponent />
+    </ChatBotErrorBoundary>
   );
 }

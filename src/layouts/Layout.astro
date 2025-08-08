@@ -3,9 +3,8 @@ import ChatBot from "../components/ChatBot";
 import Footer from "../components/Footer.astro";
 import Navbar from "../components/Navbar";
 import '../styles/global.css';
-
-
 ---
+
 <!doctype html>
 <html lang="en" view-transition>
 	<head>
@@ -16,29 +15,9 @@ import '../styles/global.css';
 		<title></title>
 	</head>
 	<body class="pt-20 md:pt-0">
-		<Navbar client:only/>
+		<Navbar client:only="react"/>
 		<slot />
-		 <ChatBot client:load />
-        <Footer />
+		<ChatBot client:load />
+		<Footer />
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-
-	@supports (padding: max(0px)) {
-	  body {
-		/* Extra safety for devices with notches */
-		padding-top: max(5rem, env(safe-area-inset-top));
-	  }
-	}
-
-	@media (min-width: 768px) {
-	  body { padding-top: 0; }
-	}
-</style>
