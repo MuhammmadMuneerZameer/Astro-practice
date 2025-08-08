@@ -3,6 +3,11 @@
 
 import projects from '../../data/ProjectShowcase.js';
 
+export async function getStaticPaths() {
+  const uniqueSlugs = Array.from(new Set(projects.map((p) => p.slug)));
+  return uniqueSlugs.map((slug) => ({ params: { slug } }));
+}
+
 const { slug } = Astro.params;
 const project = projects.find(p => p.slug === slug);
 ---
