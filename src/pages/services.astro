@@ -6,64 +6,176 @@ import '../styles/global.css';
 title: "Our Services"
 ---
 <Layout>
-  
-
-  <!-- Breadcrumb -->
-  
-
-  <!-- Heading -->
-<div class="h-[50vh] items-center align-middle pt-[16vh] md:pt-[20vh] w-full backgroungd-image ba bg-cover bg-center bg-black " >
+  <!-- Hero Section with Background -->
+  <div class="relative h-[50vh] flex items-center justify-center pt-[16vh] md:pt-[20vh] w-full bg-cover bg-center bg-black">
+    <!-- Spline Animation Background -->
     <div class="absolute inset-0 z-0 h-[50vh] blur opacity-50">
-    <Splineanimation client:only="react" />
-  </div>  
-  <h1 class="text-3xl md:text-6xl font-bold text-center mb-6 md:mb-8 text-[#b5ffdb]">Our Services</h1>
-
-  <!-- Service Tags -->
-  <div class=" relative flex flex-wrap justify-center gap-3 md:gap-4 mb-10 md:mb-12">
-    {["UX/UI design", "Development", "Mobile app", "Branding", "Video editing", "Product design", "Motion design"].map(service => (
-      <span class=" text-white px-4 py-2 rounded-full border border-white/20 bg-white/5 text-sm hover:bg-[#00f19f] hover:text-black transition cursor-pointer" >
-        {service}
-      </span>
-    ))}
-  </div>
-</div>
-<section class="min-h-screen bg-black text-white px-4 md:px-16 py-12 md:py-20">
-
-  <!-- Service Block -->
-  <div class="grid md:grid-cols-2 gap-8 md:gap-10 items-center max-w-6xl mx-auto">
-    <!-- Text -->
-    <div>
-      <h2 class="text-2xl md:text-4xl font-bold text-[#b5ffdb] mb-4">UX/UI design</h2>
-      <p class="text-gray-300 mb-6 text-base md:text-lg">
-        We create visually stunning, user-friendly designs that enhance engagement and deliver a smooth digital experience
-      </p>
-      <ul class="space-y-2 text-sm text-white">
-        <li class="flex items-center gap-2"><span class="text-green-400">●</span> User research & personas</li>
-        <li class="flex items-center gap-2"><span class="text-green-400">●</span> Competitors analysis</li>
-        <li class="flex items-center gap-2"><span class="text-green-400">●</span> Wireframes & prototypes</li>
-      </ul>
+      <Splineanimation client:only="react" />
     </div>
-
-    <!-- Image -->
-    <div>
-      <img src="/images/laptop.jpg" alt="UX Design Laptop" class="rounded-xl w-full object-cover shadow-lg" loading="lazy" sizes="(max-width: 768px) 100vw, 50vw" />
-    </div>
-    <div>
-      <h2 class="text-2xl md:text-4xl font-bold text-[#b5ffdb] mb-4">UX/UI design</h2>
-      <p class="text-gray-300 mb-6 text-base md:text-lg">
-        We create visually stunning, user-friendly designs that enhance engagement and deliver a smooth digital experience
-      </p>
-      <ul class="space-y-2 text-sm text-white">
-        <li class="flex items-center gap-2"><span class="text-green-400">●</span> User research & personas</li>
-        <li class="flex items-center gap-2"><span class="text-green-400">●</span> Competitors analysis</li>
-        <li class="flex items-center gap-2"><span class="text-green-400">●</span> Wireframes & prototypes</li>
-      </ul>
-    </div>
-
-    <!-- Image -->
-    <div>
-      <img src="/images/laptop.jpg" alt="UX Design Laptop" class="rounded-xl w-full object-cover shadow-lg" loading="lazy" sizes="(max-width: 768px) 100vw, 50vw" />
+    
+    <!-- Content Container -->
+    <div class="relative z-10 text-center px-4">
+      <h1 class="text-3xl md:text-6xl font-bold mb-6 md:mb-8 text-[#b5ffdb]">Our Services</h1>
+      
+      <!-- Service Tags -->
+      <div class="flex flex-wrap justify-center gap-3 md:gap-4 mb-10 md:mb-12">
+        {["UX/UI design", "Development", "Mobile app", "Branding", "Video editing", "Product design", "Motion design"].map(service => (
+          <span class="text-white px-4 py-2 rounded-full border border-white/20 bg-white/5 text-sm hover:bg-[#00f19f] hover:text-black transition cursor-pointer">
+            {service}
+          </span>
+        ))}
+      </div>
     </div>
   </div>
-</section>
+
+  <!-- Services Section -->
+  <section class="min-h-screen bg-black text-white px-4 md:px-16 py-12 md:py-20">
+    <div class="max-w-6xl mx-auto space-y-16 md:space-y-24">
+      
+      <!-- Service 1: UX/UI Design -->
+      <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+        <!-- Text Content -->
+        <div class="order-2 md:order-1">
+          <h2 class="text-2xl md:text-4xl font-bold text-[#b5ffdb] mb-6">UX/UI Design</h2>
+          <p class="text-gray-300 mb-6 text-base md:text-lg leading-relaxed">
+            We create visually stunning, user-friendly designs that enhance engagement and deliver a smooth digital experience
+          </p>
+          <ul class="space-y-3 text-sm md:text-base text-white">
+            <li class="flex items-center gap-3">
+              <span class="text-green-400 text-lg">●</span> 
+              User research & personas
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-green-400 text-lg">●</span> 
+              Competitors analysis
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-green-400 text-lg">●</span> 
+              Wireframes & prototypes
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Image -->
+        <div class="order-1 md:order-2">
+          <img 
+            src="/images/laptop.jpg" 
+            alt="UX Design Laptop" 
+            class="rounded-xl w-full h-[300px] md:h-[400px] object-cover shadow-2xl hover:scale-105 transition-transform duration-300" 
+            loading="lazy" 
+            sizes="(max-width: 768px) 100vw, 50vw" 
+          />
+        </div>
+      </div>
+
+      <!-- Service 2: Development -->
+      <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+        <!-- Image -->
+        <div>
+          <img 
+            src="/images/development.jpg" 
+            alt="Development" 
+            class="rounded-xl w-full h-[300px] md:h-[400px] object-cover shadow-2xl hover:scale-105 transition-transform duration-300" 
+            loading="lazy" 
+            sizes="(max-width: 768px) 100vw, 50vw" 
+          />
+        </div>
+        
+        <!-- Text Content -->
+        <div>
+          <h2 class="text-2xl md:text-4xl font-bold text-[#b5ffdb] mb-6">Development</h2>
+          <p class="text-gray-300 mb-6 text-base md:text-lg leading-relaxed">
+            From frontend to backend, we build robust, scalable applications that perform flawlessly across all devices
+          </p>
+          <ul class="space-y-3 text-sm md:text-base text-white">
+            <li class="flex items-center gap-3">
+              <span class="text-green-400 text-lg">●</span> 
+              Frontend development
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-green-400 text-lg">●</span> 
+              Backend architecture
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-green-400 text-lg">●</span> 
+              Database optimization
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Service 3: Mobile App -->
+      <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+        <!-- Text Content -->
+        <div class="order-2 md:order-1">
+          <h2 class="text-2xl md:text-4xl font-bold text-[#b5ffdb] mb-6">Mobile App</h2>
+          <p class="text-gray-300 mb-6 text-base md:text-lg leading-relaxed">
+            Native and cross-platform mobile applications that provide seamless user experiences on iOS and Android
+          </p>
+          <ul class="space-y-3 text-sm md:text-base text-white">
+            <li class="flex items-center gap-3">
+              <span class="text-green-400 text-lg">●</span> 
+              iOS & Android development
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-green-400 text-lg">●</span> 
+              Cross-platform solutions
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-green-400 text-lg">●</span> 
+              App store optimization
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Image -->
+        <div class="order-1 md:order-2">
+          <img 
+            src="/images/mobile-app.jpg" 
+            alt="Mobile App Development" 
+            class="rounded-xl w-full h-[300px] md:h-[400px] object-cover shadow-2xl hover:scale-105 transition-transform duration-300" 
+            loading="lazy" 
+            sizes="(max-width: 768px) 100vw, 50vw" 
+          />
+        </div>
+      </div>
+
+      <!-- Service 4: Branding -->
+      <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+        <!-- Image -->
+        <div>
+          <img 
+            src="/images/branding.jpg" 
+            alt="Branding" 
+            class="rounded-xl w-full h-[300px] md:h-[400px] object-cover shadow-2xl hover:scale-105 transition-transform duration-300" 
+            loading="lazy" 
+            sizes="(max-width: 768px) 100vw, 50vw" 
+          />
+        </div>
+        
+        <!-- Text Content -->
+        <div>
+          <h2 class="text-2xl md:text-4xl font-bold text-[#b5ffdb] mb-6">Branding</h2>
+          <p class="text-gray-300 mb-6 text-base md:text-lg leading-relaxed">
+            Complete brand identity solutions that capture your essence and resonate with your target audience
+          </p>
+          <ul class="space-y-3 text-sm md:text-base text-white">
+            <li class="flex items-center gap-3">
+              <span class="text-green-400 text-lg">●</span> 
+              Logo & visual identity
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-green-400 text-lg">●</span> 
+              Brand guidelines
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-green-400 text-lg">●</span> 
+              Marketing materials
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
 </Layout>
