@@ -10,15 +10,32 @@ import {
     Globe2,
     Rocket,
 } from "lucide-react";
-import "./src/components/lightswind.css";
-import { Card, CardContent, CardHeader, CardTitle } from "./src/components/lightswind.css/card";
+import "./lightswind.css";
+// import { Card } from "./lightswind/card";
 
+// Custom CardTitle component to accept children and className props
+const CardTitle: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className }) => (
+    <h3 className={className}>{children}</h3>
+);
+interface CardProps {
+    children: React.ReactNode;
+    className?: string;
+}
+
+export const Card: React.FC<CardProps> = ({ children, className }) => (
+    <div className={className}>
+        {children}
+    </div>
+);
 interface Reason {
     title: string;
     description: string;
     icon: React.ReactNode;
 }
-
+interface CardTitleProps {
+    children: React.ReactNode;
+    className?: string;
+}
 interface FeatureSectionProps {
     heading?: string;
     reasons?: Reason[];
@@ -61,13 +78,13 @@ export default function FeatureSection({
             title: "Fast Execution",
             description:
                 "With agile methodologies, we accelerate project delivery without compromising quality.",
-            icon: <Rocket className="size-6 text-accent-foreground" />,
+            icon: <Rocket  color="#ffffff" className="size-6 text-accent-foreground bg-whi" />,
         },
     ],
 }: FeatureSectionProps) {
     return (
-        <section className="py-16 md:py-24">
-            <div className="container">
+        <section className="py-16 md:py-24 bg-black text-white flex items-center justify-center">
+            <div className="container max-w-5xl">
                 <motion.div
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -92,18 +109,18 @@ export default function FeatureSection({
                             whileTap={{ scale: 0.95 }}
                             className="cursor-pointer"
                         >
-                            <Card className="transition-transform duration-300 hover:shadow-xl hover:border-accent">
-                                <CardHeader>
+                            <Card className="transition-transform duration-300 hover:shadow-xl hover:--color-primary">
+                                <div className="card-header px-6 pt-6">
                                     <div className="mb-4 flex size-16 items-center justify-center rounded-full bg-accent/20 text-accent">
                                         {reason.icon}
                                     </div>
                                     <CardTitle className="text-xl font-semibold">
                                         {reason.title}
                                     </CardTitle>
-                                </CardHeader>
-                                <CardContent>
+                                </div>
+                                <div className="px-6 pb-6">
                                     <p className="text-muted-foreground">{reason.description}</p>
-                                </CardContent>
+                                </div>
                             </Card>
                         </motion.div>
                     ))}
