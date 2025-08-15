@@ -10,8 +10,8 @@ import {
     Globe2,
     Rocket,
 } from "lucide-react";
-import "./src/components/lightswind.css";
-import { Card, CardContent, CardHeader, CardTitle } from "./src/components/lightswind.css/card";
+import "./lightswind.css";
+import { Card, CardContent, CardHeader, CardTitle } from "./lightswind/card";
 
 interface Reason {
     title: string;
