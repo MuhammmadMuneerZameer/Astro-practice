@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 import FeatureSection from '../components/FeatureSection.tsx';
 import FeatureListSection from '../components/FeatureListSection.astro';
-import ServicesSection from '../components/ServicesSection.astro';
+import ServicesSection from '../components/ServicesSection.jsx';
 import FAQsection from '../components/FAQsection.astro';
 import TestimonialSection from '../components/TestimonialSection.jsx';
 import CTAsection from '../components/CTAsection.astro';
@@ -19,7 +19,7 @@ import Projectsdisplay from '../components/Projectsdisplay.astro';
 	
 	<Welcome />
 	<FeatureSection client:only="react"/>
-	<ServicesSection/>
+	<ServicesSection client:visible/>
 	<FeatureListSection/>
 	<Projectsdisplay/>
 	<BlogSection />
@@ -30,6 +30,8 @@ import Projectsdisplay from '../components/Projectsdisplay.astro';
 
 </Layout>
 	
-<style>
-
+<style is:global>
+  html {
+    scroll-behavior: smooth;
+  }
 </style>

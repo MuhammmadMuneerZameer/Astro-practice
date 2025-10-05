@@ -38,15 +38,6 @@ export default function TeamMemberCard({ member }) {
             <a href={member.linkedin} target="_blank" className="underline">linkedin</a>
           </div>
           </div>
-
-          {/* Spotify Embed */}
-          <iframe
-            src={member.spotify}
-            width="100%"
-            height="80"
-            allow="encrypted-media"
-            className="rounded"
-          ></iframe>
         </div>
       )}
     </div>

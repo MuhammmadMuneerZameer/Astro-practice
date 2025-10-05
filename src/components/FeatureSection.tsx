@@ -9,9 +9,11 @@ import {
     BarChart3,
     Globe2,
     Rocket,
+    ShieldCheckIcon,
 } from "lucide-react";
 import "./lightswind.css";
-// import { Card } from "./lightswind/card";
+import "../styles/global.css";
+
 
 // Custom CardTitle component to accept children and className props
 const CardTitle: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className }) => (
@@ -48,37 +50,37 @@ export default function FeatureSection({
             title: "Trusted Security",
             description:
                 "We prioritize your data privacy and implement enterprise-grade security at every layer.",
-            icon: <ShieldCheck className="size-6 text-accent-foreground" />,
+            icon: <ShieldCheckIcon color="#ffffff" className="size-6 " />,
         },
         {
             title: "Goal-Driven Approach",
             description:
                 "Every project is aligned with measurable goals to ensure we drive tangible outcomes.",
-            icon: <Target className="size-6 text-accent-foreground" />,
+            icon: <Target color="#ffffff" className="size-6 " />,
         },
         {
             title: "Expert Teamwork",
             description:
                 "Our team consists of skilled professionals who work collaboratively to deliver excellence.",
-            icon: <Users className="size-6 text-accent-foreground" />,
+            icon: <Users color="#ffffff" className="size-6 " />,
         },
         {
             title: "Data-Backed Results",
             description:
                 "We leverage advanced analytics to provide actionable insights and data-driven decisions.",
-            icon: <BarChart3 className="size-6 text-accent-foreground" />,
+            icon: <BarChart3 color="#ffffff" className="size-6 " />,
         },
         {
             title: "Global Reach",
             description:
                 "We serve clients worldwide, offering scalable solutions with international support.",
-            icon: <Globe2 className="size-6 text-accent-foreground" />,
+            icon: <Globe2 color="#ffffff" className="size-6 " />,
         },
         {
             title: "Fast Execution",
             description:
                 "With agile methodologies, we accelerate project delivery without compromising quality.",
-            icon: <Rocket  color="#ffffff" className="size-6 text-accent-foreground bg-whi" />,
+            icon: <Rocket  color="#ffffff" className="size-6" />,
         },
     ],
 }: FeatureSectionProps) {
@@ -109,12 +111,12 @@ export default function FeatureSection({
                             whileTap={{ scale: 0.95 }}
                             className="cursor-pointer"
                         >
-                            <Card className="transition-transform duration-300 hover:shadow-xl hover:--color-primary">
-                                <div className="card-header px-6 pt-6">
-                                    <div className="mb-4 flex size-16 items-center justify-center rounded-full bg-accent/20 text-accent">
+                            <Card className="transition-transform duration-300 hover:shadow-xl hover:text-[var(--color-primary)]  hover:bg-[var(--color-card)]">
+                                <div className="card-header px-6 pt-6 ">
+                                    <div className="mb-4 flex size-16 items-center justify-center rounded-full ">
                                         {reason.icon}
                                     </div>
-                                    <CardTitle className="text-xl font-semibold">
+                                    <CardTitle className="text-xl font-semibold ">
                                         {reason.title}
                                     </CardTitle>
                                 </div>
