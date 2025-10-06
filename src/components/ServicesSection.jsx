@@ -48,15 +48,36 @@ const services = [
 export default function ServicesSection() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Check if device is mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      if (!isMobile) {
+        setMousePosition({ x: e.clientX, y: e.clientY });
+      }
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+    
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, [isMobile]);
+
+  const handleServiceClick = (index) => {
+    if (isMobile) {
+      setHoveredIndex(hoveredIndex === index ? null : index);
+    }
+  };
 
   return (
     <section className="min-h-screen bg-black text-white py-12 sm:py-16 md:py-24 px-4 sm:px-6">
@@ -97,123 +118,162 @@ export default function ServicesSection() {
         <div className="relative">
           <div className="space-y-0">
             {services.map((service, index) => (
-              <motion.div
-                key={index}
-                onHoverStart={() => setHoveredIndex(index)}
-                onHoverEnd={() => setHoveredIndex(null)}
-                className="relative border-t border-gray-800 last:border-b"
-              >
-                <div className="py-6 md:py-8 flex items-center justify-between group cursor-pointer">
-                  <div className="flex-1">
-                    <motion.h3 
-                      className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-400 group-hover:text-green-300 transition-colors duration-300"
-                      animate={{
-                        x: hoveredIndex === index ? 20 : 0
-                      }}
-                      transition={{ duration: 0.3, ease: "easeOut" }}
-                    >
-                      {service.title}
-                    </motion.h3>
-                    <AnimatePresence>
-                      {hoveredIndex === index && (
-                        <motion.p
-                          initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                          animate={{ opacity: 1, height: "auto", marginTop: 12 }}
-                          exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="text-gray-500 text-sm md:text-base max-w-xl overflow-hidden"
-                        >
-                          {service.description}
-                        </motion.p>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                  
-                  <motion.div
-                    animate={{
-                      scale: hoveredIndex === index ? 1.1 : 1,
-                      rotate: hoveredIndex === index ? 0 : -45
-                    }}
-                    transition={{ duration: 0.3 }}
-                    className="ml-6 flex-shrink-0"
-                  >
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-gray-700 group-hover:border-green-300 flex items-center justify-center transition-colors duration-300">
-                      <ArrowRight className="w-4 h-4 md:w-5 md:h-5 text-gray-500 group-hover:text-green-300 transition-colors duration-300" />
+              <div key={index}>
+                <motion.div
+                  onHoverStart={() => !isMobile && setHoveredIndex(index)}
+                  onHoverEnd={() => !isMobile && setHoveredIndex(null)}
+                  onClick={() => handleServiceClick(index)}
+                  className="relative border-t border-gray-800 last:border-b"
+                >
+                  <div className="py-6 md:py-8 flex items-center justify-between group cursor-pointer">
+                    <div className="flex-1">
+                      <motion.h3 
+                        className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-400 group-hover:text-green-300 transition-colors duration-300"
+                        animate={{
+                          x: hoveredIndex === index ? 20 : 0
+                        }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                      >
+                        {service.title}
+                      </motion.h3>
+                      <AnimatePresence>
+                        {hoveredIndex === index && (
+                          <motion.p
+                            initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                            animate={{ opacity: 1, height: "auto", marginTop: 12 }}
+                            exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="text-gray-500 text-sm md:text-base max-w-xl overflow-hidden"
+                          >
+                            {service.description}
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
                     </div>
-                  </motion.div>
-                </div>
-              </motion.div>
+                    
+                    <motion.div
+                      animate={{
+                        scale: hoveredIndex === index ? 1.1 : 1,
+                        rotate: hoveredIndex === index ? 0 : -45
+                      }}
+                      transition={{ duration: 0.3 }}
+                      className="ml-6 flex-shrink-0"
+                    >
+                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-gray-700 group-hover:border-green-300 flex items-center justify-center transition-colors duration-300">
+                        <ArrowRight className="w-4 h-4 md:w-5 md:h-5 text-gray-500 group-hover:text-green-300 transition-colors duration-300" />
+                      </div>
+                    </motion.div>
+                  </div>
+                </motion.div>
+
+                {/* Mobile: Image below the service item */}
+                {isMobile && (
+                  <AnimatePresence>
+                    {hoveredIndex === index && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                        className="overflow-hidden "
+                      >
+                        <div className="pb-6 px-2">
+                          <motion.div
+                            initial={{ y: 20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            exit={{ y: 20, opacity: 0 }}
+                            transition={{ duration: 0.3, delay: 0.1 }}
+                            className="relative rounded-xl overflow-hidden"
+                          >
+                            <img
+                              src={service.image}
+                              alt={service.title}
+                              className="w-full h-64 object-cover"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                            <div className="absolute bottom-4 left-4 bg-green-300 text-black px-4 py-2 rounded-lg font-bold text-sm shadow-lg">
+                              {service.title}
+                            </div>
+                          </motion.div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                )}
+              </div>
             ))}
           </div>
 
-          {/* Floating Image that follows cursor */}
-          <AnimatePresence>
-            {hoveredIndex !== null && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ 
-                  opacity: 1, 
-                  scale: 1,
-                  x: mousePosition.x,
-                  y: mousePosition.y
-                }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ 
-                  opacity: { duration: 0.3 },
-                  scale: { duration: 0.3 },
-                  x: { type: "spring", stiffness: 300, damping: 30 },
-                  y: { type: "spring", stiffness: 300, damping: 30 }
-                }}
-                className="hidden lg:block fixed pointer-events-none z-50"
-                style={{
-                  left: -200,
-                  top: -200,
-                  filter: 'drop-shadow(0 20px 40px rgba(134, 239, 172, 0.3))'
-                }}
-              >
-                <div className="relative w-[400px] h-[300px]">
-                  {/* Animated background glow */}
-                  <motion.div
-                    animate={{ 
-                      scale: [1, 1.05, 1],
-                      opacity: [0.5, 0.7, 0.5]
-                    }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute inset-0 bg-green-400/20 rounded-2xl blur-2xl"
-                  />
-                  
-                  {/* Main image container */}
-                  <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-2xl p-4 border-2 border-green-400/30 shadow-2xl overflow-hidden">
-                    <div className="relative overflow-hidden rounded-xl">
-                      <img
-                        src={services[hoveredIndex].image}
-                        alt={services[hoveredIndex].title}
-                        className="w-full h-64 object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                      
-                      {/* Service badge */}
-                      <motion.div
-                        initial={{ x: 20, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: 0.1 }}
-                        className="absolute bottom-4 left-4 bg-green-300 text-black px-4 py-2 rounded-lg font-bold text-sm shadow-lg"
-                      >
-                        {services[hoveredIndex].title}
-                      </motion.div>
+          {/* Desktop: Floating Image that follows cursor */}
+          {!isMobile && (
+            <AnimatePresence>
+              {hoveredIndex !== null && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ 
+                    opacity: 1, 
+                    scale: 1,
+                    x: mousePosition.x,
+                    y: mousePosition.y
+                  }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ 
+                    opacity: { duration: 0.3 },
+                    scale: { duration: 0.3 },
+                    x: { type: "spring", stiffness: 300, damping: 30 },
+                    y: { type: "spring", stiffness: 300, damping: 30 }
+                  }}
+                  className="fixed pointer-events-none z-50"
+                  style={{
+                    left: -200,
+                    top: -200,
+                    filter: 'drop-shadow(0 20px 40px rgba(134, 239, 172, 0.3))'
+                  }}
+                >
+                  <div className="relative w-[400px] h-[300px]">
+                    {/* Animated background glow */}
+                    <motion.div
+                      animate={{ 
+                        scale: [1, 1.05, 1],
+                        opacity: [0.5, 0.7, 0.5]
+                      }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute inset-0 bg-green-400/20 rounded-2xl blur-3xl"
+                    />
+                    
+                    {/* Main image container */}
+                    <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-2xl p-4 border-2 border-green-400/30 shadow-2xl overflow-hidden">
+                      <div className="relative overflow-hidden rounded-xl">
+                        <img
+                          src={services[hoveredIndex].image}
+                          alt={services[hoveredIndex].title}
+                          className="w-full h-64 object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                        
+                        {/* Service badge */}
+                        <motion.div
+                          initial={{ x: 20, opacity: 0 }}
+                          animate={{ x: 0, opacity: 1 }}
+                          transition={{ delay: 0.1 }}
+                          className="absolute bottom-4 left-4 bg-green-300 text-black px-4 py-2 rounded-lg font-bold text-sm shadow-lg"
+                        >
+                          {services[hoveredIndex].title}
+                        </motion.div>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Decorative corner element */}
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute -top-4 -right-4 w-16 h-16 border-2 border-green-400/40 rounded-full"
-                  />
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                    {/* Decorative corner element */}
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                      className="absolute -top-4 -right-4 w-16 h-16 border-2 border-green-400/40 rounded-full"
+                    />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          )}
         </div>
       </div>
     </section>

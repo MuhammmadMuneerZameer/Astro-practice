@@ -111,7 +111,7 @@ export default function FeatureSection({
                             whileTap={{ scale: 0.95 }}
                             className="cursor-pointer"
                         >
-                            <Card className="transition-transform duration-300 hover:shadow-xl hover:text-[var(--color-primary)]  hover:bg-[var(--color-card)]">
+                            <Card className="transition-transform duration-300 hover:shadow-xl ">
                                 <div className="card-header px-6 pt-6 ">
                                     <div className="mb-4 flex size-16 items-center justify-center rounded-full ">
                                         {reason.icon}
