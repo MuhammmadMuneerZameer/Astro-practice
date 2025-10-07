@@ -2,7 +2,6 @@
 import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
-import FeatureSection from '../components/FeatureSection.tsx';
 import FeatureListSection from '../components/FeatureListSection.jsx';
 import ServicesSection from '../components/ServicesSection.jsx';
 import FAQsection from '../components/FAQsection.astro';
@@ -18,9 +17,8 @@ import Projectsdisplay from '../components/Projectsdisplay.astro';
 <Layout>
 	
 	<Welcome />
-	<FeatureSection client:only="react"/>
-	<ServicesSection client:visible/>
 	<FeatureListSection client:visible/>
+	<ServicesSection client:visible/>
 	<Projectsdisplay/>
 	<BlogSection />
 	<TestimonialSection client:visible/>

@@ -81,7 +81,7 @@ export default function ServicesSection() {
 
   return (
     <section className="min-h-screen bg-black text-white py-12 sm:py-16 md:py-24 px-4 sm:px-6">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 md:mb-12 gap-4">
           <div>
