@@ -1,0 +1,85 @@
+---
+import ProjectShowcase from '../components/ProjectShowcase.astro';
+import projects from '../data/ProjectShowcase.js';
+---
+
+<section class="bg-black py-12 sm:py-16 md:py-20 text-white">
+  <div class="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8 sm:mb-10 md:mb-12">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-green-300">
+        Our Recent Work
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:gap-8">
+      {
+        projects.map(project => (
+          <div class="project-card">
+            <ProjectShowcase {...project} />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-button {
+    box-shadow: 0 2px 20px rgb(99, 253, 189);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  /* Project card styling */
+  .project-card {
+    min-height: 200px; /* Prevents collapse */
+    display: block;
+    width: 100%;
+  }
+
+  /* Enhanced mobile responsiveness */
+  @media (max-width: 640px) {
+    section {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    
+    .project-card {
+      min-height: 180px;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  /* Hover effects for better interactivity */
+  .project-card:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+  }
+
+  /* Ensure grid items stack properly on very small screens */
+  @media (max-width: 480px) {
+    .grid {
+      gap: 1rem;
+    }
+    
+    h2 {
+      font-size: 1.75rem;
+      line-height: 1.2;
+    }
+    
+    .project-card {
+      min-height: 160px;
+    }
+  }
+
+  /* Additional mobile fixes */
+  @media (max-width: 360px) {
+    .max-w-5xl {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+    
+    .project-card {
+      min-height: 140px;
+    }
+  }
+</style>
