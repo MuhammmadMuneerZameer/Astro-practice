@@ -1,12 +1,55 @@
 ---
-// import { ArrowBigRight } from 'lucide-react';
 import Splineanimation from '../components/Splineanimation';
 import TestimonialSection from '../components/TestimonialSection';
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
+
+// SEO metadata
+const pageTitle = "Contact Us - Launch Your Startup Brand | Free Consultation";
+const pageDescription = "Ready to build a bold, scroll-stopping brand for your online startup? Contact us for branding, web development, UI/UX design, and digital marketing. Get a response within 24-48 hours.";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
-<Layout title="Contact Us - Let's Launch Something Great Together">
+<Layout title={pageTitle}>
+  <Fragment slot="head">
+    <!-- Enhanced SEO Meta Tags -->
+    <meta name="description" content={pageDescription} />
+    <meta name="keywords" content="startup branding agency, contact brand designer, web development consultation, UI/UX design services, digital marketing for startups, brand identity design, logo design services" />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={new URL('/og-image-contact.jpg', Astro.site)} />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={pageTitle} />
+    <meta property="twitter:description" content={pageDescription} />
+    <meta property="twitter:image" content={new URL('/og-image-contact.jpg', Astro.site)} />
+    
+    <!-- Structured Data - LocalBusiness -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Hydra Fox Designs",
+        "description": "We help online startups build bold, scroll-stopping brands from scratch",
+        "url": "https://hydrafoxdesigns.com",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "Customer Service",
+          "availableLanguage": ["English"]
+        },
+        "areaServed": "Worldwide",
+        "serviceType": ["Brand Identity Design", "Web Development", "UI/UX Design", "Digital Marketing"]
+      }
+    </script>
+  </Fragment>
+
   <!-- Hero Section -->
   <section class="hero-section bg-black py-16 md:py-20 px-4 md:px-6 relative overflow-hidden">
     <div class="absolute inset-0 z-0 opacity-30">
@@ -14,11 +57,11 @@ import '../styles/global.css';
     </div>
     <div class="max-w-4xl mx-auto text-center relative z-10">
       <h1 class="hero-title text-3xl md:text-6xl font-bold mb-4 md:mb-6 text-green-300">
-        Let's Launch Something Great Together
+        Contact Us - Let's Launch Your Startup Brand Together
       </h1>
       <p class="hero-subtitle text-base md:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">
         We help online startups build bold, scroll-stopping brands from scratch. 
-        Fill out the form and we'll connect within 24–48 hours.
+        Fill out the form and we'll connect within 24–48 hours to discuss your branding, web development, and design needs.
       </p>
     </div>
   </section>
@@ -26,11 +69,19 @@ import '../styles/global.css';
   <!-- Contact Form Section -->
   <section class="contact-section bg-black py-12 md:py-20 px-4 md:px-6">
     <div class="max-w-2xl mx-auto">
+      <div class="text-center mb-8">
+        <h2 class="text-2xl md:text-4xl font-bold mb-3 text-green-300">
+          Get a Free Brand Consultation
+        </h2>
+        <p class="text-gray-400">Tell us about your project and we'll create a custom proposal for you</p>
+      </div>
+
       <form 
         id="contactForm" 
         action="https://formspree.io/f/xblzajnd"
         method="POST"
         class="space-y-6"
+        aria-label="Contact form for startup branding services"
       >
         <div class="grid md:grid-cols-2 gap-4 md:gap-6">
           <div class="form-field space-y-2">
@@ -40,6 +91,7 @@ import '../styles/global.css';
               id="firstName" 
               name="firstName" 
               required
+              aria-required="true"
               class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 text-white"
               placeholder="John"
             >
@@ -51,6 +103,7 @@ import '../styles/global.css';
               id="lastName" 
               name="lastName" 
               required
+              aria-required="true"
               class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 text-white"
               placeholder="Doe"
             >
@@ -64,6 +117,7 @@ import '../styles/global.css';
             id="email" 
             name="email" 
             required
+            aria-required="true"
             class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 text-white"
             placeholder="john@example.com"
           >
@@ -138,31 +192,32 @@ import '../styles/global.css';
             name="message"
             rows="4"
             class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 text-white resize-none"
-            placeholder="Tell us about your project..."
+            placeholder="Tell us about your project goals, target audience, timeline, and any specific requirements..."
           ></textarea>
         </div>
 
         <div class="form-field flex items-center">
-          <input type="checkbox" id="consent" name="consent" required class="mr-3 accent-green-500">
+          <input type="checkbox" id="consent" name="consent" required aria-required="true" class="mr-3 accent-green-500">
           <label for="consent" class="text-sm text-gray-300">
             I agree to receive communications about my project *
           </label>
         </div>
 
         <!-- Formspree honeypot for spam protection -->
-        <input type="text" name="_gotcha" style="display:none">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
 
         <button 
           type="submit" 
           id="submitBtn"
           class="w-full bg-green-500 hover:bg-green-600 text-black font-bold py-4 px-8 rounded-full transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          aria-label="Submit contact form"
         >
           <span id="submitText">Send My Project Brief</span>
         </button>
       </form>
 
       <!-- Success Message -->
-      <div id="successMessage" class="hidden mt-6 p-4 bg-green-500/20 border border-green-500 rounded-lg">
+      <div id="successMessage" class="hidden mt-6 p-4 bg-green-500/20 border border-green-500 rounded-lg" role="alert" aria-live="polite">
         <div class="text-center">
           <h3 class="font-bold text-green-400 mb-2">Message Sent Successfully!</h3>
           <p class="text-green-300">We'll get back to you within 24-48 hours.</p>
@@ -170,7 +225,7 @@ import '../styles/global.css';
       </div>
 
       <!-- Error Message -->
-      <div id="errorMessage" class="hidden mt-6 p-4 bg-red-500/20 border border-red-500 rounded-lg">
+      <div id="errorMessage" class="hidden mt-6 p-4 bg-red-500/20 border border-red-500 rounded-lg" role="alert" aria-live="assertive">
         <div class="text-center">
           <h3 class="font-bold text-red-400 mb-2">Error Sending Message</h3>
           <p class="text-red-300">Please try again or email us directly.</p>
@@ -179,23 +234,138 @@ import '../styles/global.css';
     </div>
   </section>
 
-  <!-- Booking Calendar CTA -->
-  <!-- <section class="cta-section bg-black py-12 md:py-20 px-4 md:px-6">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-2xl md:text-4xl font-bold mb-4 md:mb-6 text-green-300">
-        Ready to Start Immediately?
-      </h2>
-      <p class="text-base md:text-lg text-gray-300 mb-6 md:mb-8">
-        Book a free 30-minute strategy call to discuss your project in detail
-      </p>
-   <a
-  href="#"
-  class="inline-flex items-center bg-green-500 hover:bg-green-600 text-black font-bold py-3 px-6 rounded-full transition duration-300"
->
-  Schedule Free Consultation
-</a>
+  <!-- Why Work With Us Section (New - SEO Content) -->
+  <section class="why-us-section bg-black py-12 md:py-16 px-4 md:px-6 border-t border-gray-800">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-12">
+        <p class="text-green-400 text-sm font-medium tracking-wider uppercase mb-2">OUR MISSION</p>
+        <h2 class="text-2xl md:text-4xl font-bold text-white mb-4">
+          Why <span class="text-green-400">Choose Us</span>
+        </h2>
+        <p class="text-gray-400 max-w-2xl">
+          Discover the difference with our expert team, customized strategies, and proven results. We're dedicated to helping your business thrive in the digital world.
+        </p>
+      </div>
+      
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+        <!-- Card 1: Fast Turnaround -->
+        <div class="feature-card group relative">
+          <div class="relative h-full p-8 rounded-xl transition-all duration-500">
+            <!-- Animated background gradient -->
+            <div class="absolute inset-0 bg-gradient-to-br from-green-500/5 via-emerald-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            
+            <!-- Subtle border glow on hover -->
+            <div class="absolute inset-0 rounded-xl border border-gray-800/50 group-hover:border-green-500/30 transition-all duration-500"></div>
+            
+            <!-- Animated corner accent -->
+            <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-green-400/0 to-green-400/10 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+            <div class="relative z-10">
+              <!-- Icon with animation -->
+              <div class="mb-6">
+                <div class="inline-flex p-4 rounded-2xl bg-gradient-to-br from-green-500/10 to-emerald-500/5 group-hover:from-green-500/20 group-hover:to-emerald-500/10 transition-all duration-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" class="w-8 h-8 text-gray-400 group-hover:text-green-400 transition-colors duration-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Title with gradient text on hover -->
+              <h3 class="text-xl md:text-2xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-green-300 group-hover:to-emerald-400 transition-all duration-500">
+                Fast Turnaround
+              </h3>
+
+              <!-- Animated underline -->
+              <div class="underline-animation h-0.5 mb-4 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 opacity-30 group-hover:opacity-100 transition-all duration-500"></div>
+
+              <!-- Description -->
+              <p class="text-gray-400 text-sm md:text-base leading-relaxed group-hover:text-gray-300 transition-colors duration-500">
+                We respond within 24-48 hours and deliver projects on time, every time.
+              </p>
+            </div>
+
+            <!-- Floating particles effect on hover -->
+            <div class="absolute inset-0 overflow-hidden rounded-xl pointer-events-none">
+              <div class="particle particle-1 absolute w-1 h-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-60"></div>
+              <div class="particle particle-2 absolute w-1 h-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-60"></div>
+              <div class="particle particle-3 absolute w-1 h-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-60"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Startup-Focused -->
+        <div class="feature-card group relative">
+          <div class="relative h-full p-8 rounded-xl transition-all duration-500">
+            <div class="absolute inset-0 bg-gradient-to-br from-green-500/5 via-emerald-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="absolute inset-0 rounded-xl border border-gray-800/50 group-hover:border-green-500/30 transition-all duration-500"></div>
+            <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-green-400/0 to-green-400/10 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+            <div class="relative z-10">
+              <div class="mb-6">
+                <div class="inline-flex p-4 rounded-2xl bg-gradient-to-br from-green-500/10 to-emerald-500/5 group-hover:from-green-500/20 group-hover:to-emerald-500/10 transition-all duration-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" class="w-8 h-8 text-gray-400 group-hover:text-green-400 transition-colors duration-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                  </svg>
+                </div>
+              </div>
+
+              <h3 class="text-xl md:text-2xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-green-300 group-hover:to-emerald-400 transition-all duration-500">
+                Startup-Focused
+              </h3>
+
+              <div class="underline-animation h-0.5 mb-4 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 opacity-30 group-hover:opacity-100 transition-all duration-500"></div>
+
+              <p class="text-gray-400 text-sm md:text-base leading-relaxed group-hover:text-gray-300 transition-colors duration-500">
+                We understand startup challenges and create brands that scale with your growth.
+              </p>
+            </div>
+
+            <div class="absolute inset-0 overflow-hidden rounded-xl pointer-events-none">
+              <div class="particle particle-1 absolute w-1 h-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-60"></div>
+              <div class="particle particle-2 absolute w-1 h-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-60"></div>
+              <div class="particle particle-3 absolute w-1 h-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-60"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Full-Service Team -->
+        <div class="feature-card group relative">
+          <div class="relative h-full p-8 rounded-xl transition-all duration-500">
+            <div class="absolute inset-0 bg-gradient-to-br from-green-500/5 via-emerald-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="absolute inset-0 rounded-xl border border-gray-800/50 group-hover:border-green-500/30 transition-all duration-500"></div>
+            <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-green-400/0 to-green-400/10 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+            <div class="relative z-10">
+              <div class="mb-6">
+                <div class="inline-flex p-4 rounded-2xl bg-gradient-to-br from-green-500/10 to-emerald-500/5 group-hover:from-green-500/20 group-hover:to-emerald-500/10 transition-all duration-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" class="w-8 h-8 text-gray-400 group-hover:text-green-400 transition-colors duration-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                  </svg>
+                </div>
+              </div>
+
+              <h3 class="text-xl md:text-2xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-green-300 group-hover:to-emerald-400 transition-all duration-500">
+                Full-Service Team
+              </h3>
+
+              <div class="underline-animation h-0.5 mb-4 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 opacity-30 group-hover:opacity-100 transition-all duration-500"></div>
+
+              <p class="text-gray-400 text-sm md:text-base leading-relaxed group-hover:text-gray-300 transition-colors duration-500">
+                From brand identity to web development, we handle everything under one roof.
+              </p>
+            </div>
+
+            <div class="absolute inset-0 overflow-hidden rounded-xl pointer-events-none">
+              <div class="particle particle-1 absolute w-1 h-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-60"></div>
+              <div class="particle particle-2 absolute w-1 h-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-60"></div>
+              <div class="particle particle-3 absolute w-1 h-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-60"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </section> -->
+  </section>
+
   <TestimonialSection client:visible/>
   
 </Layout>
@@ -227,14 +397,14 @@ import '../styles/global.css';
         },
       });
 
-      // CTA fade in
-      gsap.from('.cta-section > div', {
+      // Why Us section
+      gsap.from('.why-us-section > div', {
         opacity: 0,
         y: 24,
         duration: 0.8,
         ease: 'power2.out',
         scrollTrigger: {
-          trigger: '.cta-section',
+          trigger: '.why-us-section',
           start: 'top 80%',
         },
       });
@@ -249,18 +419,6 @@ import '../styles/global.css';
         scrollTrigger: {
           trigger: '.testimonials-section',
           start: 'top 80%',
-        },
-      });
-
-      // Alternative contact subtle fade
-      gsap.from('.alternative-contact-section .relative.z-10', {
-        opacity: 0,
-        y: 16,
-        duration: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: '.alternative-contact-section',
-          start: 'top 85%',
         },
       });
     } catch (e) {

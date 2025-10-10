@@ -8,12 +8,26 @@ import '../styles/global.css';
 <!doctype html>
 <html lang="en" view-transition>
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-		<link rel="icon" type="image/svg+xml" href="/images/hfd-logo.png" />
-		<meta name="generator" content={Astro.generator} />
-		<title></title>
-	</head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <link rel="icon" type="image/svg+xml" href="/images/hfd-logo.png" />
+  <meta name="generator" content={Astro.generator} />
+
+  <!-- ✅ Dynamic SEO tags -->
+  <title>{Astro.props.title || 'Hydra Fox Designs | Web Design & Digital Marketing Agency'}</title>
+  <meta
+    name="description"
+    content={Astro.props.description || 'Hydra Fox Designs helps businesses grow through creative web design, digital marketing, and automation solutions.'}
+  />
+
+  <!-- Optional SEO improvements -->
+  <meta name="keywords" content="web design, digital marketing, branding, Hydra Fox Designs, SEO, website development, automation" />
+  <meta property="og:title" content={Astro.props.title || 'Hydra Fox Designs'} />
+  <meta property="og:description" content={Astro.props.description || 'Creative web design and digital marketing agency helping businesses grow online.'} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://hydrafoxdesigns.com" />
+  <meta property="og:image" content="/images/hfd-logo.png" />
+</head>
 	<body class="pt-20 md:pt-0">
 		<Navbar client:only="react"/>
 		<slot />

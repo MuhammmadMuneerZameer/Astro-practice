@@ -10,24 +10,23 @@ import CTAsection from '../components/CTAsection.astro';
 import NesLSection from '../components/NesLSection.jsx';
 import BlogSection from '../components/BlogSection.astro';
 import Projectsdisplay from '../components/Projectsdisplay.astro';
-
-
 ---
 
-<Layout>
-	
-	<Welcome />
-	<FeatureListSection client:visible/>
-	<ServicesSection client:visible/>
-	<Projectsdisplay/>
-	<BlogSection />
-	<TestimonialSection client:visible/>
-	<FAQsection/>
-	<NesLSection client:only="react"/>
-	<CTAsection/>
-
+<Layout
+  title="Digital Marketing & Web Design Agency | Hydra Fox Designs"
+  description="Hydra Fox Designs helps brands grow through creative web design, digital marketing, and automation. Get a modern website that converts visitors into clients."
+>
+  <Welcome />
+  <FeatureListSection client:visible />
+  <ServicesSection client:visible />
+  <Projectsdisplay />
+  <BlogSection />
+  <TestimonialSection client:visible />
+  <FAQsection />
+  <NesLSection client:only="react" />
+  <CTAsection />
 </Layout>
-	
+
 <style is:global>
   html {
     scroll-behavior: smooth;
