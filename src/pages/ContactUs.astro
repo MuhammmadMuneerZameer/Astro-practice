@@ -51,17 +51,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   </Fragment>
 
   <!-- Hero Section -->
-  <section class="hero-section bg-black py-16 md:py-20 px-4 md:px-6 relative overflow-hidden">
-    <div class="absolute inset-0 z-0 opacity-30">
+  <section class="hero-section bg-black py-16 md:py-20 px-4 md:px-6 relative overflow-hidden  mt-22 sm:-mt-16 md:mt-0">
+    <div class="absolute inset-0 z-0 blur opacity-50 ">
       <Splineanimation client:only="react" />
     </div>
-    <div class="max-w-4xl mx-auto text-center relative z-10">
-      <h1 class="hero-title text-3xl md:text-6xl font-bold mb-4 md:mb-6 text-green-300">
+    <div class="max-w-4xl mx-auto text-center relative z-10 pt-12">
+      <h1 class="hero-title text-3xl md:text-6xl font-bold mb-4 md:mb-6 text-[var(--color-accent)]">
         Contact Us - Let's Launch Your Startup Brand Together
       </h1>
       <p class="hero-subtitle text-base md:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">
-        We help online startups build bold, scroll-stopping brands from scratch. 
-        Fill out the form and we'll connect within 24–48 hours to discuss your branding, web development, and design needs.
+        
+        Fill out the form and we'll connect within 24–48 hours.
       </p>
     </div>
   </section>

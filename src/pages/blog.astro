@@ -10,8 +10,8 @@ const Posts = await getPosts();
 <Layout>
   
   <!-- Hero/Search Section -->
-  <section class="relative w-full h-[250px] sm:h-[300px] flex flex-col items-center justify-center bg-black text-white">
-    <div class="absolute inset-0 z-0">
+  <section class="relative w-full h-[250px] sm:h-[300px] flex flex-col items-center justify-center bg-black text-white -mt-12 sm:-mt-16 md:mt-0">
+    <div class="absolute inset-0 z-0 h-[50vh] blur opacity-50">
       <Splineanimation client:only="react" />
     </div>
    
@@ -34,7 +34,7 @@ const Posts = await getPosts();
   </section>
 
   <!-- Posts Grid -->
-  <section class="bg-black text-white">
+  <section class="bg-black text-white pt-10 sm:pt-24">
     
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
       <div id="blogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">

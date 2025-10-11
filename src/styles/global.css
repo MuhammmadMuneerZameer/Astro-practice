@@ -53,9 +53,32 @@
     text-size-adjust: 100%;
   }
   
-  /* Prevent horizontal scroll */
+  /* Prevent horizontal scroll and ensure full height */
   html, body {
     overflow-x: hidden;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Ensure no white space at top */
+  body {
+    padding-top: 3rem !important; /* Match navbar height */
+  }
+  
+  /* Remove any default margins that might cause white space */
+  * {
+    box-sizing: border-box;
+  }
+  
+  /* Ensure full viewport height usage */
+  html {
+    height: 100%;
+  }
+  
+  body {
+    height: 100%;
+    background-color: #000; /* Ensure black background */
   }
   
   /* Improve form inputs on mobile */
@@ -67,6 +90,12 @@
   .container, .max-w-7xl, .max-w-6xl, .max-w-5xl, .max-w-4xl, .max-w-3xl {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+  
+  /* Ensure sections start immediately after navbar */
+  section, main, .hero-section {
+    margin-top: 0 !important;
+    padding-top: 1rem !important;
   }
 }
 

@@ -8,7 +8,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="fixed top-4 sm:top-6 left-1/2 transform -translate-x-1/2 z-50">
+    <nav className="fixed top-2 sm:top-4 md:top-6 left-1/2 transform -translate-x-1/2 z-50">
       <div
         className="w-[95vw] sm:w-[90vw] max-w-[720px] rounded-full border backdrop-blur-md px-3 sm:px-4 py-2 flex justify-between items-center shadow-md transition-all duration-300"
         style={{
@@ -25,28 +25,28 @@ export default function Navbar() {
           />
         </div>
 
-        {/* Hamburger Icon (Mobile Only) */}
-        <button
-          className="md:hidden flex flex-col justify-between w-6 h-5 focus:outline-none z-50"
-          onClick={() => toggle()}
-          aria-label="Toggle Menu"
-        >
-          <span
-            className={`h-0.5 w-full bg-white transform transition duration-300 ${
-              open ? "rotate-45 translate-y-2.5 " : ""
-            }`}
-          />
-          <span
-            className={`h-0.5 w-full bg-white transition-opacity duration-300 ${
-              open ? "opacity-0" : "opacity-100"
-            }`}
-          />
-          <span
-            className={`h-0.5 w-full bg-white transform transition duration-300 ${
-              open ? "-rotate-45 -translate-y-2" : ""
-            }`}
-          />
-        </button>
+      {/* Hamburger Icon (Mobile Only) */}
+<button
+  className="md:hidden flex flex-col justify-center items-center w-6 h-6 focus:outline-none z-50 gap-2 mr-3"
+  onClick={() => toggle()}
+  aria-label="Toggle Menu"
+>
+  <span
+    className={`h-0.5 w-full bg-white transform transition-all duration-300 ease-in-out ${
+      open ? "rotate-45 translate-y-[10px] translate-x-[-2.5px]" : ""
+    }`}
+  />
+  <span
+    className={`h-0.5 w-full bg-white transition-all duration-300 ease-in-out ${
+      open ? "opacity-0" : "opacity-100"
+    }`}
+  />
+  <span
+    className={`h-0.5 w-full bg-white transform transition-all duration-300 ease-in-out ${
+      open ? "-rotate-45 -translate-y-[9px] translate-x-[-2.5px]" : ""
+    }`}
+  />
+</button>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex items-center gap-6 text-white text-sm font-medium">
