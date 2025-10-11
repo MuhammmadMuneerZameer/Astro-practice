@@ -8,39 +8,51 @@ import '../styles/global.css';
 const Posts = await getPosts();
 ---
 <Layout>
+  
   <!-- Hero/Search Section -->
-  <section class="relative w-full h-[300px] flex flex-col items-center justify-center bg-black text-white">
+  <section class="relative w-full h-[250px] sm:h-[300px] flex flex-col items-center justify-center bg-black text-white">
     <div class="absolute inset-0 z-0">
       <Splineanimation client:only="react" />
     </div>
-
-    <div class="relative z-10 px-4 mt-24 text-center">
-      <h1 class="text-4xl md:text-5xl font-bold text-center mb-6 pt-24 text-green-300">Our Blog</h1>
-      <div class="flex justify-center">
+   
+    <div class="relative z-10 px-4 mt-16 sm:mt-24 text-center">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 sm:mb-6 pt-16 sm:pt-24 text-green-300">Our Blog</h1>
+      <div class="flex justify-center px-4">
         <input
           id="blogSearch"
           type="text"
           placeholder="Start typing to search"
-          class="w-full max-w-md px-4 py-2 rounded-full text-black"
+          class="w-full max-w-sm sm:max-w-md px-4 py-2 sm:py-3 rounded-full text-black text-sm sm:text-base"
         />
       </div>
-      <div class="flex justify-center space-x-4 mb-12 py-10">
-        <button class="filter-btn bg-green-500 px-4 py-1 rounded-full text-black font-semibold" data-filter="all">All</button>
-        <button class="filter-btn bg-[#1a1a1a] px-4 py-1 rounded-full" data-filter="Development">Development</button>
-        <button class="filter-btn bg-[#1a1a1a] px-4 py-1 rounded-full" data-filter="Motion Design">Motion Design</button>
+      <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 sm:mb-12 py-6 sm:py-10 px-4">
+        <button class="filter-btn bg-green-500 px-3 sm:px-4 py-1 sm:py-2 rounded-full text-black font-semibold text-xs sm:text-sm" data-filter="all">All</button>
+        <button class="filter-btn bg-[#1a1a1a] px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm" data-filter="Development">Development</button>
+        <button class="filter-btn bg-[#1a1a1a] px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm" data-filter="Motion Design">Motion Design</button>
       </div>
     </div>
   </section>
 
   <!-- Posts Grid -->
   <section class="bg-black text-white">
-    <div class="max-w-7xl mx-auto px-6 py-20">
-      <div id="blogGrid" class="grid md:grid-cols-3 gap-8">
-        {Posts.map(post => (
-          <a href={`/blog/${post.slug}`} class="blog-item block hover:opacity-80 transition duration-200" data-title={post.title} data-desc={post.description} data-category={post.category || ''} data-tag={post.tag || ''}>
-            <BlogCard {...post} />
-          </a>
-        ))}
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
+      <div id="blogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {Posts.length > 0 ? (
+          Posts.map(post => (
+            <a href={`/blog/${post.slug}`} class="blog-item block hover:opacity-80 transition duration-200" data-title={post.title} data-desc={post.description} data-category={post.category || ''} data-tag={post.tag || ''}>
+              <BlogCard {...post} />
+            </a>
+          ))
+        ) : (
+          <div class="col-span-full text-center py-20">
+            <h2 class="text-2xl font-bold text-white mb-4">No blog posts found</h2>
+            <p class="text-gray-400 mb-6">It looks like there are no blog posts in your database yet.</p>
+            <a href="/admin" class="bg-green-500 hover:bg-green-600 text-black px-6 py-3 rounded-lg font-semibold transition-colors">
+              Create Your First Post
+            </a>
+          </div>
+        )}
       </div>
     </div>
   </section>

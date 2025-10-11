@@ -1,5 +1,5 @@
 // src/data/blogPost.js
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../lib/firebase";
 
 export async function getPosts() {
@@ -17,12 +17,21 @@ export async function getPosts() {
     console.log('📦 Collection reference:', blogsCollection);
 
     console.log('🔄 Fetching documents...');
-    const querySnapshot = await getDocs(blogsCollection);
+    // Add query to order by createdAt (newest first) - optional, can remove if causing issues
+    let querySnapshot;
+    try {
+      const q = query(blogsCollection, orderBy("createdAt", "desc"));
+      querySnapshot = await getDocs(q);
+    } catch (orderError) {
+      console.log('⚠️ Could not order by createdAt, fetching without ordering:', orderError.message);
+      querySnapshot = await getDocs(blogsCollection);
+    }
+    
     console.log('📊 Query snapshot:', querySnapshot);
     console.log('📊 Document count:', querySnapshot.size);
 
     if (querySnapshot.empty) {
-      console.warn('⚠️ No documents found in blogs collection');
+      console.warn('⚠️ No documents found in post collection');
       return [];
     }
 
@@ -37,11 +46,14 @@ export async function getPosts() {
         title: data.title || 'Untitled',
         slug: data.slug || doc.id,
         content: data.content || '',
-        image: data.coverImage || 'https://via.placeholder.com/400x300',
-        description: data.excerpt || 'No description available',
+        image: data.coverImage || data.image || 'https://via.placeholder.com/400x300',
+        description: data.excerpt || data.description || 'No description available',
         tag: data.tag || null,
         category: data.category || null,
         date: data.date || null,
+        status: data.status || 'published',
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt,
       };
 
       console.log(`✅ Processed post:`, post);
@@ -49,6 +61,7 @@ export async function getPosts() {
     });
 
     console.log('🎉 Final posts array:', posts);
+    console.log(`✅ Successfully fetched ${posts.length} posts`);
     return posts;
 
   } catch (error) {
@@ -70,5 +83,46 @@ export async function getPosts() {
         date: '2024-01-01',
       }
     ];
+  }
+}
+
+// Optional: Get a single post by slug
+export async function getPostBySlug(slug) {
+  try {
+    const posts = await getPosts();
+    const post = posts.find(p => p.slug === slug);
+    
+    if (!post) {
+      console.warn(`⚠️ No post found with slug: ${slug}`);
+      return null;
+    }
+    
+    console.log(`✅ Found post:`, post);
+    return post;
+  } catch (error) {
+    console.error('💥 Error in getPostBySlug:', error);
+    return null;
+  }
+}
+
+// Optional: Get posts by category
+export async function getPostsByCategory(category) {
+  try {
+    const posts = await getPosts();
+    return posts.filter(p => p.category === category);
+  } catch (error) {
+    console.error('💥 Error in getPostsByCategory:', error);
+    return [];
+  }
+}
+
+// Optional: Get posts by tag
+export async function getPostsByTag(tag) {
+  try {
+    const posts = await getPosts();
+    return posts.filter(p => p.tag === tag);
+  } catch (error) {
+    console.error('💥 Error in getPostsByTag:', error);
+    return [];
   }
 }

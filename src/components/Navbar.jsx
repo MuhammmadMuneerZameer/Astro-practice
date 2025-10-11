@@ -8,9 +8,9 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50">
+    <nav className="fixed top-4 sm:top-6 left-1/2 transform -translate-x-1/2 z-50">
       <div
-        className="w-[90vw] max-w-[720px] rounded-full border backdrop-blur-md px-4 py-2 flex justify-between items-center shadow-md transition-all duration-300"
+        className="w-[95vw] sm:w-[90vw] max-w-[720px] rounded-full border backdrop-blur-md px-3 sm:px-4 py-2 flex justify-between items-center shadow-md transition-all duration-300"
         style={{
           background: "rgba(0, 0, 0, 0.6)",
           borderColor: "rgba(255, 255, 255, 0.2)",
@@ -21,7 +21,7 @@ export default function Navbar() {
           <img
             src="/images/hfd-logo-withoutBg.png"
             alt="Hydra Fox Designs Logo"
-            className="w-7 h-7 object-contain"
+            className="w-6 h-6 sm:w-7 sm:h-7 object-contain"
           />
         </div>
 
@@ -76,7 +76,7 @@ export default function Navbar() {
 
       {/* Mobile Dropdown Menu */}
       <div
-  className={`md:hidden transition-all duration-300 ease-in-out mt-2 overflow-hidden w-[90vw] max-w-[720px] mx-auto rounded-xl border backdrop-blur-md px-4 ${
+  className={`md:hidden transition-all duration-300 ease-in-out mt-2 overflow-hidden w-[95vw] sm:w-[90vw] max-w-[720px] mx-auto rounded-xl border backdrop-blur-md px-4 ${
     open ? "max-h-[400px] opacity-100 py-4" : "max-h-0 opacity-0 py-0"
   }`}
   style={{

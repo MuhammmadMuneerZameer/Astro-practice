@@ -1,0 +1,11 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BlogAdminDashboard from '../components/BlogAdminDashboard';
+---
+
+<Layout
+  title="Blog Admin Dashboard | Hydra Fox Designs"
+  description="Manage your blog posts with our intuitive admin interface. Create, edit, and delete blog posts with ease."
+>
+  <BlogAdminDashboard client:only="react" />
+</Layout>
