@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PlusCircle, Trash2, Edit, Save, X, AlertCircle, FileText, Calendar, Tag, Image, Type, Hash } from 'lucide-react';
+import { PlusCircle, Trash2, Edit, Save, X, AlertCircle, FileText, Calendar, Tag, Image, Type, Hash, Upload, Link2, ExternalLink } from 'lucide-react';
 import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
@@ -10,6 +10,9 @@ export default function BlogAdminDashboard() {
   const [editingId, setEditingId] = useState(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [uploadMethod, setUploadMethod] = useState('url'); // 'url' or 'file'
+  const [uploading, setUploading] = useState(false);
+  const [imagePreview, setImagePreview] = useState('');
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -21,7 +24,6 @@ export default function BlogAdminDashboard() {
     category: ''
   });
 
-  // Fetch blogs from Firestore
   useEffect(() => {
     fetchBlogs();
   }, []);
@@ -58,6 +60,80 @@ export default function BlogAdminDashboard() {
       [field]: value,
       ...(field === 'title' ? { slug: generateSlug(value) } : {})
     }));
+    
+    // Update image preview when URL changes
+    if (field === 'image' && value) {
+      setImagePreview(value);
+    }
+  };
+
+  const handleImageUploadToImgbb = async (file) => {
+    const IMGBB_API_KEY = import.meta.env.PUBLIC_IMGBB_API_KEY;
+    
+    if (!IMGBB_API_KEY) {
+      setError('ImgBB API key not configured. Please add PUBLIC_IMGBB_API_KEY to your .env file or use direct URL method.');
+      return null;
+    }
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+      
+      if (data.success) {
+        return data.data.url;
+      } else {
+        throw new Error(data.error.message || 'Upload failed');
+      }
+    } catch (err) {
+      console.error('ImgBB upload error:', err);
+      throw err;
+    }
+  };
+
+  const handleFileSelect = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      setError('Please select an image file (jpg, png, gif, etc.)');
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      setError('Image size should be less than 5MB');
+      return;
+    }
+
+    try {
+      setUploading(true);
+      setError('');
+
+      // Upload to ImgBB
+      const imageUrl = await handleImageUploadToImgbb(file);
+      
+      if (imageUrl) {
+        setFormData(prev => ({ ...prev, image: imageUrl }));
+        setImagePreview(imageUrl);
+        setSuccess('Image uploaded successfully!');
+        setTimeout(() => setSuccess(''), 3000);
+      }
+    } catch (err) {
+      setError(`Failed to upload image: ${err.message}. Try using direct URL method instead.`);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setFormData(prev => ({ ...prev, image: '' }));
+    setImagePreview('');
   };
 
   const validateForm = () => {
@@ -74,7 +150,7 @@ export default function BlogAdminDashboard() {
       return false;
     }
     if (!formData.image.trim()) {
-      setError('Image URL is required');
+      setError('Cover image is required');
       return false;
     }
     if (!formData.slug.trim()) {
@@ -107,21 +183,16 @@ export default function BlogAdminDashboard() {
       };
 
       if (editingId) {
-        // Update existing blog
         const blogRef = doc(db, 'post', editingId);
         await updateDoc(blogRef, blogData);
         setSuccess('Blog post updated successfully!');
       } else {
-        // Create new blog
         blogData.createdAt = serverTimestamp();
         await addDoc(collection(db, 'post'), blogData);
         setSuccess('Blog post published successfully!');
       }
 
-      // Refresh blogs list
       await fetchBlogs();
-
-      // Reset form
       resetForm();
       setShowForm(false);
     } catch (err) {
@@ -141,6 +212,7 @@ export default function BlogAdminDashboard() {
       tag: blog.tag || '',
       category: blog.category || ''
     });
+    setImagePreview(blog.image || '');
     setEditingId(blog.id);
     setShowForm(true);
     setError('');
@@ -173,8 +245,10 @@ export default function BlogAdminDashboard() {
       tag: '',
       category: ''
     });
+    setImagePreview('');
     setEditingId(null);
     setError('');
+    setUploadMethod('url');
   };
 
   const cancelEdit = () => {
@@ -185,7 +259,6 @@ export default function BlogAdminDashboard() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Hero Section with Spline Animation Background */}
       <section className="relative w-full h-[300px] flex flex-col items-center justify-center bg-black text-white">
         <div className="absolute inset-0 z-0 bg-gradient-to-br from-green-500/5 via-transparent to-green-400/5"></div>
         
@@ -214,8 +287,6 @@ export default function BlogAdminDashboard() {
       </section>
 
       <div className="max-w-7xl mx-auto px-6 py-20">
-
-        {/* Success Message */}
         {success && (
           <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4 mb-6 flex items-start gap-3">
             <AlertCircle className="text-green-400 flex-shrink-0 mt-0.5" size={20} />
@@ -226,7 +297,6 @@ export default function BlogAdminDashboard() {
           </div>
         )}
 
-        {/* Error Message */}
         {error && (
           <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 mb-6 flex items-start gap-3">
             <AlertCircle className="text-red-400 flex-shrink-0 mt-0.5" size={20} />
@@ -237,7 +307,6 @@ export default function BlogAdminDashboard() {
           </div>
         )}
 
-        {/* Form */}
         {showForm && (
           <div className="bg-black/80 backdrop-blur-lg rounded-xl p-8 mb-8 border border-green-500/20 shadow-2xl">
             <div className="flex items-center gap-3 mb-8">
@@ -294,18 +363,134 @@ export default function BlogAdminDashboard() {
                 />
               </div>
 
-              <div className="space-y-2">
+              {/* Image Upload Section */}
+              <div className="space-y-4">
                 <label className="flex items-center gap-2 text-white font-semibold">
                   <Image size={18} className="text-green-400" />
-                  Cover Image URL *
+                  Cover Image *
                 </label>
-                <input
-                  type="url"
-                  value={formData.image}
-                  onChange={(e) => handleInputChange('image', e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg bg-black/50 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
-                  placeholder="https://example.com/image.jpg"
-                />
+
+                {/* Upload Method Toggle */}
+                <div className="flex gap-4 p-1 bg-gray-800/50 rounded-lg w-fit">
+                  <button
+                    type="button"
+                    onClick={() => setUploadMethod('url')}
+                    className={`px-4 py-2 rounded-lg transition-all ${
+                      uploadMethod === 'url'
+                        ? 'bg-green-500 text-white'
+                        : 'text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    <Link2 className="inline mr-2" size={16} />
+                    Image URL
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setUploadMethod('file')}
+                    className={`px-4 py-2 rounded-lg transition-all ${
+                      uploadMethod === 'file'
+                        ? 'bg-green-500 text-white'
+                        : 'text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    <Upload className="inline mr-2" size={16} />
+                    Upload File
+                  </button>
+                </div>
+
+                {uploadMethod === 'url' ? (
+                  <div className="space-y-3">
+                    <input
+                      type="url"
+                      value={formData.image}
+                      onChange={(e) => handleInputChange('image', e.target.value)}
+                      className="w-full px-4 py-3 rounded-lg bg-black/50 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
+                      placeholder="https://example.com/image.jpg"
+                    />
+                    <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
+                      <p className="text-blue-300 text-sm mb-2 font-semibold">📝 Free Image Hosting Options:</p>
+                      <ul className="text-gray-300 text-sm space-y-1.5">
+                        <li className="flex items-center gap-2">
+                          <ExternalLink size={14} className="text-green-400" />
+                          <a href="https://imgbb.com" target="_blank" rel="noopener" className="text-green-400 hover:underline">ImgBB</a>
+                          <span className="text-gray-500">- Free, no account needed</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <ExternalLink size={14} className="text-green-400" />
+                          <a href="https://postimages.org" target="_blank" rel="noopener" className="text-green-400 hover:underline">Postimages</a>
+                          <span className="text-gray-500">- Simple & fast</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <ExternalLink size={14} className="text-green-400" />
+                          <a href="https://imgur.com" target="_blank" rel="noopener" className="text-green-400 hover:underline">Imgur</a>
+                          <span className="text-gray-500">- Popular & reliable</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <ExternalLink size={14} className="text-green-400" />
+                          <a href="https://images.google.com" target="_blank" rel="noopener" className="text-green-400 hover:underline">Google Images</a>
+                          <span className="text-gray-500">- Find & use image URLs</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileSelect}
+                      disabled={uploading}
+                      className="hidden"
+                      id="image-file-upload"
+                    />
+                    <label
+                      htmlFor="image-file-upload"
+                      className={`flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-700 rounded-lg cursor-pointer hover:border-green-500/50 transition-all ${
+                        uploading ? 'opacity-50 cursor-not-allowed' : ''
+                      }`}
+                    >
+                      {uploading ? (
+                        <div className="flex flex-col items-center">
+                          <div className="animate-spin rounded-full h-12 w-12 border-4 border-gray-700 border-t-green-400 mb-4"></div>
+                          <p className="text-gray-400">Uploading to ImgBB...</p>
+                        </div>
+                      ) : (
+                        <div className="flex flex-col items-center">
+                          <Upload className="w-12 h-12 text-green-400 mb-4" />
+                          <p className="text-gray-300 mb-2">Click to upload to ImgBB</p>
+                          <p className="text-gray-500 text-sm">PNG, JPG, GIF up to 5MB</p>
+                        </div>
+                      )}
+                    </label>
+                    <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-3">
+                      <p className="text-yellow-300 text-xs">
+                        ⚡ Requires ImgBB API key. Add PUBLIC_IMGBB_API_KEY to .env or use URL method.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Image Preview */}
+                {imagePreview && (
+                  <div className="relative">
+                    <img
+                      src={imagePreview}
+                      alt="Preview"
+                      className="w-full h-64 object-cover rounded-lg border border-green-500/20"
+                      onError={() => {
+                        setError('Failed to load image. Please check the URL.');
+                        setImagePreview('');
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={handleRemoveImage}
+                      className="absolute top-2 right-2 p-2 bg-red-500/80 hover:bg-red-600 rounded-lg transition-colors"
+                    >
+                      <X size={20} />
+                    </button>
+                  </div>
+                )}
               </div>
 
               <div className="grid md:grid-cols-3 gap-6">
@@ -369,7 +554,8 @@ export default function BlogAdminDashboard() {
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <button
                   onClick={handleSubmit}
-                  className="group relative inline-flex items-center justify-center px-8 py-4 text-white font-semibold rounded-full bg-green-500 hover:bg-green-600 shadow-lg transition-all duration-300 overflow-hidden flex-1"
+                  disabled={uploading}
+                  className="group relative inline-flex items-center justify-center px-8 py-4 text-white font-semibold rounded-full bg-green-500 hover:bg-green-600 shadow-lg transition-all duration-300 overflow-hidden flex-1 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     <Save size={20} />
@@ -505,35 +691,35 @@ export default function BlogAdminDashboard() {
             <div className="p-2 bg-green-500/20 rounded-lg">
               <AlertCircle className="text-green-400" size={24} />
             </div>
-            <h3 className="text-2xl font-bold text-white">Integration Notes</h3>
+            <h3 className="text-2xl font-bold text-white">Quick Guide</h3>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-4">
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                <p className="text-gray-300 text-sm">Connected to your existing Firebase setup</p>
+                <p className="text-gray-300 text-sm">Use free image hosting services (ImgBB, Imgur, Postimages)</p>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                <p className="text-gray-300 text-sm">Uses Firestore collection: <code className="bg-green-500/20 text-green-300 px-2 py-1 rounded text-xs">post</code></p>
+                <p className="text-gray-300 text-sm">Simply paste image URLs - no storage limits!</p>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                <p className="text-gray-300 text-sm">Matches your BlogCard structure perfectly</p>
+                <p className="text-gray-300 text-sm">Optional: Add ImgBB API key for direct uploads</p>
               </div>
             </div>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                <p className="text-gray-300 text-sm">Compatible with your getPosts() function</p>
+                <p className="text-gray-300 text-sm">Images load from external CDNs - fast & reliable</p>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2 flex-shrink-0"></div>
-                <p className="text-gray-300 text-sm">Set up Firestore security rules for protection</p>
+                <p className="text-gray-300 text-sm">Write content in Markdown for rich formatting</p>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                <p className="text-gray-300 text-sm">Add Firebase Authentication for access control</p>
+                <p className="text-gray-300 text-sm">Slug auto-generates from title for SEO-friendly URLs</p>
               </div>
             </div>
           </div>
