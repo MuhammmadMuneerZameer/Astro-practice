@@ -10,12 +10,17 @@ import CTAsection from '../components/CTAsection.astro';
 import NesLSection from '../components/NesLSection.jsx';
 import BlogSection from '../components/BlogSection.astro';
 import Projectsdisplay from '../components/Projectsdisplay.astro';
+import LoadingScreen from '../components/LoadingScreen.jsx';
 ---
 
 <Layout
   title="Digital Marketing & Web Design Agency | Hydra Fox Designs"
   description="Hydra Fox Designs helps brands grow through creative web design, digital marketing, and automation. Get a modern website that converts visitors into clients."
 >
+  <!-- Loading Screen -->
+  <LoadingScreen client:only="react" />
+
+  <!-- Main Content -->
   <Welcome />
   <FeatureListSection client:visible />
   <ServicesSection client:visible />

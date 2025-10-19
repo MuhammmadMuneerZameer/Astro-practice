@@ -1,169 +1,187 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import BlogCard from '../../components/BlogCard.astro';
 import { getPosts } from '../../data/blogPost.js';
+
+// Define the type for a blog post
+interface BlogPost {
+  id: string;
+  title: string;
+  content: string;
+  description: string;
+  image: string;
+  date: string;
+  slug: string;
+  tag?: string;
+  category?: string;
+}
 
 export async function getStaticPaths() {
   const posts = await getPosts();
-  return posts.map(post  => ({
+  return posts.map((post: BlogPost) => ({
     params: { slug: post.slug },
-    props: { post }
+    props: { post },
   }));
 }
 
-const { post } = Astro.props;
-
-// Get all posts again to filter recommended ones
-const allPosts = await getPosts();
-const recommended = allPosts.filter(p => p.slug !== post.slug).slice(0, 3);
-
-// Function to render markdown content
-function renderMarkdown(content) {
-  if (!content) return '';
-  
-  return content
-    // Convert headers
-    .replace(/^#### (.*$)/gim, '<h4 class="text-lg font-bold text-white mt-6 mb-3">$1</h4>')
-    .replace(/^### (.*$)/gim, '<h3 class="text-xl font-bold text-white mt-8 mb-4">$1</h3>')
-    .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold text-white mt-10 mb-6">$1</h2>')
-    .replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold text-white mt-12 mb-8">$1</h1>')
-    
-    // Convert code blocks
-    .replace(/```([\s\S]*?)```/g, '<pre class="bg-gray-900 p-4 rounded-lg overflow-x-auto my-6 border border-gray-700"><code class="text-green-400 text-sm">$1</code></pre>')
-    .replace(/`([^`]+)`/g, '<code class="bg-gray-800 text-green-400 px-2 py-1 rounded text-sm font-mono">$1</code>')
-    
-    // Convert bold and italic
-    .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-white">$1</strong>')
-    .replace(/\*(.*?)\*/g, '<em class="italic text-gray-300">$1</em>')
-    
-    // Convert links
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-green-400 hover:text-green-300 underline transition-colors">$1</a>')
-    
-    // Convert blockquotes
-    .replace(/^> (.*$)/gim, '<blockquote class="border-l-4 border-green-500 pl-4 my-6 italic text-gray-400">$1</blockquote>')
-    
-    // Convert horizontal rules
-    .replace(/^---$/gim, '<hr class="border-gray-700 my-8">')
-    
-    // Convert lists
-    .replace(/^\* (.*$)/gim, '<li class="text-gray-300 mb-2">$1</li>')
-    .replace(/^- (.*$)/gim, '<li class="text-gray-300 mb-2">$1</li>')
-    .replace(/^\d+\. (.*$)/gim, '<li class="text-gray-300 mb-2">$1</li>')
-    .replace(/(<li class="text-gray-300 mb-2">.*<\/li>)/gs, '<ul class="list-disc list-inside my-6 space-y-2">$1</ul>')
-    
-    // Convert line breaks to paragraphs
-    .split('\n\n')
-    .map(paragraph => {
-      paragraph = paragraph.trim();
-      if (!paragraph) return '';
-      
-      // Skip if it's already a header, list, code block, or blockquote
-      if (paragraph.startsWith('<h') || paragraph.startsWith('<ul') || paragraph.startsWith('<pre') || paragraph.startsWith('<blockquote') || paragraph.startsWith('<hr')) {
-        return paragraph;
-      }
-      
-      // Convert single line breaks to <br> within paragraphs
-      paragraph = paragraph.replace(/\n/g, '<br>');
-      
-      return `<p class="text-gray-300 leading-7 mb-6 text-base">${paragraph}</p>`;
-    })
-    .join('');
+// Type the Astro.props
+interface Props {
+  post: BlogPost;
 }
+
+const { post } = Astro.props as Props;
+
+// Type the content variable
+const content: string = post.content || '';
 ---
 
-<Layout>
-  <div class="bg-black text-white">
-    <section class="max-w-3xl mx-auto py-12 sm:py-20 px-4 sm:px-6 text-white bg-black">
-      <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-green-400 leading-tight">{post.title}</h1>
-      <p class="text-gray-400 text-sm mb-6 sm:mb-8">{post.date}</p>
-      <img src={post.image} alt={post.title} class="w-full rounded-lg mb-6 sm:mb-8" loading="lazy" />
-      
-      <!-- Blog Content with Proper Markdown Rendering -->
-      <div class="prose prose-invert max-w-none">
-        <Fragment set:html={renderMarkdown(post.content)} />
-      </div>
-      
-      <!-- Blog Meta Information -->
-      <div class="mt-12 pt-8 border-t border-gray-800">
-        <div class="flex flex-wrap gap-4 text-sm text-gray-400">
+<Layout
+  title={`${post.title} | Hydra Fox Designs`}
+  description={post.description}
+>
+  <article class="bg-black min-h-screen text-white py-20 px-6">
+    <div class="max-w-4xl mx-auto">
+      <!-- Back Button -->
+      <a 
+        href="/blog" 
+        class="inline-flex items-center gap-2 text-green-400 hover:text-green-300 mb-8 transition-colors"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to Blog
+      </a>
+
+      <!-- Header -->
+      <header class="mb-8">
+        <div class="flex flex-wrap gap-3 mb-4">
           {post.tag && (
-            <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full">
+            <span class="bg-green-500/20 text-green-300 px-4 py-1.5 rounded-full text-sm font-medium">
               {post.tag}
             </span>
           )}
           {post.category && (
-            <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full">
+            <span class="bg-blue-500/20 text-blue-300 px-4 py-1.5 rounded-full text-sm font-medium">
               {post.category}
             </span>
           )}
         </div>
-      </div>
+        
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
+          {post.title}
+        </h1>
+        
+        <div class="flex items-center gap-4 text-gray-400 text-sm">
+          <time datetime={post.date}>
+            {post.date}
+          </time>
+        </div>
+      </header>
 
-      <div class="mt-8 sm:mt-10">
-        <h2 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Recommended Blogs</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {recommended.map(post => (
-            <a href={`/blog/${post.slug}`}><BlogCard {...post} /></a>
-          ))}
+      <!-- Featured Image -->
+      {post.image && (
+        <div class="mb-12 rounded-xl overflow-hidden">
+          <img 
+            src={post.image} 
+            alt={post.title}
+            class="w-full h-auto object-cover"
+            loading="eager"
+          />
+        </div>
+      )}
+
+      <!-- Content -->
+      <div class="prose prose-invert prose-lg max-w-none">
+        <div class="text-gray-300 leading-relaxed whitespace-pre-wrap">
+          {content}
         </div>
       </div>
-    </section>
-  </div>
+
+      <!-- Footer Navigation -->
+      <div class="mt-16 pt-8 border-t border-gray-800">
+        <a 
+          href="/blog" 
+          class="inline-flex items-center justify-center px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full transition-colors"
+        >
+          View All Posts
+        </a>
+      </div>
+    </div>
+  </article>
 </Layout>
 
 <style>
-  /* Enhanced typography for better readability */
+  /* Custom prose styling for better readability */
+  .prose {
+    color: #e5e7eb;
+  }
+  
   .prose p {
+    margin-bottom: 1.5em;
     line-height: 1.8;
-    margin-bottom: 1.5rem;
   }
   
-  .prose h1, .prose h2, .prose h3, .prose h4 {
-    scroll-margin-top: 2rem;
+  .prose h2 {
+    color: #86efac;
+    margin-top: 2em;
+    margin-bottom: 1em;
+    font-size: 1.875rem;
+    font-weight: 700;
   }
   
-  .prose code {
-    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
-  }
-  
-  .prose pre {
-    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
-  }
-  
-  .prose blockquote {
-    background: rgba(34, 197, 94, 0.05);
-    border-left-color: #22c55e;
+  .prose h3 {
+    color: #86efac;
+    margin-top: 1.5em;
+    margin-bottom: 0.75em;
+    font-size: 1.5rem;
+    font-weight: 600;
   }
   
   .prose ul, .prose ol {
-    padding-left: 1.5rem;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-left: 1.5em;
   }
   
   .prose li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.5em;
   }
   
-  /* Smooth scrolling for better UX */
-  html {
-    scroll-behavior: smooth;
+  .prose a {
+    color: #86efac;
+    text-decoration: underline;
   }
   
-  /* Custom scrollbar for code blocks */
-  .prose pre::-webkit-scrollbar {
-    height: 8px;
+  .prose a:hover {
+    color: #4ade80;
   }
   
-  .prose pre::-webkit-scrollbar-track {
-    background: #1f2937;
-    border-radius: 4px;
+  .prose strong {
+    color: #fff;
+    font-weight: 600;
   }
   
-  .prose pre::-webkit-scrollbar-thumb {
-    background: #4b5563;
-    border-radius: 4px;
+  .prose code {
+    background-color: rgba(0, 241, 159, 0.1);
+    color: #86efac;
+    padding: 0.25em 0.5em;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
   }
   
-  .prose pre::-webkit-scrollbar-thumb:hover {
-    background: #6b7280;
+  .prose pre {
+    background-color: #1f2937;
+    padding: 1.5em;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+  }
+  
+  .prose blockquote {
+    border-left: 4px solid #86efac;
+    padding-left: 1em;
+    margin-left: 0;
+    font-style: italic;
+    color: #d1d5db;
   }
 </style>
