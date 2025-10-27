@@ -1,9 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import SplitText from '../plugins/SplitText'; // Make sure the path is correct
 import '../styles/global.css';
-
-gsap.registerPlugin(SplitText);
 
 export default function SplitTextComponent() {
   const textRef = useRef();
@@ -12,40 +9,66 @@ export default function SplitTextComponent() {
   useEffect(() => {
     if (!textRef.current || !paragraphRef.current) return;
 
-    // Split the header element
-    const headerSplit = new SplitText(textRef.current, {
-      type: 'chars, words',
-    });
+    // Simple word/character split without plugin
+    const splitText = (element) => {
+      const text = element.innerText;
+      const words = text.split(' ');
+      element.innerHTML = '';
+      
+      words.forEach((word, wordIndex) => {
+        const wordSpan = document.createElement('span');
+        wordSpan.style.display = 'inline-block';
+        wordSpan.style.overflow = 'hidden';
+        
+        const chars = word.split('');
+        chars.forEach((char) => {
+          const charSpan = document.createElement('span');
+          charSpan.innerText = char;
+          charSpan.style.display = 'inline-block';
+          wordSpan.appendChild(charSpan);
+        });
+        
+        element.appendChild(wordSpan);
+        
+        // Add space after word (except last word)
+        if (wordIndex < words.length - 1) {
+          const space = document.createElement('span');
+          space.innerHTML = '&nbsp;';
+          space.style.display = 'inline-block';
+          element.appendChild(space);
+        }
+      });
+      
+      return element.querySelectorAll('span span');
+    };
 
-    // Split the paragraph element
-    const paragraphSplit = new SplitText(paragraphRef.current, {
-      type: 'chars, words',
-    });
+    // Split the text
+    const headerChars = splitText(textRef.current);
+    const paragraphChars = splitText(paragraphRef.current);
 
-    // Create a timeline for coordinated animations
+    // Create animation timeline
     const tl = gsap.timeline();
 
     // Animate header chars
-    tl.from(headerSplit.chars, {
+    tl.from(headerChars, {
       opacity: 0,
       y: 20,
       stagger: 0.05,
       duration: 1,
       ease: 'power2.out',
     })
-    // Animate paragraph chars with a slight delay
-    .from(paragraphSplit.chars, {
+    // Animate paragraph chars
+    .from(paragraphChars, {
       opacity: 0,
       y: 15,
       stagger: 0.02,
       duration: 0.8,
       ease: 'power2.out',
-    }, "-=0.5"); // Start 0.5 seconds before header animation ends
+    }, "-=0.5");
 
-    // Cleanup function
+    // Cleanup
     return () => {
-      headerSplit.revert();
-      paragraphSplit.revert();
+      tl.kill();
     };
   }, []);
 

@@ -107,7 +107,7 @@ export default function LoadingScreen() {
               >
                 {progress}
               </motion.span>
-              <span className="text-green-400">%</span>
+              <span className="text-[var(--color-accent)]">%</span>
             </div>
 
         

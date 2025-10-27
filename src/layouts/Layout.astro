@@ -1,37 +1,180 @@
 ---
-import ChatBot from "../components/ChatBot";
-import Footer from "../components/Footer.astro";
-import Navbar from "../components/Navbar";
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer.astro';
+import ChatBot from '../components/ChatBot';
 import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Hydra Fox Designs | Web Design & Digital Marketing Agency",
+  description = "Hydra Fox Designs helps businesses grow through creative web design, digital marketing, and automation solutions."
+} = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" view-transition>
-	<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <link rel="icon" type="image/svg+xml" href="/images/hfd-logo.png" />
-  <meta name="generator" content={Astro.generator} />
+<html lang="en" transition:animate="fade">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <link rel="icon" type="image/svg+xml" href="/images/hfd-logo.png" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Critical CSS to prevent white flash - MUST be first -->
+    <style>
+      /* Immediate hide - before anything else loads */
+      html {
+        background-color: #000000 !important;
+      }
+      
+      body {
+        background-color: #000000 !important;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+      
+      /* Only hide main-content wrapper if it exists */
+      #main-content {
+        opacity: 0 !important;
+      }
+      
+      /* Always show loading screen */
+      #loading-screen {
+        opacity: 1 !important;
+        position: fixed !important;
+        inset: 0 !important;
+        z-index: 99999 !important;
+        background: #000000 !important;
+      }
+      
+      /* Blog pages specific hiding */
+      .blog-content,
+      .blog-hero,
+      .blog-grid-section {
+        opacity: 0 !important;
+      }
+    </style>
 
-  <!-- ✅ Dynamic SEO tags -->
-  <title>{Astro.props.title || 'Hydra Fox Designs | Web Design & Digital Marketing Agency'}</title>
-  <meta
-    name="description"
-    content={Astro.props.description || 'Hydra Fox Designs helps businesses grow through creative web design, digital marketing, and automation solutions.'}
-  />
+    <!-- Dynamic SEO tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
 
-  <!-- Optional SEO improvements -->
-  <meta name="keywords" content="web design, digital marketing, branding, Hydra Fox Designs, SEO, website development, automation" />
-  <meta property="og:title" content={Astro.props.title || 'Hydra Fox Designs'} />
-  <meta property="og:description" content={Astro.props.description || 'Creative web design and digital marketing agency helping businesses grow online.'} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://hydrafoxdesigns.com" />
-  <meta property="og:image" content="/images/hfd-logo.png" />
-</head>
-	<body class="pt-12 sm:pt-16 md:pt-0">
-		<Navbar client:only="react"/>
-		<slot />
-		<ChatBot client:load />
-		<Footer />
-	</body>
+    <!-- Optional SEO improvements -->
+    <meta name="keywords" content="web design, digital marketing, branding, Hydra Fox Designs, SEO, website development, automation" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://hydrafoxdesigns.com" />
+    <meta property="og:image" content="/images/hfd-logo.png" />
+    
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#000000" />
+    <meta name="background-color" content="#000000" />
+
+    <slot name="head" />
+  </head>
+  
+  <body class="pt-12 sm:pt-16 md:pt-0">
+    <Navbar client:only="react" />
+    
+    <main>
+      <slot />
+    </main>
+
+    <Footer />
+    <ChatBot client:load />
+
+    <!-- Script to reveal content after loading -->
+    <script is:inline>
+      // Run immediately - no DOMContentLoaded wait
+      (function() {
+        // Check if loading screen exists
+        var loadingScreen = document.getElementById('loading-screen');
+        
+        if (loadingScreen) {
+          // Wait for loading screen to complete (2.5s)
+          setTimeout(function() {
+            // Remove opacity restriction
+            var style = document.createElement('style');
+            style.textContent = `
+              body > *:not(#loading-screen) {
+                opacity: 1 !important;
+                transition: opacity 0.3s ease;
+              }
+              .blog-content,
+              .blog-hero,
+              .blog-grid-section {
+                opacity: 1 !important;
+              }
+            `;
+            document.head.appendChild(style);
+          }, 2500);
+        } else {
+          // No loading screen, show everything immediately
+          var style = document.createElement('style');
+          style.textContent = `
+            body > * {
+              opacity: 1 !important;
+            }
+          `;
+          document.head.appendChild(style);
+        }
+      })();
+    </script>
+  </body>
 </html>
+
+<style is:global>
+  :root {
+    --color-primary: #1e1e1e;
+    --color-primaryC: #3b3c41;
+    --color-accent: rgb(99, 253, 189);
+    --color-accent-hover: #48d97c;
+    --color-text: #ffffff;
+    --color-text-light: #b0b0b0;
+    --font-size-base: 1rem;
+    --font-family-base: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: var(--font-family-base);
+    background: #000000;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+    color: var(--color-text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  code {
+    font-family:
+      Menlo,
+      Monaco,
+      Lucida Console,
+      Liberation Mono,
+      DejaVu Sans Mono,
+      Bitstream Vera Sans Mono,
+      Courier New,
+      monospace;
+  }
+
+ 
+
+  main {
+    min-height: 100vh;
+    background-color: #000000;
+  }
+</style>

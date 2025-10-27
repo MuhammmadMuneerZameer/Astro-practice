@@ -17,23 +17,60 @@ import LoadingScreen from '../components/LoadingScreen.jsx';
   title="Digital Marketing & Web Design Agency | Hydra Fox Designs"
   description="Hydra Fox Designs helps brands grow through creative web design, digital marketing, and automation. Get a modern website that converts visitors into clients."
 >
-  <!-- Loading Screen -->
-  <LoadingScreen client:only="react" />
+  <!-- Loading Screen - Fixed positioning -->
+  <div id="loading-screen" style="position: fixed; inset: 0; z-index: 99999; pointer-events: auto;">
+    <LoadingScreen client:only="react" />
+  </div>
 
-  <!-- Main Content -->
-  <Welcome />
-  <FeatureListSection client:visible />
-  <ServicesSection client:visible />
-  <Projectsdisplay />
-  <BlogSection />
-  <TestimonialSection client:visible />
-  <FAQsection />
-  <NesLSection client:only="react" />
-  <CTAsection />
+  <!-- Main Content - Hidden initially -->
+  <div id="main-content" style="opacity: 0;">
+    <Welcome />
+    <FeatureListSection client:visible />
+    <ServicesSection client:visible />
+    <Projectsdisplay />
+    <BlogSection />
+    <TestimonialSection client:visible />
+    <FAQsection />
+    <NesLSection client:only="react" />
+    <CTAsection />
+  </div>
 </Layout>
 
 <style is:global>
   html {
     scroll-behavior: smooth;
   }
+  
+  /* Prevent any content flash */
+  #main-content {
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+  }
+  
+  #main-content.loaded {
+    opacity: 1;
+  }
 </style>
+
+<script>
+  // Wait for loading screen to complete
+  setTimeout(() => {
+    const loadingScreen = document.getElementById('loading-screen');
+    const mainContent = document.getElementById('main-content');
+    
+    if (loadingScreen && mainContent) {
+      // Fade out loading screen
+      loadingScreen.style.opacity = '0';
+      loadingScreen.style.transition = 'opacity 0.5s ease-out';
+      
+      // Show main content
+      mainContent.classList.add('loaded');
+      
+      // Remove loading screen from DOM after fade
+      setTimeout(() => {
+        loadingScreen.style.display = 'none';
+        loadingScreen.style.pointerEvents = 'none';
+      }, 500);
+    }
+  }, 2500); // Match LoadingScreen duration
+</script>
