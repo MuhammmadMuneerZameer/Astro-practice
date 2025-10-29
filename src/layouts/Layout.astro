@@ -16,64 +16,28 @@ const {
 ---
 
 <!doctype html>
-<html lang="en" transition:animate="fade">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <link rel="icon" type="image/svg+xml" href="/images/hfd-logo.png" />
     <meta name="generator" content={Astro.generator} />
     
-    <!-- Critical CSS to prevent white flash - MUST be first -->
+    <!-- Prevent white flash -->
     <style>
-      /* Immediate hide - before anything else loads */
-      html {
-        background-color: #000000 !important;
-      }
-      
-      body {
+      html, body {
         background-color: #000000 !important;
         margin: 0;
         padding: 0;
-        overflow-x: hidden;
-      }
-      
-      /* Only hide main-content wrapper if it exists */
-      #main-content {
-        opacity: 0 !important;
-      }
-      
-      /* Always show loading screen */
-      #loading-screen {
-        opacity: 1 !important;
-        position: fixed !important;
-        inset: 0 !important;
-        z-index: 99999 !important;
-        background: #000000 !important;
-      }
-      
-      /* Blog pages specific hiding */
-      .blog-content,
-      .blog-hero,
-      .blog-grid-section {
-        opacity: 0 !important;
       }
     </style>
 
-    <!-- Dynamic SEO tags -->
     <title>{title}</title>
     <meta name="description" content={description} />
-
-    <!-- Optional SEO improvements -->
     <meta name="keywords" content="web design, digital marketing, branding, Hydra Fox Designs, SEO, website development, automation" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://hydrafoxdesigns.com" />
-    <meta property="og:image" content="/images/hfd-logo.png" />
     
-    <!-- Theme color for mobile browsers -->
+    <!-- Theme color -->
     <meta name="theme-color" content="#000000" />
-    <meta name="background-color" content="#000000" />
 
     <slot name="head" />
   </head>
@@ -87,44 +51,6 @@ const {
 
     <Footer />
     <ChatBot client:load />
-
-    <!-- Script to reveal content after loading -->
-    <script is:inline>
-      // Run immediately - no DOMContentLoaded wait
-      (function() {
-        // Check if loading screen exists
-        var loadingScreen = document.getElementById('loading-screen');
-        
-        if (loadingScreen) {
-          // Wait for loading screen to complete (2.5s)
-          setTimeout(function() {
-            // Remove opacity restriction
-            var style = document.createElement('style');
-            style.textContent = `
-              body > *:not(#loading-screen) {
-                opacity: 1 !important;
-                transition: opacity 0.3s ease;
-              }
-              .blog-content,
-              .blog-hero,
-              .blog-grid-section {
-                opacity: 1 !important;
-              }
-            `;
-            document.head.appendChild(style);
-          }, 2500);
-        } else {
-          // No loading screen, show everything immediately
-          var style = document.createElement('style');
-          style.textContent = `
-            body > * {
-              opacity: 1 !important;
-            }
-          `;
-          document.head.appendChild(style);
-        }
-      })();
-    </script>
   </body>
 </html>
 
@@ -158,20 +84,6 @@ const {
     overflow-x: hidden;
     line-height: 1.6;
   }
-
-  code {
-    font-family:
-      Menlo,
-      Monaco,
-      Lucida Console,
-      Liberation Mono,
-      DejaVu Sans Mono,
-      Bitstream Vera Sans Mono,
-      Courier New,
-      monospace;
-  }
-
- 
 
   main {
     min-height: 100vh;

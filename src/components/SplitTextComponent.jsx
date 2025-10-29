@@ -18,7 +18,7 @@ export default function SplitTextComponent() {
       words.forEach((word, wordIndex) => {
         const wordSpan = document.createElement('span');
         wordSpan.style.display = 'inline-block';
-        wordSpan.style.overflow = 'hidden';
+        wordSpan.style.overflow = 'visible'; // Changed to visible
         
         const chars = word.split('');
         chars.forEach((char) => {
@@ -73,17 +73,27 @@ export default function SplitTextComponent() {
   }, []);
 
   return (
-    <div>
+    <div className="text-container" style={{ overflow: 'visible', width: '100%' }}>
       <h1
         ref={textRef}
-        className="text-4xl md:text-6xl font-bold mb-4"
-        style={{ color: 'var(--color-accent)' }}
+        className="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight"
+        style={{ 
+          color: 'var(--color-accent)',
+          overflow: 'visible',
+          wordWrap: 'break-word',
+          whiteSpace: 'normal'
+        }}
       >
         Welcome to Hydra Fox Designs
       </h1>
       <p
         ref={paragraphRef}
-        className="text-lg md:text-2xl mb-6 text-gray-400"
+        className="hero-subtitle text-base sm:text-lg md:text-xl lg:text-2xl mb-6 text-gray-400 leading-relaxed"
+        style={{ 
+          overflow: 'visible',
+          wordWrap: 'break-word',
+          whiteSpace: 'normal'
+        }}
       >
         Build fast, modern websites with ease. Start your next project today!
       </p>
