@@ -1,12 +1,29 @@
 ---
-import BlogCard from '../components/BlogCard.astro';
-import Splineanimation from '../components/Splineanimation';
-import {getPosts} from '../data/blogPost.js';
+// src/pages/blog.astro
 import Layout from '../layouts/Layout.astro';
-import '../styles/global.css';
+import OptimizedBlogList from '../components/OptimizedBlogList.js';
+import Splineanimation from '../components/Splineanimation';
+import { getPosts } from '../data/blogPost.js';
+import type { Post } from '../components/OptimizedBlogList.js';
 
-const Posts = await getPosts();
+// Fetch posts at build time for SEO and initial load
+const postsData = await getPosts();
+
+// Type the posts data explicitly
+const initialPosts: Post[] = postsData.map(post => ({
+  id: post.id || '',
+  slug: post.slug || '',
+  title: post.title || 'Untitled',
+  description: post.description || '',
+  image: post.image || 'https://via.placeholder.com/400x300',
+  tag: post.tag || null,
+  category: post.category || null,
+  date: post.date || new Date().toLocaleDateString(),
+  content: post.content || '',
+  status: post.status || 'published',
+}));
 ---
+
 <Layout>
   <!-- Hero/Search Section -->
   <section class="relative w-full h-[250px] sm:h-[300px] flex flex-col items-center justify-center bg-black text-white -mt-12 sm:-mt-16 md:mt-0">
@@ -15,85 +32,29 @@ const Posts = await getPosts();
     </div>
    
     <div class="relative z-10 px-4 mt-16 sm:mt-24 text-center">
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 sm:mb-6 pt-16 sm:pt-24 text-green-300">Our Blog</h1>
-      <div class="flex justify-center px-4">
-        <input
-          id="blogSearch"
-          type="text"
-          placeholder="Start typing to search"
-          class="w-full max-w-sm sm:max-w-md px-4 py-2 sm:py-3 rounded-full text-black text-sm sm:text-base"
-        />
-      </div>
-      <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 sm:mb-12 py-6 sm:py-10 px-4">
-        <button class="filter-btn bg-green-500 px-3 sm:px-4 py-1 sm:py-2 rounded-full text-black font-semibold text-xs sm:text-sm" data-filter="all">All</button>
-        <button class="filter-btn bg-[#1a1a1a] px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm" data-filter="Development">Development</button>
-        <button class="filter-btn bg-[#1a1a1a] px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm" data-filter="Motion Design">Motion Design</button>
-      </div>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 sm:mb-6 pt-16 sm:pt-24 text-green-300">
+        Our Blog
+      </h1>
+      <p class="text-gray-400 max-w-2xl mx-auto mb-6">
+        Discover insights, tutorials, and updates from our team
+      </p>
     </div>
   </section>
 
-  <!-- Posts Grid -->
+  <!-- Posts Section -->
   <section class="bg-black text-white pt-10 sm:pt-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
-      <div id="blogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-        {Posts.length > 0 ? (
-          Posts.map(post => (
-            <a href={`/blog/${post.slug}`} class="blog-item block hover:opacity-80 transition duration-200" data-title={post.title} data-desc={post.description} data-category={post.category || ''} data-tag={post.tag || ''}>
-              <BlogCard {...post} />
-            </a>
-          ))
-        ) : (
-          <div class="col-span-full text-center py-20">
-            <h2 class="text-2xl font-bold text-white mb-4">No blog posts found</h2>
-            <p class="text-gray-400 mb-6">It looks like there are no blog posts in your database yet.</p>
-            <a href="/admin" class="bg-green-500 hover:bg-green-600 text-black px-6 py-3 rounded-lg font-semibold transition-colors">
-              Create Your First Post
-            </a>
-          </div>
-        )}
-      </div>
+      {/* 
+        This component:
+        1. Shows initialPosts immediately (SEO-friendly)
+        2. Subscribes to real-time updates after page load
+        3. Falls back to cached data if Firebase fails
+      */}
+      <OptimizedBlogList 
+        client:load 
+        initialPosts={initialPosts}
+        maxPosts={100}
+      />
     </div>
   </section>
 </Layout>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.getElementById('blogSearch') as HTMLInputElement | null;
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const items = Array.from(document.querySelectorAll('.blog-item')) as HTMLAnchorElement[];
-    let activeCategory = 'all';
-
-    function normalize(str: string | null | undefined): string {
-      return (str || '').toString().toLowerCase().trim();
-    }
-
-    function applyFilters() {
-      const q = normalize(searchInput?.value || '');
-      items.forEach((el) => {
-        const title = normalize(el.getAttribute('data-title'));
-        const desc = normalize(el.getAttribute('data-desc'));
-        const cat = normalize(el.getAttribute('data-category'));
-        const tag = normalize(el.getAttribute('data-tag'));
-        const matchesText = !q || title.includes(q) || desc.includes(q) || tag.includes(q) || cat.includes(q);
-        const matchesCat = activeCategory === 'all' || cat === normalize(activeCategory);
-        el.style.display = matchesText && matchesCat ? '' : 'none';
-      });
-    }
-
-    searchInput?.addEventListener('input', applyFilters);
-
-    filterButtons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        activeCategory = btn.getAttribute('data-filter') || 'all';
-        // toggle button styles
-        filterButtons.forEach((b) => {
-          b.classList.remove('bg-green-500', 'text-black');
-          b.classList.add('bg-[#1a1a1a]');
-        });
-        btn.classList.add('bg-green-500', 'text-black');
-        btn.classList.remove('bg-[#1a1a1a]');
-        applyFilters();
-      });
-    });
-  });
-</script>

@@ -9,6 +9,7 @@ import react from '@astrojs/react';
 export default defineConfig({
   site: 'https://hydrafoxdesigns.com',
   integrations: [tailwind(), react(),sitemap()],
+  output: 'static',
   devToolbar: {
     enabled: false
   }

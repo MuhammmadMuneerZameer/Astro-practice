@@ -1,8 +1,27 @@
 ---
-import BlogCard from '../components/BlogCard.astro';
+// src/components/BlogSection.astro
+import OptimizedBlogList from './OptimizedBlogList';
 import { getPosts } from '../data/blogPost.js';
+import type { Post } from './OptimizedBlogList';
 
-const posts = await getPosts();
+// Fetch posts at build time
+const allPostsData = await getPosts();
+
+// Type and limit to 3 most recent posts
+const recentPosts: Post[] = allPostsData
+  .slice(0, 3)
+  .map(post => ({
+    id: post.id || '',
+    slug: post.slug || '',
+    title: post.title || 'Untitled',
+    description: post.description || '',
+    image: post.image || 'https://via.placeholder.com/400x300',
+    tag: post.tag || null,
+    category: post.category || null,
+    date: post.date || new Date().toLocaleDateString(),
+    content: post.content || '',
+    status: post.status || 'published',
+  }));
 ---
 
 <section class="bg-black py-20 px-6 text-white">
@@ -11,19 +30,19 @@ const posts = await getPosts();
       <h2 class="text-3xl md:text-4xl font-bold text-green-300">
         From our <span class="text-white">lab</span>
       </h2>
-      <a href="/blog" class="bg-transparent border border-green-500 text-green-300 px-4 py-1 rounded-full text-sm hover:bg-green-500 hover:text-black transition">
+      <a 
+        href="/blog" 
+        class="bg-transparent border border-green-500 text-green-300 px-4 py-1 rounded-full text-sm hover:bg-green-500 hover:text-black transition"
+      >
         View all posts ↗
       </a>
     </div>
 
-    <div class="grid gap-6 md:grid-cols-3">
-     {posts.map((post) => (
-  <a href={`/blog/${post.slug}`} class="hover:opacity-80 transition duration-200">
-    <BlogCard {...post} />
-  </a>
-))}
-
-
-    </div>
+    {/* Show 3 most recent posts with real-time updates */}
+    <OptimizedBlogList 
+      client:visible 
+      initialPosts={recentPosts}
+      maxPosts={3}
+    />
   </div>
 </section>
