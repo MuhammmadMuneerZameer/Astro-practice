@@ -3,83 +3,134 @@ import ProjectShowcase from '../components/ProjectShowcase.astro';
 import projects from '../data/ProjectShowcase.js';
 ---
 
-<section class="bg-black py-12 sm:py-16 md:py-20 text-white">
-  <div class="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8 sm:mb-10 md:mb-12">
-      <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-green-300">
-        Our Recent Work
-      </h2>
+<section class="bg-black py-16 sm:py-20 md:py-24 text-white relative overflow-hidden">
+  <!-- Background decorative elements -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-20 left-10 w-96 h-96 bg-green-500/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 right-10 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <!-- Section Header -->
+    <div class="mb-12 sm:mb-16 md:mb-20">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
+        <div>
+          <p class="text-green-400 text-xs font-semibold tracking-wider uppercase mb-2">
+            PORTFOLIO
+          </p>
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
+            Our Recent <span class="text-green-300">Work</span>
+          </h2>
+        </div>
+        
+        <!-- View All Button -->
+        <a 
+          href="/ProjectPage"
+          class="group relative inline-flex items-center justify-center px-6 py-3 text-white font-medium rounded-full bg-black/80 backdrop-blur-sm transition-all duration-300 overflow-hidden border border-green-500/30 hover:border-green-500"
+          style="box-shadow: 0 2px 15px rgba(99, 253, 189, 0.2);"
+        >
+          <span class="relative z-10 flex items-center gap-2">
+            View All Projects
+            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </span>
+          <span class="absolute inset-0 rounded-full bg-green-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
+        </a>
+      </div>
+      
+      <p class="text-gray-400 max-w-2xl text-sm md:text-base leading-relaxed">
+        Explore our portfolio of cutting-edge web applications, mobile solutions, and digital experiences that drive real results for our clients.
+      </p>
     </div>
 
-    <div class="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:gap-8">
-      {
-        projects.map(project => (
-          <div class="project-card">
-            <ProjectShowcase {...project} />
-          </div>
-        ))
-      }
+    <!-- Projects Grid -->
+    <div class="grid grid-cols-1 gap-8 sm:gap-10 md:grid-cols-2 lg:gap-12">
+      {projects.map((project, index) => (
+        <div 
+          class="project-card-wrapper"
+          style={`animation-delay: ${index * 0.1}s;`}
+        >
+          <ProjectShowcase {...project} />
+        </div>
+      ))}
     </div>
+
+    <!-- Stats Section (Optional) -->
+    <!-- <div class="mt-16 sm:mt-20 md:mt-24 pt-12 sm:pt-16 border-t border-gray-800">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+        <div class="text-center">
+          <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-green-400 mb-2">50+</div>
+          <div class="text-gray-400 text-sm sm:text-base">Projects Completed</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-green-400 mb-2">40+</div>
+          <div class="text-gray-400 text-sm sm:text-base">Happy Clients</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-green-400 mb-2">5+</div>
+          <div class="text-gray-400 text-sm sm:text-base">Years Experience</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-green-400 mb-2">98%</div>
+          <div class="text-gray-400 text-sm sm:text-base">Success Rate</div>
+        </div>
+      </div>
+    </div> -->
   </div>
 </section>
 
 <style>
-  .hero-button {
-    box-shadow: 0 2px 20px rgb(99, 253, 189);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* Fade in animation for project cards */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
-  /* Project card styling */
-  .project-card {
-    min-height: 200px; /* Prevents collapse */
+  .project-card-wrapper {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  /* Stagger animation for cards */
+  .project-card-wrapper:nth-child(1) { animation-delay: 0.1s; }
+  .project-card-wrapper:nth-child(2) { animation-delay: 0.2s; }
+  .project-card-wrapper:nth-child(3) { animation-delay: 0.3s; }
+  .project-card-wrapper:nth-child(4) { animation-delay: 0.4s; }
+  .project-card-wrapper:nth-child(5) { animation-delay: 0.5s; }
+  .project-card-wrapper:nth-child(6) { animation-delay: 0.6s; }
+
+  /* Ensure cards display properly */
+  .project-card-wrapper {
+    min-height: 200px;
     display: block;
     width: 100%;
   }
 
-  /* Enhanced mobile responsiveness */
+  /* Mobile optimizations */
   @media (max-width: 640px) {
-    section {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-    
-    .project-card {
+    .project-card-wrapper {
       min-height: 180px;
-      margin-bottom: 0.5rem;
     }
   }
 
-  /* Hover effects for better interactivity */
-  .project-card:hover {
-    transform: translateY(-2px);
-    transition: transform 0.2s ease;
+  /* Hover effect for grid */
+  @media (min-width: 768px) {
+    .project-card-wrapper:hover {
+      z-index: 10;
+    }
   }
 
-  /* Ensure grid items stack properly on very small screens */
+  /* Responsive improvements */
   @media (max-width: 480px) {
-    .grid {
-      gap: 1rem;
-    }
-    
-    h2 {
-      font-size: 1.75rem;
-      line-height: 1.2;
-    }
-    
-    .project-card {
+    .project-card-wrapper {
       min-height: 160px;
-    }
-  }
-
-  /* Additional mobile fixes */
-  @media (max-width: 360px) {
-    .max-w-5xl {
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
-    }
-    
-    .project-card {
-      min-height: 140px;
     }
   }
 </style>

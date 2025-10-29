@@ -19,7 +19,7 @@ const projects = [
   {
     title: "Disgraced Online Store",
     description: "A stylish online store offering a curated selection of fashion apparel and accessories. Features a sleek design, easy navigation, and secure checkout process.",
-    image: "../public/images/Disgraced.png", // Add your screenshot here
+    image: "/images/Disgraced.png", // Add your screenshot here
     technologies: ["React", "E-commerce", "Stripe", "Tailwind CSS"],
     link: "https://disgraced.shop/",
     slug: "aastore-online"
@@ -27,7 +27,7 @@ const projects = [
   {
     title: "Portfolio Website",
     description: "A sleek and modern portfolio showcasing creative work with smooth animations and an intuitive user interface.",
-    image: "../public/images/Desktop.png",
+    image: "/images/desktop.png",
     technologies: ["HTML", "CSS", "JavaScript", "GSAP"],
     link: "https://nbx-capitals-investments.netlify.app/",
     slug: "portfolio-website"
@@ -35,7 +35,7 @@ const projects = [
   {
     title: "Medical Appointment Website",
     description: "A comprehensive medical appointment booking system with user-friendly interface, real-time availability, and secure patient data management.",
-    image: "../public/images/websiteUI.webp",
+    image: "/images/websiteUI.webp",
     technologies: ["Vue.js", "Firebase", "Vuetify", "PWA"],
     link: "#",
     slug: "task-management-app"

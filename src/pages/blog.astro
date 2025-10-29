@@ -1,7 +1,6 @@
 ---
 import BlogCard from '../components/BlogCard.astro';
 import Splineanimation from '../components/Splineanimation';
-import LoadingScreen from '../components/LoadingScreen';
 import {getPosts} from '../data/blogPost.js';
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
@@ -9,11 +8,8 @@ import '../styles/global.css';
 const Posts = await getPosts();
 ---
 <Layout>
-  <!-- Loading Screen -->
-  <LoadingScreen client:only="react" />
-  
   <!-- Hero/Search Section -->
-  <section class="relative w-full h-[250px] sm:h-[300px] flex flex-col items-center justify-center bg-black text-white -mt-12 sm:-mt-16 md:mt-0 blog-hero" style="opacity: 0;">
+  <section class="relative w-full h-[250px] sm:h-[300px] flex flex-col items-center justify-center bg-black text-white -mt-12 sm:-mt-16 md:mt-0">
     <div class="absolute inset-0 z-0 h-[50vh] blur opacity-50">
       <Splineanimation client:only="react" />
     </div>
@@ -37,7 +33,7 @@ const Posts = await getPosts();
   </section>
 
   <!-- Posts Grid -->
-  <section class="bg-black text-white pt-10 sm:pt-24 blog-grid-section" style="opacity: 0;">
+  <section class="bg-black text-white pt-10 sm:pt-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
       <div id="blogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
         {Posts.length > 0 ? (
@@ -60,85 +56,11 @@ const Posts = await getPosts();
   </section>
 </Layout>
 
-<style>
-  /* Hide content initially */
-  .blog-hero,
-  .blog-grid-section {
-    opacity: 0;
-    background-color: black;
-  }
-
-  /* Smooth page reveal after loading */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .blog-hero {
-    animation: fadeIn 0.5s ease-out 2.5s forwards;
-  }
-
-  .blog-grid-section {
-    animation: fadeIn 0.6s ease-out 2.7s forwards;
-  }
-
-  .blog-item {
-    opacity: 0;
-    animation: fadeIn 0.5s ease-out backwards;
-  }
-
-  .blog-item:nth-child(1) { animation-delay: 3s; }
-  .blog-item:nth-child(2) { animation-delay: 3.1s; }
-  .blog-item:nth-child(3) { animation-delay: 3.2s; }
-  .blog-item:nth-child(4) { animation-delay: 3.3s; }
-  .blog-item:nth-child(5) { animation-delay: 3.4s; }
-  .blog-item:nth-child(6) { animation-delay: 3.5s; }
-</style>
-
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Ensure content stays hidden until loading completes
-    const hero = document.querySelector('.blog-hero');
-    const grid = document.querySelector('.blog-grid-section');
-    const items = document.querySelectorAll('.blog-item');
-    
-    // Keep everything hidden initially
-    if (hero) (hero as HTMLElement).style.opacity = '0';
-    if (grid) (grid as HTMLElement).style.opacity = '0';
-    items.forEach(item => {
-      (item as HTMLElement).style.opacity = '0';
-    });
-    
-    // Show hero after loading animation (2.5s)
-    setTimeout(() => {
-      if (hero) {
-        (hero as HTMLElement).style.animation = 'fadeIn 0.5s ease-out forwards';
-      }
-    }, 2500);
-    
-    // Show grid section after hero (2.7s)
-    setTimeout(() => {
-      if (grid) {
-        (grid as HTMLElement).style.animation = 'fadeIn 0.6s ease-out forwards';
-      }
-    }, 2700);
-    
-    // Show items with stagger starting at 3s
-    items.forEach((item, index) => {
-      setTimeout(() => {
-        (item as HTMLElement).style.animation = 'fadeIn 0.5s ease-out forwards';
-      }, 3000 + (index * 100));
-    });
-
     const searchInput = document.getElementById('blogSearch') as HTMLInputElement | null;
     const filterButtons = document.querySelectorAll('.filter-btn');
-    const blogItems = Array.from(document.querySelectorAll('.blog-item')) as HTMLAnchorElement[];
+    const items = Array.from(document.querySelectorAll('.blog-item')) as HTMLAnchorElement[];
     let activeCategory = 'all';
 
     function normalize(str: string | null | undefined): string {
@@ -147,14 +69,14 @@ const Posts = await getPosts();
 
     function applyFilters() {
       const q = normalize(searchInput?.value || '');
-      blogItems.forEach((el) => {
+      items.forEach((el) => {
         const title = normalize(el.getAttribute('data-title'));
         const desc = normalize(el.getAttribute('data-desc'));
         const cat = normalize(el.getAttribute('data-category'));
         const tag = normalize(el.getAttribute('data-tag'));
         const matchesText = !q || title.includes(q) || desc.includes(q) || tag.includes(q) || cat.includes(q);
         const matchesCat = activeCategory === 'all' || cat === normalize(activeCategory);
-        (el as HTMLElement).style.display = matchesText && matchesCat ? '' : 'none';
+        el.style.display = matchesText && matchesCat ? '' : 'none';
       });
     }
 

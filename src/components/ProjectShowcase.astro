@@ -2,45 +2,89 @@
 const { title, description, image, technologies, link } = Astro.props;
 ---
 
-<div class="project-showcase-card rounded-xl overflow-hidden bg-[#111] border border-gray-800 hover:shadow-xl transition-all duration-300 h-full">
-  <a href={link} target="_blank" class="block h-full group">
-    <div class="relative">
+<div class="project-card group relative rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black border border-gray-800 hover:border-green-500/50 transition-all duration-500 h-full">
+  <a href={link} target="_blank" rel="noopener noreferrer" class="block h-full">
+    <!-- Image Container with Overlay -->
+    <div class="relative overflow-hidden h-64 sm:h-72 md:h-80">
       <img 
         src={image} 
         alt={title} 
-        class="w-full h-48 sm:h-52 md:h-48 object-cover group-hover:scale-105 transition-transform duration-300" 
+        class="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-75" 
         loading="lazy" 
         sizes="(max-width: 768px) 100vw, 50vw" 
       />
+      
+      <!-- Gradient Overlay -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+      
+      <!-- Hover Icon -->
+      <div class="absolute top-4 right-4 w-12 h-12 bg-green-500/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-green-500/30 opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-500">
+        <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+        </svg>
+      </div>
+      
+      <!-- Animated Border Effect -->
+      <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+      </div>
     </div>
     
-    <div class="p-4 sm:p-5 flex flex-col flex-grow">
-      <h3 class="text-lg sm:text-xl font-semibold text-white mb-2 line-clamp-2">{title}</h3>
-      <p class="text-sm text-gray-400 mb-3 flex-grow line-clamp-3">{description}</p>
+    <!-- Content Section -->
+    <div class="p-6 sm:p-8 flex flex-col flex-grow relative">
+      <!-- Title -->
+      <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 group-hover:text-green-300 transition-colors duration-300 leading-tight">
+        {title}
+      </h3>
+      
+      <!-- Animated Underline -->
+      <div class="w-16 h-1 bg-gradient-to-r from-green-400 to-green-500 rounded-full mb-4 group-hover:w-24 transition-all duration-500"></div>
+      
+      <!-- Description -->
+      <p class="text-sm sm:text-base text-gray-400 mb-6 flex-grow leading-relaxed group-hover:text-gray-300 transition-colors duration-300 line-clamp-3">
+        {description}
+      </p>
 
+      <!-- Technologies -->
       <div class="flex flex-wrap gap-2 mt-auto">
-        {technologies.map((tech: unknown) => (
-          <span class="text-xs bg-gray-700 text-white px-2 py-1 rounded-md hover:bg-gray-600 transition-colors">
-            {tech}
+        {technologies.map((tech: string) => (
+          <span class="tech-tag relative px-3 py-1.5 text-xs sm:text-sm font-medium text-green-300 bg-green-500/10 rounded-lg border border-green-500/30 hover:bg-green-500/20 hover:border-green-500/50 transition-all duration-300 overflow-hidden group/tag">
+            <span class="relative z-10">{tech}</span>
+            <span class="absolute inset-0 bg-green-500/10 transform scale-x-0 group-hover/tag:scale-x-100 transition-transform duration-300 origin-left"></span>
           </span>
         ))}
       </div>
+      
+      <!-- View Project Button -->
+      <!-- <div class="mt-6 pt-6 border-t border-gray-800 group-hover:border-green-500/30 transition-colors duration-500">
+        <div class="flex items-center justify-between text-green-400 group-hover:text-green-300 transition-colors duration-300">
+          <span class="text-sm font-semibold">View Project</span>
+          <svg class="w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </div>
+      </div> -->
     </div>
+    
+    <!-- Decorative Corner Element -->
+    <div class="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-green-500/5 to-transparent rounded-tl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+    
+    <!-- Glow Effect on Hover -->
+    <div class="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style="box-shadow: inset 0 0 60px rgba(134, 239, 172, 0.1);"></div>
   </a>
 </div>
 
 <style>
-  .project-showcase-card {
+  .project-card {
     display: flex;
     flex-direction: column;
-    min-height: 320px;
+    min-height: 500px;
+    transform-style: preserve-3d;
   }
-
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  
+  .project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(134, 239, 172, 0.2);
   }
 
   .line-clamp-3 {
@@ -50,20 +94,41 @@ const { title, description, image, technologies, link } = Astro.props;
     overflow: hidden;
   }
 
+  /* Smooth animations */
+  @media (prefers-reduced-motion: reduce) {
+    .project-card,
+    .project-card * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
   /* Mobile optimizations */
   @media (max-width: 640px) {
-    .project-showcase-card {
-      min-height: 280px;
+    .project-card {
+      min-height: 450px;
     }
   }
 
   @media (max-width: 480px) {
-    .project-showcase-card {
-      min-height: 260px;
+    .project-card {
+      min-height: 420px;
     }
-    
-    .line-clamp-3 {
-      -webkit-line-clamp: 2;
-    }
+  }
+
+  /* Tech tag shine effect */
+  .tech-tag::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(134, 239, 172, 0.3), transparent);
+    transition: left 0.5s;
+  }
+
+  .tech-tag:hover::before {
+    left: 100%;
   }
 </style>
