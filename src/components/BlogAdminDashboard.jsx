@@ -1,250 +1,404 @@
-import React, { useState, useEffect } from 'react';
-import { PlusCircle, Trash2, Edit, Save, X, AlertCircle, FileText, Calendar, Tag, Image, Type, Hash, Upload, Link2, ImagePlus } from 'lucide-react';
-import { collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, serverTimestamp, query, orderBy } from 'firebase/firestore';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { 
+  PlusCircle, Trash2, Edit, Save, X, AlertCircle, 
+  FileText, Calendar, Tag, Image, Type, Hash, 
+  Upload, Link2, ImagePlus, Loader, Check, Eye
+} from 'lucide-react';
+import { 
+  collection, addDoc, updateDoc, deleteDoc, doc, 
+  onSnapshot, serverTimestamp, query, orderBy 
+} from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
+// ============================================================================
+// CONSTANTS & CONFIGURATION
+// ============================================================================
+const CONSTANTS = {
+  COLLECTION_NAME: 'post',
+  MAX_FILE_SIZE: 5 * 1024 * 1024,
+  ALLOWED_IMAGE_TYPES: ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'],
+  MESSAGE_TIMEOUT: 3000,
+  IMGBB_API_KEY: import.meta.env.PUBLIC_IMGBB_API_KEY || 'demo_key'
+};
+
+const INITIAL_FORM_STATE = {
+  title: '',
+  content: '',
+  description: '',
+  image: '',
+  date: new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long' }),
+  slug: '',
+  tag: '',
+  category: ''
+};
+
+// ============================================================================
+// UTILITY FUNCTIONS
+// ============================================================================
+class BlogUtils {
+  static generateSlug(title) {
+    return title
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+  }
+
+  static validateImageFile(file) {
+    if (!file) throw new Error('No file selected');
+    if (!CONSTANTS.ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      throw new Error('Invalid file type. Please upload JPG, PNG, GIF, WEBP, or SVG');
+    }
+    if (file.size > CONSTANTS.MAX_FILE_SIZE) {
+      throw new Error(`File size must be less than ${CONSTANTS.MAX_FILE_SIZE / (1024 * 1024)}MB`);
+    }
+    return true;
+  }
+
+  static validateFormData(formData) {
+    const errors = [];
+    if (!formData.title?.trim()) errors.push('Title is required');
+    if (!formData.content?.trim()) errors.push('Content is required');
+    if (!formData.description?.trim()) errors.push('Description is required');
+    if (!formData.image?.trim()) errors.push('Cover image is required');
+    if (!formData.slug?.trim()) errors.push('Slug is required');
+    return { isValid: errors.length === 0, errors };
+  }
+
+  static async uploadToImgBB(file) {
+    if (!CONSTANTS.IMGBB_API_KEY || CONSTANTS.IMGBB_API_KEY === 'demo_key') {
+      return new Promise((resolve) => {
+        setTimeout(() => resolve('https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800'), 1500);
+      });
+    }
+
+    const formData = new FormData();
+    formData.append('image', file);
+    const response = await fetch(`https://api.imgbb.com/1/upload?key=${CONSTANTS.IMGBB_API_KEY}`, {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!response.ok) throw new Error(`Upload failed with status: ${response.status}`);
+    const data = await response.json();
+    if (!data.success) throw new Error(data.error?.message || 'Upload failed');
+    return data.data.url;
+  }
+
+  static insertTextAtCursor(textarea, text) {
+    if (!textarea) return '';
+    const start = textarea.selectionStart || 0;
+    const end = textarea.selectionEnd || 0;
+    const currentValue = textarea.value || '';
+    const before = currentValue.substring(0, start);
+    const after = currentValue.substring(end);
+    return {
+      newValue: before + text + after,
+      newCursorPosition: start + text.length
+    };
+  }
+
+  static parseContent(text) {
+    const lines = text.split('\n');
+    const parsed = [];
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (trimmed.match(/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp|svg)$/i)) {
+        parsed.push({ type: 'image', url: trimmed });
+      } else if (trimmed.match(/^!\[.*?\]\(.+?\)$/)) {
+        const match = trimmed.match(/!\[(.*?)\]\((.+?)\)/);
+        if (match) parsed.push({ type: 'image', url: match[2], alt: match[1] });
+      } else if (trimmed) {
+        parsed.push({ type: 'text', content: trimmed });
+      }
+    }
+    return parsed;
+  }
+}
+
+// ============================================================================
+// PREVIEW COMPONENT
+// ============================================================================
+const BlogPreview = ({ formData, onClose }) => {
+  const parsedContent = BlogUtils.parseContent(formData.content);
+  
+  return (
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/95 backdrop-blur-sm">
+      <div className="min-h-screen px-4 py-8">
+        <button onClick={onClose} className="fixed top-4 right-4 z-50 p-3 bg-gray-800 hover:bg-gray-700 rounded-full text-white transition-all shadow-lg">
+          <X size={24} />
+        </button>
+
+        <div className="max-w-4xl mx-auto mb-8">
+          <div className="bg-yellow-500/20 border border-yellow-500/50 rounded-lg p-4 flex items-center gap-3">
+            <Eye className="text-yellow-400 flex-shrink-0" size={20} />
+            <div>
+              <p className="text-yellow-200 font-semibold">Preview Mode</p>
+              <p className="text-yellow-300/80 text-sm">This is how your blog post will appear to readers</p>
+            </div>
+          </div>
+        </div>
+
+        <article className="max-w-4xl mx-auto bg-black border border-gray-800 rounded-xl overflow-hidden">
+          <div className="px-4 sm:px-6 py-12 sm:py-20">
+            <header className="mb-8 sm:mb-12">
+              <div className="flex flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-6">
+                {formData.tag && (
+                  <span className="bg-green-500/20 text-green-300 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium border border-green-500/30">
+                    {formData.tag}
+                  </span>
+                )}
+                {formData.category && (
+                  <span className="bg-blue-500/20 text-blue-300 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium border border-blue-500/30">
+                    {formData.category}
+                  </span>
+                )}
+              </div>
+              
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight tracking-tight">
+                {formData.title || 'Untitled Post'}
+              </h1>
+              
+              <div className="flex flex-wrap items-center gap-4 text-gray-400 text-sm sm:text-base border-t border-gray-800 pt-4 sm:pt-6">
+                <time className="flex items-center gap-2">
+                  <Calendar size={16} />
+                  {formData.date}
+                </time>
+                <span className="text-gray-600">•</span>
+                <span className="flex items-center gap-2">
+                  <FileText size={16} />
+                  {Math.ceil(formData.content.split(' ').length / 200)} min read
+                </span>
+              </div>
+            </header>
+
+            {formData.image && (
+              <div className="mb-12 sm:mb-16 rounded-xl overflow-hidden bg-gray-900 shadow-2xl">
+                <img src={formData.image} alt={formData.title} className="w-full h-auto object-cover" />
+              </div>
+            )}
+
+            {formData.description && (
+              <div className="mb-8 p-6 bg-gray-900/50 border-l-4 border-green-500 rounded-r-lg">
+                <p className="text-gray-300 text-lg leading-relaxed italic">{formData.description}</p>
+              </div>
+            )}
+
+            <div className="prose-custom space-y-6">
+              {parsedContent.length > 0 ? (
+                parsedContent.map((item, index) => (
+                  item.type === 'image' ? (
+                    <figure key={index} className="my-8 sm:my-12">
+                      <img src={item.url} alt={item.alt || 'Blog content image'} className="w-full h-auto rounded-xl object-cover shadow-lg" />
+                      {item.alt && <figcaption className="text-center text-gray-400 text-sm mt-3">{item.alt}</figcaption>}
+                    </figure>
+                  ) : (
+                    <p key={index} className="text-gray-300 text-lg leading-relaxed">{item.content}</p>
+                  )
+                ))
+              ) : (
+                <p className="text-gray-400 italic">No content yet. Start writing to see your blog post preview.</p>
+              )}
+            </div>
+          </div>
+        </article>
+
+        <div className="max-w-4xl mx-auto mt-8 p-4 bg-gray-900 rounded-lg border border-gray-800 flex justify-between items-center">
+          <p className="text-gray-400 text-sm">End of preview</p>
+          <button onClick={onClose} className="px-6 py-2 bg-green-500 hover:bg-green-600 text-black font-semibold rounded-lg transition-colors">
+            Close Preview
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ============================================================================
+// CUSTOM HOOKS
+// ============================================================================
+const useAutoHideMessage = (delay = CONSTANTS.MESSAGE_TIMEOUT) => {
+  const timeoutRef = useRef(null);
+
+  const setMessage = useCallback((setter, message) => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setter(message);
+    if (message) {
+      timeoutRef.current = setTimeout(() => setter(''), delay);
+    }
+  }, [delay]);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
+  return setMessage;
+};
+
+// ============================================================================
+// MAIN COMPONENT
+// ============================================================================
 export default function BlogAdminDashboard() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [uploadMethod, setUploadMethod] = useState('url');
   const [uploading, setUploading] = useState(false);
-  const [imagePreview, setImagePreview] = useState('');
-  const [formData, setFormData] = useState({
-    title: '',
-    content: '',
-    description: '',
-    image: '',
-    date: new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long' }),
-    slug: '',
-    tag: '',
-    category: ''
-  });
+  const [saving, setSaving] = useState(false);
+  const [formData, setFormData] = useState(INITIAL_FORM_STATE);
+  
+  const contentTextareaRef = useRef(null);
+  const setAutoHideSuccess = useAutoHideMessage();
+  const setAutoHideError = useAutoHideMessage();
 
-  // 🔥 Real-time listener - this is the key change!
   useEffect(() => {
-    console.log('Setting up real-time listener...');
-    
-    // Create query with ordering (optional)
-    const blogsCollection = collection(db, 'post');
-    let q;
+    console.log('🔥 Initializing Firebase listener...');
+    const blogsCollection = collection(db, CONSTANTS.COLLECTION_NAME);
+    let queryRef;
     
     try {
-      // Try to order by createdAt
-      q = query(blogsCollection, orderBy('createdAt', 'desc'));
+      queryRef = query(blogsCollection, orderBy('createdAt', 'desc'));
     } catch (err) {
-      // If ordering fails, just use the collection without ordering
-      console.log('Ordering by createdAt failed, using unordered collection');
-      q = blogsCollection;
+      console.warn('⚠️ Ordered query failed, using unordered collection:', err.message);
+      queryRef = blogsCollection;
     }
 
-    // Set up real-time listener
     const unsubscribe = onSnapshot(
-      q,
+      queryRef,
       (snapshot) => {
-        console.log('📡 Real-time update received! Document count:', snapshot.size);
-        
-        const blogsList = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        
+        console.log(`✅ Loaded ${snapshot.size} blog posts`);
+        const blogsList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setBlogs(blogsList);
         setLoading(false);
         setError('');
       },
       (err) => {
-        console.error('Error in real-time listener:', err);
-        setError('Failed to load blogs. Please check your Firebase connection.');
+        console.error('❌ Firebase listener error:', err);
+        setAutoHideError(setError, 'Failed to load blogs. Please check your Firebase connection.');
         setLoading(false);
       }
     );
 
-    // Cleanup listener on unmount
     return () => {
-      console.log('Cleaning up real-time listener...');
+      console.log('🧹 Cleaning up Firebase listener');
       unsubscribe();
     };
-  }, []); // Empty dependency array - set up once on mount
+  }, [setAutoHideError]);
 
-  const generateSlug = (title) => {
-    return title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '');
-  };
-
-  const handleInputChange = (field, value) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value,
-      ...(field === 'title' ? { slug: generateSlug(value) } : {})
-    }));
-    
-    if (field === 'image' && value) {
-      setImagePreview(value);
-    }
-  };
-
-  const handleImageUploadToImgbb = async (file) => {
-    const IMGBB_API_KEY = import.meta.env.PUBLIC_IMGBB_API_KEY;
-    
-    if (!IMGBB_API_KEY) {
-      setError('ImgBB API key not configured. Please add PUBLIC_IMGBB_API_KEY to your .env file or use direct URL method.');
-      return null;
-    }
-
-    const formData = new FormData();
-    formData.append('image', file);
-
-    try {
-      const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-        method: 'POST',
-        body: formData
-      });
-
-      const data = await response.json();
-      
-      if (data.success) {
-        return data.data.url;
-      } else {
-        throw new Error(data.error.message || 'Upload failed');
+  const handleInputChange = useCallback((field, value) => {
+    setFormData(prev => {
+      const updates = { [field]: value };
+      if (field === 'title') {
+        updates.slug = BlogUtils.generateSlug(value);
       }
-    } catch (err) {
-      console.error('ImgBB upload error:', err);
-      throw err;
-    }
-  };
+      return { ...prev, ...updates };
+    });
+  }, []);
 
-  const handleFileSelect = async (e) => {
-    const file = e.target.files[0];
+  const resetForm = useCallback(() => {
+    setFormData(INITIAL_FORM_STATE);
+    setEditingId(null);
+    setUploadMethod('url');
+    setError('');
+    setSuccess('');
+  }, []);
+
+  const openEditForm = useCallback((blog) => {
+    setFormData({
+      title: blog.title || '',
+      content: blog.content || '',
+      description: blog.description || '',
+      image: blog.image || '',
+      date: blog.date || '',
+      slug: blog.slug || '',
+      tag: blog.tag || '',
+      category: blog.category || ''
+    });
+    setEditingId(blog.id);
+    setShowForm(true);
+    setError('');
+    setSuccess('');
+  }, []);
+
+  const toggleForm = useCallback(() => {
+    if (showForm) resetForm();
+    setShowForm(prev => !prev);
+  }, [showForm, resetForm]);
+
+  const handleCoverImageUpload = useCallback(async (e) => {
+    const file = e.target.files?.[0];
     if (!file) return;
-
-    if (!file.type.startsWith('image/')) {
-      setError('Please select an image file (jpg, png, gif, etc.)');
-      return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      setError('Image size should be less than 5MB');
-      return;
-    }
 
     try {
       setUploading(true);
       setError('');
-
-      const imageUrl = await handleImageUploadToImgbb(file);
-      
-      if (imageUrl) {
-        setFormData(prev => ({ ...prev, image: imageUrl }));
-        setImagePreview(imageUrl);
-        setSuccess('Image uploaded successfully!');
-        setTimeout(() => setSuccess(''), 3000);
-      }
+      BlogUtils.validateImageFile(file);
+      const imageUrl = await BlogUtils.uploadToImgBB(file);
+      setFormData(prev => ({ ...prev, image: imageUrl }));
+      setAutoHideSuccess(setSuccess, '✅ Cover image uploaded successfully!');
     } catch (err) {
-      setError(`Failed to upload image: ${err.message}. Try using direct URL method instead.`);
-    } finally {
-      setUploading(false);
-    }
-  };
-
-  const handleRemoveImage = () => {
-    setFormData(prev => ({ ...prev, image: '' }));
-    setImagePreview('');
-  };
-
-  const insertImageAtCursor = (imageUrl) => {
-    const textarea = document.getElementById('contentTextarea');
-    if (!textarea) return;
-
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const text = formData.content;
-    const before = text.substring(0, start);
-    const after = text.substring(end);
-    
-    const imageText = `\n${imageUrl}\n`;
-    const newContent = before + imageText + after;
-    
-    setFormData(prev => ({ ...prev, content: newContent }));
-    
-    setTimeout(() => {
-      textarea.focus();
-      const newPosition = start + imageText.length;
-      textarea.setSelectionRange(newPosition, newPosition);
-    }, 0);
-  };
-
-  const handleContentImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    if (!file.type.startsWith('image/')) {
-      setError('Please select an image file');
-      return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      setError('Image size should be less than 5MB');
-      return;
-    }
-
-    try {
-      setUploading(true);
-      setError('');
-
-      const imageUrl = await handleImageUploadToImgbb(file);
-      
-      if (imageUrl) {
-        insertImageAtCursor(imageUrl);
-        setSuccess('Image inserted into content!');
-        setTimeout(() => setSuccess(''), 3000);
-      }
-    } catch (err) {
-      setError(`Failed to upload image: ${err.message}`);
+      console.error('❌ Cover image upload error:', err);
+      setAutoHideError(setError, `Upload failed: ${err.message}`);
     } finally {
       setUploading(false);
       e.target.value = '';
     }
-  };
+  }, [setAutoHideSuccess, setAutoHideError]);
 
-  const validateForm = () => {
-    if (!formData.title.trim()) {
-      setError('Title is required');
-      return false;
-    }
-    if (!formData.content.trim()) {
-      setError('Content is required');
-      return false;
-    }
-    if (!formData.description.trim()) {
-      setError('Description is required');
-      return false;
-    }
-    if (!formData.image.trim()) {
-      setError('Cover image is required');
-      return false;
-    }
-    if (!formData.slug.trim()) {
-      setError('Slug is required');
-      return false;
-    }
-    return true;
-  };
-
-  const handleSubmit = async () => {
-    setError('');
-    setSuccess('');
-
-    if (!validateForm()) {
-      return;
-    }
+  const handleContentImageUpload = useCallback(async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
 
     try {
+      setUploading(true);
+      setError('');
+      BlogUtils.validateImageFile(file);
+      const imageUrl = await BlogUtils.uploadToImgBB(file);
+      
+      const textarea = contentTextareaRef.current;
+      if (textarea) {
+        const { newValue, newCursorPosition } = BlogUtils.insertTextAtCursor(textarea, `\n${imageUrl}\n`);
+        setFormData(prev => ({ ...prev, content: newValue }));
+        setTimeout(() => {
+          textarea.focus();
+          textarea.setSelectionRange(newCursorPosition, newCursorPosition);
+        }, 0);
+      }
+      
+      setAutoHideSuccess(setSuccess, '✅ Image inserted into content!');
+    } catch (err) {
+      console.error('❌ Content image upload error:', err);
+      setAutoHideError(setError, `Upload failed: ${err.message}`);
+    } finally {
+      setUploading(false);
+      e.target.value = '';
+    }
+  }, [setAutoHideSuccess, setAutoHideError]);
+
+  const handleRemoveImage = useCallback(() => {
+    setFormData(prev => ({ ...prev, image: '' }));
+  }, []);
+
+  const handleSubmit = useCallback(async () => {
+    try {
+      setSaving(true);
+      setError('');
+      setSuccess('');
+
+      const validation = BlogUtils.validateFormData(formData);
+      if (!validation.isValid) {
+        setAutoHideError(setError, validation.errors.join(', '));
+        return;
+      }
+
       const blogData = {
         title: formData.title.trim(),
         content: formData.content.trim(),
@@ -259,83 +413,44 @@ export default function BlogAdminDashboard() {
       };
 
       if (editingId) {
-        const blogRef = doc(db, 'post', editingId);
+        const blogRef = doc(db, CONSTANTS.COLLECTION_NAME, editingId);
         await updateDoc(blogRef, blogData);
-        setSuccess('✅ Blog post updated successfully! (Real-time update)');
+        setAutoHideSuccess(setSuccess, '✅ Blog post updated successfully!');
       } else {
         blogData.createdAt = serverTimestamp();
-        await addDoc(collection(db, 'post'), blogData);
-        setSuccess('✅ Blog post published successfully! (Real-time update)');
+        await addDoc(collection(db, CONSTANTS.COLLECTION_NAME), blogData);
+        setAutoHideSuccess(setSuccess, '✅ Blog post published successfully!');
       }
 
-      // No need to manually fetch blogs - the real-time listener will update automatically!
       resetForm();
       setShowForm(false);
+      
     } catch (err) {
-      console.error('Error saving blog:', err);
-      setError(`Failed to save blog post: ${err.message}`);
+      console.error('❌ Save error:', err);
+      setAutoHideError(setError, `Failed to save: ${err.message}`);
+    } finally {
+      setSaving(false);
     }
-  };
+  }, [formData, editingId, resetForm, setAutoHideSuccess, setAutoHideError]);
 
-  const handleEdit = (blog) => {
-    setFormData({
-      title: blog.title || '',
-      content: blog.content || '',
-      description: blog.description || '',
-      image: blog.image || '',
-      date: blog.date || '',
-      slug: blog.slug || '',
-      tag: blog.tag || '',
-      category: blog.category || ''
-    });
-    setImagePreview(blog.image || '');
-    setEditingId(blog.id);
-    setShowForm(true);
-    setError('');
-    setSuccess('');
-  };
-
-  const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this blog post?')) {
+  const handleDelete = useCallback(async (id) => {
+    if (!window.confirm('⚠️ Are you sure you want to delete this blog post? This action cannot be undone.')) {
       return;
     }
 
     try {
-      await deleteDoc(doc(db, 'post', id));
-      setSuccess('✅ Blog post deleted successfully! (Real-time update)');
-      // No need to manually fetch blogs - the real-time listener will update automatically!
+      await deleteDoc(doc(db, CONSTANTS.COLLECTION_NAME, id));
+      setAutoHideSuccess(setSuccess, '✅ Blog post deleted successfully!');
     } catch (err) {
-      console.error('Error deleting blog:', err);
-      setError(`Failed to delete blog post: ${err.message}`);
+      console.error('❌ Delete error:', err);
+      setAutoHideError(setError, `Failed to delete: ${err.message}`);
     }
-  };
-
-  const resetForm = () => {
-    setFormData({
-      title: '',
-      content: '',
-      description: '',
-      image: '',
-      date: new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long' }),
-      slug: '',
-      tag: '',
-      category: ''
-    });
-    setImagePreview('');
-    setEditingId(null);
-    setError('');
-    setUploadMethod('url');
-  };
-
-  const cancelEdit = () => {
-    resetForm();
-    setShowForm(false);
-    setSuccess('');
-  };
+  }, [setAutoHideSuccess, setAutoHideError]);
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Rest of your JSX remains exactly the same... */}
+      {showPreview && <BlogPreview formData={formData} onClose={() => setShowPreview(false)} />}
+
       <section className="relative w-full h-[300px] flex flex-col items-center justify-center bg-black text-white">
         <div className="absolute inset-0 z-0 bg-gradient-to-br from-green-500/5 via-transparent to-green-400/5"></div>
         
@@ -348,11 +463,9 @@ export default function BlogAdminDashboard() {
           </p>
           
           <button
-            onClick={() => {
-              setShowForm(!showForm);
-              if (showForm) resetForm();
-            }}
-            className="group relative inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-white font-semibold rounded-full bg-green-500 hover:bg-green-600 shadow-lg transition-all duration-300 overflow-hidden text-sm sm:text-base"
+            onClick={toggleForm}
+            disabled={saving || uploading}
+            className="group relative inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-white font-semibold rounded-full bg-green-500 hover:bg-green-600 shadow-lg transition-all duration-300 overflow-hidden text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <span className="relative z-10 flex items-center gap-2">
               {showForm ? <X size={20} /> : <PlusCircle size={20} />}
@@ -365,8 +478,8 @@ export default function BlogAdminDashboard() {
       <div className="max-w-7xl mx-auto px-6 py-20">
         {success && (
           <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4 mb-6 flex items-start gap-3">
-            <AlertCircle className="text-green-400 flex-shrink-0 mt-0.5" size={20} />
-            <p className="text-green-200">{success}</p>
+            <Check className="text-green-400 flex-shrink-0 mt-0.5" size={20} />
+            <p className="text-green-200 flex-1">{success}</p>
             <button onClick={() => setSuccess('')} className="ml-auto text-green-400 hover:text-green-300">
               <X size={18} />
             </button>
@@ -376,140 +489,392 @@ export default function BlogAdminDashboard() {
         {error && (
           <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 mb-6 flex items-start gap-3">
             <AlertCircle className="text-red-400 flex-shrink-0 mt-0.5" size={20} />
-            <p className="text-red-200">{error}</p>
+            <p className="text-red-200 flex-1">{error}</p>
             <button onClick={() => setError('')} className="ml-auto text-red-400 hover:text-red-300">
               <X size={18} />
             </button>
           </div>
         )}
 
-        {/* Form section - keeping your existing form code */}
         {showForm && (
           <div className="bg-black/80 backdrop-blur-lg rounded-xl p-8 mb-8 border border-green-500/20 shadow-2xl">
-            {/* Your existing form JSX here - I'm keeping it as is */}
-            <div className="flex items-center gap-3 mb-8">
-              <div className="p-2 bg-green-500/20 rounded-lg">
-                <FileText className="text-green-400" size={24} />
+            <div className="flex items-center justify-between mb-8">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-green-500/20 rounded-lg">
+                  <FileText className="text-green-400" size={24} />
+                </div>
+                <h2 className="text-3xl font-bold text-white">
+                  {editingId ? 'Edit Post' : 'Create New Post'}
+                </h2>
               </div>
-              <h2 className="text-3xl font-bold text-white">
-                {editingId ? 'Edit Post' : 'Create New Post'}
-              </h2>
+              
+              <button
+                onClick={() => setShowPreview(true)}
+                className="flex items-center gap-2 px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 rounded-lg transition-all font-medium"
+              >
+                <Eye size={18} />
+                Preview
+              </button>
             </div>
-            {/* Rest of your form... */}
+
+            <div className="space-y-6">
+              <div>
+                <label className="flex items-center gap-2 text-sm font-semibold text-white mb-2">
+                  <Type size={16} />
+                  Title *
+                </label>
+                <input
+                  type="text"
+                  value={formData.title}
+                  onChange={(e) => handleInputChange('title', e.target.value)}
+                  placeholder="Enter an engaging title..."
+                  className="w-full px-4 py-3 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all text-white placeholder-gray-400"
+                  disabled={saving || uploading}
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="flex items-center gap-2 text-sm font-semibold text-white mb-2">
+                  <Hash size={16} />
+                  Slug (URL-friendly)
+                </label>
+                <input
+                  type="text"
+                  value={formData.slug}
+                  onChange={(e) => handleInputChange('slug', e.target.value)}
+                  placeholder="auto-generated-from-title"
+                  className="w-full px-4 py-3 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all text-white placeholder-gray-400 font-mono text-sm"
+                  disabled={saving || uploading}
+                />
+                <p className="text-xs text-gray-400 mt-1">
+                  Auto-generated from title. Customize if needed.
+                </p>
+              </div>
+
+              <div>
+                <label className="flex items-center gap-2 text-sm font-semibold text-white mb-2">
+                  <FileText size={16} />
+                  Description *
+                </label>
+                <textarea
+                  value={formData.description}
+                  onChange={(e) => handleInputChange('description', e.target.value)}
+                  placeholder="Write a compelling description..."
+                  rows={3}
+                  className="w-full px-4 py-3 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all text-white placeholder-gray-400 resize-none"
+                  disabled={saving || uploading}
+                  required
+                />
+                <p className="text-xs text-gray-400 mt-1">
+                  {formData.description.length} characters
+                </p>
+              </div>
+
+              <div>
+                <label className="flex items-center gap-2 text-sm font-semibold text-white mb-2">
+                  <Image size={16} />
+                  Cover Image *
+                </label>
+                
+                <div className="flex gap-2 mb-3">
+                  <button
+                    type="button"
+                    onClick={() => setUploadMethod('url')}
+                    disabled={saving || uploading}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all disabled:opacity-50 ${
+                      uploadMethod === 'url'
+                        ? 'bg-green-500 text-black'
+                        : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                    }`}
+                  >
+                    <Link2 size={14} className="inline mr-1" />
+                    Image URL
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setUploadMethod('upload')}
+                    disabled={saving || uploading}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all disabled:opacity-50 ${
+                      uploadMethod === 'upload'
+                        ? 'bg-green-500 text-black'
+                        : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                    }`}
+                  >
+                    <Upload size={14} className="inline mr-1" />
+                    Upload File
+                  </button>
+                </div>
+
+                {uploadMethod === 'url' ? (
+                  <input
+                    type="url"
+                    value={formData.image}
+                    onChange={(e) => handleInputChange('image', e.target.value)}
+                    placeholder="https://example.com/image.jpg"
+                    className="w-full px-4 py-3 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all text-white placeholder-gray-400"
+                    disabled={saving || uploading}
+                    required
+                  />
+                ) : (
+                  <div>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleCoverImageUpload}
+                      className="w-full px-4 py-3 bg-black/50 border border-gray-700 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-500 file:text-black hover:file:bg-green-600 file:cursor-pointer disabled:opacity-50"
+                      disabled={uploading || saving}
+                    />
+                    <p className="text-xs text-gray-400 mt-1">
+                      {uploading ? 'Uploading...' : 'Max 5MB. Supports JPG, PNG, GIF, WEBP, SVG.'}
+                    </p>
+                  </div>
+                )}
+
+                {formData.image && (
+                  <div className="mt-4 relative">
+                    <img 
+                      src={formData.image} 
+                      alt="Cover preview" 
+                      className="w-full h-48 object-cover rounded-lg"
+                    />
+                    <button
+                      onClick={handleRemoveImage}
+                      className="absolute top-2 right-2 p-2 bg-red-500 hover:bg-red-600 rounded-full text-white"
+                    >
+                      <X size={16} />
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="flex items-center gap-2 text-sm font-semibold text-white">
+                    <FileText size={16} />
+                    Content *
+                  </label>
+                  <div className="flex gap-2">
+                    <label className="flex items-center gap-2 px-3 py-1.5 bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 rounded-lg cursor-pointer text-sm font-medium transition-all">
+                      <ImagePlus size={14} />
+                      Add Image
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleContentImageUpload}
+                        className="hidden"
+                        disabled={uploading || saving}
+                      />
+                    </label>
+                  </div>
+                </div>
+                <textarea
+                  ref={contentTextareaRef}
+                  value={formData.content}
+                  onChange={(e) => handleInputChange('content', e.target.value)}
+                  placeholder="Write your blog content here. Add image URLs on separate lines or use markdown format: ![alt text](image-url)"
+                  rows={15}
+                  className="w-full px-4 py-3 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all text-white placeholder-gray-400 resize-none font-mono text-sm"
+                  disabled={saving || uploading}
+                />
+                <p className="text-xs text-gray-400 mt-1">
+                  {formData.content.split(' ').filter(w => w).length} words • {formData.content.length} characters
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                  <label className="flex items-center gap-2 text-sm font-semibold text-white mb-2">
+                    <Calendar size={16} />
+                    Date
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.date}
+                    onChange={(e) => handleInputChange('date', e.target.value)}
+                    placeholder="e.g., 15 November"
+                    className="w-full px-4 py-3 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all text-white placeholder-gray-400"
+                    disabled={saving || uploading}
+                  />
+                </div>
+
+                <div>
+                  <label className="flex items-center gap-2 text-sm font-semibold text-white mb-2">
+                    <Tag size={16} />
+                    Tag
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.tag}
+                    onChange={(e) => handleInputChange('tag', e.target.value)}
+                    placeholder="e.g., Technology"
+                    className="w-full px-4 py-3 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all text-white placeholder-gray-400"
+                    disabled={saving || uploading}
+                  />
+                </div>
+
+                <div>
+                  <label className="flex items-center gap-2 text-sm font-semibold text-white mb-2">
+                    <Hash size={16} />
+                    Category
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.category}
+                    onChange={(e) => handleInputChange('category', e.target.value)}
+                    placeholder="e.g., Tutorial"
+                    className="w-full px-4 py-3 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all text-white placeholder-gray-400"
+                    disabled={saving || uploading}
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-4 pt-6 border-t border-gray-700">
+                <button
+                  onClick={handleSubmit}
+                  disabled={saving || uploading}
+                  className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-black font-semibold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {saving ? (
+                    <>
+                      <Loader className="animate-spin" size={20} />
+                      Saving...
+                    </>
+                  ) : (
+                    <>
+                      <Save size={20} />
+                      {editingId ? 'Update Post' : 'Publish Post'}
+                    </>
+                  )}
+                </button>
+                <button
+                  onClick={toggleForm}
+                  disabled={saving || uploading}
+                  className="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-lg transition-all disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
           </div>
         )}
 
-        {/* Blog List */}
-        <div className="bg-black/80 backdrop-blur-lg rounded-xl border border-green-500/20 overflow-hidden shadow-2xl">
-          <div className="p-6 border-b border-green-500/20">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-green-500/20 rounded-lg">
-                <FileText className="text-green-400" size={24} />
-              </div>
-              <h2 className="text-3xl font-bold text-white">
-                Published Posts ({blogs.length}) 
-                <span className="text-sm text-green-400 ml-2">🔴 Live</span>
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-20">
+            <Loader className="animate-spin text-green-400 mb-4" size={48} />
+            <p className="text-gray-400">Loading blog posts...</p>
+          </div>
+        ) : blogs.length === 0 ? (
+          <div className="text-center py-20">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-800 mb-6">
+              <FileText className="text-gray-400" size={40} />
+            </div>
+            <h3 className="text-2xl font-bold text-white mb-3">No Blog Posts Yet</h3>
+            <p className="text-gray-400 mb-8">Create your first blog post to get started!</p>
+            <button
+              onClick={() => setShowForm(true)}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-black font-semibold rounded-lg transition-all"
+            >
+              <PlusCircle size={20} />
+              Create Your First Post
+            </button>
+          </div>
+        ) : (
+          <>
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-white">
+                All Posts <span className="text-gray-400 text-lg">({blogs.length})</span>
               </h2>
             </div>
-          </div>
-          
-          <div className="divide-y divide-green-500/10">
-            {loading ? (
-              <div className="p-12 text-center">
-                <div className="inline-flex items-center gap-3 text-gray-400">
-                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-green-500"></div>
-                  Loading blog posts...
-                </div>
-              </div>
-            ) : blogs.length === 0 ? (
-              <div className="p-12 text-center">
-                <div className="max-w-md mx-auto">
-                  <div className="p-4 bg-green-500/10 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                    <FileText className="text-green-400" size={32} />
-                  </div>
-                  <h3 className="text-xl font-semibold text-white mb-2">No blog posts yet</h3>
-                  <p className="text-gray-400 mb-6">Create your first blog post to get started!</p>
-                  <button
-                    onClick={() => setShowForm(true)}
-                    className="group relative inline-flex items-center justify-center px-6 py-3 text-white font-semibold rounded-full bg-green-500 hover:bg-green-600 shadow-lg transition-all duration-300 overflow-hidden"
-                  >
-                    <span className="relative z-10 flex items-center gap-2">
-                      <PlusCircle size={18} />
-                      Create First Post
-                    </span>
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className="grid gap-0">
-                {blogs.map(blog => (
-                  <div key={blog.id} className="p-6 hover:bg-green-500/5 transition-all duration-300 group">
-                    <div className="flex flex-col lg:flex-row gap-6">
-                      {blog.image && (
-                        <div className="lg:w-32 lg:h-32 w-full h-48 flex-shrink-0">
-                          <img 
-                            src={blog.image} 
-                            alt={blog.title}
-                            className="w-full h-full object-cover rounded-lg shadow-lg group-hover:shadow-green-500/20 transition-shadow duration-300"
-                          />
-                        </div>
-                      )}
-                      <div className="flex-1 min-w-0">
-                        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
-                          <div className="flex-1 min-w-0">
-                            <h3 className="text-xl font-bold text-white mb-3 group-hover:text-green-300 transition-colors duration-300">
-                              {blog.title}
-                            </h3>
-                            <p className="text-gray-300 mb-4 line-clamp-2 leading-relaxed">
-                              {blog.description}
-                            </p>
-                            <div className="flex flex-wrap gap-3 text-sm">
-                              <span className="flex items-center gap-1 text-gray-400">
-                                <Calendar size={14} />
-                                {blog.date}
-                              </span>
-                              <span className="flex items-center gap-1 text-gray-400">
-                                <Hash size={14} />
-                                /{blog.slug}
-                              </span>
-                              {blog.tag && (
-                                <span className="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-xs font-medium">
-                                  {blog.tag}
-                                </span>
-                              )}
-                              {blog.category && (
-                                <span className="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-medium">
-                                  {blog.category}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                          <div className="flex gap-2 flex-shrink-0">
-                            <button
-                              onClick={() => handleEdit(blog)}
-                              className="group/btn p-3 bg-green-500/20 hover:bg-green-500/30 text-green-400 hover:text-green-300 rounded-lg transition-all duration-300 border border-green-500/30 hover:border-green-500/50"
-                              title="Edit Post"
-                            >
-                              <Edit size={18} />
-                            </button>
-                            <button
-                              onClick={() => handleDelete(blog.id)}
-                              className="group/btn p-3 bg-red-500/20 hover:bg-red-500/30 text-red-400 hover:text-red-300 rounded-lg transition-all duration-300 border border-red-500/30 hover:border-red-500/50"
-                              title="Delete Post"
-                            >
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        </div>
+
+            <div className="grid gap-6">
+              {blogs.map((blog) => (
+                <div
+                  key={blog.id}
+                  className="bg-black/60 backdrop-blur-lg border border-gray-800 rounded-xl overflow-hidden hover:border-green-500/30 transition-all group"
+                >
+                  <div className="flex flex-col md:flex-row">
+                    {blog.image && (
+                      <div className="md:w-64 h-48 md:h-auto flex-shrink-0">
+                        <img
+                          src={blog.image}
+                          alt={blog.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+                    
+                    <div className="flex-1 p-6">
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {blog.tag && (
+                          <span className="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-xs font-medium border border-green-500/30">
+                            {blog.tag}
+                          </span>
+                        )}
+                        {blog.category && (
+                          <span className="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-medium border border-blue-500/30">
+                            {blog.category}
+                          </span>
+                        )}
+                      </div>
+
+                      <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors">
+                        {blog.title}
+                      </h3>
+
+                      <p className="text-gray-400 mb-4 line-clamp-2">
+                        {blog.description}
+                      </p>
+
+                      <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
+                        <span className="flex items-center gap-1">
+                          <Calendar size={14} />
+                          {blog.date}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <FileText size={14} />
+                          {Math.ceil(blog.content.split(' ').length / 200)} min read
+                        </span>
+                        {blog.slug && (
+                          <span className="flex items-center gap-1 font-mono text-xs">
+                            <Hash size={14} />
+                            {blog.slug}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="flex gap-3">
+                        <button
+                          onClick={() => openEditForm(blog)}
+                          className="flex items-center gap-2 px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 rounded-lg transition-all font-medium"
+                        >
+                          <Edit size={16} />
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDelete(blog.id)}
+                          className="flex items-center gap-2 px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-300 rounded-lg transition-all font-medium"
+                        >
+                          <Trash2 size={16} />
+                          Delete
+                        </button>
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </div>
+
+      <footer className="border-t border-gray-800 py-8 mt-20">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <p className="text-gray-400 text-sm">
+            Blog Admin Dashboard • Built with React & Firebase
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
