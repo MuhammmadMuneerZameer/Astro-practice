@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getPosts } from '../../data/blogPost.js';
+import { getPostBySlug, getPosts } from '../../data/blogPost.js';
 
 interface BlogPost {
   id: string;
@@ -14,31 +14,35 @@ interface BlogPost {
   category?: string;
 }
 
-export async function getStaticPaths() {
-  const posts = await getPosts();
-  return posts.map((post: BlogPost) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+// Get slug from URL params
+const { slug } = Astro.params;
+
+// Fetch the post by slug
+let post: BlogPost | null = null;
+
+try {
+  post = await getPostBySlug(slug);
+  
+  // If post not found, return 404
+  if (!post) {
+    return Astro.redirect('/404');
+  }
+} catch (error) {
+  console.error('Error fetching post:', error);
+  return Astro.redirect('/404');
 }
 
-interface Props {
-  post: BlogPost;
-}
-
-const { post } = Astro.props as Props;
 const content: string = post.content || '';
 
 // Function to parse content with image support
 function parseContent(text: string) {
-  // Split content into paragraphs and identify image URLs
   const lines = text.split('\n');
   const parsed = [];
   
   for (const line of lines) {
     const trimmed = line.trim();
     
-    // Check if line is an image URL (starts with http/https and ends with image extension)
+    // Check if line is an image URL
     if (trimmed.match(/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp|svg)$/i)) {
       parsed.push({ type: 'image', url: trimmed });
     } 
@@ -127,8 +131,15 @@ const parsedContent = parseContent(content);
         </div>
       )}
 
+      <!-- Description -->
+      {post.description && (
+        <div class="mb-8 p-6 bg-gray-900/50 border-l-4 border-green-500 rounded-r-lg">
+          <p class="text-gray-300 text-lg leading-relaxed italic">{post.description}</p>
+        </div>
+      )}
+
       <!-- Content -->
-      <div class="prose-custom">
+      <div class="prose-custom space-y-6">
         {parsedContent.map((item, index) => (
           item.type === 'image' ? (
             <figure class="content-image my-8 sm:my-12">
