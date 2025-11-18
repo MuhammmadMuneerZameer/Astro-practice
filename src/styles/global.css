@@ -1,6 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+:root {
+  /* Update these font variables */
+  --font-family-base: 'Coolvetica', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-heading: 'Amurg', -apple-system, BlinkMacSystemFont, sans-serif;
+
+}
+
+/* Add this for headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-base);
+}
+p{
+  font-family: var(--font-family-heading);
+}
+
+/* Body text will automatically use --font-family-base from the html rule */
 
 :root {
   --color-primary: #363537;      /* blue-900 */

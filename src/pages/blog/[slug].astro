@@ -2,39 +2,27 @@
 import Layout from '../../layouts/Layout.astro';
 import { getPostBySlug, getPosts } from '../../data/blogPost.js';
 
-interface BlogPost {
-  id: string;
-  title: string;
-  content: string;
-  description: string;
-  image: string;
-  date: string;
-  slug: string;
-  tag?: string;
-  category?: string;
+// This tells Astro to generate pages for ALL blog posts at build time
+export async function getStaticPaths() {
+  console.log('🔄 Generating static blog pages...');
+  const posts = await getPosts();
+  console.log(`✅ Found ${posts.length} posts to generate`);
+  
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
 }
 
-// Get slug from URL params
-const { slug } = Astro.params;
+// Get the post from props (already fetched in getStaticPaths)
+const { post } = Astro.props;
 
-// Fetch the post by slug
-let post: BlogPost | null = null;
-
-try {
-  post = await getPostBySlug(slug);
-  
-  // If post not found, return 404
-  if (!post) {
-    return Astro.redirect('/404');
-  }
-} catch (error) {
-  console.error('Error fetching post:', error);
+if (!post) {
   return Astro.redirect('/404');
 }
 
 const content: string = post.content || '';
 
-// Function to parse content with image support
 function parseContent(text: string) {
   const lines = text.split('\n');
   const parsed = [];
@@ -42,19 +30,14 @@ function parseContent(text: string) {
   for (const line of lines) {
     const trimmed = line.trim();
     
-    // Check if line is an image URL
     if (trimmed.match(/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp|svg)$/i)) {
       parsed.push({ type: 'image', url: trimmed });
-    } 
-    // Check for markdown image syntax ![alt](url)
-    else if (trimmed.match(/^!\[.*?\]\(.+?\)$/)) {
+    } else if (trimmed.match(/^!\[.*?\]\(.+?\)$/)) {
       const match = trimmed.match(/!\[(.*?)\]\((.+?)\)/);
       if (match) {
         parsed.push({ type: 'image', url: match[2], alt: match[1] });
       }
-    }
-    // Regular text
-    else if (trimmed) {
+    } else if (trimmed) {
       parsed.push({ type: 'text', content: trimmed });
     }
   }
@@ -140,7 +123,7 @@ const parsedContent = parseContent(content);
 
       <!-- Content -->
       <div class="prose-custom space-y-6">
-        {parsedContent.map((item, index) => (
+        {parsedContent.map((item) => (
           item.type === 'image' ? (
             <figure class="content-image my-8 sm:my-12">
               <img 
@@ -163,7 +146,7 @@ const parsedContent = parseContent(content);
         ))}
       </div>
 
-      <!-- Author/Share Section -->
+      <!-- Share Section -->
       <div class="mt-12 sm:mt-16 pt-8 sm:pt-12 border-t border-gray-800">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
@@ -208,7 +191,6 @@ const parsedContent = parseContent(content);
 </Layout>
 
 <style>
-  /* Enhanced Typography */
   .prose-custom {
     color: #e5e7eb;
     font-size: 1.125rem;
@@ -229,19 +211,6 @@ const parsedContent = parseContent(content);
     letter-spacing: 0.01em;
   }
   
-  .content-paragraph:first-of-type {
-    font-size: 1.25rem;
-    line-height: 1.7;
-    color: #e5e7eb;
-  }
-  
-  @media (max-width: 640px) {
-    .content-paragraph:first-of-type {
-      font-size: 1.125rem;
-    }
-  }
-  
-  /* Image Styles */
   .content-image {
     margin: 3rem 0;
   }
@@ -254,30 +223,5 @@ const parsedContent = parseContent(content);
   .content-image img:hover {
     border-color: rgba(134, 239, 172, 0.3);
     transform: scale(1.01);
-  }
-  
-  /* Responsive spacing */
-  @media (max-width: 640px) {
-    .content-image {
-      margin: 2rem 0;
-    }
-  }
-  
-  /* Custom Scrollbar */
-  article::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  article::-webkit-scrollbar-track {
-    background: #1a1a1a;
-  }
-  
-  article::-webkit-scrollbar-thumb {
-    background: #4ade80;
-    border-radius: 4px;
-  }
-  
-  article::-webkit-scrollbar-thumb:hover {
-    background: #86efac;
   }
 </style>
