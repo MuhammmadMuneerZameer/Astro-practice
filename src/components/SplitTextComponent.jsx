@@ -18,25 +18,19 @@ export default function SplitTextComponent() {
       words.forEach((word, wordIndex) => {
         const wordSpan = document.createElement('span');
         wordSpan.style.display = 'inline-block';
-        wordSpan.style.overflow = 'visible'; // Changed to visible
+        wordSpan.style.whiteSpace = 'normal'; // CRITICAL: Allow wrapping
+        wordSpan.style.marginRight = '0.25em'; // Add space between words
         
         const chars = word.split('');
         chars.forEach((char) => {
           const charSpan = document.createElement('span');
           charSpan.innerText = char;
           charSpan.style.display = 'inline-block';
+          charSpan.style.whiteSpace = 'nowrap'; // Keep individual characters together
           wordSpan.appendChild(charSpan);
         });
         
         element.appendChild(wordSpan);
-        
-        // Add space after word (except last word)
-        if (wordIndex < words.length - 1) {
-          const space = document.createElement('span');
-          space.innerHTML = '&nbsp;';
-          space.style.display = 'inline-block';
-          element.appendChild(space);
-        }
       });
       
       return element.querySelectorAll('span span');
@@ -73,15 +67,17 @@ export default function SplitTextComponent() {
   }, []);
 
   return (
-    <div className="text-container" style={{ overflow: 'visible', width: '100%' }}>
+    <div className="text-container" style={{ width: '100%' }}>
       <h1
         ref={textRef}
         className="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight"
         style={{ 
           color: 'var(--color-accent)',
-          overflow: 'visible',
           wordWrap: 'break-word',
-          whiteSpace: 'normal'
+          whiteSpace: 'normal',
+          lineHeight: '1.2',
+          letterSpacing: 'normal',
+          maxWidth: '100%'
         }}
       >
         Welcome to Hydra Fox Designs
@@ -90,9 +86,9 @@ export default function SplitTextComponent() {
         ref={paragraphRef}
         className="hero-subtitle text-base sm:text-lg md:text-xl lg:text-2xl mb-6 text-gray-400 leading-relaxed"
         style={{ 
-          overflow: 'visible',
           wordWrap: 'break-word',
-          whiteSpace: 'normal'
+          whiteSpace: 'normal',
+          maxWidth: '100%'
         }}
       >
         Build fast, modern websites with ease. Start your next project today!

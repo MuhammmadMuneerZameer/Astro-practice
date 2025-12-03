@@ -1,51 +1,64 @@
+/* ===================================
+   TAILWIND BASE IMPORTS
+   =================================== */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ===================================
+   CUSTOM FONTS
+   =================================== */
 :root {
-  /* Update these font variables */
   --font-family-base: 'Coolvetica', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-family-heading: 'Amurg', -apple-system, BlinkMacSystemFont, sans-serif;
-
 }
 
-/* Add this for headings */
+/* Apply fonts to elements */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-family-base);
 }
-p{
+
+p {
   font-family: var(--font-family-heading);
 }
 
-/* Body text will automatically use --font-family-base from the html rule */
-
+/* ===================================
+   COLOR SYSTEM (LIGHT MODE)
+   =================================== */
 :root {
-  --color-primary: #363537;      /* blue-900 */
-  --color-accent: #00f19f;       /* yellow-400 */
-  --color-accent-hover: #00f19f; /* yellow-300 */
+  --color-primary: #363537;
+  --color-accent: #00f19f;
+  --color-accent-hover: #00f19f;
   --color-bg: #fff;
-  --color-text: #cccccc;         /* slate-800 */
+  --color-text: #cccccc;
   --color-card: #cee1da;
   --color-primaryC: #04b477;
-  --color-subtext: #1f1f1f;         /* gray-100 */
+  --color-subtext: #1f1f1f;
 }
 
+/* DARK MODE - Currently unused but kept for future implementation */
+/* Remove if you're not planning to implement dark mode */
 .dark {
-  --color-primary: #0f172a;      /* darker blue/gray */
-  --color-accent: #fbbf24;       /* darker yellow */
-  --color-accent-hover: #f59e42; /* orange/yellow */
+  --color-primary: #0f172a;
+  --color-accent: #fbbf24;
+  --color-accent-hover: #f59e42;
   --color-bg: #18181b;
   --color-text: #f3f4f6;
   --color-card: #27272a;
-   --color-primaryC: #cdcdcd;
-    --color-subtext: #8e8d8d; 
+  --color-primaryC: #cdcdcd;
+  --color-subtext: #8e8d8d;
 }
 
+/* ===================================
+   VIEW TRANSITIONS API (EXPERIMENTAL)
+   =================================== */
+/* Only works in Chrome/Edge - Remove if not using View Transitions */
 @keyframes fade-scale {
-  0% {
+  from {
     opacity: 0;
     transform: scale(0.98);
   }
-  100% {
+  to {
     opacity: 1;
     transform: scale(1);
   }
@@ -56,20 +69,26 @@ p{
   animation: fade-scale 2s ease-in-out both;
 }
 
-/* Mobile-specific improvements */
+/* ===================================
+   MOBILE OPTIMIZATIONS
+   =================================== */
 @media (max-width: 640px) {
-  /* Improve touch targets */
+  /* Improve touch targets for better UX */
   button, a, input, select, textarea {
     min-height: 44px;
+  }
+  
+  /* Prevent zoom on form focus (iOS) */
+  input, textarea, select {
+    font-size: 16px;
   }
   
   /* Better text readability on mobile */
   body {
     -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
   }
   
-  /* Prevent horizontal scroll and ensure full height */
+  /* Prevent horizontal scroll */
   html, body {
     overflow-x: hidden;
     min-height: 100vh;
@@ -77,72 +96,130 @@ p{
     padding: 0;
   }
   
-  /* Ensure no white space at top */
+  /* Account for fixed navbar - adjust value to match your navbar height */
   body {
-    padding-top: 3rem !important; /* Match navbar height */
+    padding-top: 3rem;
   }
   
-  /* Remove any default margins that might cause white space */
-  * {
-    box-sizing: border-box;
-  }
-  
-  /* Ensure full viewport height usage */
-  html {
-    height: 100%;
-  }
-  
-  body {
-    height: 100%;
-    background-color: #000; /* Ensure black background */
-  }
-  
-  /* Improve form inputs on mobile */
-  input, textarea, select {
-    font-size: 16px; /* Prevents zoom on iOS */
-  }
-  
-  /* Better spacing for mobile */
-  .container, .max-w-7xl, .max-w-6xl, .max-w-5xl, .max-w-4xl, .max-w-3xl {
+  /* Consistent spacing for container classes */
+  .container, 
+  .max-w-7xl, 
+  .max-w-6xl, 
+  .max-w-5xl, 
+  .max-w-4xl, 
+  .max-w-3xl {
     padding-left: 1rem;
     padding-right: 1rem;
   }
   
-  /* Ensure sections start immediately after navbar */
+  /* Remove extra spacing below navbar */
   section, main, .hero-section {
     margin-top: 0 !important;
     padding-top: 1rem !important;
   }
 }
 
-/* Tablet improvements */
+/* ===================================
+   TABLET OPTIMIZATIONS
+   =================================== */
 @media (min-width: 641px) and (max-width: 1024px) {
-  .container, .max-w-7xl, .max-w-6xl, .max-w-5xl, .max-w-4xl, .max-w-3xl {
+  .container, 
+  .max-w-7xl, 
+  .max-w-6xl, 
+  .max-w-5xl, 
+  .max-w-4xl, 
+  .max-w-3xl {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
 }
 
-/* Line clamp utility for text truncation */
+/* ===================================
+   UTILITY CLASSES - Text Truncation
+   =================================== */
 .line-clamp-1 {
-  overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
+  overflow: hidden;
 }
 
 .line-clamp-2 {
-  overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .line-clamp-3 {
-  overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  overflow: hidden;
 }
 
+/* ===================================
+   HERO TEXT ANTI-SQUISH FIX
+   =================================== */
+.hero-title,
+.hero-subtitle,
+.text-container {
+  /* GPU acceleration for smooth rendering */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  
+  /* Better font rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  
+  /* Proper kerning */
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+  
+  /* Prevent compression */
+  letter-spacing: normal;
+  word-spacing: normal;
+  width: 100%;
+  max-width: 100%;
+}
 
+/* Hero title responsive sizing */
+.hero-title {
+  font-size: clamp(2rem, 5vw, 3.75rem);
+  line-height: 1.2;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+/* Hero subtitle responsive sizing */
+.hero-subtitle {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  line-height: 1.5;
+  white-space: normal;
+}
+
+/* Ensure Spline animation stays in background */
+.spline-wrapper {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Force proper stacking context */
+.hero-container > div {
+  isolation: isolate;
+}
+
+/* Fix for word wrapping in GSAP split text */
+.hero-title span,
+.hero-subtitle span {
+  display: inline-block;
+  white-space: normal;
+}
+
+.hero-title span span,
+.hero-subtitle span span {
+  display: inline-block;
+  white-space: nowrap;
+}

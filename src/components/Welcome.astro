@@ -12,15 +12,15 @@ import SplitTextComponent from './SplitTextComponent';
   <!-- Content Wrapper -->
   <div class="relative z-10 flex flex-col items-center justify-center gap-6 sm:gap-8 md:gap-10 w-full max-w-7xl mx-auto">
     
-    <!-- Text Content -->
-    <div class="w-full px-2 sm:px-4 overflow-visible">
+    <!-- Text Content - FIXED: Remove overflow-visible, add proper constraints -->
+    <div class="w-full px-2 sm:px-4 max-w-5xl">
       <SplitTextComponent client:load />
     </div>
 
     <!-- CTA Button -->
     <a id="hero-button"
       href="/ContactUs"
-      class="hero-button group relative mt-0 inline-flex items-center justify-center px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 text-white font-medium rounded-full bg-black/80 backdrop-blur-sm shadow-md transition-all duration-300 overflow-hidden text-sm sm:text-base md:text-lg  sm:mt-4 touch-manipulation"
+      class="hero-button group relative mt-0 inline-flex items-center justify-center px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 text-white font-medium rounded-full bg-black/80 backdrop-blur-sm shadow-md transition-all duration-300 overflow-hidden text-sm sm:text-base md:text-lg sm:mt-4 touch-manipulation"
     >
       <span class="relative z-10 flex items-center gap-2 sm:gap-3">
         Start a project
@@ -47,13 +47,22 @@ import SplitTextComponent from './SplitTextComponent';
     min-height: 100vh;
     min-height: 100dvh;
     position: relative;
-    overflow: visible; /* Changed from hidden */
+    overflow: hidden; /* Changed: Keep overflow hidden for container */
   }
 
   /* Spline wrapper */
   .spline-wrapper {
     pointer-events: none;
-    overflow: hidden; /* Keep overflow hidden only for background */
+    overflow: hidden;
+  }
+
+  /* CRITICAL FIX: Ensure text doesn't get compressed */
+  .hero-title {
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    line-height: 1.2 !important;
+    letter-spacing: normal !important;
   }
 
   /* Remove negative margin on mobile */
