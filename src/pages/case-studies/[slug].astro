@@ -1,0 +1,112 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCaseStudyBySlug } from '../../data/caseStudies';
+
+// Components
+import CaseStudyHero from '../../components/case-study-modules/CaseStudyHero';
+import BrandIdentityModule from '../../components/case-study-modules/BrandIdentityModule';
+import MarketRealityModule from '../../components/case-study-modules/MarketRealityModule';
+import GrowthBlockModule from '../../components/case-study-modules/GrowthBlockModule';
+import StrategicShiftModule from '../../components/case-study-modules/StrategicShiftModule';
+import SystemBuildModule from '../../components/case-study-modules/SystemBuildModule';
+import MarketImpactModule from '../../components/case-study-modules/MarketImpactModule';
+import VisualProofModule from '../../components/case-study-modules/VisualProofModule';
+import TestimonialModule from '../../components/case-study-modules/TestimonialModule';
+import ConversionModule from '../../components/case-study-modules/ConversionModule';
+
+// Enable server-side rendering
+export const prerender = false;
+
+const { slug } = Astro.params;
+const caseStudy = await getCaseStudyBySlug(slug);
+
+if (!caseStudy) {
+  return Astro.redirect('/case-studies');
+}
+---
+
+<Layout
+  title={`${caseStudy.title} | Case Study`}
+  description={caseStudy.challenge || `Case Study for ${caseStudy.client}`}
+>
+  <main class="bg-black min-h-screen">
+    
+    {/* 1. Hero Module */}
+    <CaseStudyHero 
+      client:visible
+      title={caseStudy.title}
+      subtitle={caseStudy.subtitle}
+      client={caseStudy.client}
+      service={caseStudy.service}
+      industry={caseStudy.industry}
+      duration={caseStudy.duration}
+      image={caseStudy.heroImage || caseStudy.image}
+    />
+
+    {/* 2. Brand Identity Module */}
+    <BrandIdentityModule 
+      client:visible
+      brandBio={caseStudy.brandBio}
+      visualIdentity={caseStudy.visualIdentity}
+      marketPos={caseStudy.marketPos}
+      persona={caseStudy.persona}
+    />
+
+    {/* 3. Market Reality Module */}
+    <MarketRealityModule 
+      client:visible
+      marketMap={caseStudy.marketMap}
+      competitors={caseStudy.competitors}
+      insights={caseStudy.insights}
+    />
+
+    {/* 4. Growth Block (Challenges) */}
+    <GrowthBlockModule 
+      client:visible
+      challenges={caseStudy.challenges || caseStudy.challenge} // Fallback to old field
+      bottlenecks={caseStudy.bottlenecks}
+    />
+
+    {/* 5. Strategic Shift */}
+    <StrategicShiftModule 
+      client:visible
+      oldStrategy={caseStudy.oldStrategy}
+      newStrategy={caseStudy.newStrategy || caseStudy.solution} // Fallback
+    />
+
+    {/* 6. System Build */}
+    <SystemBuildModule 
+      client:visible
+      ecosystem={caseStudy.ecosystem}
+      automation={caseStudy.automation}
+    />
+
+    {/* 8. Market Impact */}
+    <MarketImpactModule 
+      client:visible
+      revenueImpact={caseStudy.revenueImpact}
+      kpis={caseStudy.kpis}
+    />
+
+    {/* 9. Visual Proof */}
+    <VisualProofModule 
+      client:visible
+      galleryImages={caseStudy.galleryImages || caseStudy.images} // Fallback
+    />
+
+    {/* 10. Testimonial */}
+    <TestimonialModule 
+      client:visible
+      quote={caseStudy.testimonialQuote}
+      author={caseStudy.testimonialAuthor}
+      role={caseStudy.testimonialRole}
+    />
+
+    {/* 11. Conversion */}
+    <ConversionModule 
+      client:visible
+      bookingLink={caseStudy.bookingLink}
+    />
+
+  </main>
+</Layout>

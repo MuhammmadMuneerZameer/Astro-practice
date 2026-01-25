@@ -1,21 +1,12 @@
 ---
+// Enable server-side rendering for real-time blog system
+export const prerender = false;
+
 import Layout from '../../layouts/Layout.astro';
-import { getPostBySlug, getPosts } from '../../data/blogPost.js';
+import { getPostBySlug } from '../../data/blogPost.js';
 
-// This tells Astro to generate pages for ALL blog posts at build time
-export async function getStaticPaths() {
-  console.log('🔄 Generating static blog pages...');
-  const posts = await getPosts();
-  console.log(`✅ Found ${posts.length} posts to generate`);
-  
-  return posts.map(post => ({
-    params: { slug: post.slug },
-    props: { post }
-  }));
-}
-
-// Get the post from props (already fetched in getStaticPaths)
-const { post } = Astro.props;
+const { slug } = Astro.params;
+const post = await getPostBySlug(slug);
 
 if (!post) {
   return Astro.redirect('/404');

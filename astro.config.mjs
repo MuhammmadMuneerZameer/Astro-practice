@@ -6,11 +6,11 @@ import react from '@astrojs/react';
 export default defineConfig({
   site: 'https://hydrafoxdesigns.com',
   integrations: [
-    tailwind(), 
+    tailwind(),
     react(),
     sitemap()
   ],
-  output: 'static',
+  output: 'server',
   devToolbar: {
     enabled: false
   }
