@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Loader } from 'lucide-react';
 import CaseStudyCard from './CaseStudyCard';
 import { getCaseStudiesByService } from '../data/caseStudies';
+import Button from './ui/Button';
 
 export default function ServiceCaseStudies({ service, title, limit = 3 }) {
     const [caseStudies, setCaseStudies] = useState([]);
@@ -44,18 +45,18 @@ export default function ServiceCaseStudies({ service, title, limit = 3 }) {
 
                 <div className="grid md:grid-cols-1 gap-8">
                     {caseStudies.map((caseStudy) => (
-                        <CaseStudyCard key={caseStudy.id} caseStudy={caseStudy} />
+                        <CaseStudyCard key={caseStudy.id} study={caseStudy} />
                     ))}
                 </div>
 
                 {caseStudies.length > 0 && (
                     <div className="text-center mt-12">
-                        <a
+                        <Button
                             href="/case-studies"
-                            className="inline-flex items-center gap-2 px-8 py-4 bg-green-500 hover:bg-green-600 text-black font-semibold rounded-full transition-all"
+                            variant="primary"
                         >
                             View All Case Studies
-                        </a>
+                        </Button>
                     </div>
                 )}
             </div>

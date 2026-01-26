@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar';
 import Splineanimation from '../components/Splineanimation';
 import Layout from '../layouts/Layout.astro';
 import ServiceCaseStudies from '../components/ServiceCaseStudies';
-import CredibilityCTA from '../components/CredibilityCTA';
+import Button from '../components/ui/Button';
 import { SERVICES } from '../data/caseStudies';
 import '../styles/global.css';
 
@@ -82,11 +82,15 @@ title: "Our Services"
         title="UX/UI Design Case Studies"
         limit={2}
       />
-      <CredibilityCTA 
-        client:visible
-        service="UX/UI" 
-        link="/case-studies?service=ux-ui-design"
-      />
+      <div class="flex justify-center mt-6 mb-16">
+        <Button 
+          href="/case-studies?service=ux-ui-design"
+          variant="outline"
+          client:visible
+        >
+          View UX/UI Case Studies
+        </Button>
+      </div>
 
       <!-- Service 2: Development -->
       <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
@@ -131,11 +135,15 @@ title: "Our Services"
         title="Web Development Case Studies"
         limit={2}
       />
-      <CredibilityCTA 
-        client:visible
-        service="Development" 
-        link="/case-studies?service=web-development"
-      />
+      <div class="flex justify-center mt-6 mb-16">
+        <Button 
+          href="/case-studies?service=web-development"
+          variant="outline"
+          client:visible
+        >
+          View Web Dev Case Studies
+        </Button>
+      </div>
 
       <!-- Service 3: Mobile App -->
       <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
@@ -180,11 +188,15 @@ title: "Our Services"
         title="Mobile App Case Studies"
         limit={2}
       />
-      <CredibilityCTA 
-        client:visible
-        service="Mobile App" 
-        link="/case-studies?service=mobile-app"
-      />
+      <div class="flex justify-center mt-6 mb-16">
+        <Button 
+          href="/case-studies?service=mobile-app"
+          variant="outline"
+          client:visible
+        >
+          View Mobile App Case Studies
+        </Button>
+      </div>
 
       <!-- Service 4: Branding -->
       <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
@@ -229,11 +241,15 @@ title: "Our Services"
         title="Branding Case Studies"
         limit={2}
       />
-      <CredibilityCTA 
-        client:visible
-        service="Branding" 
-        link="/case-studies?service=branding"
-      />
+      <div class="flex justify-center mt-6 mb-16">
+        <Button 
+          href="/case-studies?service=branding"
+          variant="outline"
+          client:visible
+        >
+          View Branding Case Studies
+        </Button>
+      </div>
 
       <!-- Service 5: Digital Marketing -->
       <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
@@ -279,11 +295,15 @@ title: "Our Services"
         title="Digital Marketing Case Studies"
         limit={2}
       />
-      <CredibilityCTA 
-        client:visible
-        service="Digital Marketing" 
-        link="/case-studies?service=digital-marketing"
-      />
+      <div class="flex justify-center mt-6 mb-16">
+        <Button 
+          href="/case-studies?service=digital-marketing"
+          variant="outline"
+          client:visible
+        >
+          View Marketing Case Studies
+        </Button>
+      </div>
 
     </div>
   </section>

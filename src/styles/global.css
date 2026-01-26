@@ -30,7 +30,7 @@
   /* Typography */
   --font-family-base: 'Coolvetica', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-family-heading: 'Amurg', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  
+
   /* Brand Colors - Light Theme */
   --color-primary: #363537;
   --color-accent: #00f19f;
@@ -40,14 +40,33 @@
   --color-card: #cee1da;
   --color-primary-complement: #04b477;
   --color-subtext: #1f1f1f;
-  
+
   /* Spacing Scale */
   --spacing-navbar: 3rem;
-  
+
+  /* Radii */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-glow: 0 0 20px rgba(0, 241, 159, 0.3);
+
+  /* Component Variables */
+  --btn-padding-x: 1.5rem;
+  --btn-padding-y: 0.75rem;
+  --btn-font-weight: 600;
+  --card-border: 1px solid rgba(255, 255, 255, 0.1);
+
   /* Transitions */
   --transition-base: 200ms ease-in-out;
   --transition-slow: 300ms ease-in-out;
-  
+
   /* Z-Index Scale */
   --z-base: 1;
   --z-overlay: 10;
@@ -72,13 +91,13 @@
    ========================================================================== */
 
 /* Headings */
-h1, 
-h2, 
-h3, 
-h4, 
-h5, 
+h1,
+h2,
+h3,
+h4,
+h5,
 h6 {
-  font-family: var(--font-family-base);
+  font-family: var(--font-family-heading);
   font-weight: 600;
   line-height: 1.2;
   color: var(--color-text);
@@ -86,7 +105,7 @@ h6 {
 
 /* Body Text */
 p {
-  font-family: var(--font-family-heading);
+  font-family: var(--font-family-base);
   line-height: 1.6;
   color: var(--color-subtext);
 }
@@ -97,20 +116,20 @@ p {
   line-height: 1.2;
   white-space: normal;
   overflow-wrap: break-word;
-  
+
   /* Rendering optimizations */
   transform: translateZ(0);
   backface-visibility: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  
+
   /* Typography refinements */
   font-feature-settings: "kern" 1;
   font-kerning: normal;
   letter-spacing: normal;
   word-spacing: normal;
-  
+
   /* Layout */
   width: 100%;
   max-width: 100%;
@@ -120,14 +139,14 @@ p {
   font-size: clamp(1rem, 3vw, 1.5rem);
   line-height: 1.5;
   white-space: normal;
-  
+
   /* Inherit rendering from hero-title */
   transform: translateZ(0);
   backface-visibility: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  
+
   width: 100%;
   max-width: 100%;
 }
@@ -141,15 +160,17 @@ p {
   overflow: hidden;
 }
 
-.line-clamp-1 { 
+.line-clamp-1 {
   -webkit-line-clamp: 1;
   line-clamp: 1;
 }
-.line-clamp-2 { 
+
+.line-clamp-2 {
   -webkit-line-clamp: 2;
   line-clamp: 2;
 }
-.line-clamp-3 { 
+
+.line-clamp-3 {
   -webkit-line-clamp: 3;
   line-clamp: 3;
 }
@@ -165,21 +186,21 @@ p {
   isolation: isolate;
 }
 
-.hero-container > div {
+.hero-container>div {
   isolation: isolate;
 }
 
 .text-container {
   position: relative;
   z-index: var(--z-overlay);
-  
+
   /* Rendering optimizations */
   transform: translateZ(0);
   backface-visibility: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  
+
   width: 100%;
   max-width: 100%;
 }
@@ -240,6 +261,7 @@ textarea {
     opacity: 0;
     transform: scale(0.98);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -257,18 +279,19 @@ textarea {
 
 /* Mobile Devices (≤640px) */
 @media (max-width: 640px) {
+
   /* Prevent zoom on iOS form focus */
   input,
   textarea,
   select {
     font-size: 16px;
   }
-  
+
   /* Prevent text size adjustments */
   body {
     -webkit-text-size-adjust: 100%;
   }
-  
+
   /* Prevent horizontal scroll */
   html,
   body {
@@ -277,12 +300,12 @@ textarea {
     margin: 0;
     padding: 0;
   }
-  
+
   /* Fixed navbar offset */
   body {
     padding-top: var(--spacing-navbar);
   }
-  
+
   /* Section spacing adjustments */
   section,
   main,
@@ -294,6 +317,7 @@ textarea {
 
 /* Tablet Devices (641px - 1024px) */
 @media (min-width: 641px) and (max-width: 1024px) {
+
   .container,
   .max-w-7xl,
   .max-w-6xl,
@@ -307,6 +331,7 @@ textarea {
 
 /* Desktop Devices (≥1025px) */
 @media (min-width: 1025px) {
+
   .container,
   .max-w-7xl,
   .max-w-6xl,
@@ -320,7 +345,7 @@ textarea {
 
 /* High DPI Displays */
 @media (-webkit-min-device-pixel-ratio: 2),
-       (min-resolution: 192dpi) {
+(min-resolution: 192dpi) {
   body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -329,6 +354,7 @@ textarea {
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -338,4 +364,3 @@ textarea {
     scroll-behavior: auto !important;
   }
 }
-

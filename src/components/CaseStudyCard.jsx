@@ -1,113 +1,73 @@
 import React from 'react';
-import { Briefcase, Clock, ExternalLink } from 'lucide-react';
-import { getServiceDisplayName } from '../data/caseStudies';
+import { ArrowUpRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
-export default function CaseStudyCard({ caseStudy, compact = false }) {
-    if (compact) {
-        return (
-            <div className="bg-black/60 backdrop-blur-lg border border-gray-800 rounded-xl overflow-hidden hover:border-green-500/30 transition-all group">
-                <div className="aspect-video overflow-hidden">
-                    <img
-                        src={caseStudy.image}
-                        alt={caseStudy.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                </div>
-                <div className="p-6">
-                    <div className="flex items-center gap-2 mb-3">
-                        <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-xs border border-purple-500/30">
-                            {getServiceDisplayName(caseStudy.service)}
-                        </span>
-                        {caseStudy.duration && (
-                            <span className="flex items-center gap-1 text-gray-400 text-xs">
-                                <Clock size={12} />
-                                {caseStudy.duration}
-                            </span>
-                        )}
-                    </div>
-                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors">
-                        {caseStudy.title}
-                    </h3>
-                    <p className="text-gray-400 text-sm mb-3">
-                        Client: <span className="text-gray-300">{caseStudy.client}</span>
-                    </p>
-                    {caseStudy.challenge && (
-                        <p className="text-gray-400 text-sm line-clamp-2">
-                            {caseStudy.challenge}
-                        </p>
-                    )}
+export default function CaseStudyCard({ study, layoutId }) {
+    return (
+        <div
+            layoutid={layoutId}
+            className="group relative bg-gray-900/40 border border-gray-800 rounded-2xl overflow-hidden hover:border-green-500/50 transition-colors duration-500 h-full flex flex-col"
+        >
+            {/* Image Container */}
+            <div className="aspect-[4/3] overflow-hidden relative">
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10" />
+                <img
+                    src={study.image}
+                    alt={study.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+
+                {/* Service Badge */}
+                <div className="absolute top-4 left-4 z-20">
+                    <span className="px-3 py-1 bg-black/60 backdrop-blur-md border border-white/10 text-white text-xs font-medium rounded-full">
+                        {study.service}
+                    </span>
                 </div>
             </div>
-        );
-    }
 
-    return (
-        <div className="bg-black/60 backdrop-blur-lg border border-gray-800 rounded-xl overflow-hidden hover:border-green-500/30 transition-all group">
-            <div className="grid md:grid-cols-2 gap-6">
-                <div className="aspect-video md:aspect-auto overflow-hidden">
-                    <img
-                        src={caseStudy.image}
-                        alt={caseStudy.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                </div>
-                <div className="p-6 flex flex-col justify-center">
-                    <div className="flex items-center gap-2 mb-3">
-                        <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-xs border border-purple-500/30">
-                            {getServiceDisplayName(caseStudy.service)}
+            {/* Content Container - Overlay style for Desktop, stacked for Mobile */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:flex flex-col justify-end p-8 z-20">
+
+                {/* Impact Badge */}
+                {study.revenueImpact && (
+                    <div className="self-start mb-auto translate-y-[-10px] group-hover:translate-y-0 transition-transform duration-500 delay-100">
+                        <span className="bg-green-500 text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">
+                            {study.revenueImpact}
                         </span>
-                        {caseStudy.duration && (
-                            <span className="flex items-center gap-1 text-gray-400 text-xs">
-                                <Clock size={12} />
-                                {caseStudy.duration}
-                            </span>
-                        )}
                     </div>
+                )}
 
-                    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-green-400 transition-colors">
-                        {caseStudy.title}
-                    </h3>
+                <h3 className="text-2xl font-bold text-white mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    {study.title}
+                </h3>
 
-                    <p className="text-gray-400 text-sm mb-4">
-                        Client: <span className="text-gray-300 font-semibold">{caseStudy.client}</span>
-                    </p>
+                <div className="flex items-center justify-between translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">
+                    <p className="text-gray-300 text-sm font-medium">{study.client}</p>
+                    <div className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-green-400 transition-colors">
+                        <ArrowUpRight size={20} />
+                    </div>
+                </div>
 
-                    {caseStudy.challenge && (
-                        <div className="mb-4">
-                            <h4 className="text-green-400 font-semibold text-sm mb-2">Challenge</h4>
-                            <p className="text-gray-400 text-sm line-clamp-3">
-                                {caseStudy.challenge}
-                            </p>
-                        </div>
+                {/* Click Area Overlay */}
+                <a href={`/case-studies/${study.slug}`} className="absolute inset-0 z-30" aria-label={`View ${study.title}`} />
+            </div>
+
+            {/* Mobile Visible Content */}
+            <div className="p-6 md:hidden flex-1 flex flex-col">
+                <h3 className="text-xl font-bold text-white mb-1">{study.title}</h3>
+                <p className="text-gray-400 text-sm mb-4">{study.client}</p>
+                <div className="mt-auto flex justify-between items-center">
+                    {study.revenueImpact && (
+                        <span className="text-xs bg-green-900/30 text-green-400 px-2 py-1 rounded border border-green-500/20">
+                            {study.revenueImpact}
+                        </span>
                     )}
-
-                    {caseStudy.technologies && caseStudy.technologies.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mb-4">
-                            {caseStudy.technologies.slice(0, 4).map((tech, idx) => (
-                                <span
-                                    key={idx}
-                                    className="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-xs border border-blue-500/30"
-                                >
-                                    {tech}
-                                </span>
-                            ))}
-                            {caseStudy.technologies.length > 4 && (
-                                <span className="px-2 py-1 text-gray-400 text-xs">
-                                    +{caseStudy.technologies.length - 4} more
-                                </span>
-                            )}
-                        </div>
-                    )}
-
-                    <a
-                        href={`/case-studies/${caseStudy.slug}`}
-                        className="inline-flex items-center gap-2 text-green-400 hover:text-green-300 font-semibold transition-colors"
-                    >
-                        View Case Study
-                        <ExternalLink size={16} />
+                    <a href={`/case-studies/${study.slug}`} className="text-green-400 text-sm font-bold flex items-center gap-1">
+                        View Case Study <ArrowUpRight size={16} />
                     </a>
                 </div>
             </div>
+
         </div>
     );
 }

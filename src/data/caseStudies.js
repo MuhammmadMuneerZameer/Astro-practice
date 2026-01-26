@@ -64,15 +64,53 @@ export async function getCaseStudies() {
             caseStudies.push({
                 id: doc.id,
                 title: data.title || 'Untitled Case Study',
+                subtitle: data.subtitle || '', // New
                 service: data.service || '',
                 client: data.client || '',
-                challenge: data.challenge || '',
-                solution: data.solution || '',
-                results: data.results || '',
-                image: data.image || 'https://via.placeholder.com/800x600',
-                images: data.images || [],
-                technologies: data.technologies || [],
+                industry: data.industry || '', // New
                 duration: data.duration || '',
+
+                // Images
+                image: data.image || 'https://via.placeholder.com/800x600', // Main listing image
+                heroImage: data.heroImage || data.image, // New dedicated hero image
+                images: data.images || [], // Old field
+                galleryImages: data.galleryImages || data.images || [], // New field, fallback to old
+
+                // Modules
+                brandBio: data.brandBio || '',
+                visualIdentity: data.visualIdentity || '',
+                marketPos: data.marketPos || '',
+                persona: data.persona || '',
+
+                marketMap: data.marketMap || '',
+                competitors: data.competitors || '',
+                insights: data.insights || '',
+
+                challenge: data.challenge || '', // Old
+                challenges: data.challenges || data.challenge || '', // New
+                bottlenecks: data.bottlenecks || '',
+
+                solution: data.solution || '', // Old
+                oldStrategy: data.oldStrategy || '',
+                newStrategy: data.newStrategy || data.solution || '', // New, fallback
+
+                ecosystem: data.ecosystem || '',
+                automation: data.automation || '',
+
+                results: data.results || '',
+                revenueImpact: data.revenueImpact || '',
+                kpis: data.kpis || [],
+
+                technologies: data.technologies || [],
+
+                // Testimonials
+                testimonialQuote: data.testimonialQuote || '',
+                testimonialAuthor: data.testimonialAuthor || '',
+                testimonialRole: data.testimonialRole || '',
+
+                // Conversion
+                bookingLink: data.bookingLink || '',
+
                 slug: data.slug || doc.id,
                 featured: data.featured || false,
                 status: data.status || 'published',

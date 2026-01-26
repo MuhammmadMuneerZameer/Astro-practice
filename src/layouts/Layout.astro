@@ -56,23 +56,16 @@ const {
 </html>
 
 <style is:global>
-  :root {
-    --color-primary: #1e1e1e;
-    --color-primaryC: #3b3c41;
-    --color-accent: rgb(99, 253, 189);
-    --color-accent-hover: #48d97c;
-    --color-text: #ffffff;
-    --color-text-light: #b0b0b0;
-    --font-size-base: 1rem;
-    --font-family-base: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-
+  /* 
+    Core global resets. 
+    Typography and Colors are managed in src/styles/global.css 
+  */
+  
   * {
     box-sizing: border-box;
   }
 
   html {
-    font-family: var(--font-family-base);
     background: #000000;
     scroll-behavior: smooth;
   }
@@ -81,7 +74,6 @@ const {
     margin: 0;
     padding: 0;
     background-color: #000000;
-    color: var(--color-text);
     overflow-x: hidden;
     line-height: 1.6;
   }
