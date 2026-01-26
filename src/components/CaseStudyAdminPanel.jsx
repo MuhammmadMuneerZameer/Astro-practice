@@ -25,7 +25,8 @@ const INITIAL_FORM_STATE = {
     // 1. Hero Module
     title: '',
     subtitle: '',
-    service: '',
+    service: '', // Primary service (legacy)
+    services: [], // Multi-service array
     client: '',
     industry: '',
     duration: '',
@@ -206,21 +207,37 @@ export default function CaseStudyAdminPanel() {
 
     // Image Helper
     const handleUpload = async (e, field) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
+        const files = Array.from(e.target.files || []);
+        if (files.length === 0) return;
+
         try {
             setUploading(true);
-            const url = await uploadToImgBB(file);
+            setError('');
+
+            // Validate all files first
+            files.forEach(validateImageFile);
+
+            // Upload all files concurrently
+            const uploadPromises = files.map(file => uploadToImgBB(file));
+            const uploadedUrls = await Promise.all(uploadPromises);
+
             if (field === 'galleryImages') {
-                setFormData(prev => ({ ...prev, galleryImages: [...prev.galleryImages, url] }));
+                setFormData(prev => ({
+                    ...prev,
+                    galleryImages: [...prev.galleryImages, ...uploadedUrls]
+                }));
+                setSuccess(`✅ ${files.length} images uploaded!`);
             } else {
-                setFormData(prev => ({ ...prev, [field]: url }));
+                // For single image fields, only take the first one
+                setFormData(prev => ({ ...prev, [field]: uploadedUrls[0] }));
+                setSuccess('✅ Image uploaded!');
             }
-            setSuccess('Image uploaded!');
         } catch (err) {
+            console.error('Upload error:', err);
             setError(err.message);
         } finally {
             setUploading(false);
+            e.target.value = ''; // Reset input
         }
     };
 
@@ -284,12 +301,41 @@ export default function CaseStudyAdminPanel() {
                                     value={formData.subtitle} onChange={e => handleInputChange('subtitle', e.target.value)} />
                             </div>
                             <div>
-                                <label className="text-sm text-gray-400">Service Category</label>
-                                <select className="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white"
-                                    value={formData.service} onChange={e => handleInputChange('service', e.target.value)}>
-                                    <option value="">Select Service</option>
-                                    {Object.values(SERVICES).map(s => <option key={s} value={s}>{getServiceDisplayName(s)}</option>)}
-                                </select>
+                                <label className="text-sm text-gray-400 block mb-2">Service Categories (Select all that apply)</label>
+                                <div className="flex flex-wrap gap-2 mb-2">
+                                    {Object.values(SERVICES).map(s => {
+                                        const isSelected = formData.services?.includes(s) || formData.service === s;
+                                        return (
+                                            <button
+                                                key={s}
+                                                type="button"
+                                                onClick={() => {
+                                                    const currentServices = formData.services || [];
+                                                    const newServices = currentServices.includes(s)
+                                                        ? currentServices.filter(item => item !== s)
+                                                        : [...currentServices, s];
+
+                                                    // Update both array and primary legacy field
+                                                    setFormData(prev => ({
+                                                        ...prev,
+                                                        services: newServices,
+                                                        service: newServices[0] || ''
+                                                    }));
+                                                }}
+                                                className={`px-3 py-1 rounded-full text-xs font-medium border transition-all ${isSelected
+                                                        ? 'bg-green-500 text-black border-green-500'
+                                                        : 'bg-gray-900 text-gray-400 border-gray-700 hover:border-gray-500'
+                                                    }`}
+                                            >
+                                                {getServiceDisplayName(s)}
+                                                {isSelected && <span className="ml-1">✓</span>}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                                <div className="text-xs text-gray-500">
+                                    Primary: {formData.service ? getServiceDisplayName(formData.service) : 'None'}
+                                </div>
                             </div>
                             <div>
                                 <label className="text-sm text-gray-400">Industry</label>
@@ -440,7 +486,7 @@ export default function CaseStudyAdminPanel() {
                                 <button className="bg-gray-700 px-4 py-2 rounded text-white flex items-center gap-2">
                                     <Upload size={16} /> Upload to Gallery
                                 </button>
-                                <input type="file" className="absolute inset-0 opacity-0 cursor-pointer"
+                                <input type="file" multiple className="absolute inset-0 opacity-0 cursor-pointer"
                                     onChange={e => handleUpload(e, 'galleryImages')} />
                             </div>
                         </div>

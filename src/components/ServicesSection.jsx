@@ -51,11 +51,10 @@ export default function ServicesSection() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Check if device is mobile
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 1024);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
 
@@ -66,7 +65,7 @@ export default function ServicesSection() {
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    
+
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', checkMobile);
@@ -82,39 +81,33 @@ export default function ServicesSection() {
   return (
     <section className="min-h-screen bg-black text-white py-12 sm:py-16 md:py-24 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 md:mb-12 gap-4">
           <div>
-            <p className="text-green-400 text-xs font-semibold tracking-wider uppercase mb-2">
+            <p className="text-brand-accent text-xs font-bold tracking-wider uppercase mb-2">
               OUR SERVICES
             </p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
-              What <span className="text-green-300">Services</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold leading-tight">
+              What <span className="text-brand-accent">Services</span>
               <br />
               We're Offering
             </h2>
           </div>
           <a
             href="/services"
-            className="group relative inline-flex items-center justify-center px-6 py-3 text-white font-medium rounded-full bg-black/80 backdrop-blur-sm transition-all duration-300 overflow-hidden"
-            style={{ boxShadow: '0 2px 15px rgb(99, 253, 189)' }}
+            className="group relative inline-flex items-center justify-center px-6 py-3 text-white font-medium rounded-full bg-brand-neutral-900 border border-white/10 hover:border-brand-accent/50 transition-all duration-300"
           >
             <span className="relative z-10 flex items-center gap-2">
               Learn more
               <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
             </span>
-            <span className="absolute inset-0 rounded-full bg-green-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
-            <span className="absolute inset-0 rounded-full border border-green-400 opacity-0 group-hover:opacity-100 transition-all duration-500"></span>
           </a>
         </div>
 
-        {/* Description */}
-        <p className="text-gray-400 max-w-2xl text-sm md:text-base leading-relaxed mb-12">
-          We offer services that can help businesses improve their visibility and business reputation online, 
-          expand market reach, and increase turnover through effective digital strategies. Following are the services we provide.
+        <p className="text-brand-neutral-400 max-w-2xl text-sm md:text-base leading-relaxed mb-12">
+          We offer services that can help businesses improve their visibility and business reputation online,
+          expand market reach, and increase turnover through effective digital strategies.
         </p>
 
-        {/* Services List */}
         <div className="relative">
           <div className="space-y-0">
             {services.map((service, index) => (
@@ -127,8 +120,8 @@ export default function ServicesSection() {
                 >
                   <div className="py-6 md:py-8 flex items-center justify-between group cursor-pointer">
                     <div className="flex-1">
-                      <motion.h3 
-                        className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-400 group-hover:text-green-300 transition-colors duration-300"
+                      <motion.h3
+                        className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-gray-400 group-hover:text-brand-accent transition-colors duration-300"
                         animate={{
                           x: hoveredIndex === index ? 20 : 0
                         }}
@@ -143,14 +136,14 @@ export default function ServicesSection() {
                             animate={{ opacity: 1, height: "auto", marginTop: 12 }}
                             exit={{ opacity: 0, height: 0, marginTop: 0 }}
                             transition={{ duration: 0.3 }}
-                            className="text-gray-500 text-sm md:text-base max-w-xl overflow-hidden"
+                            className="text-brand-neutral-500 text-sm md:text-base max-w-xl overflow-hidden"
                           >
                             {service.description}
                           </motion.p>
                         )}
                       </AnimatePresence>
                     </div>
-                    
+
                     <motion.div
                       animate={{
                         scale: hoveredIndex === index ? 1.1 : 1,
@@ -159,14 +152,13 @@ export default function ServicesSection() {
                       transition={{ duration: 0.3 }}
                       className="ml-6 flex-shrink-0"
                     >
-                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-gray-700 group-hover:border-green-300 flex items-center justify-center transition-colors duration-300">
-                        <ArrowRight className="w-4 h-4 md:w-5 md:h-5 text-gray-500 group-hover:text-green-300 transition-colors duration-300" />
+                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-gray-700 group-hover:border-brand-accent flex items-center justify-center transition-colors duration-300">
+                        <ArrowRight className="w-4 h-4 md:w-5 md:h-5 text-gray-500 group-hover:text-brand-accent transition-colors duration-300" />
                       </div>
                     </motion.div>
                   </div>
                 </motion.div>
 
-                {/* Mobile: Image below the service item */}
                 {isMobile && (
                   <AnimatePresence>
                     {hoveredIndex === index && (
@@ -191,7 +183,7 @@ export default function ServicesSection() {
                               className="w-full h-64 object-cover"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                            <div className="absolute bottom-4 left-4 bg-green-300 text-black px-4 py-2 rounded-lg font-bold text-sm shadow-lg">
+                            <div className="absolute bottom-4 left-4 bg-brand-accent text-black px-4 py-2 rounded-lg font-bold text-sm shadow-lg">
                               {service.title}
                             </div>
                           </motion.div>
@@ -204,20 +196,19 @@ export default function ServicesSection() {
             ))}
           </div>
 
-          {/* Desktop: Floating Image that follows cursor */}
           {!isMobile && (
             <AnimatePresence>
               {hoveredIndex !== null && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ 
-                    opacity: 1, 
+                  animate={{
+                    opacity: 1,
                     scale: 1,
                     x: mousePosition.x,
                     y: mousePosition.y
                   }}
                   exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ 
+                  transition={{
                     opacity: { duration: 0.3 },
                     scale: { duration: 0.3 },
                     x: { type: "spring", stiffness: 300, damping: 30 },
@@ -227,22 +218,20 @@ export default function ServicesSection() {
                   style={{
                     left: -200,
                     top: -200,
-                    filter: 'drop-shadow(0 20px 40px rgba(134, 239, 172, 0.3))'
+                    filter: 'drop-shadow(0 20px 40px rgba(0, 241, 159, 0.3))'
                   }}
                 >
                   <div className="relative w-[400px] h-[300px]">
-                    {/* Animated background glow */}
                     <motion.div
-                      animate={{ 
+                      animate={{
                         scale: [1, 1.05, 1],
                         opacity: [0.5, 0.7, 0.5]
                       }}
                       transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                      className="absolute inset-0 bg-green-400/20 rounded-2xl blur-3xl"
+                      className="absolute inset-0 bg-brand-accent/20 rounded-2xl blur-3xl"
                     />
-                    
-                    {/* Main image container */}
-                    <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-2xl p-4 border-2 border-green-400/30 shadow-2xl overflow-hidden">
+
+                    <div className="relative bg-gradient-to-br from-brand-neutral-900 to-black rounded-2xl p-4 border-2 border-brand-accent/30 shadow-2xl overflow-hidden">
                       <div className="relative overflow-hidden rounded-xl">
                         <img
                           src={services[hoveredIndex].image}
@@ -250,25 +239,17 @@ export default function ServicesSection() {
                           className="w-full h-64 object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                        
-                        {/* Service badge */}
+
                         <motion.div
                           initial={{ x: 20, opacity: 0 }}
                           animate={{ x: 0, opacity: 1 }}
                           transition={{ delay: 0.1 }}
-                          className="absolute bottom-4 left-4 bg-green-300 text-black px-4 py-2 rounded-lg font-bold text-sm shadow-lg"
+                          className="absolute bottom-4 left-4 bg-brand-accent text-black px-4 py-2 rounded-lg font-bold text-sm shadow-lg"
                         >
                           {services[hoveredIndex].title}
                         </motion.div>
                       </div>
                     </div>
-
-                    {/* Decorative corner element */}
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                      className="absolute -top-4 -right-4 w-16 h-16 border-2 border-green-400/40 rounded-full"
-                    />
                   </div>
                 </motion.div>
               )}

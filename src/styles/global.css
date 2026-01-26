@@ -26,20 +26,34 @@
    2. CSS CUSTOM PROPERTIES
    ========================================================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 :root {
   /* Typography */
-  --font-family-base: 'Coolvetica', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-family-heading: 'Amurg', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family-subheading: 'Amurg', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
-  /* Brand Colors - Light Theme */
-  --color-primary: #363537;
+  /* Brand Colors - Enforcing Dark Mode Preference as Base or strict override */
+  --color-primary: #0f172a;
+  /* Deep Navy/Black */
   --color-accent: #00f19f;
-  --color-accent-hover: #00f19f;
-  --color-bg: #ffffff;
-  --color-text: #cccccc;
-  --color-card: #cee1da;
-  --color-primary-complement: #04b477;
-  --color-subtext: #1f1f1f;
+  /* Bright Mint */
+  --color-accent-rgb: 0, 241, 159;
+  --color-accent-hover: #04b477;
+
+  --color-bg: #0f172a;
+  /* Matching primary for seamless dark look */
+  --color-text: #f3f4f6;
+  /* Light gray text */
+  --color-subtext: #94a3b8;
+  /* Muted slate */
+  --color-card: #1e293b;
+  /* Slate 800 */
+
+  --color-primary-complement: #38bdf8;
+  /* Sky blue for secondary accents if needed */
+  --color-primary-complement-rgb: 56, 189, 248;
 
   /* Spacing Scale */
   --spacing-navbar: 3rem;
@@ -74,32 +88,45 @@
   --z-navbar: 1000;
 }
 
-/* Dark Theme Variables */
+/* Dark Theme Variables - Consolidating */
 .dark {
   --color-primary: #0f172a;
-  --color-accent: #fbbf24;
-  --color-accent-hover: #f59e42;
-  --color-bg: #18181b;
-  --color-text: #f3f4f6;
-  --color-card: #27272a;
-  --color-primary-complement: #cdcdcd;
-  --color-subtext: #8e8d8d;
+  --color-accent: #00f19f;
+  /* Keeping mint as the main brand accent even in dark mode */
+  --color-accent-hover: #04b477;
+  --color-bg: #0b1120;
+  --color-text: #f8fafc;
+  --color-card: #1e293b;
+  --color-subtext: #cbd5e1;
 }
 
 /* ==========================================================================
    3. TYPOGRAPHY
    ========================================================================== */
 
-/* Headings */
-h1,
+/* Main Heading (H1) */
+h1 {
+  font-family: var(--font-family-heading);
+  /* Coolvetica */
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--color-text);
+  letter-spacing: -0.04em;
+  /* Tighter for large display text, or user asked to "increase"? Usually "increase" means wider. Let's make it wider if they said "increase". */
+  letter-spacing: 0.02em;
+  /* Increased tracking as requested */
+}
+
+/* Subheadings (H2 - H6) */
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-family-heading);
-  font-weight: 600;
-  line-height: 1.2;
+  font-family: var(--font-family-subheading);
+  /* Amurg */
+  font-weight: 500;
+  line-height: 1.3;
   color: var(--color-text);
 }
 
@@ -123,6 +150,9 @@ p {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+
+  /* Premium Feel */
+  letter-spacing: -0.02em;
 
   /* Typography refinements */
   font-feature-settings: "kern" 1;

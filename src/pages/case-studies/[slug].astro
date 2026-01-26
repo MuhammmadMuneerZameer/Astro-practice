@@ -106,6 +106,7 @@ if (!caseStudy) {
     <ConversionModule 
       client:visible
       bookingLink={caseStudy.bookingLink}
+      services={caseStudy.services || (caseStudy.service ? [caseStudy.service] : [])}
     />
 
   </main>

@@ -2,9 +2,9 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     
-    // Helper function to check if user is authenticated
-    function isAuthenticated() {
-      return request.auth != null;
+    // Helper function to check if user is the specific admin
+    function isAdmin() {
+      return request.auth != null && request.auth.token.email == 'hydrafox345@gmail.com';
     }
     
     // Helper function to check if content is published
@@ -15,28 +15,28 @@ service cloud.firestore {
     // Blog posts collection
     match /post/{postId} {
       // Anyone can read published posts
-      allow read: if isPublished();
+      allow read: if isPublished() || isAdmin();
       
-      // Only authenticated users can write (create, update, delete)
-      allow create, update, delete: if isAuthenticated();
+      // Only admin can write (create, update, delete)
+      allow create, update, delete: if isAdmin();
     }
     
     // Projects collection
     match /projects/{projectId} {
       // Anyone can read published projects
-      allow read: if isPublished();
+      allow read: if isPublished() || isAdmin();
       
-      // Only authenticated users can write
-      allow create, update, delete: if isAuthenticated();
+      // Only admin can write
+      allow create, update, delete: if isAdmin();
     }
     
     // Case studies collection
     match /caseStudies/{caseStudyId} {
       // Anyone can read published case studies
-      allow read: if isPublished();
+      allow read: if isPublished() || isAdmin();
       
-      // Only authenticated users can write
-      allow create, update, delete: if isAuthenticated();
+      // Only admin can write
+      allow create, update, delete: if isAdmin();
     }
     
     // Deny all other requests by default

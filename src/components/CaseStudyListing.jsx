@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Search, Filter, ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CaseStudyCard from './CaseStudyCard';
@@ -16,9 +16,23 @@ export default function CaseStudyListing({ initialCaseStudies = [] }) {
     const [activeFilter, setActiveFilter] = useState('all');
     const [searchQuery, setSearchQuery] = useState('');
 
+    // Initialize filter from URL query param
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const params = new URLSearchParams(window.location.search);
+            const serviceParam = params.get('service');
+            if (serviceParam && FILTERS.some(f => f.id === serviceParam)) {
+                setActiveFilter(serviceParam);
+            }
+        }
+    }, []);
+
     const filteredStudies = useMemo(() => {
         return initialCaseStudies.filter(study => {
-            const matchesFilter = activeFilter === 'all' || study.service === activeFilter;
+            // Handle both single service (string) and multiple services (array)
+            const studyServices = Array.isArray(study.services) ? study.services : [study.service];
+
+            const matchesFilter = activeFilter === 'all' || studyServices.includes(activeFilter) || study.service === activeFilter;
             const matchesSearch = study.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 study.client.toLowerCase().includes(searchQuery.toLowerCase());
             return matchesFilter && matchesSearch;

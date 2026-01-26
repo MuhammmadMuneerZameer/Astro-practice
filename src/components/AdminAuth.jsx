@@ -15,9 +15,16 @@ export default function AdminAuth({ children }) {
   useEffect(() => {
     mountedRef.current = true;
 
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (mountedRef.current) {
-        setUser(currentUser);
+        if (currentUser && currentUser.email !== 'hydrafox345@gmail.com') {
+          // If user is logged in but not the correct admin, force logout
+          await signOut(auth);
+          setUser(null);
+          setError('Unauthorized access. This account does not have admin privileges.');
+        } else {
+          setUser(currentUser);
+        }
         setLoading(false);
       }
     });
@@ -30,7 +37,7 @@ export default function AdminAuth({ children }) {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    
+
     if (!email.trim() || !password.trim()) {
       setError('Please enter both email and password.');
       return;
@@ -40,22 +47,38 @@ export default function AdminAuth({ children }) {
     setLoggingIn(true);
 
     try {
-      await signInWithEmailAndPassword(auth, email.trim(), password);
+      const userCredential = await signInWithEmailAndPassword(auth, email.trim(), password);
+
+      // Strict Admin Check
+      if (userCredential.user.email !== 'hydrafox345@gmail.com') {
+        throw new Error('auth/unauthorized-admin');
+      }
+
       if (mountedRef.current) {
         setEmail('');
         setPassword('');
       }
     } catch (err) {
+      // Force logout if we caught the unauthorized error (just to be safe)
+      if (err.message === 'auth/unauthorized-admin') {
+        await signOut(auth);
+      }
+
       if (mountedRef.current) {
-        const errorMessage = err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found'
-          ? 'Invalid email or password. Please try again.'
-          : err.code === 'auth/too-many-requests'
-          ? 'Too many failed attempts. Please try again later.'
-          : err.code === 'auth/network-request-failed'
-          ? 'Network error. Please check your connection.'
-          : err.code === 'auth/invalid-email'
-          ? 'Invalid email format.'
-          : 'Failed to login. Please check your credentials.';
+        let errorMessage = 'Failed to login. Please check your credentials.';
+
+        if (err.message === 'auth/unauthorized-admin') {
+          errorMessage = 'Access Denied: This account is not authorized as an administrator.';
+        } else if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found') {
+          errorMessage = 'Invalid email or password. Please try again.';
+        } else if (err.code === 'auth/too-many-requests') {
+          errorMessage = 'Too many failed attempts. Please try again later.';
+        } else if (err.code === 'auth/network-request-failed') {
+          errorMessage = 'Network error. Please check your connection.';
+        } else if (err.code === 'auth/invalid-email') {
+          errorMessage = 'Invalid email format.';
+        }
+
         setError(errorMessage);
       }
     } finally {

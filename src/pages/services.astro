@@ -3,306 +3,300 @@ import Navbar from '../components/Navbar';
 import Splineanimation from '../components/Splineanimation';
 import Layout from '../layouts/Layout.astro';
 import ServiceCaseStudies from '../components/ServiceCaseStudies';
+import StrategicRecommendation from '../components/StrategicRecommendation';
 import Button from '../components/ui/Button';
 import { SERVICES } from '../data/caseStudies';
 import '../styles/global.css';
 
 // Enable static pre-rendering for this page
 export const prerender = true;
-
-title: "Our Services"
 ---
-<Layout>
-  <!-- Hero Section with Background -->
-  <div class="relative h-[50vh] flex items-center justify-center pt-[8vh] sm:pt-[12vh] md:pt-[20vh] w-full bg-cover bg-center bg-black -mt-12 sm:-mt-16 md:mt-0">
+<Layout
+  title="Strategic Services | Hydra Fox Designs"
+  description="We solve business problems through systems, design, and technology. Stop losing customers to poor digital experiences."
+>
+  <!-- Hero Section -->
+  <div class="relative h-[60vh] flex items-center justify-center pt-[8vh] sm:pt-[12vh] md:pt-[20vh] w-full bg-cover bg-center bg-black -mt-12 sm:-mt-16 md:mt-0">
     <!-- Spline Animation Background -->
-    <div class="absolute inset-0 z-0 h-[50vh] blur opacity-50">
+    <div class="absolute inset-0 z-0 h-[60vh] blur opacity-40 mix-blend-screen">
       <Splineanimation client:only="react" />
     </div>
     
     <!-- Content Container -->
-    <div class="relative z-10 text-center px-4">
-      <h1 class="text-3xl md:text-6xl font-bold mb-6 md:mb-8 text-[#b5ffdb]">Our Services</h1>
-      
-      <!-- Service Tags -->
-      <div class="flex flex-wrap justify-center gap-3 md:gap-4 mb-10 md:mb-12">
-        {["UX/UI design", "Development", "Mobile app", "Branding", "Video editing", "Product design", "Motion design"].map(service => (
-          <span class="text-white px-4 py-2 rounded-full border border-white/20 bg-white/5 text-sm hover:bg-[#00f19f] hover:text-black transition cursor-pointer">
-            {service}
-          </span>
-        ))}
-      </div>
+    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+      <h1 class="text-4xl md:text-7xl font-bold mb-8 text-white leading-tight">
+        We Build Systems That <br/>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-primary-complement)]">Scale & Convert.</span>
+      </h1>
+      <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
+        Stop treating your website like a brochure. Start treating it like a business engine. 
+        We identify where you're losing money and build the infrastructure to fix it.
+      </p>
     </div>
   </div>
 
   <!-- Services Section -->
-  <section class="min-h-screen bg-black text-white px-4 md:px-16 py-12 md:py-20">
-    <div class="max-w-6xl mx-auto space-y-16 md:space-y-24">
+  <section class="min-h-screen bg-black text-white px-4 md:px-16 py-20 pb-32">
+    <div class="max-w-7xl mx-auto space-y-40">
       
-      <!-- Service 1: UX/UI Design -->
-      <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+      <!-- Module 1: UX/UI (Retention System) -->
+      <div class="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
         <!-- Text Content -->
         <div class="order-2 md:order-1">
-          <h2 class="text-2xl md:text-4xl font-bold text-[#b5ffdb] mb-6">UX/UI Design</h2>
-          <p class="text-gray-300 mb-6 text-base md:text-lg leading-relaxed">
-            We create visually stunning, user-friendly designs that enhance engagement and deliver a smooth digital experience
+          <div class="flex items-center gap-3 mb-6">
+             <span class="px-3 py-1 bg-brand-accent/10 text-brand-accent rounded-full text-xs font-bold uppercase tracking-[0.2em] border border-brand-accent/20">
+               Retention System
+             </span>
+          </div>
+          
+          <h2 class="text-4xl md:text-6xl font-heading font-bold text-white mb-8 leading-tight">
+            Confusion Kills <span class="text-brand-accent">Conversion.</span>
+          </h2>
+          
+          <p class="text-brand-neutral-400 text-lg md:text-xl leading-relaxed mb-8 max-w-lg">
+             Your users are busy. We engineer psychology-driven interfaces that guide them inevitably toward the "Buy" button.
           </p>
-          <ul class="space-y-3 text-sm md:text-base text-white">
-            <li class="flex items-center gap-3">
-              <span class="text-green-400 text-lg">●</span> 
-              User research & personas
-            </li>
-            <li class="flex items-center gap-3">
-              <span class="text-green-400 text-lg">●</span> 
-              Competitors analysis
-            </li>
-            <li class="flex items-center gap-3">
-              <span class="text-green-400 text-lg">●</span> 
-              Wireframes & prototypes
-            </li>
-          </ul>
+
+          <div class="flex flex-col gap-4">
+             <div class="flex items-center gap-3 text-white font-medium">
+                <span class="w-2 h-2 rounded-full bg-brand-accent"></span>
+                Higher Retention Rates
+             </div>
+             <div class="flex items-center gap-3 text-white font-medium">
+                <span class="w-2 h-2 rounded-full bg-brand-accent"></span>
+                Increased Average Order Value
+             </div>
+             <div class="flex items-center gap-3 text-white font-medium">
+                <span class="w-2 h-2 rounded-full bg-brand-accent"></span>
+                Reduced Support Costs
+             </div>
+          </div>
         </div>
         
-        <!-- Image -->
-        <div class="order-1 md:order-2">
-          <img 
-            src="/images/laptop.jpg" 
-            alt="UX Design Laptop" 
-            class="rounded-xl w-full h-[300px] md:h-[400px] object-cover shadow-2xl hover:scale-105 transition-transform duration-300" 
-            loading="lazy" 
-            sizes="(max-width: 768px) 100vw, 50vw" 
-          />
+        <!-- Image with Glow -->
+        <div class="order-1 md:order-2 relative group">
+           <div class="absolute inset-0 bg-brand-accent/20 blur-[100px] rounded-full opacity-50 group-hover:opacity-70 transition-opacity duration-700"></div>
+           <img 
+             src="/images/laptop.jpg" 
+             alt="UX Design Strategy" 
+             class="relative z-10 rounded-2xl w-full h-[500px] object-cover shadow-2xl border border-white/10 group-hover:scale-[1.02] transition-transform duration-700" 
+             loading="lazy" 
+           />
         </div>
       </div>
 
       <!-- UX/UI Case Studies -->
-      <ServiceCaseStudies 
-        client:only="react" 
-        service={SERVICES.UX_UI_DESIGN} 
-        title="UX/UI Design Case Studies"
-        limit={2}
-      />
-      <div class="flex justify-center mt-6 mb-16">
-        <Button 
-          href="/case-studies?service=ux-ui-design"
-          variant="outline"
-          client:visible
-        >
-          View UX/UI Case Studies
-        </Button>
+      <div class="border-l border-white/10 pl-0 md:pl-12">
+          <ServiceCaseStudies 
+            client:only="react" 
+            service={SERVICES.UX_UI_DESIGN} 
+            title="Evidence of Transformation"
+            limit={2}
+          />
+          <div class="flex justify-center mt-12">
+            <Button 
+              href="/case-studies?service=ux-ui-design"
+              variant="outline"
+              client:visible
+            >
+              Explore Designing Systems
+            </Button>
+          </div>
       </div>
 
-      <!-- Service 2: Development -->
-      <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-        <!-- Image -->
-        <div>
-          <img 
-            src="/images/desktop.png" 
-            alt="Development" 
-            class="rounded-xl w-full h-[300px] md:h-[400px] object-cover shadow-2xl hover:scale-105 transition-transform duration-300" 
-            loading="lazy" 
-            sizes="(max-width: 768px) 100vw, 50vw" 
-          />
+      <!-- Module 2: Development (Trust Foundation) -->
+      <div class="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
+         <!-- Image -->
+        <div class="relative group">
+           <div class="absolute inset-0 bg-blue-500/20 blur-[100px] rounded-full opacity-50 group-hover:opacity-70 transition-opacity duration-700"></div>
+           <img 
+             src="/images/desktop.png" 
+             alt="Technical Architecture" 
+             class="relative z-10 rounded-2xl w-full h-[500px] object-cover shadow-2xl border border-white/10 group-hover:scale-[1.02] transition-transform duration-700" 
+             loading="lazy" 
+           />
         </div>
         
         <!-- Text Content -->
         <div>
-          <h2 class="text-2xl md:text-4xl font-bold text-[#b5ffdb] mb-6">Web Development</h2>
-          <p class="text-gray-300 mb-6 text-base md:text-lg leading-relaxed">
-            From frontend to backend, we build robust, scalable applications that perform flawlessly across all devices
+          <div class="flex items-center gap-3 mb-6">
+             <span class="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs font-bold uppercase tracking-[0.2em] border border-blue-500/20">
+               Technical Foundation
+             </span>
+          </div>
+
+          <h2 class="text-4xl md:text-6xl font-heading font-bold text-white mb-8 leading-tight">
+             Broken Sites Destroy <span class="text-blue-400">Credibility.</span>
+          </h2>
+          
+          <p class="text-brand-neutral-400 text-lg md:text-xl leading-relaxed mb-8 max-w-lg">
+             A slow website tells customers your business is risky. We build scalable, high-performance assets that load instantly and rank natively.
           </p>
-          <ul class="space-y-3 text-sm md:text-base text-white">
-            <li class="flex items-center gap-3">
-              <span class="text-green-400 text-lg">●</span> 
-              Frontend development
-            </li>
-            <li class="flex items-center gap-3">
-              <span class="text-green-400 text-lg">●</span> 
-              Backend architecture
-            </li>
-            <li class="flex items-center gap-3">
-              <span class="text-green-400 text-lg">●</span> 
-              Database optimization
-            </li>
-          </ul>
+
+          <div class="flex flex-col gap-4">
+             <div class="flex items-center gap-3 text-white font-medium">
+                <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                Next.js / Astro Architecture
+             </div>
+             <div class="flex items-center gap-3 text-white font-medium">
+                <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                Headless CMS Integration
+             </div>
+             <div class="flex items-center gap-3 text-white font-medium">
+                 <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                API-First Development
+             </div>
+          </div>
         </div>
       </div>
 
       <!-- Web Development Case Studies -->
-      <ServiceCaseStudies 
-        client:only="react" 
-        service={SERVICES.WEB_DEVELOPMENT} 
-        title="Web Development Case Studies"
-        limit={2}
-      />
-      <div class="flex justify-center mt-6 mb-16">
-        <Button 
-          href="/case-studies?service=web-development"
-          variant="outline"
-          client:visible
-        >
-          View Web Dev Case Studies
-        </Button>
+      <div class="border-l border-white/10 pl-0 md:pl-12">
+          <ServiceCaseStudies 
+            client:only="react" 
+            service={SERVICES.WEB_DEVELOPMENT} 
+            title="Engineering Wins"
+            limit={2}
+          />
+          <div class="flex justify-center mt-12">
+            <Button 
+              href="/case-studies?service=web-development"
+              variant="outline"
+              client:visible
+            >
+              See Scalable Solutions
+            </Button>
+          </div>
       </div>
 
-      <!-- Service 3: Mobile App -->
-      <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+      <!-- Module 3: Branding (Market Authority) -->
+      <div id="branding" class="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
         <!-- Text Content -->
         <div class="order-2 md:order-1">
-          <h2 class="text-2xl md:text-4xl font-bold text-[#b5ffdb] mb-6">Mobile App</h2>
-          <p class="text-gray-300 mb-6 text-base md:text-lg leading-relaxed">
-            Native and cross-platform mobile applications that provide seamless user experiences on iOS and Android
+          <div class="flex items-center gap-3 mb-6">
+             <span class="px-3 py-1 bg-purple-500/10 text-purple-400 rounded-full text-xs font-bold uppercase tracking-[0.2em] border border-purple-500/20">
+               Market Authority
+             </span>
+          </div>
+          
+          <h2 class="text-4xl md:text-6xl font-heading font-bold text-white mb-8 leading-tight">
+            The Cost of Being <span class="text-purple-400">Invisible.</span>
+          </h2>
+          
+          <p class="text-brand-neutral-400 text-lg md:text-xl leading-relaxed mb-8 max-w-lg">
+             If your brand looks like a template, customers assume you are a commodity. We build visual identities that signal premium value instantly.
           </p>
-          <ul class="space-y-3 text-sm md:text-base text-white">
-            <li class="flex items-center gap-3">
-              <span class="text-green-400 text-lg">●</span> 
-              iOS & Android development
-            </li>
-            <li class="flex items-center gap-3">
-              <span class="text-green-400 text-lg">●</span> 
-              Cross-platform solutions
-            </li>
-            <li class="flex items-center gap-3">
-              <span class="text-green-400 text-lg">●</span> 
-              App store optimization
-            </li>
-          </ul>
+
+          <div class="flex flex-col gap-4">
+             <div class="flex items-center gap-3 text-white font-medium">
+                <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+                Visual Identity Systems
+             </div>
+             <div class="flex items-center gap-3 text-white font-medium">
+                <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+                Market Positioning
+             </div>
+             <div class="flex items-center gap-3 text-white font-medium">
+                <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+                Brand Guidelines
+             </div>
+          </div>
         </div>
         
         <!-- Image -->
-        <div class="order-1 md:order-2">
-          <img 
-            src="/images/mobileUI.png" 
-            alt="Mobile App Development" 
-            class="rounded-xl w-full h-[300px] md:h-[400px] object-cover shadow-2xl hover:scale-105 transition-transform duration-300" 
-            loading="lazy" 
-            sizes="(max-width: 768px) 100vw, 50vw" 
-          />
-        </div>
-      </div>
-
-      <!-- Mobile App Case Studies -->
-      <ServiceCaseStudies 
-        client:only="react" 
-        service={SERVICES.MOBILE_APP} 
-        title="Mobile App Case Studies"
-        limit={2}
-      />
-      <div class="flex justify-center mt-6 mb-16">
-        <Button 
-          href="/case-studies?service=mobile-app"
-          variant="outline"
-          client:visible
-        >
-          View Mobile App Case Studies
-        </Button>
-      </div>
-
-      <!-- Service 4: Branding -->
-      <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-        <!-- Image -->
-        <div>
-          <img 
-            src="/images/mockup.png" 
-            alt="Branding" 
-            class="rounded-xl w-full h-[300px] md:h-[400px] object-cover shadow-2xl hover:scale-105 transition-transform duration-300" 
-            loading="lazy" 
-            sizes="(max-width: 768px) 100vw, 50vw" 
-          />
-        </div>
-        
-        <!-- Text Content -->
-        <div>
-          <h2 class="text-2xl md:text-4xl font-bold text-[#b5ffdb] mb-6">Branding</h2>
-          <p class="text-gray-300 mb-6 text-base md:text-lg leading-relaxed">
-            Complete brand identity solutions that capture your essence and resonate with your target audience
-          </p>
-          <ul class="space-y-3 text-sm md:text-base text-white">
-            <li class="flex items-center gap-3">
-              <span class="text-green-400 text-lg">●</span> 
-              Logo & visual identity
-            </li>
-            <li class="flex items-center gap-3">
-              <span class="text-green-400 text-lg">●</span> 
-              Brand guidelines
-            </li>
-            <li class="flex items-center gap-3">
-              <span class="text-green-400 text-lg">●</span> 
-              Marketing materials
-            </li>
-          </ul>
+        <div class="order-1 md:order-2 relative group">
+           <div class="absolute inset-0 bg-purple-500/20 blur-[100px] rounded-full opacity-50 group-hover:opacity-70 transition-opacity duration-700"></div>
+           <img 
+             src="/images/mockup.png" 
+             alt="Brand Strategy" 
+             class="relative z-10 rounded-2xl w-full h-[500px] object-cover shadow-2xl border border-white/10 group-hover:scale-[1.02] transition-transform duration-700" 
+             loading="lazy" 
+           />
         </div>
       </div>
 
       <!-- Branding Case Studies -->
-      <ServiceCaseStudies 
-        client:only="react" 
-        service={SERVICES.BRANDING} 
-        title="Branding Case Studies"
-        limit={2}
-      />
-      <div class="flex justify-center mt-6 mb-16">
-        <Button 
-          href="/case-studies?service=branding"
-          variant="outline"
-          client:visible
-        >
-          View Branding Case Studies
-        </Button>
+      <div class="border-l border-white/10 pl-0 md:pl-12">
+          <ServiceCaseStudies 
+            client:only="react" 
+            service={SERVICES.BRANDING} 
+            title="Identity Transformations"
+            limit={2}
+          />
+          <div class="flex justify-center mt-12">
+            <Button 
+              href="/case-studies?service=branding"
+              variant="outline"
+              client:visible
+            >
+              Explore Brand Authority
+            </Button>
+          </div>
       </div>
 
-      <!-- Service 5: Digital Marketing -->
-      <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-      
-        <!-- Text Content -->
-        <div>
-          <h2 class="text-2xl md:text-4xl font-bold text-[#b5ffdb] mb-6">Digital Marketing</h2>
-          <p class="text-gray-300 mb-6 text-base md:text-lg leading-relaxed">
-            Helping you reach and engage your audience through targeted strategies and compelling content
-          </p>
-          <ul class="space-y-3 text-sm md:text-base text-white">
-            <li class="flex items-center gap-3">
-              <span class="text-green-400 text-lg">●</span> 
-              Social media management
-            </li>
-            <li class="flex items-center gap-3">
-              <span class="text-green-400 text-lg">●</span> 
-              SEO optimization
-            </li>
-            <li class="flex items-center gap-3">
-              <span class="text-green-400 text-lg">●</span> 
-              Content creation
-            </li>
-          </ul>
-        </div>
+      <!-- Module 4: Digital Marketing (Traffic Engine) -->
+      <div class="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
          <!-- Image -->
-        <div>
-          <img 
-            src="/images/ads.png" 
-            alt="Digital Marketing" 
-            class="rounded-xl w-full h-[300px] md:h-[400px] object-cover shadow-2xl hover:scale-105 transition-transform duration-300" 
-            loading="lazy" 
-            sizes="(max-width: 768px) 100vw, 50vw" 
-          />
+        <div class="relative group">
+           <div class="absolute inset-0 bg-orange-500/20 blur-[100px] rounded-full opacity-50 group-hover:opacity-70 transition-opacity duration-700"></div>
+           <img 
+             src="/images/ads.png" 
+             alt="Growth Marketing" 
+             class="relative z-10 rounded-2xl w-full h-[500px] object-cover shadow-2xl border border-white/10 group-hover:scale-[1.02] transition-transform duration-700" 
+             loading="lazy" 
+           />
         </div>
         
+        <!-- Text Content -->
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+             <span class="px-3 py-1 bg-orange-500/10 text-orange-400 rounded-full text-xs font-bold uppercase tracking-[0.2em] border border-orange-500/20">
+               Traffic Engine
+             </span>
+          </div>
+
+          <h2 class="text-4xl md:text-6xl font-heading font-bold text-white mb-8 leading-tight">
+             Silence is <span class="text-orange-400">Expensive.</span>
+          </h2>
+          
+          <p class="text-brand-neutral-400 text-lg md:text-xl leading-relaxed mb-8 max-w-lg">
+             You have a great product, but nobody knows it exists. We stop the shotgun approach and put your message in front of people ready to buy.
+          </p>
+
+          <div class="flex flex-col gap-4">
+             <div class="flex items-center gap-3 text-white font-medium">
+                <span class="w-2 h-2 rounded-full bg-orange-400"></span>
+                Sniper-Targeted Acquisition
+             </div>
+             <div class="flex items-center gap-3 text-white font-medium">
+                <span class="w-2 h-2 rounded-full bg-orange-400"></span>
+                High-Converting Funnels
+             </div>
+             <div class="flex items-center gap-3 text-white font-medium">
+                 <span class="w-2 h-2 rounded-full bg-orange-400"></span>
+                Data-Driven Scaling
+             </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Digital Marketing Case Studies -->
-      <ServiceCaseStudies 
-        client:only="react" 
-        service={SERVICES.DIGITAL_MARKETING} 
-        title="Digital Marketing Case Studies"
-        limit={2}
-      />
-      <div class="flex justify-center mt-6 mb-16">
-        <Button 
-          href="/case-studies?service=digital-marketing"
-          variant="outline"
-          client:visible
-        >
-          View Marketing Case Studies
-        </Button>
+      <!-- Marketing Case Studies -->
+      <div class="border-l border-white/10 pl-0 md:pl-12">
+          <ServiceCaseStudies 
+            client:only="react" 
+            service={SERVICES.DIGITAL_MARKETING} 
+            title="Growth Catalysts"
+            limit={2}
+          />
+          <div class="flex justify-center mt-12 pb-20">
+            <Button 
+              href="/case-studies?service=digital-marketing"
+              variant="outline"
+              client:visible
+            >
+              View Growth Results
+            </Button>
+          </div>
       </div>
 
     </div>

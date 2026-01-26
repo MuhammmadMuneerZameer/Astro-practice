@@ -66,6 +66,7 @@ export async function getCaseStudies() {
                 title: data.title || 'Untitled Case Study',
                 subtitle: data.subtitle || '', // New
                 service: data.service || '',
+                services: data.services || (data.service ? [data.service] : []), // New multi-service
                 client: data.client || '',
                 industry: data.industry || '', // New
                 duration: data.duration || '',
