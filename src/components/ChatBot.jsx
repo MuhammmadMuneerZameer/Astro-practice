@@ -48,60 +48,16 @@ function ChatBotComponent() {
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Get API key from environment variables with error handling (Astro compatible)
-  const OPENAI_API_KEY = import.meta.env.PUBLIC_OPENAI_API_KEY || process.env.REACT_APP_OPENAI_API_KEY;
-  if (!OPENAI_API_KEY) {
-    console.error('OpenAI API key is not set. Please check your environment variables.');
-  }
-
- 
-  
-  console.log('API Key status:', OPENAI_API_KEY ? 'Found' : 'Not found');
-
-  const scrollToBottom = () => {
-    try {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    } catch (error) {
-      console.error('Scroll error:', error);
-    }
-  };
-
-  useEffect(() => {
-    try {
-      scrollToBottom();
-    } catch (error) {
-      console.error('useEffect error:', error);
-    }
-  }, [messages]);
+  // No client-side API key check needed here
 
   async function sendToOpenAI(userMessage) {
     try {
-      if (!OPENAI_API_KEY) {
-        console.warn('OpenAI API key not found');
-        return "API key not configured. Please contact support for assistance.";
-      }
-
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      const response = await fetch('/api/chat.php', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${OPENAI_API_KEY}`
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          model: 'gpt-3.5-turbo',
-          messages: [
-            {
-              role: 'system',
-              content: `You are a helpful website assistant for Hydra Fox Designs. You help users navigate the website, answer questions about services, pricing, contact information, and general inquiries. Keep responses concise and helpful. If users ask about specific technical details or services not clearly defined, guide them to contact the team directly.`
-            },
-            {
-              role: 'user',
-              content: userMessage
-            }
-          ],
-          max_tokens: 150,
-          temperature: 0.7
-        })
+        body: JSON.stringify({ message: userMessage })
       });
 
       if (!response.ok) {
@@ -109,9 +65,14 @@ function ChatBotComponent() {
       }
 
       const data = await response.json();
+
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
       return data.choices[0].message.content;
     } catch (error) {
-      console.error('OpenAI API Error:', error);
+      console.error('Chat API Error:', error);
       return "I'm sorry, I'm having trouble connecting right now. Please try again in a moment or contact our support team directly on muneer@hydrafoxdesigns.com.";
     }
   }
@@ -121,7 +82,7 @@ function ChatBotComponent() {
       e.preventDefault();
       if (input.trim() && !loading) {
         const userMessage = input.trim();
-        
+
         // Add user message
         setMessages(prev => [...prev, { text: userMessage, from: 'user' }]);
         setInput('');
@@ -129,7 +90,7 @@ function ChatBotComponent() {
 
         // Get AI response
         const botResponse = await sendToOpenAI(userMessage);
-        
+
         // Add bot response
         setMessages(prev => [...prev, { text: botResponse, from: 'bot' }]);
         setLoading(false);
@@ -171,7 +132,7 @@ function ChatBotComponent() {
           color: 'white',
           borderRadius: '50%',
           padding: open ? '12px 16px' : '16px',
-          
+
           border: 'none',
           cursor: 'pointer',
           boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
@@ -213,7 +174,7 @@ function ChatBotComponent() {
               }}></div>
               <span style={{ fontWeight: '600' }}>Hydra Fox Assistant</span>
             </div>
-            <button 
+            <button
               onClick={() => setOpen(false)}
               style={{
                 background: 'none',
@@ -255,7 +216,7 @@ function ChatBotComponent() {
                 </div>
               </div>
             ))}
-            
+
             {/* Loading indicator */}
             {loading && (
               <div style={{ textAlign: 'left', marginBottom: '12px' }}>
@@ -293,7 +254,7 @@ function ChatBotComponent() {
                 </div>
               </div>
             )}
-            
+
             <div ref={messagesEndRef} />
           </div>
 
@@ -320,8 +281,8 @@ function ChatBotComponent() {
                 onKeyPress={handleKeyPress}
                 disabled={loading}
               />
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 disabled={loading || !input.trim()}
                 style={{
                   background: 'linear-gradient(to right, #3b82f6, #8b5cf6)',

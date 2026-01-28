@@ -3,8 +3,6 @@ import Layout from '../../layouts/Layout.astro';
 import { getCaseStudies } from '../../data/caseStudies';
 import CaseStudyListing from '../../components/CaseStudyListing';
 
-// Enable server-side rendering for this page
-export const prerender = false;
 
 const caseStudies = await getCaseStudies();
 ---

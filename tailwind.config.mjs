@@ -12,8 +12,10 @@ export default {
             900: '#18181b',
             800: '#27272a',
             700: '#3f3f46',
+            700: '#3f3f46',
             400: '#a1a1aa',
-          }
+          },
+          'text-soft': '#cee1da',
         }
       },
       fontFamily: {

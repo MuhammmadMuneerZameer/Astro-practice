@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
+import node from '@astrojs/node';
 
 export default defineConfig({
   site: 'https://hydrafoxdesigns.com',
@@ -10,7 +11,7 @@ export default defineConfig({
     react(),
     sitemap()
   ],
-  output: 'server',
+  output: 'static',
   devToolbar: {
     enabled: false
   }

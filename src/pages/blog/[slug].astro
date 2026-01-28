@@ -1,12 +1,15 @@
----
-// Enable server-side rendering for real-time blog system
-export const prerender = false;
-
 import Layout from '../../layouts/Layout.astro';
-import { getPostBySlug } from '../../data/blogPost.js';
+import { getPosts, getPostBySlug } from '../../data/blogPost.js';
 
-const { slug } = Astro.params;
-const post = await getPostBySlug(slug);
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
 
 if (!post) {
   return Astro.redirect('/404');

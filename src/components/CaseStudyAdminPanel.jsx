@@ -323,8 +323,8 @@ export default function CaseStudyAdminPanel() {
                                                     }));
                                                 }}
                                                 className={`px-3 py-1 rounded-full text-xs font-medium border transition-all ${isSelected
-                                                        ? 'bg-green-500 text-black border-green-500'
-                                                        : 'bg-gray-900 text-gray-400 border-gray-700 hover:border-gray-500'
+                                                    ? 'bg-green-500 text-black border-green-500'
+                                                    : 'bg-gray-900 text-gray-400 border-gray-700 hover:border-gray-500'
                                                     }`}
                                             >
                                                 {getServiceDisplayName(s)}
@@ -353,7 +353,7 @@ export default function CaseStudyAdminPanel() {
                                     value={formData.duration} onChange={e => handleInputChange('duration', e.target.value)} />
                             </div>
                             <div className="md:col-span-2">
-                                <label className="text-sm text-gray-400">Main Hero Image URL</label>
+                                <label className="text-sm text-gray-400">Main Hero Image URL (Recommended: 1920x1080px, Max 5MB)</label>
                                 <div className="flex gap-2">
                                     <input className="flex-1 bg-gray-900 border border-gray-700 p-2 rounded text-white"
                                         value={formData.heroImage || formData.image}
@@ -481,10 +481,10 @@ export default function CaseStudyAdminPanel() {
                             ))}
                         </div>
                         <div>
-                            <label className="block text-sm text-gray-400 mb-1">Add Image</label>
+                            <label className="block text-sm text-gray-400 mb-1">Add Images (Multiple allowed, Rec: 1920x1080px)</label>
                             <div className="relative inline-block">
                                 <button className="bg-gray-700 px-4 py-2 rounded text-white flex items-center gap-2">
-                                    <Upload size={16} /> Upload to Gallery
+                                    <Upload size={16} /> Upload Images (Multiple)
                                 </button>
                                 <input type="file" multiple className="absolute inset-0 opacity-0 cursor-pointer"
                                     onChange={e => handleUpload(e, 'galleryImages')} />

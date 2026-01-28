@@ -4,7 +4,9 @@ service cloud.firestore {
     
     // Helper function to check if user is the specific admin
     function isAdmin() {
-      return request.auth != null && request.auth.token.email == 'hydrafox345@gmail.com';
+      return request.auth != null 
+          && request.auth.token.email == 'hydrafox345@gmail.com' 
+          && request.auth.token.email_verified == true;
     }
     
     // Helper function to check if content is published

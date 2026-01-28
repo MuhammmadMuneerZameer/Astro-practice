@@ -3,8 +3,6 @@ import { getProjects } from '../data/projects.js';
 import ProjectShowcase from '../components/ProjectShowcase.astro';
 import Layout from '../layouts/Layout.astro';
 
-// Enable server-side rendering for real-time data
-export const prerender = false;
 
 const projects = await getProjects();
 ---

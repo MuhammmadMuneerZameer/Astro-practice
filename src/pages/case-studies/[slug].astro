@@ -1,6 +1,5 @@
----
 import Layout from '../../layouts/Layout.astro';
-import { getCaseStudyBySlug } from '../../data/caseStudies';
+import { getCaseStudies, getCaseStudyBySlug } from '../../data/caseStudies';
 
 // Components
 import CaseStudyHero from '../../components/case-study-modules/CaseStudyHero';
@@ -14,11 +13,15 @@ import VisualProofModule from '../../components/case-study-modules/VisualProofMo
 import TestimonialModule from '../../components/case-study-modules/TestimonialModule';
 import ConversionModule from '../../components/case-study-modules/ConversionModule';
 
-// Enable server-side rendering
-export const prerender = false;
+export async function getStaticPaths() {
+  const caseStudies = await getCaseStudies();
+  return caseStudies.map(study => ({
+    params: { slug: study.slug },
+    props: { caseStudy: study },
+  }));
+}
 
-const { slug } = Astro.params;
-const caseStudy = await getCaseStudyBySlug(slug);
+const { caseStudy } = Astro.props;
 
 if (!caseStudy) {
   return Astro.redirect('/case-studies');
