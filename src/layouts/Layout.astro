@@ -2,7 +2,7 @@
 import { ViewTransitions } from "astro:transitions";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer.astro";
-import ChatBot from "../components/ChatBot";
+
 import "../styles/global.css";
 import "../styles/fonts.css";
 
@@ -134,7 +134,7 @@ const ogImage = new URL(image, Astro.site);
     </main>
 
     <Footer transition:persist />
-    <ChatBot client:load transition:persist />
+
 
     <!-- Service Worker Registration -->
     <script>
