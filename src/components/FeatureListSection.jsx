@@ -63,7 +63,7 @@ export default function WhyChooseUs() {
               </h2>
             </div>
             <a
-              href="/ContactUs"
+              href="/contact/"
               className="group relative inline-flex items-center justify-center px-6 py-3 text-white font-medium rounded-full bg-black/80 backdrop-blur-sm transition-all duration-300 overflow-hidden"
               style={{ boxShadow: '0 2px 15px rgb(99, 253, 189)' }}
             >
@@ -92,30 +92,30 @@ export default function WhyChooseUs() {
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ 
-                  duration: 0.6, 
+                transition={{
+                  duration: 0.6,
                   delay: index * 0.15,
                   ease: [0.22, 1, 0.36, 1]
                 }}
                 className="group relative"
               >
                 {/* Card */}
-                <motion.div 
+                <motion.div
                   className="relative h-full p-8 rounded-xl transition-all duration-500"
-                  whileHover={{ 
+                  whileHover={{
                     y: -12,
                     transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
                   }}
                 >
                   {/* Animated background gradient */}
-                  <motion.div 
+                  <motion.div
                     className="absolute inset-0 bg-gradient-to-br from-green-500/5 via-emerald-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                     initial={false}
                   ></motion.div>
-                  
+
                   {/* Subtle border glow on hover */}
                   <div className="absolute inset-0 rounded-xl border border-gray-800/50 group-hover:border-green-500/30 transition-all duration-500"></div>
-                  
+
                   {/* Animated corner accent */}
                   <motion.div
                     className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-green-400/0 to-green-400/10 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -124,9 +124,9 @@ export default function WhyChooseUs() {
 
                   <div className="relative z-10">
                     {/* Icon with animation */}
-                    <motion.div 
+                    <motion.div
                       className="mb-6"
-                      whileHover={{ 
+                      whileHover={{
                         scale: 1.1,
                         rotate: [0, -5, 5, 0],
                         transition: { duration: 0.5 }

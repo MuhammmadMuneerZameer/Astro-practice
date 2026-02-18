@@ -18,9 +18,9 @@ if (file_exists($secretFile)) {
     $apiKey = getenv('OPENAI_API_KEY');
 }
 
-if (!$apiKey || $apiKey === 'REPLACE_WITH_YOUR_OPENAI_API_KEY') {
+if (!$apiKey || !str_starts_with($apiKey, 'sk-')) {
     http_response_code(500);
-    echo json_encode(['error' => 'Server configuration error: API key missing']);
+    echo json_encode(['error' => 'Server configuration error: API key missing or invalid']);
     exit;
 }
 

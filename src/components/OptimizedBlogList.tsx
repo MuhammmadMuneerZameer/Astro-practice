@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { collection, onSnapshot, query, orderBy, limit } from 'firebase/firestore';
 import { db } from '../lib/firebase';
+import { categoryToSlug } from '../lib/utils';
 
 // Define the Post type
 export interface Post {
@@ -22,9 +23,10 @@ interface OptimizedBlogListProps {
   maxPosts?: number;
 }
 
-export default function OptimizedBlogList({ 
-  initialPosts = [], 
-  maxPosts = 100 
+
+export default function OptimizedBlogList({
+  initialPosts = [],
+  maxPosts = 100
 }: OptimizedBlogListProps) {
   const [posts, setPosts] = useState<Post[]>(initialPosts);
   const [loading, setLoading] = useState<boolean>(false);
@@ -33,12 +35,12 @@ export default function OptimizedBlogList({
   useEffect(() => {
     // Only fetch if browser supports Firebase (prevents SSR errors)
     if (typeof window === 'undefined') return;
-    
+
     console.log('🔥 Initializing real-time blog updates...');
     setLoading(true);
-    
+
     const blogsCollection = collection(db, 'post');
-    
+
     // Use limit to prevent fetching too many docs
     let q;
     try {
@@ -52,23 +54,28 @@ export default function OptimizedBlogList({
       q,
       (snapshot) => {
         console.log(`✅ Real-time update: ${snapshot.size} posts`);
-        
-        const postsList: Post[] = snapshot.docs.map(doc => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            slug: data.slug || doc.id,
-            title: data.title || 'Untitled',
-            description: data.description || data.excerpt || '',
-            image: data.image || data.coverImage || 'https://via.placeholder.com/400x300',
-            tag: data.tag || null,
-            category: data.category || null,
-            date: data.date || new Date().toLocaleDateString(),
-            content: data.content || '',
-            status: data.status || 'published',
-          };
-        });
-        
+
+        const postsList: Post[] = snapshot.docs
+          .map(doc => {
+            const data = doc.data();
+            // Clean slug: remove leading/trailing slashes
+            const cleanSlug = (data.slug || doc.id).replace(/^\/+|\/+$/g, '');
+            return {
+              id: doc.id,
+              slug: cleanSlug,
+              title: data.title || 'Untitled',
+              description: data.description || data.excerpt || '',
+              image: data.image || data.coverImage || 'https://via.placeholder.com/400x300',
+              tag: data.tag || null,
+              category: data.category || null,
+              date: data.date || new Date().toLocaleDateString(),
+              content: data.content || '',
+              status: data.status || 'published',
+            };
+          })
+          // Only show published posts with valid slugs
+          .filter(post => post.status === 'published' && post.slug && post.slug.length > 0);
+
         setPosts(postsList);
         setLoading(false);
         setError(null);
@@ -107,7 +114,7 @@ export default function OptimizedBlogList({
       {posts.map((post) => (
         <a
           key={post.id}
-          href={`/blog/${post.slug}`}
+          href={`/resources/${categoryToSlug(post.category)}/${post.slug}/`}
           className="block hover:opacity-80 transition duration-200"
         >
           <div className="bg-black rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow h-full flex flex-col  hover:border-green-500/30">

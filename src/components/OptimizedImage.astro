@@ -1,0 +1,102 @@
+---
+/**
+ * Optimized Image Component
+ * Provides lazy loading, placeholder, and responsive images
+ */
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  width?: number;
+  height?: number;
+  loading?: 'lazy' | 'eager';
+  priority?: boolean;
+  aspectRatio?: string;
+}
+
+const { 
+  src, 
+  alt, 
+  class: className = '',
+  width,
+  height,
+  loading = 'lazy',
+  priority = false,
+  aspectRatio = '16/9'
+} = Astro.props;
+
+const imgLoading = priority ? 'eager' : loading;
+const fetchPriority = priority ? 'high' : 'auto';
+---
+
+<div 
+  class={`optimized-image-container ${className}`}
+  style={`aspect-ratio: ${aspectRatio};`}
+>
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={imgLoading}
+    decoding="async"
+    fetchpriority={fetchPriority}
+    class="optimized-image"
+    onerror="this.onerror=null; this.classList.add('error');"
+    onload="this.classList.add('loaded');"
+  />
+  <div class="image-placeholder" aria-hidden="true"></div>
+</div>
+
+<style>
+  .optimized-image-container {
+    position: relative;
+    overflow: hidden;
+    background-color: #1f2937;
+  }
+
+  .optimized-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .optimized-image.loaded {
+    opacity: 1;
+  }
+
+  .optimized-image.error {
+    opacity: 0;
+  }
+
+  .image-placeholder {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      #1f2937 0%,
+      #374151 50%,
+      #1f2937 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .optimized-image.loaded + .image-placeholder,
+  .optimized-image.error + .image-placeholder {
+    display: none;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+</style>

@@ -1,0 +1,387 @@
+﻿
+> curved-cloud@0.0.1 build
+> astro build
+
+[2m06:05:39[22m [34m[content][39m Syncing content
+[2m06:05:39[22m [34m[content][39m Synced content
+[2m06:05:39[22m [34m[types][39m Generated [2m119ms[22m
+[2m06:05:39[22m [34m[build][39m output: [34m"static"[39m
+[2m06:05:39[22m [34m[build][39m mode: [34m"static"[39m
+[2m06:05:39[22m [34m[build][39m directory: [34mC:\Users\Haroon Traders\OneDrive\Desktop\HFD\Astro-practice\dist\[39m
+[2m06:05:39[22m [34m[build][39m Collecting build info...
+[2m06:05:39[22m [34m[build][39m [32mΓ£ô Completed in 333ms.[39m
+[2m06:05:39[22m [34m[build][39m Building static entrypoints...
+node.exe : panic: html: bad 
+parser state: originalIM 
+was set twice [recovered]
+At C:\Program 
+Files\nodejs\npm.ps1:29 
+char:3
++   & $NODE_EXE $NPM_CLI_JS 
+$args
++   ~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo          
+    : NotSpecifi    ed: 
+(panic: html:     ba...ice 
+[recovere    d]:String) [], 
+Rem    oteException
+    + FullyQualifiedEr    
+rorId : NativeComm    
+andError
+ 
+	panic: interface 
+conversion: string is not 
+error: missing method Error
+
+goroutine 12 [running]:
+main.main.Transform.func1.1.
+1.1()
+	./astro-wasm.go:335 +0x5
+panic({0x17940, 0x7b460})
+	runtime/panic.go:770 +0x1a
+github.com/withastro/compile
+r/internal.(*parser).setOrig
+inalIM(...)
+	github.com/withastro/compil
+er/internal/parser.go:545
+github.com/withastro/compile
+r/internal.inBodyIM(0x1456c6
+0)
+	github.com/withastro/compil
+er/internal/parser.go:1106 
++0x41a
+github.com/withastro/compile
+r/internal.(*parser).parseCu
+rrentToken(0x1456c60)
+	github.com/withastro/compil
+er/internal/parser.go:3009 
++0x12
+github.com/withastro/compile
+r/internal.(*parser).parse(0
+x1456c60)
+	github.com/withastro/compil
+er/internal/parser.go:3036 
++0x3
+github.com/withastro/compile
+r/internal.ParseWithOptions(
+{0x7bca8, 0x1434460}, 
+{0x1535e20, 0x1, 0x1})
+	github.com/withastro/compil
+er/internal/parser.go:3100 
++0x13
+main.main.Transform.func1.1.
+1()
+	./astro-wasm.go:340 +0x4
+created by 
+main.main.Transform.func1.1 
+in goroutine 6
+	./astro-wasm.go:331 +0x7
+exit code: 2
+[31m[1m06:05:40[22m 
+[ERROR] [vite][39m 
+[31mΓ£ù[39m Build failed 
+in 956ms
+file:///C:/Users/Haroon%20Tr
+aders/OneDrive/Desktop/HFD/A
+stro-practice/node_modules/@
+astrojs/compiler/dist/chunk-
+W5DTLHV4.js:1
+import g 
+from"crypto";import _ 
+from"fs";import{TextDecoder 
+as b,TextEncoder as v}from"u
+til";globalThis.fs||Object.d
+efineProperty(globalThis,"fs
+",{value:_});globalThis.proc
+ess||Object.defineProperties
+(globalThis,"process",{value
+:process});globalThis.crypto
+||Object.defineProperty(glob
+alThis,"crypto",{value:g.web
+crypto?g.webcrypto:{getRando
+mValues(m){return g.randomFi
+llSync(m)}}});globalThis.per
+formance||Object.definePrope
+rty(globalThis,"performance"
+,{value:{now(){let[m,o]=proc
+ess.hrtime();return 
+m*1e3+o/1e6}}});var y=new 
+v("utf-8"),w=new 
+b("utf-8");var d=class{const
+ructor(){this.argv=["js"],th
+is.env={},this.exit=t=>{t!==
+0&&console.warn("exit code:"
+,t)},this._exitPromise=new P
+romise(t=>{this._resolveExit
+Promise=t}),this._pendingEve
+nt=null,this._scheduledTimeo
+uts=new Map,this._nextCallba
+ckTimeoutID=1;let o=(t,e)=>{
+this.mem.setUint32(t+0,e,!0)
+,this.mem.setUint32(t+4,Math
+.floor(e/4294967296),!0)},n=
+t=>{let e=this.mem.getUint32
+(t+0,!0),s=this.mem.getInt32
+(t+4,!0);return 
+e+s*4294967296},r=t=>{let e=
+this.mem.getFloat64(t,!0);if
+(e===0)return;if(!isNaN(e))r
+eturn e;let s=this.mem.getUi
+nt32(t,!0);return this._valu
+es[s]},l=(t,e)=>{if(typeof e
+=="number"&&e!==0){if(isNaN(
+e)){this.mem.setUint32(t+4,2
+146959360,!0),this.mem.setUi
+nt32(t,0,!0);return}this.mem
+.setFloat64(t,e,!0);return}i
+f(e===void 0){this.mem.setFl
+oat64(t,0,!0);return}let 
+i=this._ids.get(e);i===void 
+0&&(i=this._idPool.pop(),i==
+=void 0&&(i=this._values.len
+gth),this._values[i]=e,this.
+_goRefCounts[i]=0,this._ids.
+set(e,i)),this._goRefCounts[
+i]++;let a=0;switch(typeof e
+){case"object":e!==null&&(a=
+1);break;case"string":a=2;br
+eak;case"symbol":a=3;break;c
+ase"function":a=4;break}this
+.mem.setUint32(t+4,214695936
+0|a,!0),this.mem.setUint32(t
+,i,!0)},c=t=>{let 
+e=n(t+0),s=n(t+8);return 
+new Uint8Array(this._inst.ex
+ports.mem.buffer,e,s)},f=t=>
+{let 
+e=n(t+0),s=n(t+8),i=new 
+Array(s);for(let a=0;a<s;a++
+)i[a]=r(e+a*8);return 
+i},u=t=>{let 
+e=n(t+0),s=n(t+8);return 
+w.decode(new DataView(this._
+inst.exports.mem.buffer,e,s)
+)},h=Date.now()-performance.
+now();this.importObject={goj
+s:{"runtime.wasmExit":t=>{t>
+>>=0;let e=this.mem.getInt32
+(t+8,!0);this.exited=!0,dele
+te this._inst,delete 
+this._values,delete 
+this._goRefCounts,delete 
+this._ids,delete this._idPoo
+l,this.exit(e)},"runtime.was
+mWrite":t=>{t>>>=0;let e=n(t
++8),s=n(t+16),i=this.mem.get
+Int32(t+24,!0);_.writeSync(e
+,new Uint8Array(this._inst.e
+xports.mem.buffer,s,i))},"ru
+ntime.resetMemoryDataView":t
+=>{t>>>=0,this.mem=new DataV
+iew(this._inst.exports.mem.b
+uffer)},"runtime.nanotime1":
+t=>{t>>>=0,o(t+8,(h+performa
+nce.now())*1e6)},"runtime.wa
+lltime":t=>{t>>>=0;let 
+e=new Date().getTime();o(t+8
+,e/1e3),this.mem.setInt32(t+
+16,e%1e3*1e6,!0)},"runtime.s
+cheduleTimeoutEvent":t=>{t>>
+>=0;let e=this._nextCallback
+TimeoutID;this._nextCallback
+TimeoutID++,this._scheduledT
+imeouts.set(e,setTimeout(()=
+>{for(this._resume();this._s
+cheduledTimeouts.has(e);)con
+sole.warn("scheduleTimeoutEv
+ent: missed timeout event"),
+this._resume()},n(t+8)+1)),t
+his.mem.setInt32(t+16,e,!0)}
+,"runtime.clearTimeoutEvent"
+:t=>{t>>>=0;let e=this.mem.g
+etInt32(t+8,!0);clearTimeout
+(this._scheduledTimeouts.get
+(e)),this._scheduledTimeouts
+.delete(e)},"runtime.getRand
+omData":t=>{t>>>=0,globalThi
+s.crypto.getRandomValues(c(t
++8))},"syscall/js.finalizeRe
+f":t=>{t>>>=0;let e=this.mem
+.getUint32(t+8,!0);if(this._
+goRefCounts[e]--,this._goRef
+Counts[e]===0){let s=this._v
+alues[e];this._values[e]=nul
+l,this._ids.delete(s),this._
+idPool.push(e)}},"syscall/js
+.stringVal":t=>{t>>>=0,l(t+2
+4,u(t+8))},"syscall/js.value
+Get":t=>{t>>>=0;let e=Reflec
+t.get(r(t+8),u(t+16));t=this
+._inst.exports.getsp()>>>0,l
+(t+32,e)},"syscall/js.valueS
+et":t=>{t>>>=0,Reflect.set(r
+(t+8),u(t+16),r(t+32))},"sys
+call/js.valueDelete":t=>{t>>
+>=0,Reflect.deleteProperty(r
+(t+8),u(t+16))},"syscall/js.
+valueIndex":t=>{t>>>=0,l(t+2
+4,Reflect.get(r(t+8),n(t+16)
+))},"syscall/js.valueSetInde
+x":t=>{t>>>=0,Reflect.set(r(
+t+8),n(t+16),r(t+24))},"sysc
+all/js.valueCall":t=>{t>>>=0
+;try{let e=r(t+8),s=Reflect.
+get(e,u(t+16)),i=f(t+32),a=R
+eflect.apply(s,e,i);t=this._
+inst.exports.getsp()>>>0,l(t
++56,a),this.mem.setUint8(t+6
+4,1)}catch(e){t=this._inst.e
+xports.getsp()>>>0,l(t+56,e)
+,this.mem.setUint8(t+64,0)}}
+,"syscall/js.valueInvoke":t=
+>{t>>>=0;try{let e=r(t+8),s=
+f(t+16),i=Reflect.apply(e,vo
+id 0,s);t=this._inst.exports
+.getsp()>>>0,l(t+40,i),this.
+mem.setUint8(t+48,1)}catch(e
+){t=this._inst.exports.getsp
+()>>>0,l(t+40,e),this.mem.se
+tUint8(t+48,0)}},"syscall/js
+.valueNew":t=>{t>>>=0;try{le
+t e=r(t+8),s=f(t+16),i=Refle
+ct.construct(e,s);t=this._in
+st.exports.getsp()>>>0,l(t+4
+0,i),this.mem.setUint8(t+48,
+1)}catch(e){t=this._inst.exp
+orts.getsp()>>>0,l(t+40,e),t
+his.mem.setUint8(t+48,0)}},"
+syscall/js.valueLength":t=>{
+t>>>=0,o(t+16,Number.parseIn
+t(r(t+8).length))},"syscall/
+js.valuePrepareString":t=>{t
+>>>=0;let e=y.encode(String(
+r(t+8)));l(t+16,e),o(t+24,e.
+length)},"syscall/js.valueLo
+adString":t=>{t>>>=0;let e=r
+(t+8);c(t+16).set(e)},"sysca
+ll/js.valueInstanceOf":t=>{t
+>>>=0,this.mem.setUint8(t+24
+,r(t+8)instanceof r(t+16)?1:
+0)},"syscall/js.copyBytesToG
+o":t=>{t>>>=0;let 
+e=c(t+8),s=r(t+32);if(!(s 
+instanceof Uint8Array||s 
+instanceof Uint8ClampedArray
+)){this.mem.setUint8(t+48,0)
+;return}let i=s.subarray(0,e
+.length);e.set(i),o(t+40,i.l
+ength),this.mem.setUint8(t+4
+8,1)},"syscall/js.copyBytesT
+oJS":t=>{t>>>=0;let 
+e=r(t+8),s=c(t+16);if(!(e 
+instanceof Uint8Array||e 
+instanceof Uint8ClampedArray
+)){this.mem.setUint8(t+48,0)
+;return}let i=s.subarray(0,e
+.length);e.set(i),o(t+40,i.l
+ength),this.mem.setUint8(t+4
+8,1)},debug:t=>{console.log(
+t)}}}}async run(o){if(!(o 
+instanceof 
+WebAssembly.Instance))throw 
+new Error("Go.run: 
+WebAssembly.Instance expecte
+d");this._inst=o,this.mem=ne
+w DataView(this._inst.export
+s.mem.buffer),this._values=[
+Number.NaN,0,null,!0,!1,glob
+alThis,this],this._goRefCoun
+ts=new Array(this._values.le
+ngth).fill(Number.POSITIVE_I
+NFINITY),this._ids=new Map([
+[0,1],[null,2],[!0,3],[!1,4]
+,[globalThis,5],[this,6]]),t
+his._idPool=[],this.exited=!
+1;let n=4096,r=h=>{let t=n,e
+=y.encode(`${h}\0`);return 
+new Uint8Array(this.mem.buff
+er,n,e.length).set(e),n+=e.l
+ength,n%8!==0&&(n+=8-n%8),t}
+,l=this.argv.length,c=[];thi
+s.argv.forEach(h=>{c.push(r(
+h))}),c.push(0),Object.keys(
+this.env).sort().forEach(h=>
+{c.push(r(`${h}=${this.env[h
+]}`))}),c.push(0);let u=n;c.
+forEach(h=>{this.mem.setUint
+32(n,h,!0),this.mem.setUint3
+2(n+4,0,!0),n+=8}),this._ins
+t.exports.run(l,u),this.exit
+ed&&this._resolveExitPromise
+(),await this._exitPromise}_
+resume(){if(this.exited)thro
+w new Error("Go program has 
+already exited");this._inst.
+exports.resume(),this.exited
+&&this._resolveExitPromise()
+}_makeFuncWrapper(o){let 
+n=this;return 
+function(){let r={id:o,this:
+this,args:arguments};return 
+n._pendingEvent=r,n._resume(
+),r.result}}};export{d as 
+a};
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+            
+
+Error: Go program has 
+already exited
+    at d._resume (file:///C:
+/Users/Haroon%20Traders/OneD
+rive/Desktop/HFD/Astro-pract
+ice/node_modules/@astrojs/co
+mpiler/dist/chunk-W5DTLHV4.j
+s:1:6350)
+    at file:///C:/Users/Haro
+on%20Traders/OneDrive/Deskto
+p/HFD/Astro-practice/node_mo
+dules/@astrojs/compiler/dist
+/chunk-W5DTLHV4.js:1:6575
+
+Node.js v22.14.0

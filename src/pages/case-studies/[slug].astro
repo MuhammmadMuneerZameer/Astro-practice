@@ -1,21 +1,22 @@
-import Layout from '../../layouts/Layout.astro';
-import { getCaseStudies, getCaseStudyBySlug } from '../../data/caseStudies';
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCaseStudies, getCaseStudyBySlug } from "../../data/caseStudies";
 
 // Components
-import CaseStudyHero from '../../components/case-study-modules/CaseStudyHero';
-import BrandIdentityModule from '../../components/case-study-modules/BrandIdentityModule';
-import MarketRealityModule from '../../components/case-study-modules/MarketRealityModule';
-import GrowthBlockModule from '../../components/case-study-modules/GrowthBlockModule';
-import StrategicShiftModule from '../../components/case-study-modules/StrategicShiftModule';
-import SystemBuildModule from '../../components/case-study-modules/SystemBuildModule';
-import MarketImpactModule from '../../components/case-study-modules/MarketImpactModule';
-import VisualProofModule from '../../components/case-study-modules/VisualProofModule';
-import TestimonialModule from '../../components/case-study-modules/TestimonialModule';
-import ConversionModule from '../../components/case-study-modules/ConversionModule';
+import CaseStudyHero from "../../components/case-study-modules/CaseStudyHero";
+import BrandIdentityModule from "../../components/case-study-modules/BrandIdentityModule";
+import MarketRealityModule from "../../components/case-study-modules/MarketRealityModule";
+import GrowthBlockModule from "../../components/case-study-modules/GrowthBlockModule";
+import StrategicShiftModule from "../../components/case-study-modules/StrategicShiftModule";
+import SystemBuildModule from "../../components/case-study-modules/SystemBuildModule";
+import MarketImpactModule from "../../components/case-study-modules/MarketImpactModule";
+import VisualProofModule from "../../components/case-study-modules/VisualProofModule";
+import TestimonialModule from "../../components/case-study-modules/TestimonialModule";
+import ConversionModule from "../../components/case-study-modules/ConversionModule";
 
 export async function getStaticPaths() {
   const caseStudies = await getCaseStudies();
-  return caseStudies.map(study => ({
+  return caseStudies.map((study) => ({
     params: { slug: study.slug },
     props: { caseStudy: study },
   }));
@@ -24,7 +25,7 @@ export async function getStaticPaths() {
 const { caseStudy } = Astro.props;
 
 if (!caseStudy) {
-  return Astro.redirect('/case-studies');
+  return Astro.redirect("/case-studies");
 }
 ---
 
@@ -33,9 +34,8 @@ if (!caseStudy) {
   description={caseStudy.challenge || `Case Study for ${caseStudy.client}`}
 >
   <main class="bg-black min-h-screen">
-    
     {/* 1. Hero Module */}
-    <CaseStudyHero 
+    <CaseStudyHero
       client:visible
       title={caseStudy.title}
       subtitle={caseStudy.subtitle}
@@ -47,7 +47,7 @@ if (!caseStudy) {
     />
 
     {/* 2. Brand Identity Module */}
-    <BrandIdentityModule 
+    <BrandIdentityModule
       client:visible
       brandBio={caseStudy.brandBio}
       visualIdentity={caseStudy.visualIdentity}
@@ -56,7 +56,7 @@ if (!caseStudy) {
     />
 
     {/* 3. Market Reality Module */}
-    <MarketRealityModule 
+    <MarketRealityModule
       client:visible
       marketMap={caseStudy.marketMap}
       competitors={caseStudy.competitors}
@@ -64,41 +64,41 @@ if (!caseStudy) {
     />
 
     {/* 4. Growth Block (Challenges) */}
-    <GrowthBlockModule 
+    <GrowthBlockModule
       client:visible
-      challenges={caseStudy.challenges || caseStudy.challenge} // Fallback to old field
+      challenges={caseStudy.challenges || caseStudy.challenge}
       bottlenecks={caseStudy.bottlenecks}
     />
 
     {/* 5. Strategic Shift */}
-    <StrategicShiftModule 
+    <StrategicShiftModule
       client:visible
       oldStrategy={caseStudy.oldStrategy}
-      newStrategy={caseStudy.newStrategy || caseStudy.solution} // Fallback
+      newStrategy={caseStudy.newStrategy || caseStudy.solution}
     />
 
     {/* 6. System Build */}
-    <SystemBuildModule 
+    <SystemBuildModule
       client:visible
       ecosystem={caseStudy.ecosystem}
       automation={caseStudy.automation}
     />
 
     {/* 8. Market Impact */}
-    <MarketImpactModule 
+    <MarketImpactModule
       client:visible
       revenueImpact={caseStudy.revenueImpact}
       kpis={caseStudy.kpis}
     />
 
     {/* 9. Visual Proof */}
-    <VisualProofModule 
+    <VisualProofModule
       client:visible
-      galleryImages={caseStudy.galleryImages || caseStudy.images} // Fallback
+      galleryImages={caseStudy.galleryImages || caseStudy.images}
     />
 
     {/* 10. Testimonial */}
-    <TestimonialModule 
+    <TestimonialModule
       client:visible
       quote={caseStudy.testimonialQuote}
       author={caseStudy.testimonialAuthor}
@@ -106,11 +106,11 @@ if (!caseStudy) {
     />
 
     {/* 11. Conversion */}
-    <ConversionModule 
+    <ConversionModule
       client:visible
       bookingLink={caseStudy.bookingLink}
-      services={caseStudy.services || (caseStudy.service ? [caseStudy.service] : [])}
+      services={caseStudy.services ||
+        (caseStudy.service ? [caseStudy.service] : [])}
     />
-
   </main>
 </Layout>

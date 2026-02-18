@@ -1,0 +1,296 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SERVICE_HIERARCHY, getAllServices } from '../../data/taxonomy.js';
+
+const services = getAllServices();
+---
+
+<Layout
+  title="About Us | Hydra Fox Designs"
+  description="Learn about Hydra Fox Designs - a strategic design agency building systems that scale and convert for ambitious brands."
+>
+  <!-- Breadcrumb -->
+  <nav class="bg-black pt-24 pb-4 px-6">
+    <div class="max-w-7xl mx-auto">
+      <ol class="flex items-center gap-2 text-sm text-gray-400">
+        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+        <li class="text-gray-600">/</li>
+        <li class="text-white font-medium">About</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="bg-black text-white px-6 pb-20">
+    <div class="max-w-7xl mx-auto">
+      <h1 class="text-5xl md:text-7xl font-bold mb-6">
+        We Build <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600">Profitable</span><br/>
+        Digital Experiences.
+      </h1>
+      <p class="text-gray-400 text-xl max-w-2xl leading-relaxed">
+        Hydra Fox Designs is a strategic design agency that transforms brands through 
+        conversion-focused design, development, and marketing.
+      </p>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="bg-black text-white px-6 py-20 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div>
+          <span class="text-green-400 text-sm font-medium uppercase tracking-wider mb-4 block">Our Mission</span>
+          <h2 class="text-4xl font-bold mb-6">Stop Losing Money to Poor Digital Experiences.</h2>
+          <p class="text-gray-400 text-lg leading-relaxed mb-6">
+            Too many businesses treat their website like a brochure instead of a business engine.
+            We change that by building systems designed to convert, scale, and generate real ROI.
+          </p>
+          <p class="text-gray-400 text-lg leading-relaxed">
+            Every design decision, every line of code, every marketing strategy is built around 
+            one question: <strong class="text-white">Will this make money for our client?</strong>
+          </p>
+        </div>
+        <div class="bg-gray-900/50 rounded-2xl p-8 border border-gray-800">
+          <h3 class="text-2xl font-bold mb-6">What We Believe</h3>
+          <ul class="space-y-4">
+            <li class="flex gap-4">
+              <span class="w-6 h-6 bg-green-500/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+              </span>
+              <span class="text-gray-300">Design without strategy is just decoration.</span>
+            </li>
+            <li class="flex gap-4">
+              <span class="w-6 h-6 bg-green-500/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+              </span>
+              <span class="text-gray-300">Websites should pay for themselves within weeks, not years.</span>
+            </li>
+            <li class="flex gap-4">
+              <span class="w-6 h-6 bg-green-500/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+              </span>
+              <span class="text-gray-300">Your brand is your most valuable asset. Treat it like one.</span>
+            </li>
+            <li class="flex gap-4">
+              <span class="w-6 h-6 bg-green-500/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+              </span>
+              <span class="text-gray-300">Confused customers don't buy. Clear messaging wins.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Overview -->
+  <section class="bg-black text-white px-6 py-20 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl font-bold mb-4">Our Expertise</h2>
+      <p class="text-gray-400 mb-12">Full-stack brand and digital solutions.</p>
+      
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {services.map(service => (
+          <a 
+            href={`/services/${service.slug}/`}
+            class="group block p-5 bg-gray-900/30 rounded-lg border border-gray-800 hover:border-green-500/30 transition-all"
+          >
+            <h3 class="font-bold mb-2 group-hover:text-green-400 transition-colors">
+              {service.name}
+            </h3>
+            <p class="text-gray-500 text-sm line-clamp-2">
+              {service.description}
+            </p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Previous Team Members / Alumni -->
+  <section class="bg-black text-white px-6 py-20 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto">
+      <span class="text-green-400 text-sm font-medium uppercase tracking-wider mb-4 block">Our Alumni</span>
+      <h2 class="text-3xl font-bold mb-4">People Who Built With Us</h2>
+      <p class="text-gray-400 mb-12 max-w-2xl">
+        We're proud of the talented individuals who contributed to our journey. They've gone on to do amazing things.
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Alumni Card 1 -->
+        <div class="group bg-gray-900/30 rounded-2xl border border-gray-800 p-6 hover:border-green-500/30 transition-all duration-300">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-green-500/20 to-emerald-600/20 flex items-center justify-center flex-shrink-0 border border-green-500/20">
+              <span class="text-2xl font-bold text-green-400">AH</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white group-hover:text-green-400 transition-colors">Ahmad Hassan</h3>
+              <p class="text-green-400 text-sm">Senior Developer</p>
+              <p class="text-gray-500 text-xs mt-1">2023 - 2025</p>
+            </div>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">
+            Led our web development team, building scalable applications and mentoring junior developers.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 bg-gray-800 text-gray-400 rounded text-xs">React</span>
+            <span class="px-2 py-1 bg-gray-800 text-gray-400 rounded text-xs">Node.js</span>
+            <span class="px-2 py-1 bg-gray-800 text-gray-400 rounded text-xs">AWS</span>
+          </div>
+          <div class="mt-4 pt-4 border-t border-gray-800">
+            <p class="text-gray-500 text-xs">Now at: <span class="text-gray-300">Tech Startup, Lahore</span></p>
+          </div>
+        </div>
+
+        <!-- Alumni Card 2 -->
+        <div class="group bg-gray-900/30 rounded-2xl border border-gray-800 p-6 hover:border-green-500/30 transition-all duration-300">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-pink-600/20 flex items-center justify-center flex-shrink-0 border border-purple-500/20">
+              <span class="text-2xl font-bold text-purple-400">SK</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white group-hover:text-green-400 transition-colors">Sara Khan</h3>
+              <p class="text-purple-400 text-sm">UI/UX Designer</p>
+              <p class="text-gray-500 text-xs mt-1">2022 - 2024</p>
+            </div>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">
+            Created stunning user interfaces and established our design system that we still use today.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 bg-gray-800 text-gray-400 rounded text-xs">Figma</span>
+            <span class="px-2 py-1 bg-gray-800 text-gray-400 rounded text-xs">Design Systems</span>
+            <span class="px-2 py-1 bg-gray-800 text-gray-400 rounded text-xs">Prototyping</span>
+          </div>
+          <div class="mt-4 pt-4 border-t border-gray-800">
+            <p class="text-gray-500 text-xs">Now at: <span class="text-gray-300">Design Agency, Karachi</span></p>
+          </div>
+        </div>
+
+        <!-- Alumni Card 3 -->
+        <div class="group bg-gray-900/30 rounded-2xl border border-gray-800 p-6 hover:border-green-500/30 transition-all duration-300">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-600/20 flex items-center justify-center flex-shrink-0 border border-blue-500/20">
+              <span class="text-2xl font-bold text-blue-400">MA</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white group-hover:text-green-400 transition-colors">Muhammad Ali</h3>
+              <p class="text-blue-400 text-sm">Marketing Lead</p>
+              <p class="text-gray-500 text-xs mt-1">2023 - 2025</p>
+            </div>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">
+            Drove our digital marketing strategy and helped clients achieve record conversion rates.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 bg-gray-800 text-gray-400 rounded text-xs">Google Ads</span>
+            <span class="px-2 py-1 bg-gray-800 text-gray-400 rounded text-xs">SEO</span>
+            <span class="px-2 py-1 bg-gray-800 text-gray-400 rounded text-xs">Analytics</span>
+          </div>
+          <div class="mt-4 pt-4 border-t border-gray-800">
+            <p class="text-gray-500 text-xs">Now at: <span class="text-gray-300">Marketing Consultant, Freelance</span></p>
+          </div>
+        </div>
+
+        <!-- Alumni Card 4 -->
+        <div class="group bg-gray-900/30 rounded-2xl border border-gray-800 p-6 hover:border-green-500/30 transition-all duration-300">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-orange-500/20 to-red-600/20 flex items-center justify-center flex-shrink-0 border border-orange-500/20">
+              <span class="text-2xl font-bold text-orange-400">FA</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white group-hover:text-green-400 transition-colors">Fatima Ahmed</h3>
+              <p class="text-orange-400 text-sm">Content Strategist</p>
+              <p class="text-gray-500 text-xs mt-1">2022 - 2023</p>
+            </div>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">
+            Crafted compelling brand stories and content that resonated with our clients' audiences.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 bg-gray-800 text-gray-400 rounded text-xs">Copywriting</span>
+            <span class="px-2 py-1 bg-gray-800 text-gray-400 rounded text-xs">Brand Voice</span>
+            <span class="px-2 py-1 bg-gray-800 text-gray-400 rounded text-xs">Strategy</span>
+          </div>
+          <div class="mt-4 pt-4 border-t border-gray-800">
+            <p class="text-gray-500 text-xs">Now at: <span class="text-gray-300">Content Studio, Dubai</span></p>
+          </div>
+        </div>
+
+        <!-- Alumni Card 5 -->
+        <div class="group bg-gray-900/30 rounded-2xl border border-gray-800 p-6 hover:border-green-500/30 transition-all duration-300">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-teal-500/20 to-green-600/20 flex items-center justify-center flex-shrink-0 border border-teal-500/20">
+              <span class="text-2xl font-bold text-teal-400">ZM</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white group-hover:text-green-400 transition-colors">Zain Malik</h3>
+              <p class="text-teal-400 text-sm">Full Stack Developer</p>
+              <p class="text-gray-500 text-xs mt-1">2021 - 2023</p>
+            </div>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">
+            Built robust backend systems and helped shape our technical infrastructure from the ground up.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 bg-gray-800 text-gray-400 rounded text-xs">Python</span>
+            <span class="px-2 py-1 bg-gray-800 text-gray-400 rounded text-xs">PostgreSQL</span>
+            <span class="px-2 py-1 bg-gray-800 text-gray-400 rounded text-xs">DevOps</span>
+          </div>
+          <div class="mt-4 pt-4 border-t border-gray-800">
+            <p class="text-gray-500 text-xs">Now at: <span class="text-gray-300">FinTech Company, Islamabad</span></p>
+          </div>
+        </div>
+
+        <!-- Alumni Card 6 -->
+        <div class="group bg-gray-900/30 rounded-2xl border border-gray-800 p-6 hover:border-green-500/30 transition-all duration-300">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-pink-500/20 to-rose-600/20 flex items-center justify-center flex-shrink-0 border border-pink-500/20">
+              <span class="text-2xl font-bold text-pink-400">HR</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white group-hover:text-green-400 transition-colors">Hira Rizvi</h3>
+              <p class="text-pink-400 text-sm">Project Manager</p>
+              <p class="text-gray-500 text-xs mt-1">2022 - 2024</p>
+            </div>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">
+            Kept our projects on track and ensured seamless communication between clients and our team.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 bg-gray-800 text-gray-400 rounded text-xs">Agile</span>
+            <span class="px-2 py-1 bg-gray-800 text-gray-400 rounded text-xs">Client Relations</span>
+            <span class="px-2 py-1 bg-gray-800 text-gray-400 rounded text-xs">Scrum</span>
+          </div>
+          <div class="mt-4 pt-4 border-t border-gray-800">
+            <p class="text-gray-500 text-xs">Now at: <span class="text-gray-300">Product Manager, E-commerce</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-gradient-to-b from-black to-gray-900 text-white px-6 py-24 border-t border-gray-800">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-6">Ready to Work With Us?</h2>
+      <p class="text-gray-400 text-lg mb-10">
+        Let's discuss how we can transform your digital presence.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a 
+          href="/contact/"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-green-500 hover:bg-green-600 text-black font-bold rounded-full transition-colors"
+        >
+          Get in Touch
+        </a>
+        <a 
+          href="/work/"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 border border-gray-600 hover:border-white text-white font-medium rounded-full transition-colors"
+        >
+          View Our Work
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

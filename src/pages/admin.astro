@@ -1,12 +1,13 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import UnifiedAdminDashboard from '../components/UnifiedAdminDashboard';
-import AdminAuth from '../components/AdminAuth';
+import Layout from "../layouts/Layout.astro";
+import UnifiedAdminDashboard from "../components/UnifiedAdminDashboard";
+import AdminAuth from "../components/AdminAuth";
 ---
 
 <Layout
   title="Admin Dashboard | Hydra Fox Designs"
-  description="Manage your content with our intuitive admin interface. Create, edit, and delete blog posts, projects, and case studies with ease."
+  description="Manage your content with our intuitive admin interface."
+  noindex={true}
 >
   <AdminAuth client:only="react">
     <UnifiedAdminDashboard client:only="react" />

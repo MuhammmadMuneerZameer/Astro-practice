@@ -1,25 +1,29 @@
 ---
-import Splineanimation from './Splineanimation';
-import SplitTextComponent from './SplitTextComponent';
+import Splineanimation from "./Splineanimation";
+import SplitTextComponent from "./SplitTextComponent";
 ---
 
-<div class="hero-container relative min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 w-full">
+<div
+  class="hero-container relative min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 w-full"
+>
   <!-- Background Spline Animation -->
   <div class="absolute inset-0 w-full h-full z-0 spline-wrapper">
     <Splineanimation client:load />
   </div>
 
   <!-- Content Wrapper -->
-  <div class="relative z-10 flex flex-col items-center justify-center gap-6 sm:gap-8 md:gap-10 w-full max-w-7xl mx-auto">
-    
+  <div
+    class="relative z-10 flex flex-col items-center justify-center gap-6 sm:gap-8 md:gap-10 w-full max-w-7xl mx-auto"
+  >
     <!-- Text Content - FIXED: Remove overflow-visible, add proper constraints -->
     <div class="w-full px-2 sm:px-4 max-w-5xl">
       <SplitTextComponent client:load />
     </div>
 
     <!-- CTA Button -->
-    <a id="hero-button"
-      href="/ContactUs"
+    <a
+      id="hero-button"
+      href="/contact/"
       class="hero-button group relative mt-0 inline-flex items-center justify-center px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 text-white font-medium rounded-full bg-black/80 backdrop-blur-sm shadow-md transition-all duration-300 overflow-hidden text-sm sm:text-base md:text-lg sm:mt-4 touch-manipulation"
     >
       <span class="relative z-10 flex items-center gap-2 sm:gap-3">
@@ -31,12 +35,19 @@ import SplitTextComponent from './SplitTextComponent';
           stroke-width="2"
           viewBox="0 0 24 24"
         >
-          <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M5 12h14M12 5l7 7-7 7"></path>
         </svg>
       </span>
-      
-      <span class="absolute inset-0 rounded-full bg-green-400 opacity-0 group-hover:opacity-30 transition-all duration-300"></span>
-      <span class="absolute inset-0 rounded-full border border-green-400 opacity-0 group-hover:opacity-100 transition-all duration-500"></span>
+
+      <span
+        class="absolute inset-0 rounded-full bg-green-400 opacity-0 group-hover:opacity-30 transition-all duration-300"
+      ></span>
+      <span
+        class="absolute inset-0 rounded-full border border-green-400 opacity-0 group-hover:opacity-100 transition-all duration-500"
+      ></span>
     </a>
   </div>
 </div>
@@ -76,12 +87,14 @@ import SplitTextComponent from './SplitTextComponent';
   /* Button Styles */
   .hero-button {
     box-shadow: 0 4px 20px rgba(99, 253, 189, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
     min-height: 44px;
     -webkit-tap-highlight-color: transparent;
     pointer-events: auto;
   }
-  
+
   .hero-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 30px rgba(99, 253, 189, 0.4);

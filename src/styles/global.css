@@ -285,23 +285,7 @@ textarea {
    6. ANIMATIONS
    ========================================================================== */
 
-/* View Transitions API (Chrome/Edge only) */
-@keyframes fade-scale {
-  from {
-    opacity: 0;
-    transform: scale(0.98);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: fade-scale 2s ease-in-out both;
-}
+/* View Transitions are configured in Layout.astro (100ms fast fade) */
 
 /* ==========================================================================
    7. RESPONSIVE DESIGN

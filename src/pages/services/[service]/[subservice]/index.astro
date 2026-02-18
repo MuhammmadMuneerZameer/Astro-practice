@@ -1,0 +1,219 @@
+---
+import Layout from "../../../../layouts/Layout.astro";
+import {
+  SERVICE_HIERARCHY,
+  INDUSTRIES,
+  getServiceBySlug,
+  getSubserviceBySlug,
+} from "../../../../data/taxonomy.js";
+import { getCaseStudies } from "../../../../data/caseStudies.js";
+
+export function getStaticPaths() {
+  const paths = [];
+
+  for (const [serviceSlug, service] of Object.entries(SERVICE_HIERARCHY)) {
+    for (const subserviceSlug of Object.keys(service.subservices)) {
+      paths.push({
+        params: { service: serviceSlug, subservice: subserviceSlug },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { service: serviceSlug, subservice: subserviceSlug } = Astro.params;
+const service = getServiceBySlug(serviceSlug);
+const subservice = getSubserviceBySlug(serviceSlug, subserviceSlug);
+
+if (!service || !subservice) {
+  return Astro.redirect("/services/");
+}
+
+const industries = Object.values(INDUSTRIES);
+const allCaseStudies = await getCaseStudies();
+const relatedCaseStudies = allCaseStudies
+  .filter(
+    (cs) => cs.service === serviceSlug || cs.services?.includes(serviceSlug),
+  )
+  .slice(0, 2);
+
+// Get sibling subservices for internal linking
+const siblingSubservices = (
+  Object.values(service.subservices) as Array<{
+    name: string;
+    slug: string;
+    description: string;
+  }>
+).filter((sub) => sub.slug !== subserviceSlug);
+---
+
+<Layout
+  title={`${subservice.name} | ${service.name} | Hydra Fox Designs`}
+  description={subservice.description}
+>
+  <!-- Breadcrumb -->
+  <nav class="bg-black pt-24 pb-4 px-6">
+    <div class="max-w-7xl mx-auto">
+      <ol class="flex items-center gap-2 text-sm text-gray-400 flex-wrap">
+        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+        <li class="text-gray-600">/</li>
+        <li>
+          <a href="/services/" class="hover:text-white transition-colors"
+            >Services</a
+          >
+        </li>
+        <li class="text-gray-600">/</li>
+        <li>
+          <a
+            href={`/services/${serviceSlug}/`}
+            class="hover:text-white transition-colors">{service.name}</a
+          >
+        </li>
+        <li class="text-gray-600">/</li>
+        <li class="text-white font-medium">{subservice.name}</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="bg-black text-white px-6 pb-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center gap-3 mb-6">
+        <span
+          class="px-3 py-1 bg-green-500/10 text-green-400 rounded-full text-xs font-medium border border-green-500/20"
+        >
+          {service.name}
+        </span>
+      </div>
+      <h1 class="text-5xl md:text-7xl font-bold mb-6">
+        {subservice.name}
+      </h1>
+      <p class="text-gray-400 text-xl max-w-2xl leading-relaxed">
+        {subservice.description}
+      </p>
+    </div>
+  </section>
+
+  <!-- Industry-Specific Pages -->
+  <section class="bg-black text-white px-6 py-20 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl font-bold mb-4">{subservice.name} by Industry</h2>
+      <p class="text-gray-400 mb-12">
+        We tailor our {subservice.name.toLowerCase()} approach to your market's unique
+        dynamics.
+      </p>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {
+          industries.map((industry) => (
+            <a
+              href={`/services/${serviceSlug}/${subserviceSlug}/${industry.slug}/`}
+              class="group block p-5 bg-gray-900/30 rounded-lg border border-gray-800 hover:border-green-500/30 transition-all"
+            >
+              <h3 class="font-bold mb-2 group-hover:text-green-400 transition-colors">
+                {subservice.name} for {industry.name}
+              </h3>
+              <p class="text-gray-500 text-sm">
+                Specialized approach for {industry.name.toLowerCase()}.
+              </p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Case Studies -->
+  {
+    relatedCaseStudies.length > 0 && (
+      <section class="bg-black text-white px-6 py-20 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto">
+          <h2 class="text-3xl font-bold mb-4">{subservice.name} Examples</h2>
+          <p class="text-gray-400 mb-12">
+            See {subservice.name.toLowerCase()} in action.
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            {relatedCaseStudies.map((cs) => (
+              <a href={`/work/${cs.slug}/`} class="group block">
+                <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gray-900">
+                  <img
+                    src={cs.image}
+                    alt={cs.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+                <h3 class="text-xl font-bold group-hover:text-green-400 transition-colors">
+                  {cs.title}
+                </h3>
+                <p class="text-gray-400 text-sm mt-1">{cs.client}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Sibling Services (Internal Linking) -->
+  <section class="bg-black text-white px-6 py-20 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-2xl font-bold mb-8">Other {service.name} Services</h2>
+
+      <div class="flex flex-wrap gap-3">
+        {
+          siblingSubservices.map((sibling) => (
+            <a
+              href={`/services/${serviceSlug}/${sibling.slug}/`}
+              class="px-5 py-3 bg-gray-900 hover:bg-gray-800 rounded-lg text-gray-300 hover:text-white transition-colors"
+            >
+              {sibling.name}
+            </a>
+          ))
+        }
+      </div>
+
+      <div class="mt-8">
+        <a
+          href={`/services/${serviceSlug}/`}
+          class="text-green-400 hover:text-green-300 font-medium flex items-center gap-2"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Back to {service.name}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section
+    class="bg-gradient-to-b from-black to-gray-900 text-white px-6 py-24 border-t border-gray-800"
+  >
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-6">Need {subservice.name}?</h2>
+      <p class="text-gray-400 text-lg mb-10">
+        Let's discuss your {subservice.name.toLowerCase()} needs and create something
+        remarkable.
+      </p>
+      <a
+        href="/contact/"
+        class="inline-flex items-center gap-2 px-10 py-4 bg-green-500 hover:bg-green-600 text-black font-bold rounded-full transition-colors"
+      >
+        Get a Quote
+      </a>
+    </div>
+  </section>
+</Layout>

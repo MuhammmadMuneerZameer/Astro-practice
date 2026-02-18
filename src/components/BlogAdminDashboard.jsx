@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { 
-  PlusCircle, Trash2, Edit, Save, X, AlertCircle, 
-  FileText, Calendar, Tag, Image, Type, Hash, 
-  Upload, Link2, ImagePlus, Loader, Check, Eye
+import {
+  PlusCircle, Trash2, Edit, Save, X, AlertCircle,
+  FileText, Calendar, Tag, Image, Type, Hash,
+  Upload, Link2, ImagePlus, Loader, Check, Eye,
+  AlignLeft, AlignCenter, AlignRight, Maximize2
 } from 'lucide-react';
-import { 
-  collection, addDoc, updateDoc, deleteDoc, doc, 
-  onSnapshot, serverTimestamp, query, orderBy 
+
+import {
+  collection, addDoc, updateDoc, deleteDoc, doc,
+  onSnapshot, serverTimestamp, query, orderBy
 } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
@@ -103,19 +105,49 @@ class BlogUtils {
   static parseContent(text) {
     const lines = text.split('\n');
     const parsed = [];
+
+    // Position keywords that can be used in image alt text
+    const positionKeywords = ['left', 'right', 'center', 'full'];
+
     for (const line of lines) {
       const trimmed = line.trim();
+
+      // Check for plain image URLs
       if (trimmed.match(/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp|svg)$/i)) {
-        parsed.push({ type: 'image', url: trimmed });
-      } else if (trimmed.match(/^!\[.*?\]\(.+?\)$/)) {
+        parsed.push({ type: 'image', url: trimmed, position: 'full' });
+      }
+      // Check for markdown image format with position: ![position](url) or ![position:caption](url)
+      else if (trimmed.match(/^!\[.*?\]\(.+?\)$/)) {
         const match = trimmed.match(/!\[(.*?)\]\((.+?)\)/);
-        if (match) parsed.push({ type: 'image', url: match[2], alt: match[1] });
-      } else if (trimmed) {
+        if (match) {
+          const altText = match[1] || '';
+          const url = match[2];
+
+          // Check if alt text starts with a position keyword
+          const lowerAlt = altText.toLowerCase();
+          let position = 'full'; // default position
+          let caption = altText;
+
+          for (const pos of positionKeywords) {
+            if (lowerAlt === pos || lowerAlt.startsWith(pos + ':')) {
+              position = pos;
+              // Extract caption after position:
+              caption = lowerAlt === pos ? '' : altText.substring(pos.length + 1).trim();
+              break;
+            }
+          }
+
+          parsed.push({ type: 'image', url, alt: caption, position });
+        }
+      }
+      // Regular text content
+      else if (trimmed) {
         parsed.push({ type: 'text', content: trimmed });
       }
     }
     return parsed;
   }
+
 }
 
 // ============================================================================
@@ -123,7 +155,7 @@ class BlogUtils {
 // ============================================================================
 const BlogPreview = ({ formData, onClose }) => {
   const parsedContent = BlogUtils.parseContent(formData.content);
-  
+
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/95 backdrop-blur-sm">
       <div className="min-h-screen px-4 py-8">
@@ -156,11 +188,11 @@ const BlogPreview = ({ formData, onClose }) => {
                   </span>
                 )}
               </div>
-              
+
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight tracking-tight">
                 {formData.title || 'Untitled Post'}
               </h1>
-              
+
               <div className="flex flex-wrap items-center gap-4 text-gray-400 text-sm sm:text-base border-t border-gray-800 pt-4 sm:pt-6">
                 <time className="flex items-center gap-2">
                   <Calendar size={16} />
@@ -190,11 +222,32 @@ const BlogPreview = ({ formData, onClose }) => {
               {parsedContent.length > 0 ? (
                 parsedContent.map((item, index) => (
                   item.type === 'image' ? (
-                    <figure key={index} className="my-8 sm:my-12">
-                      <img src={item.url} alt={item.alt || 'Blog content image'} className="w-full h-auto rounded-xl object-cover shadow-lg" />
-                      {item.alt && <figcaption className="text-center text-gray-400 text-sm mt-3">{item.alt}</figcaption>}
+                    <figure
+                      key={index}
+                      className={`my-8 sm:my-12 ${item.position === 'left' ? 'float-left mr-6 mb-4 max-w-[50%] clear-left' :
+                        item.position === 'right' ? 'float-right ml-6 mb-4 max-w-[50%] clear-right' :
+                          item.position === 'center' ? 'mx-auto max-w-[80%]' :
+                            'w-full clear-both' // full width (default)
+                        }`}
+                    >
+                      <img
+                        src={item.url}
+                        alt={item.alt || 'Blog content image'}
+                        className="w-full h-auto rounded-xl object-cover shadow-lg"
+                      />
+                      {item.alt && (
+                        <figcaption className="text-center text-gray-400 text-sm mt-3">
+                          {item.alt}
+                        </figcaption>
+                      )}
+                      {item.position && item.position !== 'full' && (
+                        <div className="absolute -top-2 -right-2 px-2 py-0.5 bg-blue-500/80 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                          {item.position}
+                        </div>
+                      )}
                     </figure>
                   ) : (
+
                     <p key={index} className="text-gray-300 text-lg leading-relaxed">{item.content}</p>
                   )
                 ))
@@ -254,7 +307,9 @@ export default function BlogAdminDashboard() {
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState(INITIAL_FORM_STATE);
-  
+  const [imagePosition, setImagePosition] = useState('full'); // Image position: full, left, right, center
+
+
   const contentTextareaRef = useRef(null);
   const setAutoHideSuccess = useAutoHideMessage();
   const setAutoHideError = useAutoHideMessage();
@@ -263,7 +318,7 @@ export default function BlogAdminDashboard() {
     console.log('🔥 Initializing Firebase listener...');
     const blogsCollection = collection(db, CONSTANTS.COLLECTION_NAME);
     let queryRef;
-    
+
     try {
       queryRef = query(blogsCollection, orderBy('createdAt', 'desc'));
     } catch (err) {
@@ -353,27 +408,65 @@ export default function BlogAdminDashboard() {
     }
   }, [setAutoHideSuccess, setAutoHideError]);
 
+  // Handle multiple content images upload
   const handleContentImageUpload = useCallback(async (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
 
     try {
       setUploading(true);
       setError('');
-      BlogUtils.validateImageFile(file);
-      const imageUrl = await BlogUtils.uploadToImgBB(file);
-      
-      const textarea = contentTextareaRef.current;
-      if (textarea) {
-        const { newValue, newCursorPosition } = BlogUtils.insertTextAtCursor(textarea, `\n${imageUrl}\n`);
-        setFormData(prev => ({ ...prev, content: newValue }));
-        setTimeout(() => {
-          textarea.focus();
-          textarea.setSelectionRange(newCursorPosition, newCursorPosition);
-        }, 0);
+
+      // Validate all files first
+      for (const file of files) {
+        BlogUtils.validateImageFile(file);
       }
-      
-      setAutoHideSuccess(setSuccess, '✅ Image inserted into content!');
+
+      // Upload all images and collect URLs
+      const uploadPromises = files.map(async (file, index) => {
+        try {
+          setSuccess(`Uploading image ${index + 1} of ${files.length}...`);
+          const url = await BlogUtils.uploadToImgBB(file);
+          return { success: true, url, name: file.name };
+        } catch (err) {
+          return { success: false, error: err.message, name: file.name };
+        }
+      });
+
+      const results = await Promise.all(uploadPromises);
+
+      // Separate successful and failed uploads
+      const successfulUploads = results.filter(r => r.success);
+      const failedUploads = results.filter(r => !r.success);
+
+      // Insert all successful images into content with position markup
+      if (successfulUploads.length > 0) {
+        const textarea = contentTextareaRef.current;
+        // Format images with position: ![position](url)
+        const imageMarkdown = successfulUploads
+          .map(r => `\n![${imagePosition}](${r.url})`)
+          .join('\n') + '\n';
+
+        if (textarea) {
+          const { newValue, newCursorPosition } = BlogUtils.insertTextAtCursor(textarea, imageMarkdown);
+          setFormData(prev => ({ ...prev, content: newValue }));
+          setTimeout(() => {
+            textarea.focus();
+            textarea.setSelectionRange(newCursorPosition, newCursorPosition);
+          }, 0);
+        }
+      }
+
+
+      // Show appropriate message
+      if (failedUploads.length === 0) {
+        setAutoHideSuccess(setSuccess, `✅ ${successfulUploads.length} image${successfulUploads.length > 1 ? 's' : ''} uploaded successfully!`);
+      } else if (successfulUploads.length === 0) {
+        setAutoHideError(setError, `Failed to upload all images`);
+      } else {
+        setAutoHideSuccess(setSuccess, `✅ ${successfulUploads.length} uploaded, ${failedUploads.length} failed`);
+      }
+
     } catch (err) {
       console.error('❌ Content image upload error:', err);
       setAutoHideError(setError, `Upload failed: ${err.message}`);
@@ -381,7 +474,9 @@ export default function BlogAdminDashboard() {
       setUploading(false);
       e.target.value = '';
     }
-  }, [setAutoHideSuccess, setAutoHideError]);
+  }, [setAutoHideSuccess, setAutoHideError, imagePosition]);
+
+
 
   const handleRemoveImage = useCallback(() => {
     setFormData(prev => ({ ...prev, image: '' }));
@@ -424,7 +519,7 @@ export default function BlogAdminDashboard() {
 
       resetForm();
       setShowForm(false);
-      
+
     } catch (err) {
       console.error('❌ Save error:', err);
       setAutoHideError(setError, `Failed to save: ${err.message}`);
@@ -453,7 +548,7 @@ export default function BlogAdminDashboard() {
 
       <section className="relative w-full h-[300px] flex flex-col items-center justify-center bg-black text-white">
         <div className="absolute inset-0 z-0 bg-gradient-to-br from-green-500/5 via-transparent to-green-400/5"></div>
-        
+
         <div className="relative z-10 px-4 mt-24 text-center">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-6 pt-24 text-green-300">
             Blog Admin Dashboard
@@ -461,7 +556,7 @@ export default function BlogAdminDashboard() {
           <p className="text-gray-300 mb-8 max-w-2xl mx-auto text-sm sm:text-base">
             Manage your blog posts with real-time updates 🔥
           </p>
-          
+
           <button
             onClick={toggleForm}
             disabled={saving || uploading}
@@ -507,7 +602,7 @@ export default function BlogAdminDashboard() {
                   {editingId ? 'Edit Post' : 'Create New Post'}
                 </h2>
               </div>
-              
+
               <button
                 onClick={() => setShowPreview(true)}
                 className="flex items-center gap-2 px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 rounded-lg transition-all font-medium"
@@ -576,17 +671,16 @@ export default function BlogAdminDashboard() {
                   <Image size={16} />
                   Cover Image *
                 </label>
-                
+
                 <div className="flex gap-2 mb-3">
                   <button
                     type="button"
                     onClick={() => setUploadMethod('url')}
                     disabled={saving || uploading}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all disabled:opacity-50 ${
-                      uploadMethod === 'url'
-                        ? 'bg-green-500 text-black'
-                        : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                    }`}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all disabled:opacity-50 ${uploadMethod === 'url'
+                      ? 'bg-green-500 text-black'
+                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                      }`}
                   >
                     <Link2 size={14} className="inline mr-1" />
                     Image URL
@@ -595,11 +689,10 @@ export default function BlogAdminDashboard() {
                     type="button"
                     onClick={() => setUploadMethod('upload')}
                     disabled={saving || uploading}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all disabled:opacity-50 ${
-                      uploadMethod === 'upload'
-                        ? 'bg-green-500 text-black'
-                        : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                    }`}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all disabled:opacity-50 ${uploadMethod === 'upload'
+                      ? 'bg-green-500 text-black'
+                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                      }`}
                   >
                     <Upload size={14} className="inline mr-1" />
                     Upload File
@@ -633,9 +726,9 @@ export default function BlogAdminDashboard() {
 
                 {formData.image && (
                   <div className="mt-4 relative">
-                    <img 
-                      src={formData.image} 
-                      alt="Cover preview" 
+                    <img
+                      src={formData.image}
+                      alt="Cover preview"
                       className="w-full h-48 object-cover rounded-lg"
                     />
                     <button
@@ -649,18 +742,57 @@ export default function BlogAdminDashboard() {
               </div>
 
               <div>
-                <div className="flex items-center justify-between mb-2">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-2">
                   <label className="flex items-center gap-2 text-sm font-semibold text-white">
                     <FileText size={16} />
                     Content *
                   </label>
-                  <div className="flex gap-2">
+                  <div className="flex flex-wrap gap-2">
+                    {/* Image Position Selector */}
+                    <div className="flex items-center gap-1 bg-gray-800/50 rounded-lg p-1">
+                      <span className="text-xs text-gray-400 px-2 hidden sm:inline">Position:</span>
+                      <button
+                        type="button"
+                        onClick={() => setImagePosition('full')}
+                        className={`p-1.5 rounded transition-all ${imagePosition === 'full' ? 'bg-green-500 text-black' : 'text-gray-400 hover:text-white hover:bg-gray-700'}`}
+                        title="Full Width"
+                      >
+                        <Maximize2 size={14} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setImagePosition('left')}
+                        className={`p-1.5 rounded transition-all ${imagePosition === 'left' ? 'bg-green-500 text-black' : 'text-gray-400 hover:text-white hover:bg-gray-700'}`}
+                        title="Align Left"
+                      >
+                        <AlignLeft size={14} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setImagePosition('center')}
+                        className={`p-1.5 rounded transition-all ${imagePosition === 'center' ? 'bg-green-500 text-black' : 'text-gray-400 hover:text-white hover:bg-gray-700'}`}
+                        title="Align Center"
+                      >
+                        <AlignCenter size={14} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setImagePosition('right')}
+                        className={`p-1.5 rounded transition-all ${imagePosition === 'right' ? 'bg-green-500 text-black' : 'text-gray-400 hover:text-white hover:bg-gray-700'}`}
+                        title="Align Right"
+                      >
+                        <AlignRight size={14} />
+                      </button>
+                    </div>
+
+                    {/* Add Images Button */}
                     <label className="flex items-center gap-2 px-3 py-1.5 bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 rounded-lg cursor-pointer text-sm font-medium transition-all">
                       <ImagePlus size={14} />
-                      Add Image
+                      {uploading ? 'Uploading...' : 'Add Images'}
                       <input
                         type="file"
                         accept="image/*"
+                        multiple
                         onChange={handleContentImageUpload}
                         className="hidden"
                         disabled={uploading || saving}
@@ -668,6 +800,7 @@ export default function BlogAdminDashboard() {
                     </label>
                   </div>
                 </div>
+
                 <textarea
                   ref={contentTextareaRef}
                   value={formData.content}
@@ -679,7 +812,9 @@ export default function BlogAdminDashboard() {
                 />
                 <p className="text-xs text-gray-400 mt-1">
                   {formData.content.split(' ').filter(w => w).length} words • {formData.content.length} characters
+                  <span className="ml-4 text-gray-500">• Image positions: ![full], ![left], ![center], ![right] or ![position:caption]</span>
                 </p>
+
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -803,7 +938,7 @@ export default function BlogAdminDashboard() {
                         />
                       </div>
                     )}
-                    
+
                     <div className="flex-1 p-6">
                       <div className="flex flex-wrap gap-2 mb-3">
                         {blog.tag && (

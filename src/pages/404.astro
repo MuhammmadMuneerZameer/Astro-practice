@@ -1,21 +1,65 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import DynamicBlogLoader from '../components/DynamicBlogLoader';
 ---
 
 <Layout title="404 - Page Not Found">
-  <main class="min-h-screen bg-black flex items-center justify-center -mt-20">
-    <div class="text-center px-4">
-      <h1 class="text-9xl font-bold text-green-500 mb-4 animate-pulse">404</h1>
-      <h2 class="text-2xl md:text-4xl text-white font-bold mb-6">Page Not Found</h2>
-      <p class="text-gray-400 mb-8 max-w-md mx-auto">
-        The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
-      </p>
-      <a 
-        href="/" 
-        class="inline-flex items-center justify-center px-8 py-3 bg-green-500 hover:bg-green-600 text-black font-bold rounded-full transition-all duration-300 transform hover:scale-105"
-      >
-        Return Home
-      </a>
+  <!-- Container for dynamic content or 404 -->
+  <div id="dynamic-content-container">
+    <!-- Loading indicator shown while checking -->
+    <div id="loading-indicator" class="min-h-screen bg-black flex items-center justify-center -mt-20" style="display: none;">
+      <div class="text-center">
+        <div class="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <p class="text-gray-400">Loading...</p>
+      </div>
     </div>
-  </main>
+    
+    <!-- Standard 404 content (shown by default, hidden if blog URL detected) -->
+    <div id="standard-404" class="min-h-screen bg-black flex items-center justify-center -mt-20">
+      <div class="text-center px-4">
+        <h1 class="text-9xl font-bold text-green-500 mb-4 animate-pulse">404</h1>
+        <h2 class="text-2xl md:text-4xl text-white font-bold mb-6">Page Not Found</h2>
+        <p class="text-gray-400 mb-8 max-w-md mx-auto">
+          The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
+        </p>
+        <a 
+          href="/" 
+          class="inline-flex items-center justify-center px-8 py-3 bg-green-500 hover:bg-green-600 text-black font-bold rounded-full transition-all duration-300 transform hover:scale-105"
+        >
+          Return Home
+        </a>
+      </div>
+    </div>
+    
+    <!-- Dynamic blog loader container (hidden by default) -->
+    <div id="dynamic-blog-container" style="display: none;">
+      <DynamicBlogLoader client:only="react" />
+    </div>
+  </div>
 </Layout>
+
+<script>
+  // Check if the URL matches a blog pattern
+  function isBlogUrl() {
+    const path = window.location.pathname;
+    // Match: /resources/[category]/[slug]/ or /resources/[category]/[slug]
+    const blogPattern = /^\/resources\/([^\/]+)\/([^\/]+)\/?$/;
+    return blogPattern.test(path);
+  }
+
+  // Run on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    const standard404 = document.getElementById('standard-404');
+    const dynamicBlogContainer = document.getElementById('dynamic-blog-container');
+    
+    if (isBlogUrl()) {
+      // Hide standard 404 and show dynamic blog loader
+      if (standard404) standard404.style.display = 'none';
+      if (dynamicBlogContainer) dynamicBlogContainer.style.display = 'block';
+    } else {
+      // Keep standard 404 visible
+      if (standard404) standard404.style.display = 'flex';
+      if (dynamicBlogContainer) dynamicBlogContainer.style.display = 'none';
+    }
+  });
+</script>

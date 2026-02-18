@@ -46,7 +46,7 @@ export default function ConversionModule({ bookingLink, services = [] }) {
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                     <a
-                        href={bookingLink || "/ContactUs"}
+                        href={bookingLink || "/contact/"}
                         className="w-full sm:w-auto px-8 py-5 bg-green-500 hover:bg-green-400 text-black font-bold text-lg rounded-full transition-all hover:scale-105 flex items-center justify-center gap-3 shadow-[0_0_30px_rgba(34,197,94,0.3)]"
                     >
                         <Calendar size={20} />

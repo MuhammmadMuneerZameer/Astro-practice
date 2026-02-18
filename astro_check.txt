@@ -1,0 +1,655 @@
+﻿[2m10:44:28[22m [34m[content][39m Syncing content
+[2m10:44:28[22m [34m[content][39m Synced content
+[2m10:44:28[22m [34m[types][39m Generated [2m105ms[22m
+[2m10:44:28[22m [34m[check][39m Getting diagnostics for Astro files in C:\Users\Haroon Traders\OneDrive\Desktop\HFD\Astro-practice...
+node.exe : panic: 
+html: bad parser 
+state: originalIM 
+was set twice
+At C:\Program Files\n
+odejs\npx.ps1:29 
+char:3
++   & $NODE_EXE 
+$NPX_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (panic:    
+ html: ba...M was    
+ set twice:Strin    
+g) [], RemoteExc    
+eption
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+
+goroutine 6 
+[running]:
+github.com/withastro/
+compiler/internal.(*p
+arser).setOriginalIM(
+...)
+	github.com/withastro
+/compiler/internal/pa
+rser.go:545
+github.com/withastro/
+compiler/internal.inB
+odyIM(0x1456360)
+	github.com/withastro
+/compiler/internal/pa
+rser.go:1106 +0x41a
+github.com/withastro/
+compiler/internal.(*p
+arser).parseCurrentTo
+ken(0x1456360)
+	github.com/withastro
+/compiler/internal/pa
+rser.go:3009 +0x12
+github.com/withastro/
+compiler/internal.(*p
+arser).parse(0x145636
+0)
+	github.com/withastro
+/compiler/internal/pa
+rser.go:3036 +0x3
+github.com/withastro/
+compiler/internal.Par
+seWithOptions({0x7bca
+8, 0x1434020}, 
+{0x1413e68, 0x2, 
+0x2})
+	github.com/withastro
+/compiler/internal/pa
+rser.go:3100 +0x13
+main.main.ConvertToTS
+X.func3({{}, 
+0x7ff8000100000026, 
+0x140c0f0}, 
+{0x1434000, 0x2, 
+0x2})
+	./astro-wasm.go:286 
++0xa
+syscall/js.handleEven
+t()
+	syscall/js/func.go:1
+00 +0x23
+exit code: 2
+There was an error 
+transforming 
+c:/Users/Haroon Trade
+rs/OneDrive/Desktop/H
+FD/Astro-practice/src
+/pages/case-studies/[
+slug].astro to TSX. 
+An empty file will 
+be returned instead. 
+Please create an 
+issue: https://github
+.com/withastro/astro/
+issues
+Error: TypeError: 
+Cannot read 
+properties of 
+undefined (reading 
+'map').
+panic: html: bad 
+parser state: 
+originalIM was set 
+twice
+
+goroutine 6 
+[running]:
+github.com/withastro/
+compiler/internal.(*p
+arser).setOriginalIM(
+...)
+	github.com/withastro
+/compiler/internal/pa
+rser.go:545
+github.com/withastro/
+compiler/internal.inB
+odyIM(0x1456360)
+	github.com/withastro
+/compiler/internal/pa
+rser.go:1106 +0x41a
+github.com/withastro/
+compiler/internal.(*p
+arser).parseCurrentTo
+ken(0x1456360)
+	github.com/withastro
+/compiler/internal/pa
+rser.go:3009 +0x12
+github.com/withastro/
+compiler/internal.(*p
+arser).parse(0x145636
+0)
+	github.com/withastro
+/compiler/internal/pa
+rser.go:3036 +0x3
+github.com/withastro/
+compiler/internal.Par
+seWithOptions({0x7bca
+8, 0x14340e0}, 
+{0x1444e68, 0x2, 
+0x2})
+	github.com/withastro
+/compiler/internal/pa
+rser.go:3100 +0x13
+main.main.Parse.func2
+({{}, 
+0x7ff800010000000d, 
+0x140c1a8}, 
+{0x14340c0, 0x2, 
+0x2})
+	./astro-wasm.go:262 
++0xb
+syscall/js.handleEven
+t()
+	syscall/js/func.go:1
+00 +0x23
+exit code: 2
+There was an error 
+parsing 
+c:/Users/Haroon Trade
+rs/OneDrive/Desktop/H
+FD/Astro-practice/src
+/pages/case-studies/[
+slug].astro's AST. 
+An empty AST will be 
+returned instead to 
+avoid breaking the 
+server. Please 
+create an issue: http
+s://github.com/withas
+tro/astro/issues
+Error: TypeError: 
+Cannot read 
+properties of 
+undefined (reading 
+'ast').
+C:\Users\Haroon Trade
+rs\OneDrive\Desktop\H
+FD\Astro-practice\nod
+e_modules\@astrojs\co
+mpiler\dist\node\sync
+.cjs:1
+"use strict";var 
+I=Object.create;var y
+=Object.definePropert
+y;var P=Object.getOwn
+PropertyDescriptor;va
+r A=Object.getOwnProp
+ertyNames;var E=Objec
+t.getPrototypeOf,C=Ob
+ject.prototype.hasOwn
+Property;var 
+N=(i,r)=>{for(var s 
+in r)y(i,s,{get:r[s],
+enumerable:!0})},T=(i
+,r,s,n)=>{if(r&&typeo
+f 
+r=="object"||typeof r
+=="function")for(let 
+c of A(r))!C.call(i,c
+)&&c!==s&&y(i,c,{get:
+()=>r[c],enumerable:!
+(n=P(r,c))||n.enumera
+ble});return i};var x
+=(i,r,s)=>(s=i!=null?
+I(E(i)):{},T(r||!i||!
+i.__esModule?y(s,"def
+ault",{value:i,enumer
+able:!0}):s,i)),O=i=>
+T(y({},"__esModule",{
+value:!0}),i);var M={
+};N(M,{convertToTSX:(
+)=>L,parse:()=>F,star
+tRunningService:()=>R
+,transform:()=>V});mo
+dule.exports=O(M);var
+ D=()=>typeof 
+document>"u"?new URL(
+"file:"+__filename).h
+ref:document.currentS
+cript&&document.curre
+ntScript.src||new URL
+("main.js",document.b
+aseURI).href,b=D();va
+r S=require("fs"),j=r
+equire("url");var _=x
+(require("crypto"),1)
+,w=x(require("fs"),1)
+,v=require("util");gl
+obalThis.fs||Object.d
+efineProperty(globalT
+his,"fs",{value:w.def
+ault});globalThis.pro
+cess||Object.definePr
+operties(globalThis,"
+process",{value:proce
+ss});globalThis.crypt
+o||Object.definePrope
+rty(globalThis,"crypt
+o",{value:_.default.w
+ebcrypto?_.default.we
+bcrypto:{getRandomVal
+ues(i){return _.defau
+lt.randomFillSync(i)}
+}});globalThis.perfor
+mance||Object.defineP
+roperty(globalThis,"p
+erformance",{value:{n
+ow(){let[i,r]=process
+.hrtime();return 
+i*1e3+r/1e6}}});var 
+U=new v.TextEncoder("
+utf-8"),k=new v.TextD
+ecoder("utf-8");var d
+=class{constructor(){
+this.argv=["js"],this
+.env={},this.exit=e=>
+{e!==0&&console.warn(
+"exit code:",e)},this
+._exitPromise=new Pro
+mise(e=>{this._resolv
+eExitPromise=e}),this
+._pendingEvent=null,t
+his._scheduledTimeout
+s=new Map,this._nextC
+allbackTimeoutID=1;le
+t r=(e,t)=>{this.mem.
+setUint32(e+0,t,!0),t
+his.mem.setUint32(e+4
+,Math.floor(t/4294967
+296),!0)},s=e=>{let t
+=this.mem.getUint32(e
++0,!0),o=this.mem.get
+Int32(e+4,!0);return 
+t+o*4294967296},n=e=>
+{let t=this.mem.getFl
+oat64(e,!0);if(t===0)
+return;if(!isNaN(t))r
+eturn t;let o=this.me
+m.getUint32(e,!0);ret
+urn this._values[o]},
+c=(e,t)=>{if(typeof t
+=="number"&&t!==0){if
+(isNaN(t)){this.mem.s
+etUint32(e+4,21469593
+60,!0),this.mem.setUi
+nt32(e,0,!0);return}t
+his.mem.setFloat64(e,
+t,!0);return}if(t===v
+oid 0){this.mem.setFl
+oat64(e,0,!0);return}
+let a=this._ids.get(t
+);a===void 0&&(a=this
+._idPool.pop(),a===vo
+id 0&&(a=this._values
+.length),this._values
+[a]=t,this._goRefCoun
+ts[a]=0,this._ids.set
+(t,a)),this._goRefCou
+nts[a]++;let 
+m=0;switch(typeof t){
+case"object":t!==null
+&&(m=1);break;case"st
+ring":m=2;break;case"
+symbol":m=3;break;cas
+e"function":m=4;break
+}this.mem.setUint32(e
++4,2146959360|m,!0),t
+his.mem.setUint32(e,a
+,!0)},l=e=>{let t=s(e
++0),o=s(e+8);return 
+new Uint8Array(this._
+inst.exports.mem.buff
+er,t,o)},g=e=>{let t=
+s(e+0),o=s(e+8),a=new
+ Array(o);for(let m=0
+;m<o;m++)a[m]=n(t+m*8
+);return 
+a},h=e=>{let t=s(e+0)
+,o=s(e+8);return 
+k.decode(new DataView
+(this._inst.exports.m
+em.buffer,t,o))},u=Da
+te.now()-performance.
+now();this.importObje
+ct={gojs:{"runtime.wa
+smExit":e=>{e>>>=0;le
+t t=this.mem.getInt32
+(e+8,!0);this.exited=
+!0,delete 
+this._inst,delete 
+this._values,delete t
+his._goRefCounts,dele
+te this._ids,delete t
+his._idPool,this.exit
+(t)},"runtime.wasmWri
+te":e=>{e>>>=0;let t=
+s(e+8),o=s(e+16),a=th
+is.mem.getInt32(e+24,
+!0);w.default.writeSy
+nc(t,new Uint8Array(t
+his._inst.exports.mem
+.buffer,o,a))},"runti
+me.resetMemoryDataVie
+w":e=>{e>>>=0,this.me
+m=new DataView(this._
+inst.exports.mem.buff
+er)},"runtime.nanotim
+e1":e=>{e>>>=0,r(e+8,
+(u+performance.now())
+*1e6)},"runtime.wallt
+ime":e=>{e>>>=0;let 
+t=new Date().getTime(
+);r(e+8,t/1e3),this.m
+em.setInt32(e+16,t%1e
+3*1e6,!0)},"runtime.s
+cheduleTimeoutEvent":
+e=>{e>>>=0;let t=this
+._nextCallbackTimeout
+ID;this._nextCallback
+TimeoutID++,this._sch
+eduledTimeouts.set(t,
+setTimeout(()=>{for(t
+his._resume();this._s
+cheduledTimeouts.has(
+t);)console.warn("sch
+eduleTimeoutEvent: 
+missed timeout event"
+),this._resume()},s(e
++8)+1)),this.mem.setI
+nt32(e+16,t,!0)},"run
+time.clearTimeoutEven
+t":e=>{e>>>=0;let t=t
+his.mem.getInt32(e+8,
+!0);clearTimeout(this
+._scheduledTimeouts.g
+et(t)),this._schedule
+dTimeouts.delete(t)},
+"runtime.getRandomDat
+a":e=>{e>>>=0,globalT
+his.crypto.getRandomV
+alues(l(e+8))},"sysca
+ll/js.finalizeRef":e=
+>{e>>>=0;let t=this.m
+em.getUint32(e+8,!0);
+if(this._goRefCounts[
+t]--,this._goRefCount
+s[t]===0){let o=this.
+_values[t];this._valu
+es[t]=null,this._ids.
+delete(o),this._idPoo
+l.push(t)}},"syscall/
+js.stringVal":e=>{e>>
+>=0,c(e+24,h(e+8))},"
+syscall/js.valueGet":
+e=>{e>>>=0;let t=Refl
+ect.get(n(e+8),h(e+16
+));e=this._inst.expor
+ts.getsp()>>>0,c(e+32
+,t)},"syscall/js.valu
+eSet":e=>{e>>>=0,Refl
+ect.set(n(e+8),h(e+16
+),n(e+32))},"syscall/
+js.valueDelete":e=>{e
+>>>=0,Reflect.deleteP
+roperty(n(e+8),h(e+16
+))},"syscall/js.value
+Index":e=>{e>>>=0,c(e
++24,Reflect.get(n(e+8
+),s(e+16)))},"syscall
+/js.valueSetIndex":e=
+>{e>>>=0,Reflect.set(
+n(e+8),s(e+16),n(e+24
+))},"syscall/js.value
+Call":e=>{e>>>=0;try{
+let t=n(e+8),o=Reflec
+t.get(t,h(e+16)),a=g(
+e+32),m=Reflect.apply
+(o,t,a);e=this._inst.
+exports.getsp()>>>0,c
+(e+56,m),this.mem.set
+Uint8(e+64,1)}catch(t
+){e=this._inst.export
+s.getsp()>>>0,c(e+56,
+t),this.mem.setUint8(
+e+64,0)}},"syscall/js
+.valueInvoke":e=>{e>>
+>=0;try{let t=n(e+8),
+o=g(e+16),a=Reflect.a
+pply(t,void 0,o);e=th
+is._inst.exports.gets
+p()>>>0,c(e+40,a),thi
+s.mem.setUint8(e+48,1
+)}catch(t){e=this._in
+st.exports.getsp()>>>
+0,c(e+40,t),this.mem.
+setUint8(e+48,0)}},"s
+yscall/js.valueNew":e
+=>{e>>>=0;try{let t=n
+(e+8),o=g(e+16),a=Ref
+lect.construct(t,o);e
+=this._inst.exports.g
+etsp()>>>0,c(e+40,a),
+this.mem.setUint8(e+4
+8,1)}catch(t){e=this.
+_inst.exports.getsp()
+>>>0,c(e+40,t),this.m
+em.setUint8(e+48,0)}}
+,"syscall/js.valueLen
+gth":e=>{e>>>=0,r(e+1
+6,Number.parseInt(n(e
++8).length))},"syscal
+l/js.valuePrepareStri
+ng":e=>{e>>>=0;let t=
+U.encode(String(n(e+8
+)));c(e+16,t),r(e+24,
+t.length)},"syscall/j
+s.valueLoadString":e=
+>{e>>>=0;let t=n(e+8)
+;l(e+16).set(t)},"sys
+call/js.valueInstance
+Of":e=>{e>>>=0,this.m
+em.setUint8(e+24,n(e+
+8)instanceof n(e+16)?
+1:0)},"syscall/js.cop
+yBytesToGo":e=>{e>>>=
+0;let t=l(e+8),o=n(e+
+32);if(!(o 
+instanceof 
+Uint8Array||o 
+instanceof Uint8Clamp
+edArray)){this.mem.se
+tUint8(e+48,0);return
+}let a=o.subarray(0,t
+.length);t.set(a),r(e
++40,a.length),this.me
+m.setUint8(e+48,1)},"
+syscall/js.copyBytesT
+oJS":e=>{e>>>=0;let t
+=n(e+8),o=l(e+16);if(
+!(t instanceof 
+Uint8Array||t 
+instanceof Uint8Clamp
+edArray)){this.mem.se
+tUint8(e+48,0);return
+}let a=o.subarray(0,t
+.length);t.set(a),r(e
++40,a.length),this.me
+m.setUint8(e+48,1)},d
+ebug:e=>{console.log(
+e)}}}}async 
+run(r){if(!(r 
+instanceof WebAssembl
+y.Instance))throw 
+new Error("Go.run: 
+WebAssembly.Instance 
+expected");this._inst
+=r,this.mem=new DataV
+iew(this._inst.export
+s.mem.buffer),this._v
+alues=[Number.NaN,0,n
+ull,!0,!1,globalThis,
+this],this._goRefCoun
+ts=new Array(this._va
+lues.length).fill(Num
+ber.POSITIVE_INFINITY
+),this._ids=new Map([
+[0,1],[null,2],[!0,3]
+,[!1,4],[globalThis,5
+],[this,6]]),this._id
+Pool=[],this.exited=!
+1;let 
+s=4096,n=u=>{let e=s,
+t=U.encode(`${u}\0`);
+return new Uint8Array
+(this.mem.buffer,s,t.
+length).set(t),s+=t.l
+ength,s%8!==0&&(s+=8-
+s%8),e},c=this.argv.l
+ength,l=[];this.argv.
+forEach(u=>{l.push(n(
+u))}),l.push(0),Objec
+t.keys(this.env).sort
+().forEach(u=>{l.push
+(n(`${u}=${this.env[u
+]}`))}),l.push(0);let
+ h=s;l.forEach(u=>{th
+is.mem.setUint32(s,u,
+!0),this.mem.setUint3
+2(s+4,0,!0),s+=8}),th
+is._inst.exports.run(
+c,h),this.exited&&thi
+s._resolveExitPromise
+(),await this._exitPr
+omise}_resume(){if(th
+is.exited)throw new 
+Error("Go program 
+has already exited");
+this._inst.exports.re
+sume(),this.exited&&t
+his._resolveExitPromi
+se()}_makeFuncWrapper
+(r){let 
+s=this;return 
+function(){let n={id:
+r,this:this,args:argu
+ments};return s._pend
+ingEvent=n,s._resume(
+),n.result}}};functio
+n p(){return 
+f||(f=R()),f}var f,V=
+(i,r)=>p().transform(
+i,r),F=(i,r)=>p().par
+se(i,r),L=(i,r)=>p().
+convertToTSX(i,r);fun
+ction R(){let i=new d
+,r=W((0,j.fileURLToPa
+th)(new URL("../astro
+.wasm",b)),i.importOb
+ject);i.run(r);let s=
+globalThis["@astrojs/
+compiler"];return{tra
+nsform:(n,c)=>{try{re
+turn s.transform(n,c|
+|{})}catch(l){throw 
+f=void 0,l}},parse:(n
+,c)=>{try{let l=s.par
+se(n,c||{});return{..
+.l,ast:JSON.parse(l.a
+st)}}catch(l){throw 
+f=void 0,l}},convertT
+oTSX:(n,c)=>{try{let 
+l=s.convertToTSX(n,c|
+|{});return{...l,map:
+JSON.parse(l.map)}}ca
+tch(l){throw f=void 
+0,l}}}}function 
+W(i,r){let s=(0,S.rea
+dFileSync)(i);return 
+new WebAssembly.Insta
+nce(new WebAssembly.M
+odule(s),r)}0&&(modul
+e.exports={convertToT
+SX,parse,startRunning
+Service,transform});
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+            
+
+Error: Go program 
+has already exited
+    at d._resume 
+(C:\Users\Haroon Trad
+ers\OneDrive\Desktop\
+HFD\Astro-practice\no
+de_modules\@astrojs\c
+ompiler\dist\node\syn
+c.cjs:1:7268)
+    at 
+Timeout._onTimeout 
+(C:\Users\Haroon Trad
+ers\OneDrive\Desktop\
+HFD\Astro-practice\no
+de_modules\@astrojs\c
+ompiler\dist\node\syn
+c.cjs:1:3722)
+    at listOnTimeout 
+(node:internal/timers
+:594:17)
+    at process.proces
+sTimers (node:interna
+l/timers:529:7)
+
+Node.js v22.14.0

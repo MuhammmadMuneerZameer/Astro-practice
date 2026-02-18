@@ -1,0 +1,225 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { getPosts } from "../../../data/blogPost.js";
+import {
+  RESOURCE_CATEGORIES,
+  getResourceCategoryBySlug,
+  getAllResourceCategories,
+  SERVICE_HIERARCHY,
+} from "../../../data/taxonomy.js";
+import { categoryToSlug } from "../../../lib/utils.js";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+
+  // Get all unique categories from posts (slugified), plus our defined categories
+  const postCategories = [
+    ...new Set(posts.map((p) => categoryToSlug(p.category)).filter(Boolean)),
+  ];
+  const definedCategories = Object.keys(RESOURCE_CATEGORIES);
+  const allCategories = [
+    ...new Set([...postCategories, ...definedCategories, "general"]),
+  ];
+
+  return allCategories.map((category) => ({
+    params: { category },
+  }));
+}
+
+const { category } = Astro.params;
+const allPosts = await getPosts();
+const categoryPosts = allPosts.filter(
+  (p) =>
+    p.status === "published" &&
+    (categoryToSlug(p.category) === category ||
+      (category === "general" && !p.category)),
+);
+
+const categoryInfo = getResourceCategoryBySlug(category);
+const allCategories = getAllResourceCategories();
+const relatedService = (SERVICE_HIERARCHY as Record<string, any>)[category];
+
+// Other categories for internal linking
+const otherCategories = allCategories.filter((c) => c.slug !== category);
+---
+
+<Layout
+  title={`${categoryInfo?.name || category} Resources | Hydra Fox Designs`}
+  description={categoryInfo?.description ||
+    `Articles and insights about ${category}`}
+>
+  <!-- Breadcrumb -->
+  <nav class="bg-black pt-24 pb-4 px-6">
+    <div class="max-w-7xl mx-auto">
+      <ol class="flex items-center gap-2 text-sm text-gray-400">
+        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+        <li class="text-gray-600">/</li>
+        <li>
+          <a href="/resources/" class="hover:text-white transition-colors"
+            >Resources</a
+          >
+        </li>
+        <li class="text-gray-600">/</li>
+        <li class="text-white font-medium capitalize">
+          {categoryInfo?.name || category}
+        </li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="bg-black text-white px-6 pb-16">
+    <div class="max-w-7xl mx-auto">
+      <span
+        class="inline-block px-4 py-2 bg-[var(--color-accent)]/10 text-[var(--color-accent)] rounded-full text-sm font-medium mb-6 border border-[var(--color-accent)]/20"
+      >
+        Resources
+      </span>
+      <h1 class="text-5xl md:text-6xl font-bold mb-6 capitalize">
+        {categoryInfo?.name || category}
+      </h1>
+      <p class="text-gray-400 text-xl max-w-2xl leading-relaxed">
+        {
+          categoryInfo?.description ||
+            `Insights and articles about ${category}.`
+        }
+      </p>
+    </div>
+  </section>
+
+  <!-- Category Navigation -->
+  <section class="bg-black text-white px-6 pb-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-wrap gap-3">
+        <a
+          href="/resources/"
+          class="px-4 py-2 bg-gray-900 hover:bg-gray-800 text-gray-300 hover:text-white rounded-full text-sm transition-colors"
+        >
+          All Resources
+        </a>
+        {
+          allCategories.map((cat) => (
+            <a
+              href={`/resources/${cat.slug}/`}
+              class={`px-4 py-2 rounded-full text-sm transition-colors ${
+                cat.slug === category
+                  ? "bg-[var(--color-accent)] text-black font-medium"
+                  : "bg-gray-900 hover:bg-gray-800 text-gray-300 hover:text-white"
+              }`}
+            >
+              {cat.name}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Posts Grid -->
+  <section class="bg-black text-white px-6 py-12">
+    <div class="max-w-7xl mx-auto">
+      {
+        categoryPosts.length === 0 ? (
+          <div class="text-center py-20">
+            <h3 class="text-2xl font-bold text-white mb-3">
+              No Articles in {categoryInfo?.name || category} Yet
+            </h3>
+            <p class="text-gray-400 mb-8">
+              We're working on new content. Check out other categories!
+            </p>
+            <a
+              href="/resources/"
+              class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--color-accent)] text-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-black font-medium rounded-full transition-all"
+            >
+              Browse All Resources
+            </a>
+          </div>
+        ) : (
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {categoryPosts.map((post) => (
+              <a
+                href={`/resources/${category}/${post.slug}/`}
+                class="group block"
+              >
+                <div class="aspect-[16/10] rounded-xl overflow-hidden mb-4 bg-gray-900">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+                <h3 class="text-xl font-bold group-hover:text-[var(--color-accent)] transition-colors line-clamp-2">
+                  {post.title}
+                </h3>
+                <p class="text-gray-400 text-sm mt-2 line-clamp-2">
+                  {post.description}
+                </p>
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- Related Service Link -->
+  {
+    relatedService && (
+      <section class="bg-black text-white px-6 py-16 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto">
+          <h2 class="text-2xl font-bold mb-4">
+            Need {relatedService.name} Services?
+          </h2>
+          <p class="text-gray-400 mb-6">{relatedService.description}</p>
+          <a
+            href={`/services/${relatedService.slug}/`}
+            class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-black font-medium rounded-full transition-colors"
+          >
+            Explore {relatedService.name} Services
+          </a>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Other Categories -->
+  <section class="bg-black text-white px-6 py-16 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-2xl font-bold mb-8">Explore Other Topics</h2>
+      <div class="flex flex-wrap gap-3">
+        {
+          otherCategories.map((cat) => (
+            <a
+              href={`/resources/${cat.slug}/`}
+              class="px-5 py-3 bg-gray-900 hover:bg-gray-800 rounded-lg text-gray-300 hover:text-white transition-colors"
+            >
+              {cat.name}
+            </a>
+          ))
+        }
+      </div>
+
+      <div class="mt-8">
+        <a
+          href="/resources/"
+          class="text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] font-medium flex items-center gap-2"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Back to All Resources
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

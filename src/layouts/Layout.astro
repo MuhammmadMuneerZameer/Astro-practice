@@ -1,32 +1,62 @@
 ---
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer.astro';
-import ChatBot from '../components/ChatBot';
-import '../styles/global.css';
-import '../styles/fonts.css';
+import { ViewTransitions } from "astro:transitions";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer.astro";
+import ChatBot from "../components/ChatBot";
+import "../styles/global.css";
+import "../styles/fonts.css";
 
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  noindex?: boolean;
 }
 
-const { 
+const {
   title = "Hydra Fox Designs | Web Design & Digital Marketing Agency",
-  description = "Hydra Fox Designs helps businesses grow through creative web design, digital marketing, and automation solutions."
+  description = "Hydra Fox Designs helps businesses grow through creative web design, digital marketing, and automation solutions.",
+  image = "/images/hfd-logo.png",
+  noindex = false,
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
     <link rel="icon" type="image/svg+xml" href="/images/hfd-logo.png" />
     <meta name="generator" content={Astro.generator} />
-    
+
+    <!-- Google Analytics 4 -->
+    {import.meta.env.PUBLIC_FIREBASE_MEASURMENT_ID && (
+      <>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_FIREBASE_MEASURMENT_ID}`}></script>
+        <script is:inline define:vars={{ gaId: import.meta.env.PUBLIC_FIREBASE_MEASURMENT_ID }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag("js", new Date());
+          gtag("config", gaId);
+        </script>
+      </>
+    )}
+
+    <!-- Enable SPA-like smooth navigation -->
+    <ViewTransitions />
+
     <!-- Prevent white flash -->
     <style>
-      html, body {
+      html,
+      body {
         background-color: #000000 !important;
         margin: 0;
         padding: 0;
@@ -35,23 +65,88 @@ const {
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content="web design, digital marketing, branding, Hydra Fox Designs, SEO, website development, automation" />
-    
+    <link rel="canonical" href={canonicalURL} />
+    <meta
+      name="robots"
+      content={noindex ? "noindex, nofollow" : "index, follow"}
+    />
+
+    <!-- Open Graph (Facebook, LinkedIn) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="Hydra Fox Designs" />
+
     <!-- Theme color -->
     <meta name="theme-color" content="#000000" />
 
+    <!-- Performance: Resource Hints -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://firestore.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+
+    <!-- Performance: Preload critical assets -->
+    <link rel="preload" href="/images/hfd-logo-withoutBg.png" as="image" />
+
+    <!-- PWA: Web App Manifest (optional) -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+
+    <!-- JSON-LD Structured Data: Organization -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: "Hydra Fox Designs",
+        url: "https://hydrafoxdesigns.com",
+        logo: "https://hydrafoxdesigns.com/images/hfd-logo.png",
+        description:
+          "Hydra Fox Designs helps businesses grow through creative web design, digital marketing, and automation solutions.",
+        contactPoint: {
+          "@type": "ContactPoint",
+          telephone: "+92-335-4345625",
+          contactType: "sales",
+          email: "muneerzameer@hydrafoxdesigns.com",
+        },
+        sameAs: [
+          "https://www.facebook.com/hydrafoxdesign",
+          "https://www.instagram.com/official_hydra_fox/",
+          "https://www.linkedin.com/company/hydrafox-designs/",
+        ],
+      })}
+    />
+
     <slot name="head" />
   </head>
-  
+
   <body class="pt-12 sm:pt-16 md:pt-0">
-    <Navbar client:only="react" />
-    
+    <Navbar client:only="react" transition:persist />
+
     <main>
       <slot />
     </main>
 
-    <Footer />
-    <ChatBot client:load />
+    <Footer transition:persist />
+    <ChatBot client:load transition:persist />
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/sw.js")
+            .then((reg) => console.log("✅ Service Worker registered"))
+            .catch((err) => console.log("❌ Service Worker failed:", err));
+        });
+      }
+    </script>
   </body>
 </html>
 
@@ -60,7 +155,7 @@ const {
     Core global resets. 
     Typography and Colors are managed in src/styles/global.css 
   */
-  
+
   * {
     box-sizing: border-box;
   }
@@ -81,5 +176,11 @@ const {
   main {
     min-height: 100vh;
     background-color: #000000;
+  }
+
+  /* Fast View Transitions - 100ms instead of default 300ms */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 100ms;
   }
 </style>

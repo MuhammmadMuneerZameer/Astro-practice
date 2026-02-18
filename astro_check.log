@@ -1,0 +1,41 @@
+﻿To continue, Astro requires the following dependency to be installed: [1m@astrojs/check[22m.
+
+  [35mAstro will run the following command:[39m
+  [2mIf you skip this step, you can always run it yourself later[22m
+
+ Γò¡ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò«
+ Γöé [1mnpm[22m i [36m@astrojs/check typescript[39m  Γöé
+ Γò░ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò»
+
+[?25l[2K[1G[36m?[39m [1mContinue?[22m [90m┬╗[39m [90m(Y/n)[39m[2K[1G[2K[1G[31m├ù[39m [1mContinue?[22m [90m...[39m yes
+node.exe : [31m[1m1
+4:09:02[22m [ERROR] 
+[check][39m The 
+`@astrojs/check` and 
+`typescript` 
+packages are 
+required for this 
+command to work. 
+Please manually 
+install them into 
+your project and try 
+again.
+At C:\Program Files\n
+odejs\npx.ps1:29 
+char:3
++   & $NODE_EXE 
+$NPX_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: ([31m[   
+ 1m14:09:... and     
+try again.:Strin    
+g) [], RemoteExc    
+eption
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+[?25h

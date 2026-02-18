@@ -1,0 +1,109 @@
+﻿git : remote: error: 
+GH013: Repository 
+rule violations 
+found for 
+refs/heads/main.     
+   
+At line:1 char:1
++ git push --force 
+2>&1 | Out-File 
+-FilePath 
+push_error.txt 
+-Encoding u ...
++ 
+~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (remote:   
+  error: ...s/mai    
+n.        :Strin    
+g) [], RemoteExc    
+eption
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+remote: 
+remote: - GITHUB 
+PUSH PROTECTION      
+  
+remote:   ΓÇöΓÇöΓÇöΓÇ
+öΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇ
+öΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇ
+öΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇ
+öΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇ
+öΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇ
+öΓÇöΓÇö        
+remote:     Resolve 
+the following 
+violations before 
+pushing again        
+remote: 
+remote:     - Push 
+cannot contain 
+secrets        
+remote: 
+remote:             
+remote:      (?) 
+Learn how to resolve 
+a blocked push       
+ 
+remote:      https://
+docs.github.com/code-
+security/secret-scann
+ing/working-with-secr
+et-scanning-and-push-
+protection/working-wi
+th-push-protection-fr
+om-the-command-line#r
+esolving-a-blocked-pu
+sh        
+remote:             
+remote:             
+remote:       ΓÇöΓÇö 
+OpenAI API Key ΓÇöΓÇö
+ΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇö
+ΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇö
+ΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇö
+ΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇö
+ΓÇöΓÇöΓÇöΓÇöΓÇöΓÇö   
+     
+remote:        
+locations:        
+remote:          - 
+commit: 5f4a5e63a5318
+8b203206b2d2ea0e6bc07
+dd64d0        
+remote:            
+path: public/api/chat
+.php:21        
+remote:             
+remote:        (?) 
+To push, remove 
+secret from 
+commit(s) or follow 
+this URL to allow 
+the secret.        
+remote:        https:
+//github.com/Muhammma
+dMuneerZameer/Astro-p
+ractice/security/secr
+et-scanning/unblock-s
+ecret/39qfXV5DUUwwh19
+lJA0LHJzAGGX        
+remote:             
+remote: 
+remote: 
+To https://github.com
+/MuhammmadMuneerZamee
+r/Astro-practice.git
+ ! [remote rejected] 
+main -> main (push 
+declined due to 
+repository rule 
+violations)
+error: failed to 
+push some refs to 'ht
+tps://github.com/Muha
+mmmadMuneerZameer/Ast
+ro-practice.git'

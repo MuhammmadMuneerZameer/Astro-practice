@@ -1,0 +1,114 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getPosts, getPostsByCategory } from '../../data/blogPost.js';
+import { RESOURCE_CATEGORIES, getAllResourceCategories } from '../../data/taxonomy.js';
+import { categoryToSlug } from '../../lib/utils.js';
+
+const posts = await getPosts();
+const categories = getAllResourceCategories();
+---
+
+
+
+<Layout
+  title="Resources | Hydra Fox Designs"
+  description="Insights on branding, design, marketing, and web development to help your business grow."
+>
+  <!-- Breadcrumb -->
+  <nav class="bg-black pt-24 pb-4 px-6">
+    <div class="max-w-7xl mx-auto">
+      <ol class="flex items-center gap-2 text-sm text-gray-400">
+        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+        <li class="text-gray-600">/</li>
+        <li class="text-white font-medium">Resources</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="bg-black text-white px-6 pb-16">
+    <div class="max-w-7xl mx-auto">
+      <h1 class="text-5xl md:text-7xl font-bold mb-6">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600">Resources</span>
+        <br/>& Insights
+      </h1>
+      <p class="text-gray-400 text-xl max-w-2xl leading-relaxed">
+        Practical insights on branding, design, marketing, and web development.
+      </p>
+    </div>
+  </section>
+
+  <!-- Category Navigation -->
+  <section class="bg-black text-white px-6 pb-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-wrap gap-3">
+        <span class="px-4 py-2 bg-green-500 text-black rounded-full text-sm font-medium">All Resources</span>
+        {categories.map(cat => (
+          <a 
+            href={`/resources/${cat.slug}/`}
+            class="px-4 py-2 bg-gray-900 hover:bg-gray-800 text-gray-300 hover:text-white rounded-full text-sm transition-colors"
+          >
+            {cat.name}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Posts Grid -->
+  <section class="bg-black text-white px-6 py-12">
+    <div class="max-w-7xl mx-auto">
+      {posts.length === 0 ? (
+        <div class="text-center py-20">
+          <h3 class="text-2xl font-bold text-white mb-3">No Articles Yet</h3>
+          <p class="text-gray-400">Check back soon for new content!</p>
+        </div>
+      ) : (
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.filter(p => p.status === 'published').map(post => (
+            <a 
+              href={`/resources/${categoryToSlug(post.category)}/${post.slug}/`}
+              class="group block"
+            >
+              <div class="aspect-[16/10] rounded-xl overflow-hidden mb-4 bg-gray-900">
+                <img 
+                  src={post.image} 
+                  alt={post.title}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+              </div>
+              {post.category && (
+                <span class="text-green-400 text-sm font-medium mb-2 block capitalize">
+                  {post.category}
+                </span>
+              )}
+              <h3 class="text-xl font-bold group-hover:text-green-400 transition-colors line-clamp-2">
+                {post.title}
+              </h3>
+              <p class="text-gray-400 text-sm mt-2 line-clamp-2">
+                {post.description}
+              </p>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-gradient-to-b from-black to-gray-900 text-white px-6 py-24 border-t border-gray-800">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-6">Need Expert Help?</h2>
+      <p class="text-gray-400 text-lg mb-10">
+        Reading is great, but sometimes you need a partner. Let's talk.
+      </p>
+      <a 
+        href="/contact/"
+        class="inline-flex items-center gap-2 px-10 py-4 bg-green-500 hover:bg-green-600 text-black font-bold rounded-full transition-colors"
+      >
+        Get in Touch
+      </a>
+    </div>
+  </section>
+</Layout>

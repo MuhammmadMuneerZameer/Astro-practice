@@ -1,0 +1,271 @@
+---
+import Layout from "../../../../layouts/Layout.astro";
+import {
+  SERVICE_HIERARCHY,
+  INDUSTRIES,
+  getServiceBySlug,
+  getSubserviceBySlug,
+  getIndustryBySlug,
+} from "../../../../data/taxonomy.js";
+import { getCaseStudies } from "../../../../data/caseStudies.js";
+
+export function getStaticPaths() {
+  const paths = [];
+
+  for (const [serviceSlug, service] of Object.entries(SERVICE_HIERARCHY)) {
+    for (const subserviceSlug of Object.keys(service.subservices)) {
+      for (const industrySlug of Object.keys(INDUSTRIES)) {
+        paths.push({
+          params: {
+            service: serviceSlug,
+            subservice: subserviceSlug,
+            industry: industrySlug,
+          },
+        });
+      }
+    }
+  }
+
+  return paths;
+}
+
+const {
+  service: serviceSlug,
+  subservice: subserviceSlug,
+  industry: industrySlug,
+} = Astro.params;
+const service = getServiceBySlug(serviceSlug);
+const subservice = getSubserviceBySlug(serviceSlug, subserviceSlug);
+const industry = getIndustryBySlug(industrySlug);
+
+if (!service || !subservice || !industry) {
+  return Astro.redirect("/services/");
+}
+
+const allCaseStudies = await getCaseStudies();
+const relatedCaseStudies = allCaseStudies
+  .filter(
+    (cs) =>
+      (cs.service === serviceSlug || cs.services?.includes(serviceSlug)) &&
+      cs.industry === industrySlug,
+  )
+  .slice(0, 2);
+
+// Other industries for this subservice
+const otherIndustries = Object.values(INDUSTRIES).filter(
+  (ind) => ind.slug !== industrySlug,
+);
+---
+
+<Layout
+  title={`${subservice.name} for ${industry.name} | Hydra Fox Designs`}
+  description={`Specialized ${subservice.name.toLowerCase()} services tailored for ${industry.name.toLowerCase()}. ${industry.description}`}
+>
+  <!-- Breadcrumb -->
+  <nav class="bg-black pt-24 pb-4 px-6">
+    <div class="max-w-7xl mx-auto">
+      <ol class="flex items-center gap-2 text-sm text-gray-400 flex-wrap">
+        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+        <li class="text-gray-600">/</li>
+        <li>
+          <a href="/services/" class="hover:text-white transition-colors"
+            >Services</a
+          >
+        </li>
+        <li class="text-gray-600">/</li>
+        <li>
+          <a
+            href={`/services/${serviceSlug}/`}
+            class="hover:text-white transition-colors">{service.name}</a
+          >
+        </li>
+        <li class="text-gray-600">/</li>
+        <li>
+          <a
+            href={`/services/${serviceSlug}/${subserviceSlug}/`}
+            class="hover:text-white transition-colors">{subservice.name}</a
+          >
+        </li>
+        <li class="text-gray-600">/</li>
+        <li class="text-white font-medium">{industry.name}</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="bg-black text-white px-6 pb-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center gap-3 mb-6">
+        <span
+          class="px-3 py-1 bg-green-500/10 text-green-400 rounded-full text-xs font-medium border border-green-500/20"
+        >
+          {service.name}
+        </span>
+        <span
+          class="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs font-medium border border-blue-500/20"
+        >
+          {industry.name}
+        </span>
+      </div>
+      <h1 class="text-4xl md:text-6xl font-bold mb-6">
+        {subservice.name} for<br />
+        <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600"
+          >{industry.name}</span
+        >
+      </h1>
+      <p class="text-gray-400 text-xl max-w-2xl leading-relaxed">
+        {industry.description}
+      </p>
+    </div>
+  </section>
+
+  <!-- Industry Challenges -->
+  <section class="bg-black text-white px-6 py-20 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl font-bold mb-4">Challenges in {industry.name}</h2>
+      <p class="text-gray-400 mb-12">
+        Understanding your market's unique obstacles is the first step to
+        overcoming them.
+      </p>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        {
+          industry.challenges.map((challenge: string, index: number) => (
+            <div class="p-6 bg-gray-900/50 rounded-xl border border-gray-800">
+              <div class="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
+                <span class="text-green-400 font-bold">{index + 1}</span>
+              </div>
+              <p class="text-gray-300">{challenge}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Approach -->
+  <section class="bg-black text-white px-6 py-20 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl font-bold mb-4">
+        How We Approach {subservice.name} for {industry.name}
+      </h2>
+      <p class="text-gray-400 mb-12 max-w-3xl">
+        Our {subservice.name.toLowerCase()} process is adapted specifically for the
+        {industry.name.toLowerCase()}
+        market, addressing the unique challenges and opportunities in your space.
+      </p>
+
+      <div class="prose prose-invert max-w-none">
+        <p class="text-gray-300 leading-relaxed">
+          We understand that {industry.name.toLowerCase()} requires a specialized
+          approach. Our team combines deep industry knowledge with proven {
+            subservice.name.toLowerCase()
+          }
+          methodologies to create solutions that resonate with your target audience
+          and drive results.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Case Studies -->
+  {
+    relatedCaseStudies.length > 0 && (
+      <section class="bg-black text-white px-6 py-20 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto">
+          <h2 class="text-3xl font-bold mb-4">{industry.name} Case Studies</h2>
+          <p class="text-gray-400 mb-12">
+            Real results for {industry.name.toLowerCase()}.
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            {relatedCaseStudies.map((cs) => (
+              <a href={`/work/${cs.slug}/`} class="group block">
+                <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gray-900">
+                  <img
+                    src={cs.image}
+                    alt={cs.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+                <h3 class="text-xl font-bold group-hover:text-green-400 transition-colors">
+                  {cs.title}
+                </h3>
+                <p class="text-gray-400 text-sm mt-1">{cs.client}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Other Industries -->
+  <section class="bg-black text-white px-6 py-20 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-2xl font-bold mb-8">
+        {subservice.name} for Other Industries
+      </h2>
+
+      <div class="flex flex-wrap gap-3">
+        {
+          otherIndustries.map((ind) => (
+            <a
+              href={`/services/${serviceSlug}/${subserviceSlug}/${ind.slug}/`}
+              class="px-5 py-3 bg-gray-900 hover:bg-gray-800 rounded-lg text-gray-300 hover:text-white transition-colors"
+            >
+              {ind.name}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Links -->
+  <section class="bg-black text-white px-6 py-12 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto flex flex-wrap gap-8 justify-center text-sm">
+      <a
+        href={`/services/${serviceSlug}/${subserviceSlug}/`}
+        class="text-green-400 hover:text-green-300"
+      >
+        ← Back to {subservice.name}
+      </a>
+      <a
+        href={`/services/${serviceSlug}/`}
+        class="text-green-400 hover:text-green-300"
+      >
+        All {service.name} Services
+      </a>
+      <a
+        href={`/industries/${industrySlug}/`}
+        class="text-green-400 hover:text-green-300"
+      >
+        More on {industry.name}
+      </a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section
+    class="bg-gradient-to-b from-black to-gray-900 text-white px-6 py-24 border-t border-gray-800"
+  >
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-6">
+        Ready for {subservice.name} That Works for {industry.name}?
+      </h2>
+      <p class="text-gray-400 text-lg mb-10">
+        Let's create {subservice.name.toLowerCase()} that understands your industry
+        and connects with your audience.
+      </p>
+      <a
+        href="/contact/"
+        class="inline-flex items-center gap-2 px-10 py-4 bg-green-500 hover:bg-green-600 text-black font-bold rounded-full transition-colors"
+      >
+        Start Your Project
+      </a>
+    </div>
+  </section>
+</Layout>

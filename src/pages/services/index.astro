@@ -1,0 +1,135 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { SERVICE_HIERARCHY, getAllServices } from "../../data/taxonomy.js";
+import { getCaseStudies } from "../../data/caseStudies.js";
+
+const services = getAllServices();
+const caseStudies = await getCaseStudies();
+const featuredCaseStudies = caseStudies.filter((cs) => cs.featured).slice(0, 3);
+---
+
+<Layout
+  title="Strategic Services | Hydra Fox Designs"
+  description="We solve business problems through branding, design, marketing, and web development. Stop losing customers to poor digital experiences."
+>
+  <!-- Breadcrumb -->
+  <nav class="bg-black pt-24 pb-4 px-6">
+    <div class="max-w-7xl mx-auto">
+      <ol class="flex items-center gap-2 text-sm text-gray-400">
+        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+        <li class="text-gray-600">/</li>
+        <li class="text-white font-medium">Services</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="bg-black text-white px-6 pb-20">
+    <div class="max-w-7xl mx-auto">
+      <h1 class="text-5xl md:text-7xl font-bold mb-6">
+        We Build Systems That <br />
+        <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600"
+          >Scale & Convert.</span
+        >
+      </h1>
+      <p class="text-gray-400 text-xl max-w-2xl leading-relaxed">
+        Stop treating your website like a brochure. Start treating it like a
+        business engine. We identify where you're losing money and build the
+        infrastructure to fix it.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section class="bg-black text-white px-6 py-20 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl font-bold mb-12 text-center">Our Core Services</h2>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        {
+          services.map((service) => (
+            <a
+              href={`/services/${service.slug}/`}
+              class="group block p-8 bg-gray-900/50 rounded-2xl border border-gray-800 hover:border-green-500/50 transition-all duration-300"
+            >
+              <h3 class="text-2xl font-bold mb-4 group-hover:text-green-400 transition-colors">
+                {service.name}
+              </h3>
+              <p class="text-gray-400 mb-6 leading-relaxed">
+                {service.description}
+              </p>
+              <div class="flex flex-wrap gap-2">
+                {Object.values(service.subservices)
+                  .slice(0, 3)
+                  .map((sub) => (
+                    <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-sm">
+                      {sub.name}
+                    </span>
+                  ))}
+              </div>
+              <div class="mt-6 flex items-center gap-2 text-green-400 font-medium">
+                <span>Explore {service.name}</span>
+                <svg
+                  class="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Case Studies -->
+  {
+    featuredCaseStudies.length > 0 && (
+      <section class="bg-black text-white px-6 py-20 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto">
+          <h2 class="text-3xl font-bold mb-4">Featured Work</h2>
+          <p class="text-gray-400 mb-12">
+            See how we've helped brands transform their business.
+          </p>
+
+          <div class="grid md:grid-cols-3 gap-8">
+            {featuredCaseStudies.map((cs) => (
+              <a href={`/work/${cs.slug}/`} class="group block">
+                <div class="aspect-[4/3] rounded-xl overflow-hidden mb-4 bg-gray-900">
+                  <img
+                    src={cs.image}
+                    alt={cs.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+                <h3 class="text-xl font-bold group-hover:text-green-400 transition-colors">
+                  {cs.title}
+                </h3>
+                <p class="text-gray-400 text-sm mt-1">{cs.client}</p>
+              </a>
+            ))}
+          </div>
+
+          <div class="mt-12 text-center">
+            <a
+              href="/work/"
+              class="inline-flex items-center gap-2 px-8 py-4 bg-green-500 hover:bg-green-600 text-black font-bold rounded-full transition-colors"
+            >
+              View All Work
+            </a>
+          </div>
+        </div>
+      </section>
+    )
+  }
+</Layout>

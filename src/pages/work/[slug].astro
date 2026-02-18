@@ -1,0 +1,219 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCaseStudies } from "../../data/caseStudies.js";
+import {
+  SERVICE_HIERARCHY,
+  INDUSTRIES,
+  getServiceBySlug,
+  getIndustryBySlug,
+} from "../../data/taxonomy.js";
+
+// Components (re-use existing case study modules)
+import CaseStudyHero from "../../components/case-study-modules/CaseStudyHero";
+import BrandIdentityModule from "../../components/case-study-modules/BrandIdentityModule";
+import MarketRealityModule from "../../components/case-study-modules/MarketRealityModule";
+import GrowthBlockModule from "../../components/case-study-modules/GrowthBlockModule";
+import StrategicShiftModule from "../../components/case-study-modules/StrategicShiftModule";
+import SystemBuildModule from "../../components/case-study-modules/SystemBuildModule";
+import MarketImpactModule from "../../components/case-study-modules/MarketImpactModule";
+import VisualProofModule from "../../components/case-study-modules/VisualProofModule";
+import TestimonialModule from "../../components/case-study-modules/TestimonialModule";
+import ConversionModule from "../../components/case-study-modules/ConversionModule";
+
+export async function getStaticPaths() {
+  const caseStudies = await getCaseStudies();
+  return caseStudies.map((study) => ({
+    params: { slug: study.slug },
+    props: { caseStudy: study },
+  }));
+}
+
+const { caseStudy } = Astro.props;
+
+if (!caseStudy) {
+  return Astro.redirect("/work/");
+}
+
+// Get related data for internal linking
+const service = caseStudy.service ? getServiceBySlug(caseStudy.service) : null;
+const industry = caseStudy.industry
+  ? getIndustryBySlug(caseStudy.industry)
+  : null;
+
+// Get related case studies
+const allCaseStudies = await getCaseStudies();
+const relatedCaseStudies = allCaseStudies
+  .filter((cs) => cs.slug !== caseStudy.slug)
+  .filter(
+    (cs) =>
+      cs.service === caseStudy.service || cs.industry === caseStudy.industry,
+  )
+  .slice(0, 3);
+---
+
+<Layout
+  title={`${caseStudy.title} | Case Study`}
+  description={caseStudy.challenge || `Case Study for ${caseStudy.client}`}
+>
+  <!-- Breadcrumb -->
+  <nav class="bg-black pt-24 pb-4 px-6">
+    <div class="max-w-7xl mx-auto">
+      <ol class="flex items-center gap-2 text-sm text-gray-400 flex-wrap">
+        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+        <li class="text-gray-600">/</li>
+        <li>
+          <a href="/work/" class="hover:text-white transition-colors">Work</a>
+        </li>
+        <li class="text-gray-600">/</li>
+        <li class="text-white font-medium truncate max-w-[200px]">
+          {caseStudy.title}
+        </li>
+      </ol>
+    </div>
+  </nav>
+
+  <main class="bg-black min-h-screen">
+    {/* 1. Hero Module */}
+    <CaseStudyHero
+      client:visible
+      title={caseStudy.title}
+      subtitle={caseStudy.subtitle}
+      client={caseStudy.client}
+      service={caseStudy.service}
+      industry={caseStudy.industry}
+      duration={caseStudy.duration}
+      image={caseStudy.heroImage || caseStudy.image}
+    />
+
+    {/* 2. Brand Identity Module */}
+    <BrandIdentityModule
+      client:visible
+      brandBio={caseStudy.brandBio}
+      visualIdentity={caseStudy.visualIdentity}
+      marketPos={caseStudy.marketPos}
+      persona={caseStudy.persona}
+    />
+
+    {/* 3. Market Reality Module */}
+    <MarketRealityModule
+      client:visible
+      marketMap={caseStudy.marketMap}
+      competitors={caseStudy.competitors}
+      insights={caseStudy.insights}
+    />
+
+    {/* 4. Growth Block (Challenges) */}
+    <GrowthBlockModule
+      client:visible
+      challenges={caseStudy.challenges || caseStudy.challenge}
+      bottlenecks={caseStudy.bottlenecks}
+    />
+
+    {/* 5. Strategic Shift */}
+    <StrategicShiftModule
+      client:visible
+      oldStrategy={caseStudy.oldStrategy}
+      newStrategy={caseStudy.newStrategy || caseStudy.solution}
+    />
+
+    {/* 6. System Build */}
+    <SystemBuildModule
+      client:visible
+      ecosystem={caseStudy.ecosystem}
+      automation={caseStudy.automation}
+    />
+
+    {/* 8. Market Impact */}
+    <MarketImpactModule
+      client:visible
+      revenueImpact={caseStudy.revenueImpact}
+      kpis={caseStudy.kpis}
+    />
+
+    {/* 9. Visual Proof */}
+    <VisualProofModule
+      client:visible
+      galleryImages={caseStudy.galleryImages || caseStudy.images}
+    />
+
+    {/* 10. Testimonial */}
+    <TestimonialModule
+      client:visible
+      quote={caseStudy.testimonialQuote}
+      author={caseStudy.testimonialAuthor}
+      role={caseStudy.testimonialRole}
+    />
+
+    {/* Related Links Section */}
+    <section class="bg-black text-white px-6 py-16 border-t border-gray-800">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-2xl font-bold mb-8">Related Links</h2>
+        <div class="flex flex-wrap gap-4">
+          {
+            service && (
+              <a
+                href={`/services/${service.slug}/`}
+                class="px-5 py-3 bg-green-500/10 text-green-400 border border-green-500/20 rounded-lg hover:bg-green-500/20 transition-colors"
+              >
+                {service.name} Services
+              </a>
+            )
+          }
+          {
+            industry && (
+              <a
+                href={`/industries/${industry.slug}/`}
+                class="px-5 py-3 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-lg hover:bg-blue-500/20 transition-colors"
+              >
+                {industry.name} Industry
+              </a>
+            )
+          }
+          <a
+            href="/work/"
+            class="px-5 py-3 bg-gray-900 text-gray-300 rounded-lg hover:bg-gray-800 transition-colors"
+          >
+            ← Back to All Work
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* Related Case Studies */}
+    {
+      relatedCaseStudies.length > 0 && (
+        <section class="bg-black text-white px-6 py-16 border-t border-gray-800">
+          <div class="max-w-7xl mx-auto">
+            <h2 class="text-2xl font-bold mb-8">More Work</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+              {relatedCaseStudies.map((cs) => (
+                <a href={`/work/${cs.slug}/`} class="group block">
+                  <div class="aspect-[4/3] rounded-xl overflow-hidden mb-4 bg-gray-900">
+                    <img
+                      src={cs.image}
+                      alt={cs.title}
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                  </div>
+                  <h3 class="text-lg font-bold group-hover:text-green-400 transition-colors">
+                    {cs.title}
+                  </h3>
+                  <p class="text-gray-400 text-sm mt-1">{cs.client}</p>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    {/* 11. Conversion */}
+    <ConversionModule
+      client:visible
+      bookingLink={caseStudy.bookingLink}
+      services={caseStudy.services ||
+        (caseStudy.service ? [caseStudy.service] : [])}
+    />
+  </main>
+</Layout>

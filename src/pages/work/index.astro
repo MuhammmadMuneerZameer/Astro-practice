@@ -1,0 +1,136 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCaseStudies } from "../../data/caseStudies.js";
+import { SERVICE_HIERARCHY, INDUSTRIES } from "../../data/taxonomy.js";
+
+const caseStudies = await getCaseStudies();
+const services = Object.values(SERVICE_HIERARCHY);
+const industries = Object.values(INDUSTRIES);
+---
+
+<Layout
+  title="Our Work | Hydra Fox Designs"
+  description="Explore our portfolio of successful projects. See how we've helped clients solve challenges and achieve their goals."
+>
+  <!-- Breadcrumb -->
+  <nav class="bg-black pt-24 pb-4 px-6">
+    <div class="max-w-7xl mx-auto">
+      <ol class="flex items-center gap-2 text-sm text-gray-400">
+        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+        <li class="text-gray-600">/</li>
+        <li class="text-white font-medium">Work</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="bg-black text-white px-6 pb-16">
+    <div class="max-w-7xl mx-auto">
+      <h1 class="text-5xl md:text-7xl font-bold mb-6">
+        Building <span class="text-[var(--color-accent)]">Trust</span><br />
+        Through Results.
+      </h1>
+      <p class="text-gray-400 text-xl max-w-2xl leading-relaxed">
+        We don't just showcase designs. We demonstrate the tangible impact we've
+        created for brands across industries.
+      </p>
+    </div>
+  </section>
+
+  <!-- Filter Tags -->
+  <section class="bg-black text-white px-6 pb-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-wrap gap-3">
+        <span
+          class="px-4 py-2 bg-[var(--color-accent)] text-black rounded-full text-sm font-medium"
+          >All Work</span
+        >
+        {
+          services.slice(0, 3).map((service) => (
+            <a
+              href={`/services/${service.slug}/`}
+              class="px-4 py-2 bg-gray-900 hover:bg-gray-800 text-gray-300 hover:text-white rounded-full text-sm transition-colors"
+            >
+              {service.name}
+            </a>
+          ))
+        }
+        {
+          industries.slice(0, 2).map((industry) => (
+            <a
+              href={`/industries/${industry.slug}/`}
+              class="px-4 py-2 bg-gray-900 hover:bg-gray-800 text-gray-300 hover:text-white rounded-full text-sm transition-colors"
+            >
+              {industry.name}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Studies Grid -->
+  <section class="bg-black text-white px-6 py-12">
+    <div class="max-w-7xl mx-auto">
+      {
+        caseStudies.length === 0 ? (
+          <div class="text-center py-20">
+            <h3 class="text-2xl font-bold text-white mb-3">
+              No Case Studies Yet
+            </h3>
+            <p class="text-gray-400">Check back soon to see our latest work!</p>
+          </div>
+        ) : (
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {caseStudies.map((cs) => (
+              <a href={`/work/${cs.slug}/`} class="group block">
+                <div class="aspect-[4/3] rounded-xl overflow-hidden mb-4 bg-gray-900">
+                  <img
+                    src={cs.image}
+                    alt={cs.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="flex flex-wrap gap-2 mb-3">
+                  {cs.service && (
+                    <span class="px-2 py-1 bg-[var(--color-accent)]/10 text-[var(--color-accent)] rounded text-xs">
+                      {cs.service}
+                    </span>
+                  )}
+                  {cs.industry && (
+                    <span class="px-2 py-1 bg-blue-500/10 text-blue-400 rounded text-xs">
+                      {cs.industry}
+                    </span>
+                  )}
+                </div>
+                <h3 class="text-xl font-bold group-hover:text-[var(--color-accent)] transition-colors">
+                  {cs.title}
+                </h3>
+                <p class="text-gray-400 text-sm mt-1">{cs.client}</p>
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section
+    class="bg-gradient-to-b from-black to-gray-900 text-white px-6 py-24 border-t border-gray-800"
+  >
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-6">Want Results Like These?</h2>
+      <p class="text-gray-400 text-lg mb-10">
+        Let's discuss how we can create similar success for your brand.
+      </p>
+      <a
+        href="/contact/"
+        class="inline-flex items-center gap-2 px-10 py-4 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-black font-bold rounded-full transition-colors"
+      >
+        Start Your Project
+      </a>
+    </div>
+  </section>
+</Layout>
