@@ -1,10 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getPosts, getPostsByCategory } from '../../data/blogPost.js';
 import { RESOURCE_CATEGORIES, getAllResourceCategories } from '../../data/taxonomy.js';
-import { categoryToSlug } from '../../lib/utils.js';
+import OptimizedBlogList from '../../components/OptimizedBlogList.tsx';
 
-const posts = await getPosts();
 const categories = getAllResourceCategories();
 ---
 
@@ -39,14 +37,14 @@ const categories = getAllResourceCategories();
   </section>
 
   <!-- Category Navigation -->
-  <section class="bg-black text-white px-6 pb-12">
+  <section transition:name="resources-category-nav" transition:animate="none" class="bg-black text-white px-6 pb-6">
     <div class="max-w-7xl mx-auto">
-      <div class="flex flex-wrap gap-3">
-        <span class="px-4 py-2 bg-green-500 text-black rounded-full text-sm font-medium">All Resources</span>
+      <div class="flex flex-wrap items-center gap-3">
+        <span class="inline-flex items-center h-9 px-4 bg-green-500 text-black rounded-full text-sm font-medium">All Resources</span>
         {categories.map(cat => (
-          <a 
+          <a
             href={`/resources/${cat.slug}/`}
-            class="px-4 py-2 bg-gray-900 hover:bg-gray-800 text-gray-300 hover:text-white rounded-full text-sm transition-colors"
+            class="inline-flex items-center h-9 px-4 bg-gray-900 hover:bg-gray-800 text-gray-300 hover:text-white rounded-full text-sm transition-colors"
           >
             {cat.name}
           </a>
@@ -56,43 +54,9 @@ const categories = getAllResourceCategories();
   </section>
 
   <!-- Posts Grid -->
-  <section class="bg-black text-white px-6 py-12">
+  <section class="bg-black text-white px-6 pt-6 pb-12">
     <div class="max-w-7xl mx-auto">
-      {posts.length === 0 ? (
-        <div class="text-center py-20">
-          <h3 class="text-2xl font-bold text-white mb-3">No Articles Yet</h3>
-          <p class="text-gray-400">Check back soon for new content!</p>
-        </div>
-      ) : (
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.filter(p => p.status === 'published').map(post => (
-            <a 
-              href={`/resources/${categoryToSlug(post.category)}/${post.slug}/`}
-              class="group block"
-            >
-              <div class="aspect-[16/10] rounded-xl overflow-hidden mb-4 bg-gray-900">
-                <img 
-                  src={post.image} 
-                  alt={post.title}
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
-              </div>
-              {post.category && (
-                <span class="text-green-400 text-sm font-medium mb-2 block capitalize">
-                  {post.category}
-                </span>
-              )}
-              <h3 class="text-xl font-bold group-hover:text-green-400 transition-colors line-clamp-2">
-                {post.title}
-              </h3>
-              <p class="text-gray-400 text-sm mt-2 line-clamp-2">
-                {post.description}
-              </p>
-            </a>
-          ))}
-        </div>
-      )}
+      <OptimizedBlogList client:only="react" />
     </div>
   </section>
 
@@ -112,3 +76,10 @@ const categories = getAllResourceCategories();
     </div>
   </section>
 </Layout>
+
+<style>
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+</style>

@@ -10,6 +10,7 @@ import CTAsection from '../components/CTAsection.astro';
 import NesLSection from '../components/NesLSection.jsx';
 import BlogSection from '../components/BlogSection.astro';
 import Projectsdisplay from '../components/Projectsdisplay.astro';
+import StatsSection from '../components/StatsSection.astro';
 // import LoadingScreen from '../components/LoadingScreen.jsx'; // TEMPORARILY DISABLED
 ---
 
@@ -21,6 +22,7 @@ import Projectsdisplay from '../components/Projectsdisplay.astro';
   
   <!-- Main Content - Should be visible immediately -->
   <Welcome />
+  <StatsSection />
   <FeatureListSection client:visible />
   <ServicesSection client:visible />
   <Projectsdisplay />

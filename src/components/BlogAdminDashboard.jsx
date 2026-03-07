@@ -3,7 +3,9 @@ import {
   PlusCircle, Trash2, Edit, Save, X, AlertCircle,
   FileText, Calendar, Tag, Image, Type, Hash,
   Upload, Link2, ImagePlus, Loader, Check, Eye,
-  AlignLeft, AlignCenter, AlignRight, Maximize2
+  AlignLeft, AlignCenter, AlignRight, Maximize2,
+  Bold, Italic, Heading1, Heading2, Heading3,
+  Quote, Minus, List, ListOrdered, Code, Link
 } from 'lucide-react';
 
 import {
@@ -25,7 +27,8 @@ const CONSTANTS = {
 
 const INITIAL_FORM_STATE = {
   title: '',
-  content: '',
+  rawContent: '',  // what the admin types (markdown-like)
+  content: '',     // HTML version saved to Firebase
   description: '',
   image: '',
   date: new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long' }),
@@ -62,7 +65,7 @@ class BlogUtils {
   static validateFormData(formData) {
     const errors = [];
     if (!formData.title?.trim()) errors.push('Title is required');
-    if (!formData.content?.trim()) errors.push('Content is required');
+    if (!formData.rawContent?.trim()) errors.push('Content is required');
     if (!formData.description?.trim()) errors.push('Description is required');
     if (!formData.image?.trim()) errors.push('Cover image is required');
     if (!formData.slug?.trim()) errors.push('Slug is required');
@@ -90,7 +93,7 @@ class BlogUtils {
   }
 
   static insertTextAtCursor(textarea, text) {
-    if (!textarea) return '';
+    if (!textarea) return { newValue: textarea?.value || '', newCursorPosition: 0 };
     const start = textarea.selectionStart || 0;
     const end = textarea.selectionEnd || 0;
     const currentValue = textarea.value || '';
@@ -102,59 +105,215 @@ class BlogUtils {
     };
   }
 
-  static parseContent(text) {
-    const lines = text.split('\n');
-    const parsed = [];
+  // Insert inline formatting around selected text, or block formatting at line start
+  static insertFormatting(textarea, format) {
+    if (!textarea) return { newValue: textarea?.value || '', newCursorPosition: 0 };
+    const start = textarea.selectionStart || 0;
+    const end = textarea.selectionEnd || 0;
+    const value = textarea.value || '';
+    const selected = value.substring(start, end);
+    const before = value.substring(0, start);
+    const after = value.substring(end);
 
-    // Position keywords that can be used in image alt text
-    const positionKeywords = ['left', 'right', 'center', 'full'];
+    let insertion, cursorOffset;
 
-    for (const line of lines) {
-      const trimmed = line.trim();
-
-      // Check for plain image URLs
-      if (trimmed.match(/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp|svg)$/i)) {
-        parsed.push({ type: 'image', url: trimmed, position: 'full' });
+    switch (format) {
+      case 'bold': {
+        const t = selected || 'bold text';
+        insertion = `**${t}**`;
+        cursorOffset = selected ? insertion.length : 2;
+        return { newValue: before + insertion + after, newCursorPosition: start + cursorOffset };
       }
-      // Check for markdown image format with position: ![position](url) or ![position:caption](url)
-      else if (trimmed.match(/^!\[.*?\]\(.+?\)$/)) {
-        const match = trimmed.match(/!\[(.*?)\]\((.+?)\)/);
-        if (match) {
-          const altText = match[1] || '';
-          const url = match[2];
-
-          // Check if alt text starts with a position keyword
-          const lowerAlt = altText.toLowerCase();
-          let position = 'full'; // default position
-          let caption = altText;
-
-          for (const pos of positionKeywords) {
-            if (lowerAlt === pos || lowerAlt.startsWith(pos + ':')) {
-              position = pos;
-              // Extract caption after position:
-              caption = lowerAlt === pos ? '' : altText.substring(pos.length + 1).trim();
-              break;
-            }
-          }
-
-          parsed.push({ type: 'image', url, alt: caption, position });
-        }
+      case 'italic': {
+        const t = selected || 'italic text';
+        insertion = `*${t}*`;
+        cursorOffset = selected ? insertion.length : 1;
+        return { newValue: before + insertion + after, newCursorPosition: start + cursorOffset };
       }
-      // Regular text content
-      else if (trimmed) {
-        parsed.push({ type: 'text', content: trimmed });
+      case 'code': {
+        const t = selected || 'code';
+        insertion = `\`${t}\``;
+        cursorOffset = selected ? insertion.length : 1;
+        return { newValue: before + insertion + after, newCursorPosition: start + cursorOffset };
       }
+      case 'link': {
+        const t = selected || 'link text';
+        insertion = `[${t}](https://)`;
+        return { newValue: before + insertion + after, newCursorPosition: start + insertion.length - 1 };
+      }
+      // Block-level: insert prefix at beginning of current line
+      case 'h1':
+      case 'h2':
+      case 'h3':
+      case 'ul':
+      case 'ol':
+      case 'quote': {
+        const prefixMap = { h1: '# ', h2: '## ', h3: '### ', ul: '- ', ol: '1. ', quote: '> ' };
+        const prefix = prefixMap[format];
+        const lineStart = before.lastIndexOf('\n') + 1;
+        const lineContent = value.substring(lineStart);
+        const newValue = value.substring(0, lineStart) + prefix + lineContent;
+        return { newValue, newCursorPosition: start + prefix.length };
+      }
+      case 'hr': {
+        const nl = before.endsWith('\n') ? '' : '\n';
+        insertion = `${nl}---\n`;
+        return { newValue: before + insertion + after, newCursorPosition: start + insertion.length };
+      }
+      case 'codeblock': {
+        const t = selected || 'code here';
+        insertion = `\`\`\`\n${t}\n\`\`\``;
+        return { newValue: before + insertion + after, newCursorPosition: start + insertion.length };
+      }
+      default:
+        return { newValue: value, newCursorPosition: start };
     }
-    return parsed;
   }
 
+  // ── Markdown → HTML converter ─────────────────────────────────────────────
+  static convertMarkdownToHtml(text) {
+    if (!text) return '';
+    const trimmed = text.trim();
+    // Already HTML — pass through
+    if (trimmed.startsWith('<')) return text;
+
+    const lines = trimmed.split('\n');
+    let html = '';
+    let inUl = false;
+    let inOl = false;
+    let inCodeBlock = false;
+    let codeLang = '';
+    let codeLines = [];
+    let paraLines = [];
+
+    const escHtml = (s) => s
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+
+    const inline = (s) => s
+      .replace(/`(.+?)`/g, '<code>$1</code>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+
+    const flushPara = () => {
+      if (paraLines.length === 0) return;
+      html += `<p>${inline(paraLines.join(' '))}</p>\n`;
+      paraLines = [];
+    };
+
+    const closeList = () => {
+      if (inUl) { html += '</ul>\n'; inUl = false; }
+      if (inOl) { html += '</ol>\n'; inOl = false; }
+    };
+
+    for (const line of lines) {
+      const trimLine = line.trim();
+
+      // ── Code block fence ──────────────────────────────────────────────
+      if (trimLine.startsWith('```')) {
+        if (inCodeBlock) {
+          html += `<pre><code${codeLang ? ` class="language-${codeLang}"` : ''}>${escHtml(codeLines.join('\n'))}</code></pre>\n`;
+          inCodeBlock = false;
+          codeLang = '';
+          codeLines = [];
+        } else {
+          flushPara();
+          closeList();
+          inCodeBlock = true;
+          codeLang = trimLine.slice(3).trim();
+        }
+        continue;
+      }
+      if (inCodeBlock) { codeLines.push(line); continue; }
+
+      // ── Blank line ────────────────────────────────────────────────────
+      if (!trimLine) {
+        flushPara();
+        closeList();
+        continue;
+      }
+
+      // ── Plain image URL ───────────────────────────────────────────────
+      if (trimLine.match(/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?$/i)) {
+        flushPara();
+        closeList();
+        html += `<figure class="w-full my-8 clear-both"><img src="${trimLine}" alt="Blog image" class="w-full h-auto rounded-xl" /></figure>\n`;
+        continue;
+      }
+
+      // ── Markdown image: ![pos](url) or ![pos:caption](url) ───────────
+      const imgMatch = trimLine.match(/^!\[(.*?)\]\((.+?)\)$/);
+      if (imgMatch) {
+        flushPara();
+        closeList();
+        const altText = imgMatch[1] || '';
+        const url = imgMatch[2];
+        const lower = altText.toLowerCase();
+        let figCls = 'w-full my-8 clear-both';
+        if (lower === 'left'   || lower.startsWith('left:'))   figCls = 'float-left mr-6 mb-4 max-w-[50%] clear-left';
+        else if (lower === 'right'  || lower.startsWith('right:'))  figCls = 'float-right ml-6 mb-4 max-w-[50%] clear-right';
+        else if (lower === 'center' || lower.startsWith('center:')) figCls = 'mx-auto block max-w-[80%] my-8';
+        const caption = altText.includes(':') ? altText.substring(altText.indexOf(':') + 1).trim() : (lower === 'left' || lower === 'right' || lower === 'center' || lower === 'full' ? '' : altText);
+        html += `<figure class="${figCls}"><img src="${url}" alt="${escHtml(caption || 'Blog image')}" class="w-full h-auto rounded-xl" />${caption ? `<figcaption class="text-center text-gray-400 text-sm mt-2">${escHtml(caption)}</figcaption>` : ''}</figure>\n`;
+        continue;
+      }
+
+      // ── Headings ──────────────────────────────────────────────────────
+      if (trimLine.startsWith('### ')) { flushPara(); closeList(); html += `<h4>${inline(trimLine.slice(4))}</h4>\n`; continue; }
+      if (trimLine.startsWith('## '))  { flushPara(); closeList(); html += `<h3>${inline(trimLine.slice(3))}</h3>\n`; continue; }
+      if (trimLine.startsWith('# '))   { flushPara(); closeList(); html += `<h2>${inline(trimLine.slice(2))}</h2>\n`; continue; }
+
+      // ── Horizontal rule ───────────────────────────────────────────────
+      if (trimLine === '---' || trimLine === '***' || trimLine === '___') {
+        flushPara(); closeList(); html += '<hr />\n'; continue;
+      }
+
+      // ── Blockquote ────────────────────────────────────────────────────
+      if (trimLine.startsWith('> ')) {
+        flushPara(); closeList();
+        html += `<blockquote>${inline(trimLine.slice(2))}</blockquote>\n`;
+        continue;
+      }
+
+      // ── Unordered list ────────────────────────────────────────────────
+      if (trimLine.startsWith('- ') || trimLine.startsWith('* ')) {
+        flushPara();
+        if (inOl) { html += '</ol>\n'; inOl = false; }
+        if (!inUl) { html += '<ul>\n'; inUl = true; }
+        html += `<li>${inline(trimLine.slice(2))}</li>\n`;
+        continue;
+      }
+
+      // ── Ordered list ──────────────────────────────────────────────────
+      if (trimLine.match(/^\d+\.\s/)) {
+        flushPara();
+        if (inUl) { html += '</ul>\n'; inUl = false; }
+        if (!inOl) { html += '<ol>\n'; inOl = true; }
+        html += `<li>${inline(trimLine.replace(/^\d+\.\s/, ''))}</li>\n`;
+        continue;
+      }
+
+      // ── Regular paragraph text ────────────────────────────────────────
+      closeList();
+      paraLines.push(trimLine);
+    }
+
+    flushPara();
+    closeList();
+    if (inCodeBlock) html += `<pre><code>${escHtml(codeLines.join('\n'))}</code></pre>\n`;
+
+    return html;
+  }
 }
 
 // ============================================================================
 // PREVIEW COMPONENT
 // ============================================================================
 const BlogPreview = ({ formData, onClose }) => {
-  const parsedContent = BlogUtils.parseContent(formData.content);
+  const htmlContent = BlogUtils.convertMarkdownToHtml(formData.rawContent || formData.content || '');
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/95 backdrop-blur-sm">
@@ -201,7 +360,7 @@ const BlogPreview = ({ formData, onClose }) => {
                 <span className="text-gray-600">•</span>
                 <span className="flex items-center gap-2">
                   <FileText size={16} />
-                  {Math.ceil(formData.content.split(' ').length / 200)} min read
+                  {Math.ceil((formData.rawContent || formData.content || '').split(' ').length / 200)} min read
                 </span>
               </div>
             </header>
@@ -218,43 +377,14 @@ const BlogPreview = ({ formData, onClose }) => {
               </div>
             )}
 
-            <div className="prose-custom space-y-6">
-              {parsedContent.length > 0 ? (
-                parsedContent.map((item, index) => (
-                  item.type === 'image' ? (
-                    <figure
-                      key={index}
-                      className={`my-8 sm:my-12 ${item.position === 'left' ? 'float-left mr-6 mb-4 max-w-[50%] clear-left' :
-                        item.position === 'right' ? 'float-right ml-6 mb-4 max-w-[50%] clear-right' :
-                          item.position === 'center' ? 'mx-auto max-w-[80%]' :
-                            'w-full clear-both' // full width (default)
-                        }`}
-                    >
-                      <img
-                        src={item.url}
-                        alt={item.alt || 'Blog content image'}
-                        className="w-full h-auto rounded-xl object-cover shadow-lg"
-                      />
-                      {item.alt && (
-                        <figcaption className="text-center text-gray-400 text-sm mt-3">
-                          {item.alt}
-                        </figcaption>
-                      )}
-                      {item.position && item.position !== 'full' && (
-                        <div className="absolute -top-2 -right-2 px-2 py-0.5 bg-blue-500/80 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                          {item.position}
-                        </div>
-                      )}
-                    </figure>
-                  ) : (
-
-                    <p key={index} className="text-gray-300 text-lg leading-relaxed">{item.content}</p>
-                  )
-                ))
-              ) : (
-                <p className="text-gray-400 italic">No content yet. Start writing to see your blog post preview.</p>
-              )}
-            </div>
+            {htmlContent ? (
+              <div
+                className="prose prose-lg prose-invert prose-green max-w-none"
+                dangerouslySetInnerHTML={{ __html: htmlContent }}
+              />
+            ) : (
+              <p className="text-gray-400 italic">No content yet. Start writing to see your blog post preview.</p>
+            )}
           </div>
         </article>
 
@@ -369,6 +499,7 @@ export default function BlogAdminDashboard() {
   const openEditForm = useCallback((blog) => {
     setFormData({
       title: blog.title || '',
+      rawContent: blog.rawContent || blog.content || '',
       content: blog.content || '',
       description: blog.description || '',
       image: blog.image || '',
@@ -439,7 +570,7 @@ export default function BlogAdminDashboard() {
       const successfulUploads = results.filter(r => r.success);
       const failedUploads = results.filter(r => !r.success);
 
-      // Insert all successful images into content with position markup
+      // Insert all successful images into rawContent with position markup
       if (successfulUploads.length > 0) {
         const textarea = contentTextareaRef.current;
         // Format images with position: ![position](url)
@@ -449,7 +580,7 @@ export default function BlogAdminDashboard() {
 
         if (textarea) {
           const { newValue, newCursorPosition } = BlogUtils.insertTextAtCursor(textarea, imageMarkdown);
-          setFormData(prev => ({ ...prev, content: newValue }));
+          setFormData(prev => ({ ...prev, rawContent: newValue }));
           setTimeout(() => {
             textarea.focus();
             textarea.setSelectionRange(newCursorPosition, newCursorPosition);
@@ -494,9 +625,13 @@ export default function BlogAdminDashboard() {
         return;
       }
 
+      const rawContent = (formData.rawContent || '').trim();
+      const htmlContent = BlogUtils.convertMarkdownToHtml(rawContent);
+
       const blogData = {
         title: formData.title.trim(),
-        content: formData.content.trim(),
+        rawContent,
+        content: htmlContent,
         description: formData.description.trim(),
         image: formData.image.trim(),
         date: formData.date,
@@ -742,79 +877,143 @@ export default function BlogAdminDashboard() {
               </div>
 
               <div>
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-2">
-                  <label className="flex items-center gap-2 text-sm font-semibold text-white">
-                    <FileText size={16} />
-                    Content *
-                  </label>
-                  <div className="flex flex-wrap gap-2">
-                    {/* Image Position Selector */}
-                    <div className="flex items-center gap-1 bg-gray-800/50 rounded-lg p-1">
-                      <span className="text-xs text-gray-400 px-2 hidden sm:inline">Position:</span>
-                      <button
-                        type="button"
-                        onClick={() => setImagePosition('full')}
-                        className={`p-1.5 rounded transition-all ${imagePosition === 'full' ? 'bg-green-500 text-black' : 'text-gray-400 hover:text-white hover:bg-gray-700'}`}
-                        title="Full Width"
-                      >
-                        <Maximize2 size={14} />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setImagePosition('left')}
-                        className={`p-1.5 rounded transition-all ${imagePosition === 'left' ? 'bg-green-500 text-black' : 'text-gray-400 hover:text-white hover:bg-gray-700'}`}
-                        title="Align Left"
-                      >
-                        <AlignLeft size={14} />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setImagePosition('center')}
-                        className={`p-1.5 rounded transition-all ${imagePosition === 'center' ? 'bg-green-500 text-black' : 'text-gray-400 hover:text-white hover:bg-gray-700'}`}
-                        title="Align Center"
-                      >
-                        <AlignCenter size={14} />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setImagePosition('right')}
-                        className={`p-1.5 rounded transition-all ${imagePosition === 'right' ? 'bg-green-500 text-black' : 'text-gray-400 hover:text-white hover:bg-gray-700'}`}
-                        title="Align Right"
-                      >
-                        <AlignRight size={14} />
-                      </button>
-                    </div>
+                <label className="flex items-center gap-2 text-sm font-semibold text-white mb-2">
+                  <FileText size={16} />
+                  Content *
+                </label>
 
-                    {/* Add Images Button */}
-                    <label className="flex items-center gap-2 px-3 py-1.5 bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 rounded-lg cursor-pointer text-sm font-medium transition-all">
-                      <ImagePlus size={14} />
-                      {uploading ? 'Uploading...' : 'Add Images'}
-                      <input
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        onChange={handleContentImageUpload}
-                        className="hidden"
-                        disabled={uploading || saving}
-                      />
-                    </label>
+                {/* Formatting Toolbar */}
+                <div className="flex flex-wrap items-center gap-1 bg-gray-800/80 border border-gray-700 rounded-t-lg px-2 py-1.5">
+                  {/* Text formatting */}
+                  {[
+                    { format: 'bold',      Icon: Bold,         title: 'Bold (**text**)' },
+                    { format: 'italic',    Icon: Italic,       title: 'Italic (*text*)' },
+                    { format: 'code',      Icon: Code,         title: 'Inline code (`code`)' },
+                    { format: 'link',      Icon: Link,         title: 'Link ([text](url))' },
+                  ].map(({ format, Icon, title }) => (
+                    <button
+                      key={format}
+                      type="button"
+                      title={title}
+                      disabled={saving || uploading}
+                      onClick={() => {
+                        const textarea = contentTextareaRef.current;
+                        if (!textarea) return;
+                        const { newValue, newCursorPosition } = BlogUtils.insertFormatting(textarea, format);
+                        setFormData(prev => ({ ...prev, rawContent: newValue }));
+                        setTimeout(() => { textarea.focus(); textarea.setSelectionRange(newCursorPosition, newCursorPosition); }, 0);
+                      }}
+                      className="p-1.5 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-all disabled:opacity-40"
+                    >
+                      <Icon size={15} />
+                    </button>
+                  ))}
+
+                  <span className="w-px h-5 bg-gray-600 mx-1" />
+
+                  {/* Headings */}
+                  {[
+                    { format: 'h1', label: 'H1', title: 'Heading 1 (# text)' },
+                    { format: 'h2', label: 'H2', title: 'Heading 2 (## text)' },
+                    { format: 'h3', label: 'H3', title: 'Heading 3 (### text)' },
+                  ].map(({ format, label, title }) => (
+                    <button
+                      key={format}
+                      type="button"
+                      title={title}
+                      disabled={saving || uploading}
+                      onClick={() => {
+                        const textarea = contentTextareaRef.current;
+                        if (!textarea) return;
+                        const { newValue, newCursorPosition } = BlogUtils.insertFormatting(textarea, format);
+                        setFormData(prev => ({ ...prev, rawContent: newValue }));
+                        setTimeout(() => { textarea.focus(); textarea.setSelectionRange(newCursorPosition, newCursorPosition); }, 0);
+                      }}
+                      className="px-2 py-1 text-xs font-bold text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-all disabled:opacity-40"
+                    >
+                      {label}
+                    </button>
+                  ))}
+
+                  <span className="w-px h-5 bg-gray-600 mx-1" />
+
+                  {/* Block elements */}
+                  {[
+                    { format: 'ul',        Icon: List,         title: 'Bullet list (- item)' },
+                    { format: 'ol',        Icon: ListOrdered,  title: 'Numbered list (1. item)' },
+                    { format: 'quote',     Icon: Quote,        title: 'Blockquote (> text)' },
+                    { format: 'hr',        Icon: Minus,        title: 'Horizontal rule (---)' },
+                    { format: 'codeblock', Icon: Code,         title: 'Code block (```)' },
+                  ].map(({ format, Icon, title }) => (
+                    <button
+                      key={format}
+                      type="button"
+                      title={title}
+                      disabled={saving || uploading}
+                      onClick={() => {
+                        const textarea = contentTextareaRef.current;
+                        if (!textarea) return;
+                        const { newValue, newCursorPosition } = BlogUtils.insertFormatting(textarea, format);
+                        setFormData(prev => ({ ...prev, rawContent: newValue }));
+                        setTimeout(() => { textarea.focus(); textarea.setSelectionRange(newCursorPosition, newCursorPosition); }, 0);
+                      }}
+                      className="p-1.5 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-all disabled:opacity-40"
+                    >
+                      <Icon size={15} />
+                    </button>
+                  ))}
+
+                  <span className="w-px h-5 bg-gray-600 mx-1" />
+
+                  {/* Image Position Selector */}
+                  <div className="flex items-center gap-0.5 bg-gray-900/50 rounded p-0.5">
+                    <span className="text-xs text-gray-500 px-1 hidden sm:inline">Img:</span>
+                    {[
+                      { pos: 'full',   Icon: Maximize2,   title: 'Full width image' },
+                      { pos: 'left',   Icon: AlignLeft,   title: 'Float image left' },
+                      { pos: 'center', Icon: AlignCenter, title: 'Center image' },
+                      { pos: 'right',  Icon: AlignRight,  title: 'Float image right' },
+                    ].map(({ pos, Icon, title }) => (
+                      <button
+                        key={pos}
+                        type="button"
+                        title={title}
+                        onClick={() => setImagePosition(pos)}
+                        className={`p-1 rounded transition-all ${imagePosition === pos ? 'bg-green-500 text-black' : 'text-gray-400 hover:text-white hover:bg-gray-700'}`}
+                      >
+                        <Icon size={13} />
+                      </button>
+                    ))}
                   </div>
+
+                  {/* Add Images Button */}
+                  <label className="ml-auto flex items-center gap-1.5 px-3 py-1 bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 rounded cursor-pointer text-xs font-medium transition-all">
+                    <ImagePlus size={13} />
+                    {uploading ? 'Uploading…' : 'Add Image'}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={handleContentImageUpload}
+                      className="hidden"
+                      disabled={uploading || saving}
+                    />
+                  </label>
                 </div>
 
                 <textarea
                   ref={contentTextareaRef}
-                  value={formData.content}
-                  onChange={(e) => handleInputChange('content', e.target.value)}
-                  placeholder="Write your blog content here. Add image URLs on separate lines or use markdown format: ![alt text](image-url)"
-                  rows={15}
-                  className="w-full px-4 py-3 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all text-white placeholder-gray-400 resize-none font-mono text-sm"
+                  value={formData.rawContent}
+                  onChange={(e) => handleInputChange('rawContent', e.target.value)}
+                  placeholder={`Write your blog content here using simple formatting:\n\n# Heading 1\n## Heading 2\n\nRegular paragraph text. Each paragraph is separated by a blank line.\n\n**bold** and *italic* and \`inline code\`\n\n- Bullet item\n- Another item\n\n1. Numbered item\n2. Another item\n\n> A blockquote\n\n![left](https://image-url.jpg) or ![right:My caption](url)`}
+                  rows={18}
+                  className="w-full px-4 py-3 bg-black/50 border border-gray-700 border-t-0 rounded-b-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all text-white placeholder-gray-500 resize-y font-mono text-sm leading-relaxed"
                   disabled={saving || uploading}
                 />
-                <p className="text-xs text-gray-400 mt-1">
-                  {formData.content.split(' ').filter(w => w).length} words • {formData.content.length} characters
-                  <span className="ml-4 text-gray-500">• Image positions: ![full], ![left], ![center], ![right] or ![position:caption]</span>
+                <p className="text-xs text-gray-500 mt-1">
+                  {(formData.rawContent || '').split(/\s+/).filter(Boolean).length} words •{' '}
+                  Content is saved as HTML — use the toolbar or markdown shortcuts above.
                 </p>
-
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

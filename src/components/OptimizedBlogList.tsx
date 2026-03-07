@@ -115,25 +115,25 @@ export default function OptimizedBlogList({
         <a
           key={post.id}
           href={`/resources/${categoryToSlug(post.category)}/${post.slug}/`}
-          className="block hover:opacity-80 transition duration-200"
+          className="block transition duration-200 group"
         >
-          <div className="bg-black rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow h-full flex flex-col  hover:border-green-500/30">
+          <div className="bg-gray-900 border border-gray-800 group-hover:border-green-500/50 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all h-full flex flex-col">
             <img
               src={post.image}
               alt={post.title}
-              className="w-full h-48 object-cover"
+              className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
             />
             <div className="p-4 flex flex-col flex-grow">
               {post.tag && (
-                <span className="text-xs bg-purple-500 text-white px-2 py-1 rounded w-fit mb-2">
+                <span className="text-xs bg-green-500 text-black font-medium px-2 py-1 rounded w-fit mb-2">
                   {post.tag}
                 </span>
               )}
-              <h3 className="text-white text-lg font-semibold leading-tight mb-2">
+              <h3 className="text-white text-lg font-semibold leading-tight mb-2 group-hover:text-green-400 transition-colors">
                 {post.title}
               </h3>
-              <p className="text-gray-300 text-sm mt-auto line-clamp-3">
+              <p className="text-gray-400 text-sm mt-auto line-clamp-3">
                 {post.description}
               </p>
             </div>

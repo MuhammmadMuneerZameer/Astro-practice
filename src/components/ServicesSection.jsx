@@ -83,18 +83,18 @@ export default function ServicesSection() {
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 md:mb-12 gap-4">
           <div>
-            <p className="text-brand-accent text-xs font-bold tracking-wider uppercase mb-2">
+            <p className="text-green-400 text-xs font-semibold tracking-wider uppercase mb-2">
               OUR SERVICES
             </p>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold leading-tight">
-              What <span className="text-brand-accent">Services</span>
+              What <span className="text-green-300">Services</span>
               <br />
               We're Offering
             </h2>
           </div>
           <a
             href="/services"
-            className="group relative inline-flex items-center justify-center px-6 py-3 text-white font-medium rounded-full bg-brand-neutral-900 border border-white/10 hover:border-brand-accent/50 transition-all duration-300"
+            className="group relative inline-flex items-center justify-center px-6 py-3 text-white font-medium rounded-full bg-gray-900 border border-white/10 hover:border-green-400/50 transition-all duration-300"
           >
             <span className="relative z-10 flex items-center gap-2">
               Learn more
@@ -103,7 +103,7 @@ export default function ServicesSection() {
           </a>
         </div>
 
-        <p className="text-brand-neutral-400 max-w-2xl text-sm md:text-base leading-relaxed mb-12">
+        <p className="text-gray-400 max-w-2xl text-sm md:text-base leading-relaxed mb-12">
           We offer services that can help businesses improve their visibility and business reputation online,
           expand market reach, and increase turnover through effective digital strategies.
         </p>
@@ -121,7 +121,7 @@ export default function ServicesSection() {
                   <div className="py-6 md:py-8 flex items-center justify-between group cursor-pointer">
                     <div className="flex-1">
                       <motion.h3
-                        className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-gray-400 group-hover:text-brand-accent transition-colors duration-300"
+                        className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-gray-400 group-hover:text-green-400 transition-colors duration-300"
                         animate={{
                           x: hoveredIndex === index ? 20 : 0
                         }}
@@ -136,7 +136,7 @@ export default function ServicesSection() {
                             animate={{ opacity: 1, height: "auto", marginTop: 12 }}
                             exit={{ opacity: 0, height: 0, marginTop: 0 }}
                             transition={{ duration: 0.3 }}
-                            className="text-brand-neutral-500 text-sm md:text-base max-w-xl overflow-hidden"
+                            className="text-gray-500 text-sm md:text-base max-w-xl overflow-hidden"
                           >
                             {service.description}
                           </motion.p>
@@ -152,8 +152,8 @@ export default function ServicesSection() {
                       transition={{ duration: 0.3 }}
                       className="ml-6 flex-shrink-0"
                     >
-                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-gray-700 group-hover:border-brand-accent flex items-center justify-center transition-colors duration-300">
-                        <ArrowRight className="w-4 h-4 md:w-5 md:h-5 text-gray-500 group-hover:text-brand-accent transition-colors duration-300" />
+                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-gray-700 group-hover:border-green-400 flex items-center justify-center transition-colors duration-300">
+                        <ArrowRight className="w-4 h-4 md:w-5 md:h-5 text-gray-500 group-hover:text-green-400 transition-colors duration-300" />
                       </div>
                     </motion.div>
                   </div>
@@ -231,7 +231,7 @@ export default function ServicesSection() {
                       className="absolute inset-0 bg-brand-accent/20 rounded-2xl blur-3xl"
                     />
 
-                    <div className="relative bg-gradient-to-br from-brand-neutral-900 to-black rounded-2xl p-4 border-2 border-brand-accent/30 shadow-2xl overflow-hidden">
+                    <div className="relative bg-gradient-to-br from-brand-neutral-900 to-black rounded-2xl p-4 border-2 border-green-400/30 shadow-2xl overflow-hidden">
                       <div className="relative overflow-hidden rounded-xl">
                         <img
                           src={services[hoveredIndex].image}

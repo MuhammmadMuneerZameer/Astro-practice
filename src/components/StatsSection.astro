@@ -1,0 +1,21 @@
+---
+const stats = [
+  { value: "50+", label: "Projects Delivered" },
+  { value: "30+", label: "Happy Clients" },
+  { value: "3+",  label: "Years Experience" },
+  { value: "100%", label: "Client Satisfaction" },
+];
+---
+
+<section class="bg-black border-t border-gray-800 py-10 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0 md:divide-x md:divide-gray-800">
+      {stats.map((stat) => (
+        <div class="flex flex-col items-center text-center px-4">
+          <span class="text-3xl md:text-4xl font-bold text-green-400 tabular-nums">{stat.value}</span>
+          <span class="text-gray-500 text-xs mt-1.5 uppercase tracking-wider">{stat.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

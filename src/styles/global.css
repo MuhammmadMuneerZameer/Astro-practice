@@ -287,6 +287,21 @@ textarea {
 
 /* View Transitions are configured in Layout.astro (100ms fast fade) */
 
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-card-in {
+  animation: cardIn 0.5s ease-out forwards;
+}
+
 /* ==========================================================================
    7. RESPONSIVE DESIGN
    ========================================================================== */

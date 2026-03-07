@@ -88,12 +88,12 @@ const otherCategories = allCategories.filter((c) => c.slug !== category);
   </section>
 
   <!-- Category Navigation -->
-  <section class="bg-black text-white px-6 pb-12">
+  <section transition:name="resources-category-nav" transition:animate="none" class="bg-black text-white px-6 pb-6">
     <div class="max-w-7xl mx-auto">
-      <div class="flex flex-wrap gap-3">
+      <div class="flex flex-wrap items-center gap-3">
         <a
           href="/resources/"
-          class="px-4 py-2 bg-gray-900 hover:bg-gray-800 text-gray-300 hover:text-white rounded-full text-sm transition-colors"
+          class="inline-flex items-center h-9 px-4 bg-gray-900 hover:bg-gray-800 text-gray-300 hover:text-white rounded-full text-sm transition-colors"
         >
           All Resources
         </a>
@@ -101,7 +101,7 @@ const otherCategories = allCategories.filter((c) => c.slug !== category);
           allCategories.map((cat) => (
             <a
               href={`/resources/${cat.slug}/`}
-              class={`px-4 py-2 rounded-full text-sm transition-colors ${
+              class={`inline-flex items-center h-9 px-4 rounded-full text-sm transition-colors ${
                 cat.slug === category
                   ? "bg-[var(--color-accent)] text-black font-medium"
                   : "bg-gray-900 hover:bg-gray-800 text-gray-300 hover:text-white"
@@ -223,3 +223,10 @@ const otherCategories = allCategories.filter((c) => c.slug !== category);
     </div>
   </section>
 </Layout>
+
+<style>
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+</style>
