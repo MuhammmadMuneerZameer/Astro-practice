@@ -4,553 +4,496 @@ import TestimonialSection from '../components/TestimonialSection';
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 
-// SEO metadata
-const pageTitle = "Contact Us - Launch Your Startup Brand | Free Consultation";
-const pageDescription = "Ready to build a bold, scroll-stopping brand for your online startup? Contact us for branding, web development, UI/UX design, and digital marketing. Get a response within 24-48 hours.";
+const pageTitle = "Contact Us — Let's Build Something Together | Hydra Fox Designs";
+const pageDescription = "Ready to launch your brand? Contact Hydra Fox Designs for web design, branding, UI/UX, and digital marketing. We respond within 24–48 hours.";
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <Layout title={pageTitle}>
   <Fragment slot="head">
-    <!-- Enhanced SEO Meta Tags -->
     <meta name="description" content={pageDescription} />
-    <meta name="keywords" content="startup branding agency, contact brand designer, web development consultation, UI/UX design services, digital marketing for startups, brand identity design, logo design services" />
+    <meta name="keywords" content="contact brand designer, web development consultation, UI/UX design services, digital marketing agency" />
     <link rel="canonical" href={canonicalURL} />
-    
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:image" content={new URL('/og-image-contact.png', Astro.site)} />
-    
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={pageTitle} />
     <meta property="twitter:description" content={pageDescription} />
     <meta property="twitter:image" content={new URL('/og-image-contact.png', Astro.site)} />
-    
-    <!-- Structured Data - LocalBusiness -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "name": "Hydra Fox Designs",
-        "description": "We help online startups build bold, scroll-stopping brands from scratch",
-        "url": "https://hydrafoxdesigns.com",
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "contactType": "Customer Service",
-          "availableLanguage": ["English"]
-        },
-        "areaServed": "Worldwide",
-        "serviceType": ["Brand Identity Design", "Web Development", "UI/UX Design", "Digital Marketing"]
-      }
-    </script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Hydra Fox Designs",
+      "description": "Web design, branding, UI/UX, and digital marketing agency",
+      "url": "https://hydrafoxdesigns.com",
+      "contactPoint": { "@type": "ContactPoint", "contactType": "Customer Service", "availableLanguage": ["English"] },
+      "areaServed": "Worldwide"
+    })} />
   </Fragment>
 
-  <!-- Hero Section -->
-  <section class="hero-section bg-black py-16 md:py-20 px-4 md:px-6 relative overflow-hidden  mt-22 sm:-mt-16 md:mt-0">
-    <div class="absolute inset-0 z-0 blur opacity-50 ">
+  <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
+  <section class="contact-hero relative bg-black overflow-hidden -mt-16 md:mt-0 pt-36 md:pt-48 pb-20 px-4 md:px-8">
+
+    <!-- Spline bg -->
+    <div class="absolute inset-0 z-0 opacity-25 blur-sm pointer-events-none">
       <Splineanimation client:only="react" />
     </div>
-    <div class="max-w-4xl mx-auto text-center relative z-10 pt-12">
-      <h1 class="hero-title text-3xl md:text-6xl font-bold mb-4 md:mb-6 text-[var(--color-accent)]">
-        Contact Us - Let's Launch Your Startup Brand Together
+    <!-- Gradient vignette -->
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black pointer-events-none z-[1]" />
+
+    <div class="relative z-10 max-w-7xl mx-auto">
+
+      <!-- Label -->
+      <div class="overflow-hidden mb-5">
+        <span class="ct-reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
+          Get in touch
+        </span>
+      </div>
+
+      <!-- Big heading -->
+      <h1 class="font-heading font-bold leading-none tracking-tight mb-10">
+        <div class="overflow-hidden">
+          <span class="ct-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white">
+            Let's build
+          </span>
+        </div>
+        <div class="overflow-hidden">
+          <span class="ct-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white">
+            something.
+          </span>
+        </div>
       </h1>
-      <p class="hero-subtitle text-base md:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">
-        
-        Fill out the form and we'll connect within 24–48 hours.
-      </p>
-    </div>
-  </section>
 
-  <!-- Contact Form Section -->
-  <section class="contact-section bg-black py-12 md:py-20 px-4 md:px-6">
-    <div class="max-w-2xl mx-auto">
-      <div class="text-center mb-8">
-        <h2 class="text-2xl md:text-4xl font-bold mb-3 text-green-300">
-          Get a Free Brand Consultation
-        </h2>
-        <p class="text-gray-400">Tell us about your project and we'll create a custom proposal for you</p>
-        
-        <!-- Contact Info -->
-        <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-8 mt-6 text-gray-300">
-          <a href="mailto:muneerzameer@hydrafoxdesigns.com" class="hover:text-green-400 transition-colors">
-            <span class="text-green-400">Email:</span> muneerzameer@hydrafoxdesigns.com
+      <!-- Sub-info row -->
+      <div class="flex flex-col sm:flex-row gap-6 sm:gap-16">
+        <div class="overflow-hidden">
+          <p class="ct-reveal-fade text-gray-500 text-sm font-mono">
+            Response within 24–48 hrs
+          </p>
+        </div>
+        <div class="overflow-hidden">
+          <a href="mailto:muneerzameer@hydrafoxdesigns.com"
+             class="ct-reveal-fade block text-gray-400 hover:text-[#00f19f] transition-colors text-sm font-mono">
+            muneerzameer@hydrafoxdesigns.com
           </a>
-          <a href="tel:+923354345625" class="hover:text-green-400 transition-colors">
-            <span class="text-green-400">Phone:</span> +92 3354345625
+        </div>
+        <div class="overflow-hidden">
+          <a href="tel:+923354345625"
+             class="ct-reveal-fade block text-gray-400 hover:text-[#00f19f] transition-colors text-sm font-mono">
+            +92 335 4345625
           </a>
         </div>
       </div>
+    </div>
+  </section>
 
-      <form 
-        id="contactForm" 
-        action="https://formspree.io/f/xblzajnd"
-        method="POST"
-        class="space-y-6"
-        aria-label="Contact form for startup branding services"
-      >
-        <div class="grid md:grid-cols-2 gap-4 md:gap-6">
-          <div class="form-field space-y-2">
-            <label for="firstName" class="block text-sm font-medium text-gray-300">First Name *</label>
-            <input 
-              type="text" 
-              id="firstName" 
-              name="firstName" 
-              required
-              aria-required="true"
-              class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 text-white"
-              placeholder="John"
-            >
-          </div>
-          <div class="form-field space-y-2">
-            <label for="lastName" class="block text-sm font-medium text-gray-300">Last Name *</label>
-            <input 
-              type="text" 
-              id="lastName" 
-              name="lastName" 
-              required
-              aria-required="true"
-              class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 text-white"
-              placeholder="Doe"
-            >
-          </div>
+  <!-- ── Main content: Info + Form ─────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-20 md:py-28">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-[1fr_2fr] gap-16 lg:gap-24">
+
+      <!-- Left: Info panel -->
+      <div class="ct-fade-in space-y-12">
+
+        <!-- What we do -->
+        <div>
+          <p class="text-gray-600 text-xs font-mono tracking-widest uppercase mb-4">Services</p>
+          <ul class="space-y-3">
+            {['Brand Identity & Logo', 'Web Development', 'UI/UX Design', 'Digital Marketing', 'Motion Design', 'Mobile Apps'].map(s => (
+              <li class="flex items-center gap-3 text-gray-400 text-sm border-b border-white/5 pb-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#00f19f] flex-shrink-0" />
+                {s}
+              </li>
+            ))}
+          </ul>
         </div>
 
-        <div class="form-field space-y-2">
-          <label for="email" class="block text-sm font-medium text-gray-300">Email Address *</label>
-          <input 
-            type="email" 
-            id="email" 
-            name="email" 
-            required
-            aria-required="true"
-            class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 text-white"
-            placeholder="john@example.com"
-          >
+        <!-- Process -->
+        <div>
+          <p class="text-gray-600 text-xs font-mono tracking-widest uppercase mb-4">Our process</p>
+          <ol class="space-y-4">
+            {[
+              ['01', 'Brief & Discovery'],
+              ['02', 'Strategy & Proposal'],
+              ['03', 'Design & Build'],
+              ['04', 'Launch & Support'],
+            ].map(([num, step]) => (
+              <li class="flex items-start gap-4">
+                <span class="text-gray-700 font-mono text-xs mt-0.5">{num}</span>
+                <span class="text-gray-400 text-sm">{step}</span>
+              </li>
+            ))}
+          </ol>
         </div>
+      </div>
 
-        <div class="form-field space-y-2">
-          <label for="company" class="block text-sm font-medium text-gray-300">Company/Startup Name</label>
-          <input 
-            type="text" 
-            id="company" 
-            name="company"
-            class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 text-white"
-            placeholder="Your Company"
-          >
-        </div>
-
-        <div class="form-field space-y-2">
-          <label for="budget" class="block text-sm font-medium text-gray-300">Project Budget</label>
-          <select 
-            id="budget" 
-            name="budget"
-            class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 text-white"
-          >
-            <option value="">Select Budget Range</option>
-            <option value="$5k-$10k">$5,000 - $10,000</option>
-            <option value="$10k-$25k">$10,000 - $25,000</option>
-            <option value="$25k-$50k">$25,000 - $50,000</option>
-            <option value="$50k+">$50,000+</option>
-          </select>
-        </div>
-
-        <div class="form-field space-y-2">
-          <label class="block text-sm font-medium text-gray-300">Services Needed</label>
-          <div class="flex flex-wrap gap-2 md:gap-3">
-            <label class="cursor-pointer">
-              <input type="checkbox" name="services[]" value="Brand Identity & Logo Design" class="peer sr-only">
-              <span class="inline-flex items-center px-3 md:px-4 py-2 rounded-full border border-gray-600 text-gray-300 bg-[#1a1a1a] hover:border-green-500 hover:text-green-400 transition-colors duration-200 peer-checked:bg-green-500 peer-checked:text-black peer-checked:border-green-500">
-                Brand Identity & Logo Design
-              </span>
-            </label>
-            <label class="cursor-pointer">
-              <input type="checkbox" name="services[]" value="Web Development" class="peer sr-only">
-              <span class="inline-flex items-center px-3 md:px-4 py-2 rounded-full border border-gray-600 text-gray-300 bg-[#1a1a1a] hover:border-green-500 hover:text-green-400 transition-colors duration-200 peer-checked:bg-green-500 peer-checked:text-black peer-checked:border-green-500">
-                Web Development
-              </span>
-            </label>
-            <label class="cursor-pointer">
-              <input type="checkbox" name="services[]" value="UI/UX Design" class="peer sr-only">
-              <span class="inline-flex items-center px-3 md:px-4 py-2 rounded-full border border-gray-600 text-gray-300 bg-[#1a1a1a] hover:border-green-500 hover:text-green-400 transition-colors duration-200 peer-checked:bg-green-500 peer-checked:text-black peer-checked:border-green-500">
-                UI/UX Design
-              </span>
-            </label>
-            <label class="cursor-pointer">
-              <input type="checkbox" name="services[]" value="Digital Marketing" class="peer sr-only">
-              <span class="inline-flex items-center px-3 md:px-4 py-2 rounded-full border border-gray-600 text-gray-300 bg-[#1a1a1a] hover:border-green-500 hover:text-green-400 transition-colors duration-200 peer-checked:bg-green-500 peer-checked:text-black peer-checked:border-green-500">
-                Digital Marketing
-              </span>
-            </label>
-            <label class="cursor-pointer">
-              <input type="checkbox" name="services[]" value="Other" class="peer sr-only">
-              <span class="inline-flex items-center px-3 md:px-4 py-2 rounded-full border border-gray-600 text-gray-300 bg-[#1a1a1a] hover:border-green-500 hover:text-green-400 transition-colors duration-200 peer-checked:bg-green-500 peer-checked:text-black peer-checked:border-green-500">
-                Other
-              </span>
-            </label>
-          </div>
-        </div>
-
-        <div class="form-field space-y-2">
-          <label for="message" class="block text-sm font-medium text-gray-300">Project Details</label>
-          <textarea 
-            id="message" 
-            name="message"
-            rows="4"
-            class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 text-white resize-none"
-            placeholder="Tell us about your project goals, target audience, timeline, and any specific requirements..."
-          ></textarea>
-        </div>
-
-        <div class="form-field flex items-center">
-          <input type="checkbox" id="consent" name="consent" required aria-required="true" class="mr-3 accent-green-500">
-          <label for="consent" class="text-sm text-gray-300">
-            I agree to receive communications about my project *
-          </label>
-        </div>
-
-        <!-- Formspree honeypot for spam protection -->
-        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
-
-        <button 
-          type="submit" 
-          id="submitBtn"
-          class="w-full bg-green-500 hover:bg-green-600 text-black font-bold py-4 px-8 rounded-full transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-          aria-label="Submit contact form"
+      <!-- Right: Form -->
+      <div class="ct-fade-in" style="animation-delay: 0.15s">
+        <form
+          id="contactForm"
+          action="https://formspree.io/f/xblzajnd"
+          method="POST"
+          class="space-y-10"
+          aria-label="Contact form"
         >
-          <span id="submitText">Send My Project Brief</span>
-        </button>
-      </form>
+          <!-- Name row -->
+          <div class="grid sm:grid-cols-2 gap-8">
+            <div class="ct-field">
+              <label for="firstName" class="block text-[10px] font-mono tracking-widest text-gray-600 uppercase mb-3">
+                First Name *
+              </label>
+              <input
+                type="text" id="firstName" name="firstName" required aria-required="true"
+                placeholder="John"
+                class="w-full bg-transparent border-0 border-b border-white/20 focus:border-[#00f19f] outline-none py-3 text-white text-lg placeholder-gray-700 transition-colors duration-300"
+              />
+            </div>
+            <div class="ct-field">
+              <label for="lastName" class="block text-[10px] font-mono tracking-widest text-gray-600 uppercase mb-3">
+                Last Name *
+              </label>
+              <input
+                type="text" id="lastName" name="lastName" required aria-required="true"
+                placeholder="Doe"
+                class="w-full bg-transparent border-0 border-b border-white/20 focus:border-[#00f19f] outline-none py-3 text-white text-lg placeholder-gray-700 transition-colors duration-300"
+              />
+            </div>
+          </div>
 
-      <!-- Success Message -->
-      <div id="successMessage" class="hidden mt-6 p-4 bg-green-500/20 border border-green-500 rounded-lg" role="alert" aria-live="polite">
-        <div class="text-center">
-          <h3 class="font-bold text-green-400 mb-2">Message Sent Successfully!</h3>
-          <p class="text-green-300">We'll get back to you within 24-48 hours.</p>
-        </div>
-      </div>
+          <!-- Email -->
+          <div class="ct-field">
+            <label for="email" class="block text-[10px] font-mono tracking-widest text-gray-600 uppercase mb-3">
+              Email *
+            </label>
+            <input
+              type="email" id="email" name="email" required aria-required="true"
+              placeholder="john@company.com"
+              class="w-full bg-transparent border-0 border-b border-white/20 focus:border-[#00f19f] outline-none py-3 text-white text-lg placeholder-gray-700 transition-colors duration-300"
+            />
+          </div>
 
-      <!-- Error Message -->
-      <div id="errorMessage" class="hidden mt-6 p-4 bg-red-500/20 border border-red-500 rounded-lg" role="alert" aria-live="assertive">
-        <div class="text-center">
-          <h3 class="font-bold text-red-400 mb-2">Error Sending Message</h3>
-          <p class="text-red-300">Please try again or email us directly.</p>
-        </div>
+          <!-- Company -->
+          <div class="ct-field">
+            <label for="company" class="block text-[10px] font-mono tracking-widest text-gray-600 uppercase mb-3">
+              Company / Startup
+            </label>
+            <input
+              type="text" id="company" name="company"
+              placeholder="Your Company"
+              class="w-full bg-transparent border-0 border-b border-white/20 focus:border-[#00f19f] outline-none py-3 text-white text-lg placeholder-gray-700 transition-colors duration-300"
+            />
+          </div>
+
+          <!-- Budget -->
+          <div class="ct-field">
+            <label for="budget" class="block text-[10px] font-mono tracking-widest text-gray-600 uppercase mb-3">
+              Budget Range
+            </label>
+            <select
+              id="budget" name="budget"
+              class="w-full bg-transparent border-0 border-b border-white/20 focus:border-[#00f19f] outline-none py-3 text-white text-lg transition-colors duration-300 cursor-pointer appearance-none"
+            >
+              <option value="" class="bg-black">Select range…</option>
+              <option value="$5k-$10k" class="bg-black">$5,000 – $10,000</option>
+              <option value="$10k-$25k" class="bg-black">$10,000 – $25,000</option>
+              <option value="$25k-$50k" class="bg-black">$25,000 – $50,000</option>
+              <option value="$50k+" class="bg-black">$50,000+</option>
+            </select>
+          </div>
+
+          <!-- Services checkboxes -->
+          <div class="ct-field">
+            <label class="block text-[10px] font-mono tracking-widest text-gray-600 uppercase mb-4">
+              Services Needed
+            </label>
+            <div class="flex flex-wrap gap-2">
+              {['Brand Identity & Logo', 'Web Development', 'UI/UX Design', 'Digital Marketing', 'Motion Design', 'Other'].map(s => (
+                <label class="cursor-pointer">
+                  <input type="checkbox" name="services[]" value={s} class="peer sr-only" />
+                  <span class="inline-flex items-center px-4 py-2 rounded-full border border-white/15 text-gray-500 text-sm hover:border-[#00f19f]/50 hover:text-gray-300 transition-all duration-200 peer-checked:border-[#00f19f] peer-checked:text-[#00f19f] peer-checked:bg-[#00f19f]/10">
+                    {s}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <!-- Message -->
+          <div class="ct-field">
+            <label for="message" class="block text-[10px] font-mono tracking-widest text-gray-600 uppercase mb-3">
+              Project Details
+            </label>
+            <textarea
+              id="message" name="message" rows="4"
+              placeholder="Tell us about your project, goals, and timeline…"
+              class="w-full bg-transparent border-0 border-b border-white/20 focus:border-[#00f19f] outline-none py-3 text-white text-base placeholder-gray-700 transition-colors duration-300 resize-none"
+            ></textarea>
+          </div>
+
+          <!-- Consent -->
+          <div class="ct-field flex items-start gap-3">
+            <input type="checkbox" id="consent" name="consent" required aria-required="true"
+              class="mt-1 accent-[#00f19f] w-4 h-4 flex-shrink-0 cursor-pointer" />
+            <label for="consent" class="text-gray-500 text-sm leading-relaxed cursor-pointer">
+              I agree to receive communications about my project *
+            </label>
+          </div>
+
+          <!-- Honeypot -->
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <!-- Submit -->
+          <div class="ct-field pt-4">
+            <button
+              type="submit"
+              id="submitBtn"
+              aria-label="Submit contact form"
+              class="group relative inline-flex items-center gap-4 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <!-- Animated circle -->
+              <span class="w-14 h-14 rounded-full border-2 border-white/30 group-hover:border-[#00f19f] group-hover:bg-[#00f19f] flex items-center justify-center transition-all duration-500 flex-shrink-0">
+                <svg class="w-5 h-5 text-white group-hover:text-black -rotate-45 group-hover:rotate-0 transition-all duration-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </span>
+              <span id="submitText" class="font-heading font-bold text-2xl md:text-3xl group-hover:text-[#00f19f] transition-colors duration-300">
+                Send Brief
+              </span>
+            </button>
+          </div>
+
+          <!-- Success / Error messages -->
+          <div id="successMessage" class="hidden p-5 border border-[#00f19f]/30 rounded-xl bg-[#00f19f]/5" role="alert" aria-live="polite">
+            <p class="font-bold text-[#00f19f] mb-1">Message sent!</p>
+            <p class="text-gray-400 text-sm">We'll get back to you within 24–48 hours.</p>
+          </div>
+          <div id="errorMessage" class="hidden p-5 border border-red-500/30 rounded-xl bg-red-500/5" role="alert" aria-live="assertive">
+            <p class="font-bold text-red-400 mb-1">Something went wrong.</p>
+            <p class="text-gray-400 text-sm">Please try again or email us directly.</p>
+          </div>
+        </form>
       </div>
     </div>
   </section>
 
-  <!-- Why Work With Us Section (New - SEO Content) -->
-  <section class="why-us-section bg-black py-12 md:py-16 px-4 md:px-6 border-t border-gray-800">
-    <div class="max-w-6xl mx-auto">
-      <div class="mb-12">
-        <p class="text-green-400 text-sm font-medium tracking-wider uppercase mb-2">OUR MISSION</p>
-        <h2 class="text-2xl md:text-4xl font-bold text-white mb-4">
-          Why <span class="text-green-400">Choose Us</span>
-        </h2>
-        <p class="text-gray-400 max-w-2xl">
-          Discover the difference with our expert team, customized strategies, and proven results. We're dedicated to helping your business thrive in the digital world.
+  <!-- ── Why Us — list style ────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-20">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="overflow-hidden mb-16">
+        <p class="ct-scroll-reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
+          Why us
         </p>
       </div>
-      
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-        <!-- Card 1: Fast Turnaround -->
-        <div class="feature-card group relative">
-          <div class="relative h-full p-8 rounded-xl transition-all duration-500">
-            <!-- Animated background gradient -->
-            <div class="absolute inset-0 bg-gradient-to-br from-green-500/5 via-emerald-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            
-            <!-- Subtle border glow on hover -->
-            <div class="absolute inset-0 rounded-xl border border-gray-800/50 group-hover:border-green-500/30 transition-all duration-500"></div>
-            
-            <!-- Animated corner accent -->
-            <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-green-400/0 to-green-400/10 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-            <div class="relative z-10">
-              <!-- Icon with animation -->
-              <div class="mb-6">
-                <div class="inline-flex p-4 rounded-2xl bg-gradient-to-br from-green-500/10 to-emerald-500/5 group-hover:from-green-500/20 group-hover:to-emerald-500/10 transition-all duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" class="w-8 h-8 text-gray-400 group-hover:text-green-400 transition-colors duration-500">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-              </div>
-
-              <!-- Title with gradient text on hover -->
-              <h3 class="text-xl md:text-2xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-green-300 group-hover:to-emerald-400 transition-all duration-500">
-                Fast Turnaround
-              </h3>
-
-              <!-- Animated underline -->
-              <div class="underline-animation h-0.5 mb-4 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 opacity-30 group-hover:opacity-100 transition-all duration-500"></div>
-
-              <!-- Description -->
-              <p class="text-gray-400 text-sm md:text-base leading-relaxed group-hover:text-gray-300 transition-colors duration-500">
-                We respond within 24-48 hours and deliver projects on time, every time.
-              </p>
-            </div>
-
-            <!-- Floating particles effect on hover -->
-            <div class="absolute inset-0 overflow-hidden rounded-xl pointer-events-none">
-              <div class="particle particle-1 absolute w-1 h-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-60"></div>
-              <div class="particle particle-2 absolute w-1 h-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-60"></div>
-              <div class="particle particle-3 absolute w-1 h-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-60"></div>
-            </div>
+      <div class="grid md:grid-cols-3 gap-0 divide-y md:divide-y-0 md:divide-x divide-white/10">
+        {[
+          {
+            num: '01',
+            title: 'Fast Turnaround',
+            desc: 'We respond within 24–48 hours and deliver projects on time, every time.',
+          },
+          {
+            num: '02',
+            title: 'Startup-Focused',
+            desc: 'We understand startup constraints and build brands that scale with your growth.',
+          },
+          {
+            num: '03',
+            title: 'Full-Service Team',
+            desc: 'From brand identity to development, we handle everything under one roof.',
+          },
+        ].map(({ num, title, desc }) => (
+          <div class="ct-why-card group px-0 md:px-10 py-10 first:pl-0 last:pr-0">
+            <p class="text-gray-700 font-mono text-xs mb-6">{num}</p>
+            <h3 class="font-heading font-bold text-2xl md:text-3xl text-white mb-4 group-hover:text-[#00f19f] transition-colors duration-300">
+              {title}
+            </h3>
+            <p class="text-gray-500 text-sm leading-relaxed">{desc}</p>
           </div>
-        </div>
-
-        <!-- Card 2: Startup-Focused -->
-        <div class="feature-card group relative">
-          <div class="relative h-full p-8 rounded-xl transition-all duration-500">
-            <div class="absolute inset-0 bg-gradient-to-br from-green-500/5 via-emerald-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div class="absolute inset-0 rounded-xl border border-gray-800/50 group-hover:border-green-500/30 transition-all duration-500"></div>
-            <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-green-400/0 to-green-400/10 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-            <div class="relative z-10">
-              <div class="mb-6">
-                <div class="inline-flex p-4 rounded-2xl bg-gradient-to-br from-green-500/10 to-emerald-500/5 group-hover:from-green-500/20 group-hover:to-emerald-500/10 transition-all duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" class="w-8 h-8 text-gray-400 group-hover:text-green-400 transition-colors duration-500">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-                  </svg>
-                </div>
-              </div>
-
-              <h3 class="text-xl md:text-2xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-green-300 group-hover:to-emerald-400 transition-all duration-500">
-                Startup-Focused
-              </h3>
-
-              <div class="underline-animation h-0.5 mb-4 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 opacity-30 group-hover:opacity-100 transition-all duration-500"></div>
-
-              <p class="text-gray-400 text-sm md:text-base leading-relaxed group-hover:text-gray-300 transition-colors duration-500">
-                We understand startup challenges and create brands that scale with your growth.
-              </p>
-            </div>
-
-            <div class="absolute inset-0 overflow-hidden rounded-xl pointer-events-none">
-              <div class="particle particle-1 absolute w-1 h-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-60"></div>
-              <div class="particle particle-2 absolute w-1 h-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-60"></div>
-              <div class="particle particle-3 absolute w-1 h-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-60"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 3: Full-Service Team -->
-        <div class="feature-card group relative">
-          <div class="relative h-full p-8 rounded-xl transition-all duration-500">
-            <div class="absolute inset-0 bg-gradient-to-br from-green-500/5 via-emerald-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div class="absolute inset-0 rounded-xl border border-gray-800/50 group-hover:border-green-500/30 transition-all duration-500"></div>
-            <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-green-400/0 to-green-400/10 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-            <div class="relative z-10">
-              <div class="mb-6">
-                <div class="inline-flex p-4 rounded-2xl bg-gradient-to-br from-green-500/10 to-emerald-500/5 group-hover:from-green-500/20 group-hover:to-emerald-500/10 transition-all duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" class="w-8 h-8 text-gray-400 group-hover:text-green-400 transition-colors duration-500">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
-                  </svg>
-                </div>
-              </div>
-
-              <h3 class="text-xl md:text-2xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-green-300 group-hover:to-emerald-400 transition-all duration-500">
-                Full-Service Team
-              </h3>
-
-              <div class="underline-animation h-0.5 mb-4 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 opacity-30 group-hover:opacity-100 transition-all duration-500"></div>
-
-              <p class="text-gray-400 text-sm md:text-base leading-relaxed group-hover:text-gray-300 transition-colors duration-500">
-                From brand identity to web development, we handle everything under one roof.
-              </p>
-            </div>
-
-            <div class="absolute inset-0 overflow-hidden rounded-xl pointer-events-none">
-              <div class="particle particle-1 absolute w-1 h-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-60"></div>
-              <div class="particle particle-2 absolute w-1 h-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-60"></div>
-              <div class="particle particle-3 absolute w-1 h-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-60"></div>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <TestimonialSection client:visible/>
-  
+  <TestimonialSection client:visible />
 </Layout>
 
+<!-- ── Animations ─────────────────────────────────────────────────────────── -->
 <script>
   import { submitContactForm } from '../lib/contactForm';
 
-  document.addEventListener('DOMContentLoaded', async () => {
-    // GSAP animations
-    try {
-      const { gsap } = await import('gsap');
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-      gsap.registerPlugin(ScrollTrigger);
+  const EXPO_OUT = 'cubic-bezier(0.19, 1, 0.22, 1)';
+  const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
 
-      // Hero intro
-      gsap.from('.hero-title', { y: 30, opacity: 0, duration: 0.9, ease: 'power3.out' });
-      gsap.from('.hero-subtitle', { y: 20, opacity: 0, duration: 0.9, ease: 'power3.out', delay: 0.15 });
+  // ── Hero masked reveal ──────────────────────────────────────────────────────
+  function initContactAnimations() {
+    // Set initial state
+    document.querySelectorAll<HTMLElement>('.ct-reveal-line').forEach(el => {
+      el.style.transform = 'translateY(110%)';
+    });
+    document.querySelectorAll<HTMLElement>('.ct-reveal-fade').forEach(el => {
+      el.style.opacity = '0';
+    });
 
-      // Form fields on scroll
-      gsap.from('.contact-section .form-field', {
-        opacity: 0,
-        y: 24,
-        duration: 0.6,
-        stagger: 0.08,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: '.contact-section',
-          start: 'top 75%',
-        },
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.querySelectorAll<HTMLElement>('.ct-reveal-line').forEach((el, i) => {
+          el.animate(
+            [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+            { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
+          );
+        });
+        document.querySelectorAll<HTMLElement>('.ct-reveal-fade').forEach((el, i) => {
+          el.animate(
+            [{ opacity: '0' }, { opacity: '1' }],
+            { duration: 700, delay: 500 + i * 80, easing: CUBIC_OUT, fill: 'forwards' }
+          );
+        });
       });
+    });
 
-      // Why Us section
-      gsap.from('.why-us-section > div', {
-        opacity: 0,
-        y: 24,
-        duration: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: '.why-us-section',
-          start: 'top 80%',
-        },
+    // ── Scroll-triggered reveals ──────────────────────────────────────────────
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+
+        // Info + form fade up
+        entry.target.querySelectorAll<HTMLElement>('.ct-fade-in').forEach((el, i) => {
+          el.animate(
+            [{ opacity: '0', transform: 'translateY(32px)' }, { opacity: '1', transform: 'translateY(0)' }],
+            { duration: 800, delay: i * 120, easing: CUBIC_OUT, fill: 'forwards' }
+          );
+        });
+
+        // Form fields stagger
+        entry.target.querySelectorAll<HTMLElement>('.ct-field').forEach((el, i) => {
+          el.animate(
+            [{ opacity: '0', transform: 'translateY(20px)' }, { opacity: '1', transform: 'translateY(0)' }],
+            { duration: 600, delay: 200 + i * 60, easing: CUBIC_OUT, fill: 'forwards' }
+          );
+        });
+
+        // Why us cards
+        entry.target.querySelectorAll<HTMLElement>('.ct-why-card').forEach((el, i) => {
+          el.animate(
+            [{ opacity: '0', transform: 'translateY(24px)' }, { opacity: '1', transform: 'translateY(0)' }],
+            { duration: 700, delay: i * 100, easing: CUBIC_OUT, fill: 'forwards' }
+          );
+        });
+
+        // Scroll reveal lines
+        entry.target.querySelectorAll<HTMLElement>('.ct-scroll-reveal-line').forEach((el, i) => {
+          el.style.transform = 'translateY(110%)';
+          el.animate(
+            [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+            { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
+          );
+        });
+
+        io.unobserve(entry.target);
       });
+    }, { threshold: 0.1 });
 
-      // Testimonials enter
-      gsap.from('.testimonials-section .testimonial-slide', {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        stagger: 0.12,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: '.testimonials-section',
-          start: 'top 80%',
-        },
-      });
-    } catch (e) {
-      console.warn('GSAP not loaded or failed to initialize:', e);
-    }
+    // Set initial hidden state for scroll elements
+    document.querySelectorAll<HTMLElement>('.ct-fade-in, .ct-field, .ct-why-card').forEach(el => {
+      el.style.opacity = '0';
+    });
+    document.querySelectorAll<HTMLElement>('.ct-scroll-reveal-line').forEach(el => {
+      el.style.transform = 'translateY(110%)';
+    });
 
-    // Form handling with BOTH Formspree AND Firebase
+    document.querySelectorAll('section:not(.contact-hero)').forEach(s => io.observe(s));
+  }
+
+  document.addEventListener('DOMContentLoaded', initContactAnimations);
+  document.addEventListener('astro:page-load', initContactAnimations);
+
+  // ── Form submission ─────────────────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.getElementById('contactForm') as HTMLFormElement;
-    const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
-    const submitText = document.getElementById('submitText') as HTMLSpanElement;
-    const successMessage = document.getElementById('successMessage') as HTMLDivElement;
-    const errorMessage = document.getElementById('errorMessage') as HTMLDivElement;
+    const submitBtn   = document.getElementById('submitBtn')   as HTMLButtonElement;
+    const submitText  = document.getElementById('submitText')  as HTMLSpanElement;
+    const successMsg  = document.getElementById('successMessage') as HTMLDivElement;
+    const errorMsg    = document.getElementById('errorMessage')   as HTMLDivElement;
+
+    let lastSubmitTime = 0;
+    const THROTTLE_MS = 30000;
 
     contactForm?.addEventListener('submit', async (e: Event) => {
       e.preventDefault();
-      
-      // Show loading state
+
+      const now = Date.now();
+      if (now - lastSubmitTime < THROTTLE_MS) {
+        const remaining = Math.ceil((THROTTLE_MS - (now - lastSubmitTime)) / 1000);
+        if (submitText) submitText.textContent = `Wait ${remaining}s…`;
+        return;
+      }
+
       if (submitBtn) submitBtn.disabled = true;
-      if (submitText) submitText.textContent = 'Sending...';
+      if (submitText) submitText.textContent = 'Sending…';
 
       try {
-        // Get form data
         const formData = new FormData(contactForm);
-        
-        // Extract services from checkboxes
         const services = Array.from(formData.getAll('services[]'));
-        
-        // Prepare data for Firebase
+
         const firebaseData = {
           firstName: formData.get('firstName') as string,
-          lastName: formData.get('lastName') as string,
-          email: formData.get('email') as string,
-          company: formData.get('company') as string || '',
-          budget: formData.get('budget') as string || '',
-          services: services,
-          message: formData.get('message') as string,
-          consent: formData.get('consent') === 'on'
+          lastName:  formData.get('lastName')  as string,
+          email:     formData.get('email')     as string,
+          company:   (formData.get('company')  as string) || '',
+          budget:    (formData.get('budget')   as string) || '',
+          services,
+          message:   formData.get('message')   as string,
+          consent:   formData.get('consent') === 'on',
         };
 
-        // Submit to BOTH services in parallel
-        const [formspreeResponse, firebaseResponse] = await Promise.all([
-          // Submit to Formspree
+        const [fsRes, fbRes] = await Promise.all([
           fetch(contactForm.action, {
             method: 'POST',
             body: formData,
-            headers: {
-              'Accept': 'application/json'
-            }
+            headers: { Accept: 'application/json' },
           }),
-          // Submit to Firebase
-          submitContactForm(firebaseData)
+          submitContactForm(firebaseData),
         ]);
 
-        // Check if both submissions were successful
-        if (formspreeResponse.ok && firebaseResponse.success) {
-          // Show success message
-          if (successMessage) {
-            successMessage.classList.remove('hidden');
-            errorMessage?.classList.add('hidden');
-          }
+        if (fsRes.ok && fbRes.success) {
+          successMsg?.classList.remove('hidden');
+          errorMsg?.classList.add('hidden');
           contactForm.reset();
-          successMessage?.scrollIntoView({ behavior: 'smooth' });
-          
-          console.log('Form submitted successfully to both Formspree and Firebase');
-          console.log('Firebase document ID:', firebaseResponse.id);
+          successMsg?.scrollIntoView({ behavior: 'smooth' });
+          lastSubmitTime = Date.now();
         } else {
-          // If either submission failed, show which one
-          const errors = [];
-          if (!formspreeResponse.ok) errors.push('Formspree');
-          if (!firebaseResponse.success) errors.push('Firebase');
-          
-          throw new Error(`Form submission failed for: ${errors.join(', ')}`);
+          throw new Error('Submission failed');
         }
-
-      } catch (error) {
-        console.error('Error submitting form:', error);
-        if (errorMessage) {
-          errorMessage.classList.remove('hidden');
-          successMessage?.classList.add('hidden');
-        }
+      } catch {
+        errorMsg?.classList.remove('hidden');
+        successMsg?.classList.add('hidden');
       } finally {
-        // Reset button state
         if (submitBtn) submitBtn.disabled = false;
-        if (submitText) submitText.textContent = 'Send My Project Brief';
+        if (submitText) submitText.textContent = 'Send Brief';
       }
     });
-
-    // Testimonial slider
-    let currentSlide: number = 0;
-    const slides = document.querySelectorAll('.testimonial-slide');
-    const dots = document.querySelectorAll('.testimonial-dot');
-    const track = document.querySelector('.testimonial-track') as HTMLDivElement;
-
-    function goToSlide(slideIndex: number): void {
-      currentSlide = slideIndex;
-      if (track) {
-        track.style.transform = `translateX(-${slideIndex * 100}%)`;
-      }
-      
-      dots.forEach((dot, index) => {
-        const dotElement = dot as HTMLButtonElement;
-        if (index === slideIndex) {
-          dotElement.classList.remove('bg-gray-600');
-          dotElement.classList.add('bg-green-500');
-        } else {
-          dotElement.classList.remove('bg-green-500');
-          dotElement.classList.add('bg-gray-600');
-        }
-      });
-    }
-
-    dots.forEach((dot, index) => {
-      const dotElement = dot as HTMLButtonElement;
-      dotElement.addEventListener('click', () => goToSlide(index));
-    });
-
-    // Auto-advance testimonials
-    setInterval(() => {
-      if (slides.length > 0) {
-        currentSlide = (currentSlide + 1) % slides.length;
-        goToSlide(currentSlide);
-      }
-    }, 5000);
   });
 </script>
+
+<style>
+  .ct-reveal-line,
+  .ct-scroll-reveal-line {
+    will-change: transform;
+    display: block;
+  }
+  .ct-reveal-fade {
+    will-change: opacity;
+  }
+  /* Remove browser default select arrow */
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0 center;
+    background-size: 1.25rem;
+    padding-right: 1.5rem;
+  }
+</style>

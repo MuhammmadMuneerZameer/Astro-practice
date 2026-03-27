@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { SERVICE_HIERARCHY, getAllServices } from '../../data/taxonomy.js';
+import { getAllServices } from '../../data/taxonomy.js';
 
 const services = getAllServices();
 ---
@@ -9,126 +9,166 @@ const services = getAllServices();
   title="About Us | Hydra Fox Designs"
   description="Learn about Hydra Fox Designs - a strategic design agency building systems that scale and convert for ambitious brands."
 >
-  <!-- Breadcrumb -->
-  <nav class="bg-black pt-24 pb-4 px-6">
-    <div class="max-w-7xl mx-auto">
-      <ol class="flex items-center gap-2 text-sm text-gray-400">
-        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
-        <li class="text-gray-600">/</li>
-        <li class="text-white font-medium">About</li>
-      </ol>
-    </div>
-  </nav>
 
-  <!-- Hero -->
-  <section class="bg-black text-white px-6 pb-20">
-    <div class="max-w-7xl mx-auto">
-      <h1 class="text-5xl md:text-7xl font-bold mb-6">
-        We Build <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600">Profitable</span><br/>
-        Digital Experiences.
+  <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
+  <section class="about-hero relative min-h-[70vh] flex flex-col justify-end pb-20 px-4 md:px-8 bg-black overflow-hidden -mt-16 md:mt-0 pt-32 md:pt-40">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/40 pointer-events-none"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto w-full">
+      <div class="overflow-hidden mb-4">
+        <span class="about-reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
+          About Us
+        </span>
+      </div>
+      <h1 class="font-heading font-bold leading-none tracking-tight mb-8">
+        <div class="overflow-hidden">
+          <span class="about-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white">
+            We Build
+          </span>
+        </div>
+        <div class="overflow-hidden">
+          <span class="about-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white">
+            Profitable
+          </span>
+        </div>
+        <div class="overflow-hidden">
+          <span class="about-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white">
+            Experiences.
+          </span>
+        </div>
       </h1>
-      <p class="text-gray-400 text-xl max-w-2xl leading-relaxed">
-        Hydra Fox Designs is a strategic design agency that transforms brands through 
-        conversion-focused design, development, and marketing.
-      </p>
+      <div class="overflow-hidden max-w-2xl">
+        <p class="about-reveal-fade text-gray-400 text-base md:text-lg font-light leading-relaxed">
+          Hydra Fox Designs is a strategic design agency that transforms brands through
+          conversion-focused design, development, and marketing.
+        </p>
+      </div>
     </div>
   </section>
 
-  <!-- Mission -->
-  <section class="bg-black text-white px-6 py-20 border-t border-gray-800">
+  <!-- ── Mission ───────────────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-24">
     <div class="max-w-7xl mx-auto">
-      <div class="grid md:grid-cols-2 gap-16 items-center">
+      <div class="scroll-section grid md:grid-cols-2 gap-16 items-start">
         <div>
-          <span class="text-green-400 text-sm font-medium uppercase tracking-wider mb-4 block">Our Mission</span>
-          <h2 class="text-4xl font-bold mb-6">Stop Losing Money to Poor Digital Experiences.</h2>
-          <p class="text-gray-400 text-lg leading-relaxed mb-6">
+          <div class="overflow-hidden mb-4">
+            <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
+              Our Mission
+            </span>
+          </div>
+          <div class="overflow-hidden mb-8">
+            <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-tight">
+              Stop Losing Money to Poor Digital Experiences.
+            </h2>
+          </div>
+          <p class="reveal-fade text-gray-400 text-base leading-relaxed mb-6">
             Too many businesses treat their website like a brochure instead of a business engine.
             We change that by building systems designed to convert, scale, and generate real ROI.
           </p>
-          <p class="text-gray-400 text-lg leading-relaxed">
-            Every design decision, every line of code, every marketing strategy is built around 
+          <p class="reveal-fade text-gray-400 text-base leading-relaxed">
+            Every design decision, every line of code, every marketing strategy is built around
             one question: <strong class="text-white">Will this make money for our client?</strong>
           </p>
         </div>
-        <div class="bg-gray-900/50 rounded-2xl p-8 border border-gray-800">
-          <h3 class="text-2xl font-bold mb-6">What We Believe</h3>
-          <ul class="space-y-4">
-            <li class="flex gap-4">
-              <span class="w-6 h-6 bg-green-500/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-              </span>
-              <span class="text-gray-300">Design without strategy is just decoration.</span>
-            </li>
-            <li class="flex gap-4">
-              <span class="w-6 h-6 bg-green-500/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-              </span>
-              <span class="text-gray-300">Websites should pay for themselves within weeks, not years.</span>
-            </li>
-            <li class="flex gap-4">
-              <span class="w-6 h-6 bg-green-500/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-              </span>
-              <span class="text-gray-300">Your brand is your most valuable asset. Treat it like one.</span>
-            </li>
-            <li class="flex gap-4">
-              <span class="w-6 h-6 bg-green-500/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-              </span>
-              <span class="text-gray-300">Confused customers don't buy. Clear messaging wins.</span>
-            </li>
+
+        <div class="border-l-2 border-[#00f19f]/30 pl-8 md:pl-12">
+          <div class="overflow-hidden mb-6">
+            <h3 class="reveal-line block text-2xl font-heading font-bold text-white">What We Believe</h3>
+          </div>
+          <ul class="space-y-6">
+            {[
+              "Design without strategy is just decoration.",
+              "Websites should pay for themselves within weeks, not years.",
+              "Your brand is your most valuable asset. Treat it like one.",
+              "Confused customers don't buy. Clear messaging wins."
+            ].map((belief, i) => (
+              <li class="reveal-fade flex items-start gap-4">
+                <span class="text-[#00f19f] font-mono text-xs mt-1 flex-shrink-0">{String(i + 1).padStart(2, '0')}</span>
+                <span class="text-gray-300 leading-relaxed">{belief}</span>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Services Overview -->
-  <section class="bg-black text-white px-6 py-20 border-t border-gray-800">
+  <!-- ── Services Overview ─────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-24">
     <div class="max-w-7xl mx-auto">
-      <h2 class="text-3xl font-bold mb-4">Our Expertise</h2>
-      <p class="text-gray-400 mb-12">Full-stack brand and digital solutions.</p>
-      
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {services.map(service => (
-          <a 
+      <div class="scroll-section mb-12">
+        <div class="overflow-hidden mb-4">
+          <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
+            Expertise
+          </span>
+        </div>
+        <div class="overflow-hidden">
+          <h2 class="reveal-line block text-5xl md:text-6xl font-heading font-bold text-white leading-none">Our Services.</h2>
+        </div>
+      </div>
+
+      <div class="border-t border-white/10">
+        {services.map((service, i) => (
+          <a
             href={`/services/${service.slug}/`}
-            class="group block p-5 bg-gray-900/30 rounded-lg border border-gray-800 hover:border-green-500/30 transition-all"
+            class="group flex items-center gap-6 md:gap-10 py-6 border-b border-white/10 hover:border-white/30 transition-colors duration-300"
           >
-            <h3 class="font-bold mb-2 group-hover:text-green-400 transition-colors">
-              {service.name}
-            </h3>
-            <p class="text-gray-500 text-sm line-clamp-2">
-              {service.description}
-            </p>
+            <span class="text-gray-600 text-xs font-mono w-8 flex-shrink-0 select-none">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-xl md:text-2xl font-heading font-bold text-white group-hover:text-[#00f19f] transition-colors duration-300">
+                {service.name}
+              </h3>
+              <p class="text-gray-500 text-sm mt-1 hidden sm:block line-clamp-1">{service.description}</p>
+            </div>
+            <span class="w-9 h-9 rounded-full border border-white/20 group-hover:border-[#00f19f] group-hover:bg-[#00f19f] flex items-center justify-center transition-all duration-300 flex-shrink-0">
+              <svg class="w-4 h-4 text-white group-hover:text-black -rotate-45 group-hover:rotate-0 transition-all duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </span>
           </a>
         ))}
       </div>
     </div>
   </section>
 
-
-  <!-- CTA -->
-  <section class="bg-gradient-to-b from-black to-gray-900 text-white px-6 py-24 border-t border-gray-800">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-6">Ready to Work With Us?</h2>
-      <p class="text-gray-400 text-lg mb-10">
-        Let's discuss how we can transform your digital presence.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a 
-          href="/contact/"
-          class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-green-500 hover:bg-green-600 text-black font-bold rounded-full transition-colors"
-        >
-          Get in Touch
-        </a>
-        <a 
-          href="/work/"
-          class="inline-flex items-center justify-center gap-2 px-10 py-4 border border-gray-600 hover:border-white text-white font-medium rounded-full transition-colors"
-        >
-          View Our Work
-        </a>
-      </div>
-    </div>
-  </section>
 </Layout>
+
+<script>
+  const EXPO_OUT = 'cubic-bezier(0.19, 1, 0.22, 1)';
+  const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
+
+  function initAboutAnimations() {
+    const lines = document.querySelectorAll<HTMLElement>('.about-reveal-line');
+    const fades = document.querySelectorAll<HTMLElement>('.about-reveal-fade');
+
+    lines.forEach(el => { el.style.transform = 'translateY(110%)'; });
+    fades.forEach(el => { el.style.opacity = '0'; });
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        lines.forEach((el, i) => {
+          el.animate(
+            [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+            { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
+          );
+        });
+        fades.forEach((el, i) => {
+          el.animate(
+            [{ opacity: '0' }, { opacity: '1' }],
+            { duration: 700, delay: 500 + i * 100, easing: CUBIC_OUT, fill: 'forwards' }
+          );
+        });
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initAboutAnimations);
+  document.addEventListener('astro:page-load', initAboutAnimations);
+</script>
+
+<style>
+  .about-reveal-line { will-change: transform; }
+  .about-reveal-fade { will-change: opacity; }
+</style>

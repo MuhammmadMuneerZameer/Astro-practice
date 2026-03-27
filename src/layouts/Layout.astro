@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer.astro";
 
@@ -32,7 +32,12 @@ const ogImage = new URL(image, Astro.site);
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <link rel="icon" type="image/svg+xml" href="/images/hfd-logo.png" />
+    <link rel="icon" type="image/png" href="/images/hfd-logo.png" />
+
+    <!-- Security Headers (meta fallbacks) -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="generator" content={Astro.generator} />
 
     <!-- Google Analytics 4 -->
@@ -51,7 +56,7 @@ const ogImage = new URL(image, Astro.site);
     )}
 
     <!-- Enable SPA-like smooth navigation -->
-    <ViewTransitions />
+    <ClientRouter />
 
     <!-- Prevent white flash -->
     <style>
@@ -79,6 +84,12 @@ const ogImage = new URL(image, Astro.site);
     <meta property="og:image" content={ogImage} />
     <meta property="og:site_name" content="Hydra Fox Designs" />
 
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
     <!-- Theme color -->
     <meta name="theme-color" content="#000000" />
 
@@ -98,22 +109,38 @@ const ogImage = new URL(image, Astro.site);
       content="black-translucent"
     />
 
-    <!-- JSON-LD Structured Data: Organization -->
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@hydrafoxdesigns" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- JSON-LD Structured Data: ProfessionalService -->
     <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify({
         "@context": "https://schema.org",
-        "@type": "Organization",
+        "@type": "ProfessionalService",
         name: "Hydra Fox Designs",
         url: "https://hydrafoxdesigns.com",
         logo: "https://hydrafoxdesigns.com/images/hfd-logo.png",
         description:
-          "Hydra Fox Designs helps businesses grow through creative web design, digital marketing, and automation solutions.",
-        contactPoint: {
-          "@type": "ContactPoint",
-          telephone: "+92-335-4345625",
-          contactType: "sales",
-          email: "muneerzameer@hydrafoxdesigns.com",
+          "Hydra Fox Designs helps businesses grow through creative web design, digital marketing, branding, and automation solutions.",
+        telephone: "+92-335-4345625",
+        email: "muneerzameer@hydrafoxdesigns.com",
+        areaServed: "Worldwide",
+        serviceType: ["Branding", "Web Design", "Digital Marketing", "UX/UI Design"],
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Services",
+          itemListElement: [
+            { "@type": "Offer", itemOffered: { "@type": "Service", name: "Branding" } },
+            { "@type": "Offer", itemOffered: { "@type": "Service", name: "Design" } },
+            { "@type": "Offer", itemOffered: { "@type": "Service", name: "Marketing" } },
+            { "@type": "Offer", itemOffered: { "@type": "Service", name: "Web Development" } },
+          ],
         },
         sameAs: [
           "https://www.facebook.com/hydrafoxdesign",
@@ -142,10 +169,42 @@ const ogImage = new URL(image, Astro.site);
         window.addEventListener("load", () => {
           navigator.serviceWorker
             .register("/sw.js")
-            .then((reg) => console.log("✅ Service Worker registered"))
-            .catch((err) => console.log("❌ Service Worker failed:", err));
+            .then(() => {})
+            .catch(() => {});
         });
       }
+    </script>
+
+    <!-- Global scroll-triggered reveal system -->
+    <script>
+      function initScrollReveals() {
+        const EXPO_OUT = 'cubic-bezier(0.19, 1, 0.22, 1)';
+        const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
+        document.querySelectorAll<HTMLElement>('.scroll-section').forEach(section => {
+          const lines = section.querySelectorAll<HTMLElement>('.reveal-line');
+          const fades = section.querySelectorAll<HTMLElement>('.reveal-fade');
+          lines.forEach(el => { el.style.transform = 'translateY(110%)'; });
+          fades.forEach(el => { el.style.opacity = '0'; });
+          let triggered = false;
+          const observer = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting && !triggered) {
+              triggered = true;
+              lines.forEach((el, i) => el.animate(
+                [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+                { duration: 900, delay: i * 120, easing: EXPO_OUT, fill: 'forwards' }
+              ));
+              fades.forEach((el, i) => el.animate(
+                [{ opacity: '0' }, { opacity: '1' }],
+                { duration: 700, delay: 200 + i * 100, easing: CUBIC_OUT, fill: 'forwards' }
+              ));
+              observer.disconnect();
+            }
+          }, { threshold: 0.15 });
+          observer.observe(section);
+        });
+      }
+      document.addEventListener('DOMContentLoaded', initScrollReveals);
+      document.addEventListener('astro:page-load', initScrollReveals);
     </script>
   </body>
 </html>
@@ -182,5 +241,14 @@ const ogImage = new URL(image, Astro.site);
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation-duration: 100ms;
+  }
+
+  /* Global scroll-reveal classes */
+  .reveal-line {
+    will-change: transform;
+    display: block;
+  }
+  .reveal-fade {
+    will-change: opacity;
   }
 </style>

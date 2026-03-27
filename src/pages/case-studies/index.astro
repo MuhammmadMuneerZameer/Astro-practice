@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { getCaseStudies } from "../../data/caseStudies";
-import CaseStudyListing from "../../components/CaseStudyListing";
+import CaseStudyListAnimated from "../../components/CaseStudyListAnimated";
 
 const caseStudies: any[] = await getCaseStudies();
 ---
@@ -10,42 +10,120 @@ const caseStudies: any[] = await getCaseStudies();
   title="Case Studies | Hydra Fox Designs"
   description="Explore our portfolio of successful projects. See how we've helped clients solve challenges and achieve their goals."
 >
-  <!-- Hero Section -->
-  <div
-    class="relative h-[60vh] flex flex-col items-center justify-center w-full bg-black overflow-hidden -mt-16 md:mt-0"
-  >
-    <div
-      class="absolute inset-0 bg-gradient-to-b from-green-900/10 to-transparent pointer-events-none z-10"
-    >
-    </div>
-    <div
-      class="absolute inset-0 bg-[url('/images/noise.png')] opacity-20 pointer-events-none z-0"
-    >
-    </div>
 
-    <div class="relative z-20 text-center px-4 max-w-4xl mx-auto">
-      <span
-        class="text-green-500 font-bold tracking-[0.2em] uppercase text-sm mb-4 block animate-fade-in-up"
-      >
-        Our Work
-      </span>
-      <h1
-        class="text-5xl md:text-8xl font-bold text-white mb-6 leading-tight tracking-tight"
-      >
-        Building <span
-          class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600"
-          >Trust</span
-        >
-        <br />
-        Through Results.
+  <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
+  <section class="cs-hero relative min-h-[60vh] flex flex-col justify-end pb-16 px-4 md:px-8 bg-black overflow-hidden -mt-16 md:mt-0 pt-32 md:pt-40">
+
+    <!-- Subtle green gradient -->
+    <div class="absolute inset-0 bg-gradient-to-b from-green-900/10 to-transparent pointer-events-none" />
+    <!-- Noise texture -->
+    <div class="absolute inset-0 bg-[url('/images/noise.png')] opacity-20 pointer-events-none" />
+
+    <div class="relative z-10 max-w-7xl mx-auto w-full">
+
+      <!-- "Our Work" label -->
+      <div class="overflow-hidden mb-4">
+        <span class="cs-reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-sm">
+          Our Work
+        </span>
+      </div>
+
+      <!-- Main heading — two lines, each masked -->
+      <h1 class="font-heading font-bold leading-none tracking-tight mb-8">
+        <div class="overflow-hidden">
+          <span class="cs-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white">
+            Building Trust
+          </span>
+        </div>
+        <div class="overflow-hidden">
+          <span class="cs-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white">
+            Through Results.
+          </span>
+        </div>
       </h1>
-      <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto font-light">
-        We don't just showcase designs. We demonstrate the tangible impact we've
-        created for lifestyle brands.
-      </p>
-    </div>
-  </div>
 
-  <!-- Interactive Listing -->
-  <CaseStudyListing client:load initialCaseStudies={caseStudies as any} />
+      <!-- Sub-line + project count -->
+      <div class="flex flex-col sm:flex-row sm:items-end gap-6">
+        <div class="overflow-hidden flex-1">
+          <p class="cs-reveal-fade text-gray-400 text-base md:text-lg max-w-xl font-light">
+            We don't just showcase designs — we demonstrate the tangible impact
+            we've created for our clients.
+          </p>
+        </div>
+        <div class="overflow-hidden flex-shrink-0">
+          <p class="cs-reveal-fade text-[#00f19f] font-mono text-sm">
+            {caseStudies.length} case {caseStudies.length === 1 ? 'study' : 'studies'}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Animated list ──────────────────────────────────────────────────────── -->
+  <CaseStudyListAnimated client:load initialCaseStudies={caseStudies as any} />
+
 </Layout>
+
+<!-- ── Hero entrance animation ────────────────────────────────────────────── -->
+<script>
+  // Runs after page load (and after Astro view transitions)
+  function initHeroAnimations() {
+    const EXPO_OUT = 'cubic-bezier(0.19, 1, 0.22, 1)';
+    const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
+
+    // Set initial hidden state immediately so there's no flash
+    document.querySelectorAll<HTMLElement>('.cs-reveal-line').forEach(el => {
+      el.style.transform = 'translateY(110%)';
+    });
+    document.querySelectorAll<HTMLElement>('.cs-reveal-fade').forEach(el => {
+      el.style.opacity = '0';
+    });
+
+    // Small tick to let the browser paint the hidden state before animating
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.querySelectorAll<HTMLElement>('.cs-reveal-line').forEach((el, i) => {
+          el.animate(
+            [
+              { transform: 'translateY(110%)' },
+              { transform: 'translateY(0)' },
+            ],
+            {
+              duration: 900,
+              delay: i * 130,
+              easing: EXPO_OUT,
+              fill: 'forwards',
+            }
+          );
+        });
+
+        document.querySelectorAll<HTMLElement>('.cs-reveal-fade').forEach((el, i) => {
+          el.animate(
+            [{ opacity: '0' }, { opacity: '1' }],
+            {
+              duration: 700,
+              delay: 500 + i * 100,
+              easing: CUBIC_OUT,
+              fill: 'forwards',
+            }
+          );
+        });
+      });
+    });
+  }
+
+  // Run on initial load
+  document.addEventListener('DOMContentLoaded', initHeroAnimations);
+  // Re-run after Astro view transitions
+  document.addEventListener('astro:page-load', initHeroAnimations);
+</script>
+
+<style>
+  /* Ensure masked-reveal elements start hidden before JS runs */
+  .cs-reveal-line {
+    will-change: transform;
+  }
+  .cs-reveal-fade {
+    will-change: opacity;
+  }
+</style>

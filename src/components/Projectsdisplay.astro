@@ -1,136 +1,93 @@
 ---
-import ProjectShowcase from '../components/ProjectShowcase.astro';
 import projects from '../data/ProjectShowcase.js';
 ---
 
-<section class="bg-black py-16 sm:py-20 md:py-24 text-white relative overflow-hidden">
-  <!-- Background decorative elements -->
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute top-20 left-10 w-96 h-96 bg-green-500/5 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-20 right-10 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl"></div>
-  </div>
+<section class="bg-black border-t border-white/10 px-4 md:px-8 py-24 text-white">
+  <div class="max-w-7xl mx-auto">
 
-  <div class="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <!-- Section Header -->
-    <div class="mb-12 sm:mb-16 md:mb-20">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
-        <div>
-          <p class="text-green-400 text-xs font-semibold tracking-wider uppercase mb-2">
-            PORTFOLIO
-          </p>
-          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
-            Our Recent <span class="text-green-300">Work</span>
+    <!-- Editorial header -->
+    <div class="scroll-section flex flex-col sm:flex-row sm:items-end justify-between mb-16 gap-6">
+      <div>
+        <div class="overflow-hidden mb-4">
+          <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
+            Portfolio
+          </span>
+        </div>
+        <div class="overflow-hidden">
+          <h2 class="reveal-line block text-5xl sm:text-6xl md:text-7xl font-heading font-bold text-white leading-none">
+            Our Recent Work.
           </h2>
         </div>
-        
-        <!-- View All Button -->
-        <a 
-          href="/ProjectPage"
-          class="group relative inline-flex items-center justify-center px-6 py-3 text-white font-medium rounded-full bg-black/80 backdrop-blur-sm transition-all duration-300 overflow-hidden border border-green-500/30 hover:border-green-500"
-          style="box-shadow: 0 2px 15px rgba(99, 253, 189, 0.2);"
-        >
-          <span class="relative z-10 flex items-center gap-2">
-            View All Projects
-            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </span>
-          <span class="absolute inset-0 rounded-full bg-green-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
-        </a>
       </div>
-      
-      <p class="text-gray-400 max-w-2xl text-sm md:text-base leading-relaxed">
-        Explore our portfolio of cutting-edge web applications, mobile solutions, and digital experiences that drive real results for our clients.
-      </p>
+      <a
+        href="/work/"
+        class="reveal-fade group inline-flex items-center gap-3 text-white text-sm font-medium hover:text-[#00f19f] transition-colors duration-300 flex-shrink-0"
+      >
+        View all projects
+        <span class="w-9 h-9 rounded-full border border-white/20 group-hover:border-[#00f19f] group-hover:bg-[#00f19f] flex items-center justify-center transition-all duration-300">
+          <svg class="w-4 h-4 text-white group-hover:text-black -rotate-45 group-hover:rotate-0 transition-all duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </span>
+      </a>
     </div>
 
-    <!-- Projects Grid -->
-    <div class="grid grid-cols-1 gap-8 sm:gap-10 md:grid-cols-2 lg:gap-12">
-      {projects.map((project, index) => (
-        <div 
-          class="project-card-wrapper"
-          style={`animation-delay: ${index * 0.1}s;`}
+    <!-- Project list rows -->
+    <div class="border-t border-white/10">
+      {projects.map((project, i) => (
+        <a
+          href={project.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center gap-6 md:gap-10 py-6 border-b border-white/10 hover:border-white/30 transition-colors duration-300"
         >
-          <ProjectShowcase {...project} />
-        </div>
+          <!-- Index -->
+          <span class="text-gray-600 text-xs font-mono w-8 flex-shrink-0 select-none group-hover:opacity-30 transition-opacity duration-200">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+
+          <!-- Thumbnail -->
+          {project.image && (
+            <div class="w-16 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-gray-900 hidden sm:block">
+              <img
+                src={project.image}
+                alt={project.title}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+                width="64"
+                height="48"
+              />
+            </div>
+          )}
+
+          <!-- Title + description -->
+          <div class="flex-1 min-w-0">
+            <h3 class="text-xl md:text-2xl lg:text-3xl font-heading font-bold text-white group-hover:text-[#00f19f] transition-colors duration-300 truncate">
+              {project.title}
+            </h3>
+            <p class="text-gray-500 text-sm mt-0.5 hidden md:block line-clamp-1">{project.description}</p>
+          </div>
+
+          <!-- Tech tags -->
+          {project.technologies && (
+            <div class="hidden lg:flex flex-wrap gap-2 max-w-xs flex-shrink-0">
+              {project.technologies.slice(0, 2).map((tech: string) => (
+                <span class="px-3 py-1 border border-white/10 text-gray-500 text-xs rounded-full">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <!-- Arrow -->
+          <span class="w-9 h-9 rounded-full border border-white/20 group-hover:border-[#00f19f] group-hover:bg-[#00f19f] flex items-center justify-center transition-all duration-300 flex-shrink-0">
+            <svg class="w-4 h-4 text-white group-hover:text-black -rotate-45 group-hover:rotate-0 transition-all duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </span>
+        </a>
       ))}
     </div>
 
-    <!-- Stats Section (Optional) -->
-    <!-- <div class="mt-16 sm:mt-20 md:mt-24 pt-12 sm:pt-16 border-t border-gray-800">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-        <div class="text-center">
-          <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-green-400 mb-2">50+</div>
-          <div class="text-gray-400 text-sm sm:text-base">Projects Completed</div>
-        </div>
-        <div class="text-center">
-          <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-green-400 mb-2">40+</div>
-          <div class="text-gray-400 text-sm sm:text-base">Happy Clients</div>
-        </div>
-        <div class="text-center">
-          <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-green-400 mb-2">5+</div>
-          <div class="text-gray-400 text-sm sm:text-base">Years Experience</div>
-        </div>
-        <div class="text-center">
-          <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-green-400 mb-2">98%</div>
-          <div class="text-gray-400 text-sm sm:text-base">Success Rate</div>
-        </div>
-      </div>
-    </div> -->
   </div>
 </section>
-
-<style>
-  /* Fade in animation for project cards */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .project-card-wrapper {
-    opacity: 0;
-    animation: fadeInUp 0.6s ease-out forwards;
-  }
-
-  /* Stagger animation for cards */
-  .project-card-wrapper:nth-child(1) { animation-delay: 0.1s; }
-  .project-card-wrapper:nth-child(2) { animation-delay: 0.2s; }
-  .project-card-wrapper:nth-child(3) { animation-delay: 0.3s; }
-  .project-card-wrapper:nth-child(4) { animation-delay: 0.4s; }
-  .project-card-wrapper:nth-child(5) { animation-delay: 0.5s; }
-  .project-card-wrapper:nth-child(6) { animation-delay: 0.6s; }
-
-  /* Ensure cards display properly */
-  .project-card-wrapper {
-    min-height: 200px;
-    display: block;
-    width: 100%;
-  }
-
-  /* Mobile optimizations */
-  @media (max-width: 640px) {
-    .project-card-wrapper {
-      min-height: 180px;
-    }
-  }
-
-  /* Hover effect for grid */
-  @media (min-width: 768px) {
-    .project-card-wrapper:hover {
-      z-index: 10;
-    }
-  }
-
-  /* Responsive improvements */
-  @media (max-width: 480px) {
-    .project-card-wrapper {
-      min-height: 160px;
-    }
-  }
-</style>

@@ -1,50 +1,55 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { RESOURCE_CATEGORIES, getAllResourceCategories } from '../../data/taxonomy.js';
+import { getAllResourceCategories } from '../../data/taxonomy.js';
 import OptimizedBlogList from '../../components/OptimizedBlogList.tsx';
 
 const categories = getAllResourceCategories();
 ---
 
-
-
 <Layout
   title="Resources | Hydra Fox Designs"
   description="Insights on branding, design, marketing, and web development to help your business grow."
 >
-  <!-- Breadcrumb -->
-  <nav class="bg-black pt-24 pb-4 px-6">
-    <div class="max-w-7xl mx-auto">
-      <ol class="flex items-center gap-2 text-sm text-gray-400">
-        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
-        <li class="text-gray-600">/</li>
-        <li class="text-white font-medium">Resources</li>
-      </ol>
-    </div>
-  </nav>
 
-  <!-- Hero -->
-  <section class="bg-black text-white px-6 pb-16">
-    <div class="max-w-7xl mx-auto">
-      <h1 class="text-5xl md:text-7xl font-bold mb-6">
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600">Resources</span>
-        <br/>& Insights
+  <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
+  <section class="res-hero relative min-h-[50vh] flex flex-col justify-end pb-16 px-4 md:px-8 bg-black overflow-hidden -mt-16 md:mt-0 pt-32 md:pt-40">
+    <div class="relative z-10 max-w-7xl mx-auto w-full">
+      <div class="overflow-hidden mb-4">
+        <span class="res-reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
+          Knowledge Base
+        </span>
+      </div>
+      <h1 class="font-heading font-bold leading-none tracking-tight mb-8">
+        <div class="overflow-hidden">
+          <span class="res-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white">
+            Resources
+          </span>
+        </div>
+        <div class="overflow-hidden">
+          <span class="res-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white">
+            & Insights.
+          </span>
+        </div>
       </h1>
-      <p class="text-gray-400 text-xl max-w-2xl leading-relaxed">
-        Practical insights on branding, design, marketing, and web development.
-      </p>
+      <div class="overflow-hidden max-w-xl">
+        <p class="res-reveal-fade text-gray-400 text-base md:text-lg font-light leading-relaxed">
+          Practical insights on branding, design, marketing, and web development.
+        </p>
+      </div>
     </div>
   </section>
 
-  <!-- Category Navigation -->
-  <section transition:name="resources-category-nav" transition:animate="none" class="bg-black text-white px-6 pb-6">
+  <!-- ── Category Navigation ───────────────────────────────────────────────── -->
+  <section transition:name="resources-category-nav" transition:animate="none" class="bg-black border-t border-white/10 px-4 md:px-8 py-8">
     <div class="max-w-7xl mx-auto">
       <div class="flex flex-wrap items-center gap-3">
-        <span class="inline-flex items-center h-9 px-4 bg-green-500 text-black rounded-full text-sm font-medium">All Resources</span>
+        <span class="inline-flex items-center h-9 px-4 bg-[#00f19f] text-black rounded-full text-sm font-bold">
+          All Resources
+        </span>
         {categories.map(cat => (
           <a
             href={`/resources/${cat.slug}/`}
-            class="inline-flex items-center h-9 px-4 bg-gray-900 hover:bg-gray-800 text-gray-300 hover:text-white rounded-full text-sm transition-colors"
+            class="inline-flex items-center h-9 px-4 border border-white/20 hover:border-white/50 text-gray-400 hover:text-white rounded-full text-sm transition-colors duration-200"
           >
             {cat.name}
           </a>
@@ -53,31 +58,52 @@ const categories = getAllResourceCategories();
     </div>
   </section>
 
-  <!-- Posts Grid -->
-  <section class="bg-black text-white px-6 pt-6 pb-12">
+  <!-- ── Posts ─────────────────────────────────────────────────────────────── -->
+  <section class="bg-black px-4 md:px-8 pt-4 pb-24">
     <div class="max-w-7xl mx-auto">
       <OptimizedBlogList client:only="react" />
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="bg-gradient-to-b from-black to-gray-900 text-white px-6 py-24 border-t border-gray-800">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-6">Need Expert Help?</h2>
-      <p class="text-gray-400 text-lg mb-10">
-        Reading is great, but sometimes you need a partner. Let's talk.
-      </p>
-      <a 
-        href="/contact/"
-        class="inline-flex items-center gap-2 px-10 py-4 bg-green-500 hover:bg-green-600 text-black font-bold rounded-full transition-colors"
-      >
-        Get in Touch
-      </a>
-    </div>
-  </section>
 </Layout>
 
+<script>
+  const EXPO_OUT = 'cubic-bezier(0.19, 1, 0.22, 1)';
+  const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
+
+  function initResAnimations() {
+    const lines = document.querySelectorAll<HTMLElement>('.res-reveal-line');
+    const fades = document.querySelectorAll<HTMLElement>('.res-reveal-fade');
+
+    lines.forEach(el => { el.style.transform = 'translateY(110%)'; });
+    fades.forEach(el => { el.style.opacity = '0'; });
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        lines.forEach((el, i) => {
+          el.animate(
+            [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+            { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
+          );
+        });
+        fades.forEach((el, i) => {
+          el.animate(
+            [{ opacity: '0' }, { opacity: '1' }],
+            { duration: 700, delay: 400 + i * 100, easing: CUBIC_OUT, fill: 'forwards' }
+          );
+        });
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initResAnimations);
+  document.addEventListener('astro:page-load', initResAnimations);
+</script>
+
 <style>
+  .res-reveal-line { will-change: transform; }
+  .res-reveal-fade { will-change: opacity; }
+
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation: none;

@@ -1,105 +1,184 @@
 ---
-import Spline from "@splinetool/react-spline";
 import Splineanimation from "./Splineanimation";
 ---
 
-<footer
-  class="relative bg-black text-white py-12 sm:py-16 px-4 sm:px-6 w-full overflow-hidden"
->
-  <!-- ✅ Background Spline Animation -->
-  <div class="absolute inset-0 z-0 blur opacity-50 pointer-events-none">
+<footer class="relative bg-black text-white overflow-hidden">
+
+  <!-- ── Background Spline ──────────────────────────────────────────────────── -->
+  <div class="absolute inset-0 z-0 opacity-30 blur-sm pointer-events-none">
     <Splineanimation client:only="react" />
   </div>
 
-  <!-- ✅ Foreground Footer Content -->
-  <div
-    class="relative z-10 mx-auto max-w-5xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-  >
-    <div class="sm:col-span-2 lg:col-span-1">
-      <h2 class="font-bold text-lg mb-2">Hydra Fox Designs</h2>
-      <p class="text-gray-300 mb-2 text-sm sm:text-base">
-        Providing quality services and products to help you succeed.
-      </p>
-      <p class="text-gray-400 text-xs sm:text-sm">
-        &copy; {new Date().getFullYear()} Hydra Fox. All rights reserved.
-      </p>
-    </div>
-    <div>
-      <h2 class="font-bold text-base sm:text-lg mb-2">Quick Links</h2>
-      <ul class="space-y-1">
-        <li>
-          <a href="/" class="hover:text-green-300 text-sm sm:text-base">Home</a>
-        </li>
-        <li>
-          <a href="/services/" class="hover:text-green-300 text-sm sm:text-base"
-            >Services</a>
-        </li>
-        <li>
-          <a href="/work/" class="hover:text-green-300 text-sm sm:text-base"
-            >Work</a>
-        </li>
-        <li>
-          <a
-            href="/industries/"
-            class="hover:text-green-300 text-sm sm:text-base">Industries</a>
-        </li>
-        <li>
-          <a
-            href="/resources/"
-            class="hover:text-green-300 text-sm sm:text-base">Resources</a>
-        </li>
-        <li>
-          <a href="/about/" class="hover:text-green-300 text-sm sm:text-base"
-            >About</a>
-        </li>
-        <li>
-          <a href="/contact/" class="hover:text-green-300 text-sm sm:text-base"
-            >Contact</a>
-        </li>
-      </ul>
-    </div>
-    <div>
-      <h2 class="font-bold text-base sm:text-lg mb-2">Contact Us</h2>
-      <p class="text-gray-300 text-sm sm:text-base break-all">
-        Email: muneerzameer@hydrafoxdesigns.com
-      </p>
-      <p class="text-gray-300 text-sm sm:text-base">Phone: +92 3354345625</p>
-      <div class="flex gap-3 mt-2">
-        <a href="https://www.facebook.com/hydrafoxdesign" aria-label="Facebook"
-          ><img
-            src="/images/facebook (1).png"
-            alt="Facebook"
-            class="w-4 sm:w-5 opacity-50 hover:opacity-100"
-            loading="lazy"
-            width="20"
-            height="20"
-          /></a
-        >
-        <a
-          href="https://www.instagram.com/official_hydra_fox/"
-          aria-label="Instagram"
-          ><img
-            src="/images/instagram (1).png"
-            alt="Instagram"
-            class="w-4 sm:w-5 opacity-50 hover:opacity-100"
-            loading="lazy"
-            width="20"
-            height="20"
-          /></a
-        >
-        <a
-          href="https://www.linkedin.com/company/hydrafox-designs/"
-          aria-label="LinkedIn"
-          ><img
-            src="/images/linkedin.png"
-            alt="LinkedIn"
-            class="w-4 sm:w-5 opacity-50 hover:opacity-100"
-            loading="lazy"
-            width="20"
-            height="20"
-          /></a
-        >
+  <!-- ── Big CTA section ───────────────────────────────────────────────────── -->
+  <div class="footer-cta relative z-10 border-t border-white/10 px-4 md:px-8 pt-24 pb-20">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- "Start a project" label -->
+      <div class="overflow-hidden mb-6">
+        <span class="footer-reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
+          Start a project
+        </span>
+      </div>
+
+      <!-- Big heading — two masked lines -->
+      <a href="/contact/" class="group block">
+        <h2 class="font-heading font-bold leading-none tracking-tight">
+          <div class="overflow-hidden">
+            <span class="footer-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white group-hover:text-[#00f19f] transition-colors duration-500">
+              Let's work
+            </span>
+          </div>
+          <div class="overflow-hidden flex items-end gap-6 md:gap-10">
+            <span class="footer-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white group-hover:text-[#00f19f] transition-colors duration-500">
+              together
+            </span>
+            <!-- Animated arrow button -->
+            <div class="footer-reveal-fade mb-3 md:mb-5 lg:mb-8 w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-white/30 group-hover:border-[#00f19f] group-hover:bg-[#00f19f] flex items-center justify-center transition-all duration-500 flex-shrink-0">
+              <svg class="w-5 h-5 md:w-7 md:h-7 text-white group-hover:text-black -rotate-45 group-hover:rotate-0 transition-all duration-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
+        </h2>
+      </a>
+
+      <!-- Email link -->
+      <div class="overflow-hidden mt-10">
+        <a href="mailto:muneerzameer@hydrafoxdesigns.com"
+           class="footer-reveal-fade block text-gray-500 hover:text-[#00f19f] transition-colors duration-300 text-sm md:text-base font-mono">
+          muneerzameer@hydrafoxdesigns.com
+        </a>
       </div>
     </div>
   </div>
+
+  <!-- ── Bottom bar ─────────────────────────────────────────────────────────── -->
+  <div class="relative z-10 border-t border-white/10 px-4 md:px-8 py-10">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
+
+      <!-- Brand + copyright -->
+      <div class="footer-reveal-fade">
+        <div class="flex items-center gap-3 mb-3">
+          <img src="/images/hfd-logo-withoutBg.png" alt="Hydra Fox Designs Logo"
+               class="w-6 h-6 object-contain" width="24" height="24" loading="lazy" />
+          <span class="font-bold text-sm tracking-wide">Hydra Fox Designs</span>
+        </div>
+        <p class="text-gray-600 text-xs">
+          &copy; {new Date().getFullYear()} Hydra Fox. All rights reserved.
+        </p>
+        <p class="text-gray-600 text-xs mt-1">
+          <a href="/privacy-pages" class="hover:text-gray-400 transition-colors">Privacy Policy</a>
+        </p>
+      </div>
+
+      <!-- Nav links -->
+      <nav class="footer-reveal-fade">
+        <ul class="flex flex-wrap gap-x-8 gap-y-3">
+          {[
+            { href: '/',              label: 'Home' },
+            { href: '/services/',     label: 'Services' },
+            { href: '/work/',         label: 'Work' },
+            { href: '/case-studies/', label: 'Case Studies' },
+            { href: '/industries/',   label: 'Industries' },
+            { href: '/resources/',    label: 'Resources' },
+            { href: '/about/',        label: 'About' },
+            { href: '/contact/',      label: 'Contact' },
+          ].map(({ href, label }) => (
+            <li>
+              <a href={href}
+                 class="text-gray-500 hover:text-white text-sm transition-colors duration-200">
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <!-- Social links -->
+      <div class="footer-reveal-fade flex items-center gap-5">
+        <a href="https://www.facebook.com/hydrafoxdesign"
+           aria-label="Facebook"
+           class="text-gray-600 hover:text-white transition-colors duration-200">
+          <img src="/images/facebook (1).png" alt="Facebook"
+               class="w-5 h-5 opacity-50 hover:opacity-100 transition-opacity"
+               loading="lazy" width="20" height="20" />
+        </a>
+        <a href="https://www.instagram.com/official_hydra_fox/"
+           aria-label="Instagram"
+           class="text-gray-600 hover:text-white transition-colors duration-200">
+          <img src="/images/instagram (1).png" alt="Instagram"
+               class="w-5 h-5 opacity-50 hover:opacity-100 transition-opacity"
+               loading="lazy" width="20" height="20" />
+        </a>
+        <a href="https://www.linkedin.com/company/hydrafox-designs/"
+           aria-label="LinkedIn"
+           class="text-gray-600 hover:text-white transition-colors duration-200">
+          <img src="/images/linkedin.png" alt="LinkedIn"
+               class="w-5 h-5 opacity-50 hover:opacity-100 transition-opacity"
+               loading="lazy" width="20" height="20" />
+        </a>
+      </div>
+    </div>
+  </div>
+
 </footer>
+
+<!-- ── Scroll-triggered animations ───────────────────────────────────────────── -->
+<script>
+  const EXPO_OUT = 'cubic-bezier(0.19, 1, 0.22, 1)';
+  const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
+
+  function initFooterAnimations() {
+    const revealLines = document.querySelectorAll<HTMLElement>('.footer-reveal-line');
+    const revealFades = document.querySelectorAll<HTMLElement>('.footer-reveal-fade');
+
+    // Set initial hidden state
+    revealLines.forEach(el => { el.style.transform = 'translateY(110%)'; });
+    revealFades.forEach(el => { el.style.opacity = '0'; });
+
+    // Observe the CTA section to trigger on scroll
+    const cta = document.querySelector('.footer-cta');
+    if (!cta) return;
+
+    let triggered = false;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !triggered) {
+          triggered = true;
+
+          revealLines.forEach((el, i) => {
+            el.animate(
+              [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+              { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
+            );
+          });
+
+          revealFades.forEach((el, i) => {
+            el.animate(
+              [{ opacity: '0' }, { opacity: '1' }],
+              { duration: 700, delay: 300 + i * 120, easing: CUBIC_OUT, fill: 'forwards' }
+            );
+          });
+
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(cta);
+  }
+
+  document.addEventListener('DOMContentLoaded', initFooterAnimations);
+  document.addEventListener('astro:page-load', initFooterAnimations);
+</script>
+
+<style>
+  .footer-reveal-line {
+    will-change: transform;
+    display: block;
+  }
+  .footer-reveal-fade {
+    will-change: opacity;
+  }
+</style>

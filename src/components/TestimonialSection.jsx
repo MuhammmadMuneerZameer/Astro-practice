@@ -140,21 +140,21 @@ function TestimonialCard({ avatarSrc, avatarFallback, isOnline, userName, userRo
 
 export default function TestimonialSection() {
   return (
-    <section className="bg-black py-16 sm:py-20 md:py-24 px-4 sm:px-6">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="mb-12">
-          <p className="text-green-400 text-xs font-semibold tracking-wider uppercase mb-2">
-            CLIENT STORIES
-          </p>
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">
-              What our <span className="text-green-300">clients</span> say
-            </h2>
-            <p className="text-gray-400 text-sm max-w-xs sm:text-right">
-              Real feedback from real businesses we've helped grow.
+    <section className="bg-black border-t border-white/10 py-24 px-4 md:px-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Editorial Header */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 gap-6">
+          <div>
+            <p className="text-[#00f19f] text-xs font-bold tracking-[0.2em] uppercase mb-4">
+              Client Stories
             </p>
+            <h2 className="text-5xl sm:text-6xl md:text-7xl font-heading font-bold text-white leading-none">
+              What our clients say.
+            </h2>
           </div>
+          <p className="text-gray-500 text-sm max-w-xs sm:text-right leading-relaxed">
+            Real feedback from real businesses we've helped grow.
+          </p>
         </div>
 
         {/* Cards grid */}

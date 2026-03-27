@@ -1,6 +1,7 @@
 // src/components/DynamicBlogLoader.jsx
 // Loads blog posts dynamically from Firebase for URLs not built statically
 import { useState, useEffect } from 'react';
+import DOMPurify from 'dompurify';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 
@@ -245,7 +246,7 @@ export default function DynamicBlogLoader() {
                 <div className="max-w-3xl mx-auto">
                     <div
                         className="prose prose-lg prose-invert prose-green max-w-none dynamic-blog-content"
-                        dangerouslySetInnerHTML={{ __html: post.content }}
+                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content, { ADD_ATTR: ['target'] }) }}
                     />
                 </div>
             </div>

@@ -31,8 +31,6 @@ function sanitizeContent(content) {
 
 export async function getPosts() {
   try {
-    console.log('🚀 Starting Firebase fetch...');
-    console.log('🔍 Database instance:', db);
 
 
     // Check if db is properly initialized
@@ -40,42 +38,32 @@ export async function getPosts() {
       throw new Error('Firebase database not initialized');
     }
 
-    console.log('📦 Getting collection reference...');
     const blogsCollection = collection(db, "post");
-    console.log('📦 Collection reference:', blogsCollection);
 
-    console.log('🔄 Fetching documents...');
     // Add query to order by createdAt (newest first) - optional, can remove if causing issues
     let querySnapshot;
     try {
       const q = query(blogsCollection, orderBy("createdAt", "desc"));
       querySnapshot = await getDocs(q);
     } catch (orderError) {
-      console.log('⚠️ Could not order by createdAt, fetching without ordering:', orderError.message);
       querySnapshot = await getDocs(blogsCollection);
     }
 
-    console.log('📊 Query snapshot:', querySnapshot);
-    console.log('📊 Document count:', querySnapshot.size);
 
     if (querySnapshot.empty) {
-      console.warn('⚠️ No documents found in post collection');
       return [];
     }
 
     const posts = [];
     querySnapshot.forEach((doc) => {
-      console.log(`📄 Processing document ${doc.id}`);
       const data = doc.data();
 
       // Skip draft posts or posts without valid slugs
       if (data.status && data.status !== 'published') {
-        console.log(`⏭️ Skipping draft post: ${doc.id}`);
         return;
       }
 
       if (!data.slug || data.slug.trim() === '') {
-        console.log(`⚠️ Skipping post without slug: ${doc.id}`);
         return;
       }
 
@@ -96,12 +84,9 @@ export async function getPosts() {
         updatedAt: data.updatedAt,
       };
 
-      console.log(`✅ Processed post:`, post.slug);
       posts.push(post);
     });
 
-    console.log('🎉 Final posts array:', posts.length, 'published posts');
-    console.log(`✅ Successfully fetched ${posts.length} posts`);
     return posts;
 
   } catch (error) {
@@ -109,7 +94,6 @@ export async function getPosts() {
     console.error('💥 Error stack:', error.stack);
 
     // Return mock data for debugging
-    console.log('🔧 Returning mock data for debugging...');
     return [
       {
         id: 'mock-1',
@@ -133,11 +117,9 @@ export async function getPostBySlug(slug) {
     const post = posts.find(p => p.slug === slug);
 
     if (!post) {
-      console.warn(`⚠️ No post found with slug: ${slug}`);
       return null;
     }
 
-    console.log(`✅ Found post:`, post);
     return post;
   } catch (error) {
     console.error('💥 Error in getPostBySlug:', error);

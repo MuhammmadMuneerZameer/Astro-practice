@@ -2,6 +2,12 @@ import { useState, useEffect, useRef } from 'react';
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 
+async function isAdminUser(user) {
+  if (!user) return false;
+  const tokenResult = await user.getIdTokenResult();
+  return tokenResult.claims.admin === true;
+}
+
 export default function AdminAuth({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -17,13 +23,17 @@ export default function AdminAuth({ children }) {
 
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (mountedRef.current) {
-        if (currentUser && currentUser.email !== 'hydrafox345@gmail.com') {
-          // If user is logged in but not the correct admin, force logout
-          await signOut(auth);
-          setUser(null);
-          setError('Unauthorized access. This account does not have admin privileges.');
+        if (currentUser) {
+          const authorized = await isAdminUser(currentUser);
+          if (!authorized) {
+            await signOut(auth);
+            setUser(null);
+            setError('Unauthorized access. This account does not have admin privileges.');
+          } else {
+            setUser(currentUser);
+          }
         } else {
-          setUser(currentUser);
+          setUser(null);
         }
         setLoading(false);
       }
@@ -49,8 +59,8 @@ export default function AdminAuth({ children }) {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email.trim(), password);
 
-      // Strict Admin Check
-      if (userCredential.user.email !== 'hydrafox345@gmail.com') {
+      const authorized = await isAdminUser(userCredential.user);
+      if (!authorized) {
         throw new Error('auth/unauthorized-admin');
       }
 
@@ -59,7 +69,6 @@ export default function AdminAuth({ children }) {
         setPassword('');
       }
     } catch (err) {
-      // Force logout if we caught the unauthorized error (just to be safe)
       if (err.message === 'auth/unauthorized-admin') {
         await signOut(auth);
       }
@@ -70,7 +79,7 @@ export default function AdminAuth({ children }) {
         if (err.message === 'auth/unauthorized-admin') {
           errorMessage = 'Access Denied: This account is not authorized as an administrator.';
         } else if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found') {
-          errorMessage = 'Invalid email or password. Please try again.';
+          errorMessage = 'Invalid credentials. Please try again.';
         } else if (err.code === 'auth/too-many-requests') {
           errorMessage = 'Too many failed attempts. Please try again later.';
         } else if (err.code === 'auth/network-request-failed') {
@@ -252,7 +261,7 @@ export default function AdminAuth({ children }) {
         <div className="flex items-center space-x-2 px-4 py-2 bg-black/80 backdrop-blur-sm border border-green-500/20 rounded-lg shadow-lg">
           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
           <span className="text-sm text-gray-400">
-            <span className="font-semibold text-green-300">{user.email}</span>
+            <span className="font-semibold text-green-300">Admin</span>
           </span>
         </div>
       </div>

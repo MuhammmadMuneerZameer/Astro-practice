@@ -18,6 +18,22 @@ import StatsSection from '../components/StatsSection.astro';
   title="Digital Marketing & Web Design Agency | Hydra Fox Designs"
   description="Hydra Fox Designs helps brands grow through creative web design, digital marketing, and automation. Get a modern website that converts visitors into clients."
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        { "@type": "Question", name: "How long does it take to design and build a website?", acceptedAnswer: { "@type": "Answer", text: "The timeline depends on the project's complexity. A basic website takes 2–4 weeks; more complex builds may take longer. We provide a project timeline after our discovery call." } },
+        { "@type": "Question", name: "How much does a new website cost?", acceptedAnswer: { "@type": "Answer", text: "Costs vary based on design and features. We offer custom packages tailored to your goals and budget. Get in touch for a free quote." } },
+        { "@type": "Question", name: "Will my website be mobile-friendly?", acceptedAnswer: { "@type": "Answer", text: "Yes. Every site we build is fully responsive and optimized for all devices — desktops, tablets, and smartphones." } },
+        { "@type": "Question", name: "Can I update the website myself after it's built?", acceptedAnswer: { "@type": "Answer", text: "Absolutely. We use user-friendly CMS platforms and provide tutorials so you can manage your content confidently." } },
+        { "@type": "Question", name: "What digital marketing services do you offer?", acceptedAnswer: { "@type": "Answer", text: "We provide complete digital marketing solutions including SEO, social media marketing, PPC ads, web design and development, and full branding strategy — everything your business needs to grow online." } },
+        { "@type": "Question", name: "How long does it take to see results from digital marketing?", acceptedAnswer: { "@type": "Answer", text: "Paid ads can deliver results almost immediately, while SEO and organic strategies typically take 3–6 months to show noticeable growth depending on competition and consistency." } },
+        { "@type": "Question", name: "Do you work with international clients?", acceptedAnswer: { "@type": "Answer", text: "Yes! We work remotely with clients around the world via Zoom, Trello, Notion, and email." } },
+        { "@type": "Question", name: "Do I need to sign a long-term contract?", acceptedAnswer: { "@type": "Answer", text: "No. You can start with a flexible monthly plan. We focus on delivering measurable results that keep you working with us, not on locking you into long contracts." } },
+      ]
+    })} />
+  </Fragment>
   <!-- LOADING SCREEN TEMPORARILY REMOVED FOR DEBUGGING -->
   
   <!-- Main Content - Should be visible immediately -->

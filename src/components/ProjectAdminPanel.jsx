@@ -100,21 +100,18 @@ export default function ProjectAdminPanel() {
 
     // Firebase real-time listener
     useEffect(() => {
-        console.log('🔥 Initializing Firebase listener for projects...');
         const projectsCollection = collection(db, CONSTANTS.COLLECTION_NAME);
         let queryRef;
 
         try {
             queryRef = query(projectsCollection, orderBy('createdAt', 'desc'));
         } catch (err) {
-            console.warn('⚠️ Ordered query failed, using unordered collection:', err.message);
             queryRef = projectsCollection;
         }
 
         const unsubscribe = onSnapshot(
             queryRef,
             (snapshot) => {
-                console.log(`✅ Loaded ${snapshot.size} projects`);
                 const projectsList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 setProjects(projectsList);
                 setLoading(false);
@@ -128,7 +125,6 @@ export default function ProjectAdminPanel() {
         );
 
         return () => {
-            console.log('🧹 Cleaning up Firebase listener');
             unsubscribe();
         };
     }, []);

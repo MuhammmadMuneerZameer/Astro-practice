@@ -42,61 +42,72 @@ export default function NesLSection() {
       setName("");
       setStatus("success");
     } catch (err) {
-      console.error("Firebase Error:", err);
       setStatus("error");
     }
   };
 
   return (
-    <section className="py-20 px-4 overflow-x-hidden bg-gradient-to-r from-black to-gray-900 text-white">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
-        {/* Left Text Content */}
+    <section className="bg-black border-t border-white/10 px-4 md:px-8 py-24">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between gap-16">
+
+        {/* Left — editorial heading */}
         <div className="max-w-xl">
-          <h2 className="text-4xl font-bold leading-tight text-green-300">
-            Join our newsletter <br /> & stay updated.
+          <p className="text-[#00f19f] text-xs font-bold tracking-[0.2em] uppercase mb-4">Newsletter</p>
+          <h2 className="text-5xl md:text-6xl font-heading font-bold text-white leading-none mb-6">
+            Stay in the loop.
           </h2>
-          <p className="mt-4 text-[var(--color-text-light)]">
-            Get the latest content in your inbox every week. We don’t spam.
+          <p className="text-gray-500 text-base leading-relaxed">
+            Get the latest insights, case studies, and design thinking delivered to your inbox. No spam.
           </p>
         </div>
 
-        {/* Right Form */}
-        <div className="bg-black p-6 rounded-lg w-full max-w-md shadow-md py-[10vh]">
-          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="Enter Your Name"
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-2 rounded-full border border-gray-700 bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
-            />
-            <input
-              type="email"
-              placeholder="Enter Your Email address"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 rounded-full border border-gray-700 bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
-            />
+        {/* Right — minimal form */}
+        <div className="w-full max-w-md">
+          <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
+            <div className="border-b border-white/20 focus-within:border-[#00f19f] transition-colors duration-300">
+              <input
+                type="text"
+                placeholder="Your name"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full py-3 bg-transparent text-white placeholder-gray-600 text-base focus:outline-none"
+              />
+            </div>
+            <div className="border-b border-white/20 focus-within:border-[#00f19f] transition-colors duration-300">
+              <input
+                type="email"
+                placeholder="Your email address"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full py-3 bg-transparent text-white placeholder-gray-600 text-base focus:outline-none"
+              />
+            </div>
 
             <button
               type="submit"
-              className="w-full py-4 my-4 px-4 hero-button rounded-full bg-black/80 backdrop-blur-sm shadow-green-200 shadow-md transition-all hover:text-black ease-in-out duration-300 overflow-hidden text-white font-medium hover:bg-[var(--color-accent-hover)]"
+              className="group self-start inline-flex items-center gap-3 text-white text-sm font-medium hover:text-[#00f19f] transition-colors duration-300 mt-2"
             >
-              {status === "loading" ? "Subscribing..." : "Subscribe Now"}
+              {status === "loading" ? "Subscribing..." : "Subscribe now"}
+              <span className="w-10 h-10 rounded-full border border-white/30 group-hover:border-[#00f19f] group-hover:bg-[#00f19f] flex items-center justify-center transition-all duration-500">
+                <svg className="w-4 h-4 text-white group-hover:text-black -rotate-45 group-hover:rotate-0 transition-all duration-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </span>
             </button>
 
             {status === "success" && (
-              <p className="text-green-400 text-sm">You're subscribed! 🎉</p>
+              <p className="text-[#00f19f] text-sm">You're subscribed!</p>
             )}
             {status === "error" && (
               <p className="text-red-400 text-sm">
-                Email already subscribed or error occurred.
+                Email already subscribed or an error occurred.
               </p>
             )}
           </form>
         </div>
+
       </div>
     </section>
   );

@@ -1,135 +1,180 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { SERVICE_HIERARCHY, getAllServices } from "../../data/taxonomy.js";
+import { getAllServices } from "../../data/taxonomy.js";
 import { getCaseStudies } from "../../data/caseStudies.js";
 
 const services = getAllServices();
 const caseStudies = await getCaseStudies();
-const featuredCaseStudies = caseStudies.filter((cs) => cs.featured).slice(0, 3);
+const featuredCaseStudies = caseStudies.filter((cs) => cs.featured).slice(0, 4);
 ---
 
 <Layout
   title="Strategic Services | Hydra Fox Designs"
   description="We solve business problems through branding, design, marketing, and web development. Stop losing customers to poor digital experiences."
 >
-  <!-- Breadcrumb -->
-  <nav class="bg-black pt-24 pb-4 px-6">
-    <div class="max-w-7xl mx-auto">
-      <ol class="flex items-center gap-2 text-sm text-gray-400">
-        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
-        <li class="text-gray-600">/</li>
-        <li class="text-white font-medium">Services</li>
-      </ol>
-    </div>
-  </nav>
 
-  <!-- Hero -->
-  <section class="bg-black text-white px-6 pb-20">
-    <div class="max-w-7xl mx-auto">
-      <h1 class="text-5xl md:text-7xl font-bold mb-6">
-        We Build Systems That <br />
-        <span
-          class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600"
-          >Scale & Convert.</span
-        >
+  <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
+  <section class="svc-hero relative min-h-[70vh] flex flex-col justify-end pb-20 px-4 md:px-8 bg-black overflow-hidden -mt-16 md:mt-0 pt-32 md:pt-40">
+    <div class="absolute inset-0 bg-gradient-to-b from-green-900/5 to-transparent pointer-events-none"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto w-full">
+      <div class="overflow-hidden mb-4">
+        <span class="svc-reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
+          What We Do
+        </span>
+      </div>
+      <h1 class="font-heading font-bold leading-none tracking-tight mb-8">
+        <div class="overflow-hidden">
+          <span class="svc-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white">
+            We Build Systems
+          </span>
+        </div>
+        <div class="overflow-hidden">
+          <span class="svc-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white">
+            That Scale &
+          </span>
+        </div>
+        <div class="overflow-hidden">
+          <span class="svc-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white">
+            Convert.
+          </span>
+        </div>
       </h1>
-      <p class="text-gray-400 text-xl max-w-2xl leading-relaxed">
-        Stop treating your website like a brochure. Start treating it like a
-        business engine. We identify where you're losing money and build the
-        infrastructure to fix it.
-      </p>
-    </div>
-  </section>
-
-  <!-- Services Grid -->
-  <section class="bg-black text-white px-6 py-20 border-t border-gray-800">
-    <div class="max-w-7xl mx-auto">
-      <h2 class="text-3xl font-bold mb-12 text-center">Our Core Services</h2>
-
-      <div class="grid md:grid-cols-2 gap-8">
-        {
-          services.map((service) => (
-            <a
-              href={`/services/${service.slug}/`}
-              class="group block p-8 bg-gray-900/50 rounded-2xl border border-gray-800 hover:border-green-500/50 transition-all duration-300"
-            >
-              <h3 class="text-2xl font-bold mb-4 group-hover:text-green-400 transition-colors">
-                {service.name}
-              </h3>
-              <p class="text-gray-400 mb-6 leading-relaxed">
-                {service.description}
-              </p>
-              <div class="flex flex-wrap gap-2">
-                {Object.values(service.subservices)
-                  .slice(0, 3)
-                  .map((sub) => (
-                    <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-sm">
-                      {sub.name}
-                    </span>
-                  ))}
-              </div>
-              <div class="mt-6 flex items-center gap-2 text-green-400 font-medium">
-                <span>Explore {service.name}</span>
-                <svg
-                  class="w-5 h-5 group-hover:translate-x-1 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
-              </div>
-            </a>
-          ))
-        }
+      <div class="overflow-hidden max-w-2xl">
+        <p class="svc-reveal-fade text-gray-400 text-base md:text-lg font-light leading-relaxed">
+          Stop treating your website like a brochure. Start treating it like a
+          business engine. We identify where you're losing money and build the
+          infrastructure to fix it.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- Featured Case Studies -->
-  {
-    featuredCaseStudies.length > 0 && (
-      <section class="bg-black text-white px-6 py-20 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto">
-          <h2 class="text-3xl font-bold mb-4">Featured Work</h2>
-          <p class="text-gray-400 mb-12">
-            See how we've helped brands transform their business.
-          </p>
+  <!-- ── Services List ─────────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-24">
+    <div class="max-w-7xl mx-auto">
+      <div class="scroll-section mb-12">
+        <div class="overflow-hidden mb-4">
+          <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
+            Core Services
+          </span>
+        </div>
+        <div class="overflow-hidden">
+          <h2 class="reveal-line block text-5xl md:text-6xl font-heading font-bold text-white leading-none">What We Offer.</h2>
+        </div>
+      </div>
 
-          <div class="grid md:grid-cols-3 gap-8">
-            {featuredCaseStudies.map((cs) => (
-              <a href={`/work/${cs.slug}/`} class="group block">
-                <div class="aspect-[4/3] rounded-xl overflow-hidden mb-4 bg-gray-900">
-                  <img
-                    src={cs.image}
-                    alt={cs.title}
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                </div>
-                <h3 class="text-xl font-bold group-hover:text-green-400 transition-colors">
-                  {cs.title}
-                </h3>
-                <p class="text-gray-400 text-sm mt-1">{cs.client}</p>
-              </a>
-            ))}
+      <div class="border-t border-white/10">
+        {services.map((service, i) => (
+          <a
+            href={`/services/${service.slug}/`}
+            class="group flex items-center gap-6 md:gap-10 py-8 border-b border-white/10 hover:border-white/30 transition-colors duration-300"
+          >
+            <span class="text-gray-600 text-xs font-mono w-8 flex-shrink-0 select-none">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-white group-hover:text-[#00f19f] transition-colors duration-300 mb-2">
+                {service.name}
+              </h3>
+              <p class="text-gray-500 text-sm hidden sm:block line-clamp-1">{service.description}</p>
+            </div>
+            <div class="hidden md:flex flex-wrap gap-2 max-w-xs">
+              {Object.values(service.subservices).slice(0, 2).map((sub: any) => (
+                <span class="px-3 py-1 border border-white/10 text-gray-500 text-xs rounded-full">
+                  {sub.name}
+                </span>
+              ))}
+            </div>
+            <span class="w-9 h-9 rounded-full border border-white/20 group-hover:border-[#00f19f] group-hover:bg-[#00f19f] flex items-center justify-center transition-all duration-300 flex-shrink-0">
+              <svg class="w-4 h-4 text-white group-hover:text-black -rotate-45 group-hover:rotate-0 transition-all duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Featured Work ─────────────────────────────────────────────────────── -->
+  {featuredCaseStudies.length > 0 && (
+    <section class="bg-black border-t border-white/10 px-4 md:px-8 py-24">
+      <div class="max-w-7xl mx-auto">
+        <div class="scroll-section mb-12">
+          <div class="overflow-hidden mb-4">
+            <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
+              Featured Work
+            </span>
           </div>
-
-          <div class="mt-12 text-center">
-            <a
-              href="/work/"
-              class="inline-flex items-center gap-2 px-8 py-4 bg-green-500 hover:bg-green-600 text-black font-bold rounded-full transition-colors"
-            >
-              View All Work
+          <div class="overflow-hidden flex items-end justify-between gap-6">
+            <h2 class="reveal-line block text-5xl md:text-6xl font-heading font-bold text-white leading-none">Selected Projects.</h2>
+            <a href="/case-studies/" class="reveal-fade text-gray-500 hover:text-white text-sm transition-colors flex-shrink-0">
+              View all →
             </a>
           </div>
         </div>
-      </section>
-    )
-  }
+
+        <div class="border-t border-white/10">
+          {featuredCaseStudies.map((cs) => (
+            <a href={`/case-studies/${cs.slug}/`} class="group flex items-center gap-6 md:gap-10 py-6 border-b border-white/10 hover:border-white/30 transition-colors duration-300">
+              <div class="w-20 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-gray-900">
+                {cs.image && (
+                  <img src={cs.image} alt={cs.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                )}
+              </div>
+              <div class="flex-1 min-w-0">
+                <h3 class="text-xl md:text-2xl font-heading font-bold text-white group-hover:text-[#00f19f] transition-colors duration-300 truncate">{cs.title}</h3>
+                <p class="text-gray-500 text-sm mt-0.5">{cs.client}</p>
+              </div>
+              <span class="w-9 h-9 rounded-full border border-white/20 group-hover:border-[#00f19f] group-hover:bg-[#00f19f] flex items-center justify-center transition-all duration-300 flex-shrink-0">
+                <svg class="w-4 h-4 text-white group-hover:text-black -rotate-45 group-hover:rotate-0 transition-all duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
 </Layout>
+
+<script>
+  const EXPO_OUT = 'cubic-bezier(0.19, 1, 0.22, 1)';
+  const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
+
+  function initSvcAnimations() {
+    const lines = document.querySelectorAll<HTMLElement>('.svc-reveal-line');
+    const fades = document.querySelectorAll<HTMLElement>('.svc-reveal-fade');
+
+    lines.forEach(el => { el.style.transform = 'translateY(110%)'; });
+    fades.forEach(el => { el.style.opacity = '0'; });
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        lines.forEach((el, i) => {
+          el.animate(
+            [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+            { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
+          );
+        });
+        fades.forEach((el, i) => {
+          el.animate(
+            [{ opacity: '0' }, { opacity: '1' }],
+            { duration: 700, delay: 500 + i * 100, easing: CUBIC_OUT, fill: 'forwards' }
+          );
+        });
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initSvcAnimations);
+  document.addEventListener('astro:page-load', initSvcAnimations);
+</script>
+
+<style>
+  .svc-reveal-line { will-change: transform; }
+  .svc-reveal-fade { will-change: opacity; }
+</style>

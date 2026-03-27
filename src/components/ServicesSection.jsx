@@ -5,42 +5,42 @@ import { ArrowRight } from 'lucide-react';
 const services = [
   {
     title: "Product Design",
-    description: "Understanding user behavior to create intuitive, effective experiences.",
+    description: "Designing digital products from concept to launch, balancing user needs with business goals.",
     image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop"
   },
   {
     title: "UX/UI Design",
-    description: "Understanding user behavior to create intuitive, effective experiences.",
+    description: "Understanding user behavior to craft intuitive interfaces that convert visitors into clients.",
     image: "https://images.unsplash.com/photo-1559028012-481c04fa702d?w=800&h=600&fit=crop"
   },
   {
     title: "Mobile Applications",
-    description: "Understanding user behavior to create intuitive, effective experiences.",
+    description: "Building fast, native-quality mobile apps for iOS and Android with modern frameworks.",
     image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop"
   },
   {
     title: "Web Development",
-    description: "Understanding user behavior to create intuitive, effective experiences.",
+    description: "Developing performant, scalable websites and web apps tailored to your business.",
     image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=600&fit=crop"
   },
   {
     title: "Video Editing",
-    description: "Understanding user behavior to create intuitive, effective experiences.",
+    description: "Producing polished promotional, social, and explainer videos that tell your brand story.",
     image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&h=600&fit=crop"
   },
   {
     title: "Branding",
-    description: "Understanding user behavior to create intuitive, effective experiences.",
+    description: "Creating cohesive brand identities — logos, typography, colors — that stick in people's minds.",
     image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&h=600&fit=crop"
   },
   {
     title: "Motion Design",
-    description: "Understanding user behavior to create intuitive, effective experiences.",
+    description: "Bringing interfaces to life with purposeful animations that guide and delight users.",
     image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&h=600&fit=crop"
   },
   {
     title: "Digital Marketing",
-    description: "Understanding user behavior to create intuitive, effective experiences.",
+    description: "Growing your audience through SEO, paid ads, and content strategies that drive real ROI.",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop"
   }
 ];
@@ -79,49 +79,53 @@ export default function ServicesSection() {
   };
 
   return (
-    <section className="min-h-screen bg-black text-white py-12 sm:py-16 md:py-24 px-4 sm:px-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 md:mb-12 gap-4">
+    <section className="bg-black border-t border-white/10 text-white py-24 px-4 md:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-16 gap-8">
           <div>
-            <p className="text-green-400 text-xs font-semibold tracking-wider uppercase mb-2">
-              OUR SERVICES
+            <p className="text-[#00f19f] text-xs font-bold tracking-[0.2em] uppercase mb-4">
+              Our Services
             </p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold leading-tight">
-              What <span className="text-green-300">Services</span>
-              <br />
-              We're Offering
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold leading-none text-white">
+              What We Offer.
             </h2>
           </div>
           <a
-            href="/services"
-            className="group relative inline-flex items-center justify-center px-6 py-3 text-white font-medium rounded-full bg-gray-900 border border-white/10 hover:border-green-400/50 transition-all duration-300"
+            href="/services/"
+            className="group inline-flex items-center gap-3 text-white text-sm font-medium hover:text-[#00f19f] transition-colors duration-300"
           >
-            <span className="relative z-10 flex items-center gap-2">
-              Learn more
-              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+            <span className="relative z-10 flex items-center gap-3">
+              All services
+              <span className="w-9 h-9 rounded-full border border-white/20 group-hover:border-[#00f19f] group-hover:bg-[#00f19f] flex items-center justify-center transition-all duration-300">
+                <ArrowRight className="w-4 h-4 text-white group-hover:text-black transition-colors" />
+              </span>
             </span>
           </a>
         </div>
 
-        <p className="text-gray-400 max-w-2xl text-sm md:text-base leading-relaxed mb-12">
-          We offer services that can help businesses improve their visibility and business reputation online,
-          expand market reach, and increase turnover through effective digital strategies.
+        <p className="text-gray-500 max-w-2xl text-sm md:text-base leading-relaxed mb-12">
+          We offer services that help businesses improve their visibility, expand market reach, and increase turnover through effective digital strategies.
         </p>
 
         <div className="relative">
-          <div className="space-y-0">
+          <div className="border-t border-white/10 space-y-0">
             {services.map((service, index) => (
               <div key={index}>
                 <motion.div
                   onHoverStart={() => !isMobile && setHoveredIndex(index)}
                   onHoverEnd={() => !isMobile && setHoveredIndex(null)}
                   onClick={() => handleServiceClick(index)}
-                  className="relative border-t border-gray-800 last:border-b"
+                  onKeyDown={(e) => e.key === 'Enter' && handleServiceClick(index)}
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={hoveredIndex === index}
+                  aria-label={`${service.title} — click to expand`}
+                  className="relative border-t border-white/10 last:border-b last:border-white/10"
                 >
                   <div className="py-6 md:py-8 flex items-center justify-between group cursor-pointer">
                     <div className="flex-1">
                       <motion.h3
-                        className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-gray-400 group-hover:text-green-400 transition-colors duration-300"
+                        className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-white group-hover:text-[#00f19f] transition-colors duration-300"
                         animate={{
                           x: hoveredIndex === index ? 20 : 0
                         }}
@@ -152,8 +156,8 @@ export default function ServicesSection() {
                       transition={{ duration: 0.3 }}
                       className="ml-6 flex-shrink-0"
                     >
-                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-gray-700 group-hover:border-green-400 flex items-center justify-center transition-colors duration-300">
-                        <ArrowRight className="w-4 h-4 md:w-5 md:h-5 text-gray-500 group-hover:text-green-400 transition-colors duration-300" />
+                      <div className="w-10 h-10 md:w-11 md:h-11 rounded-full border border-white/20 group-hover:border-[#00f19f] group-hover:bg-[#00f19f] flex items-center justify-center transition-all duration-300">
+                        <ArrowRight className="w-4 h-4 text-white group-hover:text-black transition-colors duration-300" />
                       </div>
                     </motion.div>
                   </div>
@@ -181,6 +185,9 @@ export default function ServicesSection() {
                               src={service.image}
                               alt={service.title}
                               className="w-full h-64 object-cover"
+                              loading="lazy"
+                              width="800"
+                              height="600"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                             <div className="absolute bottom-4 left-4 bg-brand-accent text-black px-4 py-2 rounded-lg font-bold text-sm shadow-lg">
@@ -237,6 +244,9 @@ export default function ServicesSection() {
                           src={services[hoveredIndex].image}
                           alt={services[hoveredIndex].title}
                           className="w-full h-64 object-cover"
+                          loading="lazy"
+                          width="800"
+                          height="600"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
 

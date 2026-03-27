@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import DOMPurify from 'dompurify';
 import {
   PlusCircle, Trash2, Edit, Save, X, AlertCircle,
   FileText, Calendar, Tag, Image, Type, Hash,
@@ -196,7 +197,10 @@ class BlogUtils {
       .replace(/`(.+?)`/g, '<code>$1</code>')
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.+?)\*/g, '<em>$1</em>')
-      .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+      .replace(/\[(.+?)\]\((.+?)\)/g, (_, text, url) => {
+        const safeUrl = /^(https?:|mailto:|\/|#)/.test(url) ? url.replace(/"/g, '&quot;') : '#';
+        return `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer">${escHtml(text)}</a>`;
+      });
 
     const flushPara = () => {
       if (paraLines.length === 0) return;
@@ -380,7 +384,7 @@ const BlogPreview = ({ formData, onClose }) => {
             {htmlContent ? (
               <div
                 className="prose prose-lg prose-invert prose-green max-w-none"
-                dangerouslySetInnerHTML={{ __html: htmlContent }}
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(htmlContent, { ADD_ATTR: ['target'] }) }}
               />
             ) : (
               <p className="text-gray-400 italic">No content yet. Start writing to see your blog post preview.</p>
@@ -445,21 +449,18 @@ export default function BlogAdminDashboard() {
   const setAutoHideError = useAutoHideMessage();
 
   useEffect(() => {
-    console.log('🔥 Initializing Firebase listener...');
     const blogsCollection = collection(db, CONSTANTS.COLLECTION_NAME);
     let queryRef;
 
     try {
       queryRef = query(blogsCollection, orderBy('createdAt', 'desc'));
     } catch (err) {
-      console.warn('⚠️ Ordered query failed, using unordered collection:', err.message);
       queryRef = blogsCollection;
     }
 
     const unsubscribe = onSnapshot(
       queryRef,
       (snapshot) => {
-        console.log(`✅ Loaded ${snapshot.size} blog posts`);
         const blogsList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setBlogs(blogsList);
         setLoading(false);
@@ -473,7 +474,6 @@ export default function BlogAdminDashboard() {
     );
 
     return () => {
-      console.log('🧹 Cleaning up Firebase listener');
       unsubscribe();
     };
   }, [setAutoHideError]);
