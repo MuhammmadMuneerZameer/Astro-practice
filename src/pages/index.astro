@@ -6,11 +6,11 @@ import FeatureListSection from '../components/FeatureListSection.jsx';
 import ServicesSection from '../components/ServicesSection.jsx';
 import FAQsection from '../components/FAQsection.astro';
 import TestimonialSection from '../components/TestimonialSection.jsx';
-import CTAsection from '../components/CTAsection.astro';
 import NesLSection from '../components/NesLSection.jsx';
 import BlogSection from '../components/BlogSection.astro';
 import Projectsdisplay from '../components/Projectsdisplay.astro';
 import StatsSection from '../components/StatsSection.astro';
+import MarqueeStrip from '../components/MarqueeStrip.astro';
 // import LoadingScreen from '../components/LoadingScreen.jsx'; // TEMPORARILY DISABLED
 ---
 
@@ -38,15 +38,16 @@ import StatsSection from '../components/StatsSection.astro';
   
   <!-- Main Content - Should be visible immediately -->
   <Welcome />
+  <MarqueeStrip />
   <StatsSection />
-  <FeatureListSection client:visible />
   <ServicesSection client:visible />
   <Projectsdisplay />
-  <BlogSection />
   <TestimonialSection client:visible />
+  <FeatureListSection client:visible />
+  <BlogSection />
   <FAQsection />
   <NesLSection client:only="react" />
-  <CTAsection />
+  
 </Layout>
 
 <style is:global>

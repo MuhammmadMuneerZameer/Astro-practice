@@ -1,0 +1,47 @@
+---
+const items = [
+  "Web Development",
+  "UX/UI Design",
+  "Branding",
+  "Digital Marketing",
+  "Mobile Apps",
+  "Product Design",
+  "Motion Design",
+  "Video Editing",
+];
+
+// Double for seamless loop
+const doubled = [...items, ...items];
+---
+
+<div class="marquee-outer bg-black border-y border-white/10 py-5 overflow-hidden">
+  <div class="marquee-track flex items-center gap-10 w-max">
+    {doubled.map((item, i) => (
+      <span class="flex items-center gap-10 flex-shrink-0">
+        <span class="text-white text-sm font-medium tracking-[0.12em] uppercase whitespace-nowrap">
+          {item}
+        </span>
+        <span class="text-[#00f19f] text-[10px] select-none">◆</span>
+      </span>
+    ))}
+  </div>
+</div>
+
+<style>
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .marquee-track {
+    animation: marquee 30s linear infinite;
+  }
+
+  .marquee-outer:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+  }
+</style>

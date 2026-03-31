@@ -17,12 +17,12 @@ const projects = [
   //   slug: "alpha-tool"
   // },
   {
-    title: "Disgraced Online Store",
-    description: "A stylish online store offering a curated selection of fashion apparel and accessories. Features a sleek design, easy navigation, and secure checkout process.",
-    image: "/images/Disgraced.png", // Add your screenshot here
-    technologies: ["React", "E-commerce", "Stripe", "Tailwind CSS"],
-    link: "https://disgraced.shop/",
-    slug: "aastore-online"
+    title: "Puchlo Pakistan",
+    description: "A dynamic Q&A and community platform for Pakistan, connecting users through knowledge sharing, discussions, and local insights.",
+    image: "/images/puchlo-pakistan.png",
+    technologies: ["Web Design", "UI/UX", "Astro", "Tailwind CSS"],
+    link: "https://puchlopakistan.hydrafoxdesigns.com",
+    slug: "puchlo-pakistan"
   },
   {
     title: "Portfolio Website",
@@ -33,12 +33,12 @@ const projects = [
     slug: "portfolio-website"
   },
   {
-    title: "Medical Appointment Website",
-    description: "A comprehensive medical appointment booking system with user-friendly interface, real-time availability, and secure patient data management.",
-    image: "/images/websiteUI.webp",
-    technologies: ["Vue.js", "Firebase", "Vuetify", "PWA"],
-    link: "#",
-    slug: "task-management-app"
+    title: "Rabbi Estate",
+    description: "A modern real estate platform with property listings, advanced search filters, and a seamless browsing experience built for buyers and sellers.",
+    image: "/images/rabbi-estate.png",
+    technologies: ["Real Estate", "Web Design", "UI/UX", "SEO"],
+    link: "https://rabbiestate.site",
+    slug: "rabbi-estate"
   }
 ];
 

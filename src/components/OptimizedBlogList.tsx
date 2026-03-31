@@ -115,49 +115,47 @@ export default function OptimizedBlogList({
         <a
           key={post.id}
           href={`/resources/${categoryToSlug(post.category)}/${post.slug}/`}
-          className="block transition duration-200 group"
+          className="block group"
         >
-          <div className="bg-gray-900 border border-gray-800 group-hover:border-green-500/50 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all h-full flex flex-col">
-            <img
-              src={post.image}
-              alt={post.title}
-              className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
-              loading="lazy"
-            />
-            <div className="p-4 flex flex-col flex-grow">
+          <div className="bg-black border border-white/10 group-hover:border-white/25 rounded-2xl overflow-hidden transition-colors duration-300 h-full flex flex-col">
+            <div className="relative overflow-hidden">
+              <img
+                src={post.image}
+                alt={post.title}
+                className="w-full h-52 object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            </div>
+            <div className="p-5 flex flex-col flex-grow gap-3">
               {post.tag && (
-                <span className="text-xs bg-green-500 text-black font-medium px-2 py-1 rounded w-fit mb-2">
-                  {post.tag}
+                <span className="text-[#00f19f] text-[10px] font-bold tracking-[0.18em] uppercase line-clamp-1">
+                  {post.tag.split(',')[0].trim()}
                 </span>
               )}
-              <h3 className="text-white text-lg font-semibold leading-tight mb-2 group-hover:text-green-400 transition-colors">
+              <h3 className="text-white font-heading font-bold text-lg leading-snug group-hover:text-[#00f19f] transition-colors duration-300 line-clamp-3">
                 {post.title}
               </h3>
-              <p className="text-gray-400 text-sm mt-auto line-clamp-3">
+              <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 mt-auto">
                 {post.description}
               </p>
+              <div className="flex items-center gap-2 pt-2 border-t border-white/10">
+                <span className="text-gray-600 text-xs">{post.date}</span>
+                <span className="ml-auto text-[#00f19f] text-xs font-medium group-hover:gap-2 transition-all">
+                  Read →
+                </span>
+              </div>
             </div>
           </div>
         </a>
       ))}
 
       {posts.length === 0 && !loading && (
-        <div className="col-span-full text-center py-12">
-          <div className="max-w-md mx-auto">
-            <div className="p-4 bg-green-500/10 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-              <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold text-white mb-2">No posts available</h3>
-            <p className="text-gray-400 mb-6">Create your first blog post to get started!</p>
-            <a
-              href="/admin"
-              className="inline-block bg-green-500 hover:bg-green-600 text-black px-6 py-3 rounded-lg font-semibold transition-colors"
-            >
-              Create First Post
-            </a>
-          </div>
+        <div className="col-span-full text-center py-20">
+          <p className="text-gray-600 text-lg mb-4">No posts available yet.</p>
+          <a href="/admin" className="text-[#00f19f] text-sm hover:underline">
+            Create first post →
+          </a>
         </div>
       )}
     </div>

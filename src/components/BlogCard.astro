@@ -2,11 +2,14 @@
 const { image, title, description, tag } = Astro.props;
 ---
 
-<div class="bg-black rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
-  <img src={image} alt={title} class="w-full h-40 sm:h-48 object-cover" loading="lazy" />
-  <div class="p-3 sm:p-4 flex flex-col flex-grow">
-    {tag && <span class="text-xs bg-purple-500 text-white px-2 py-1 rounded w-fit mb-2">{tag}</span>}
-    <h3 class="text-white text-base sm:text-lg font-semibold leading-tight mb-2">{title}</h3>
-    <p class="text-gray-300 text-xs sm:text-sm mt-auto line-clamp-3">{description}</p>
+<div class="bg-black border border-white/10 hover:border-white/25 rounded-2xl overflow-hidden transition-colors duration-300 h-full flex flex-col group">
+  <div class="relative overflow-hidden">
+    <img src={image} alt={title} class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+  </div>
+  <div class="p-5 flex flex-col flex-grow gap-3">
+    {tag && <span class="text-[#00f19f] text-[10px] font-bold tracking-[0.18em] uppercase">{tag}</span>}
+    <h3 class="text-white font-heading font-bold text-lg leading-snug group-hover:text-[#00f19f] transition-colors duration-300 line-clamp-3">{title}</h3>
+    <p class="text-gray-500 text-sm leading-relaxed line-clamp-2 mt-auto">{description}</p>
   </div>
 </div>
