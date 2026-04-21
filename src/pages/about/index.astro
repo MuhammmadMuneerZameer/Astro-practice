@@ -12,7 +12,7 @@ const services = getAllServices();
 
   <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
   <section class="about-hero relative min-h-[70vh] flex flex-col justify-end pb-20 px-4 md:px-8 bg-black overflow-hidden -mt-16 md:mt-0 pt-32 md:pt-40">
-    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/40 pointer-events-none"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-[#00f19f]/5 to-transparent pointer-events-none"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto w-full">
       <div class="overflow-hidden mb-4">
@@ -129,6 +129,41 @@ const services = getAllServices();
             </span>
           </a>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Team ──────────────────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-24">
+    <div class="max-w-7xl mx-auto">
+      <div class="scroll-section mb-16">
+        <div class="overflow-hidden mb-4">
+          <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
+            The Team
+          </span>
+        </div>
+        <div class="overflow-hidden">
+          <h2 class="reveal-line block text-5xl md:text-6xl font-heading font-bold text-white leading-none">
+            Who We Are.
+          </h2>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="reveal-fade group">
+          <div class="aspect-[3/4] rounded-xl overflow-hidden bg-gray-900 mb-5">
+            <img src="/images/avater1.png" alt="Muneer Zameer" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" loading="lazy" />
+          </div>
+          <h3 class="text-white font-heading font-bold text-xl">Muneer Zameer</h3>
+          <p class="text-[#00f19f] text-xs font-bold tracking-[0.15em] uppercase mt-1">Founder & CEO</p>
+        </div>
+        <div class="reveal-fade group">
+          <div class="aspect-[3/4] rounded-xl overflow-hidden bg-gray-900 mb-5">
+            <img src="/images/farzam.png" alt="Farzam Ahmed" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" loading="lazy" />
+          </div>
+          <h3 class="text-white font-heading font-bold text-xl">Farzam Ahmed</h3>
+          <p class="text-[#00f19f] text-xs font-bold tracking-[0.15em] uppercase mt-1">Marketing Head</p>
+        </div>
       </div>
     </div>
   </section>
