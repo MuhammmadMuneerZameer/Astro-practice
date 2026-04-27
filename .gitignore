@@ -2,7 +2,14 @@
 dist/
 
 # generated types
+.astro/
 
+# lighthouse reports
+lighthouse-*.json
+
+# deployment docs with real values
+DEPLOYMENT_GUIDE.md
+HOSTINGER_DEPLOY.md
 
 # dependencies
 node_modules/
