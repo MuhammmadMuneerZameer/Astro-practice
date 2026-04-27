@@ -3,7 +3,7 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
 import partytown from '@astrojs/partytown';
-import node from '@astrojs/node';
+import netlify from '@astrojs/netlify';
 
 export default defineConfig({
   site: 'https://hydrafoxdesigns.com',
@@ -23,7 +23,7 @@ export default defineConfig({
     }),
   ],
   output: 'static',
-  adapter: node({ mode: 'standalone' }),
+  adapter: netlify(),
   devToolbar: {
     enabled: false
   },
