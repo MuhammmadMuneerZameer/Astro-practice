@@ -1,0 +1,87 @@
+---
+---
+
+<canvas id="hero-canvas" class="absolute inset-0 w-full h-full" aria-hidden="true"></canvas>
+
+<script>
+  function initHeroCanvas() {
+    const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement | null;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const COUNT    = 55;
+    const MAX_DIST = 140;
+    const COLOR    = '#00f19f';
+
+    let W = 0, H = 0, raf = 0;
+
+    type P = { x: number; y: number; vx: number; vy: number; r: number };
+
+    function resize() {
+      W = canvas!.width  = canvas!.offsetWidth;
+      H = canvas!.height = canvas!.offsetHeight;
+    }
+
+    function mkParticle(): P {
+      return {
+        x:  Math.random() * W,
+        y:  Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.35,
+        r:  Math.random() * 1.5 + 0.8,
+      };
+    }
+
+    let pts: P[] = [];
+
+    function draw() {
+      ctx!.clearRect(0, 0, W, H);
+
+      for (let i = 0; i < pts.length; i++) {
+        const a = pts[i];
+        a.x += a.vx;
+        a.y += a.vy;
+        if (a.x < 0 || a.x > W) a.vx *= -1;
+        if (a.y < 0 || a.y > H) a.vy *= -1;
+
+        for (let j = i + 1; j < pts.length; j++) {
+          const b = pts[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const d  = Math.sqrt(dx * dx + dy * dy);
+          if (d < MAX_DIST) {
+            ctx!.globalAlpha  = (1 - d / MAX_DIST) * 0.12;
+            ctx!.strokeStyle  = COLOR;
+            ctx!.lineWidth    = 0.5;
+            ctx!.beginPath();
+            ctx!.moveTo(a.x, a.y);
+            ctx!.lineTo(b.x, b.y);
+            ctx!.stroke();
+          }
+        }
+
+        ctx!.globalAlpha = 0.5;
+        ctx!.fillStyle   = COLOR;
+        ctx!.beginPath();
+        ctx!.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+        ctx!.fill();
+      }
+
+      ctx!.globalAlpha = 1;
+      raf = requestAnimationFrame(draw);
+    }
+
+    resize();
+    pts = Array.from({ length: COUNT }, mkParticle);
+    draw();
+
+    window.addEventListener('resize', resize, { passive: true });
+    document.addEventListener('astro:before-preparation', () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', resize);
+    }, { once: true });
+  }
+
+  document.addEventListener('astro:page-load', initHeroCanvas);
+</script>

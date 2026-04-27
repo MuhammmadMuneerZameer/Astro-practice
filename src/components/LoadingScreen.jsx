@@ -6,25 +6,27 @@ export default function LoadingScreen() {
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    // Simulate loading progress
-    const duration = 2500; // 2.5 seconds
+    const duration = 2500;
     const steps = 100;
     const stepTime = duration / steps;
+    let timeoutId = null;
 
     const timer = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(timer);
-          setTimeout(() => setIsComplete(true), 500); // Wait before hiding
+          timeoutId = setTimeout(() => setIsComplete(true), 500);
           return 100;
         }
-        // Accelerating progress (faster at the end)
         const increment = prev < 60 ? 1 : prev < 90 ? 2 : 3;
         return Math.min(prev + increment, 100);
       });
     }, stepTime);
 
-    return () => clearInterval(timer);
+    return () => {
+      clearInterval(timer);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, []);
 
   if (isComplete) return null;

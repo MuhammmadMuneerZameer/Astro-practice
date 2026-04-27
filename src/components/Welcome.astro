@@ -1,12 +1,17 @@
 ---
-import Splineanimation from "./Splineanimation";
+import LiquidChrome from "./LiquidChrome.jsx";
 ---
 
 <div class="hero-container relative min-h-screen flex flex-col justify-end pb-20 md:pb-28 px-4 md:px-8 bg-black overflow-hidden">
 
-  <!-- Background Spline -->
+  <!-- Background: Liquid Chrome WebGL -->
   <div id="hero-bg-layer" class="absolute inset-0 z-0 opacity-40 pointer-events-none">
-    <Splineanimation client:load />
+    <LiquidChrome
+      client:load
+      baseColor={[0.0, 0.72, 0.48]}
+      speed={0.8}
+      interactive={false}
+    />
   </div>
 
 
@@ -115,16 +120,18 @@ import Splineanimation from "./Splineanimation";
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         lines.forEach((el, i) => {
-          el.animate(
+          const anim = el.animate(
             [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
             { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
           );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
         });
         fades.forEach((el, i) => {
-          el.animate(
+          const anim = el.animate(
             [{ opacity: '0' }, { opacity: '1' }],
             { duration: 700, delay: 600 + i * 120, easing: CUBIC_OUT, fill: 'forwards' }
           );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
         });
         // Scramble starts after the line has slid up (line index 1 = 130ms delay + 900ms duration)
         if (scrambleEl) scrambleText(scrambleEl, finalText, 1100);
@@ -182,8 +189,7 @@ import Splineanimation from "./Splineanimation";
     }, { once: true });
   }
 
-  document.addEventListener('DOMContentLoaded', () => { initWelcomeAnimations(); initHeroParallax(); });
-  document.addEventListener('astro:page-load',  () => { initWelcomeAnimations(); initHeroParallax(); });
+  document.addEventListener('astro:page-load', () => { initWelcomeAnimations(); initHeroParallax(); });
 </script>
 
 <style>

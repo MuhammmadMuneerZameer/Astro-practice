@@ -7,7 +7,7 @@ import Layout from '../layouts/Layout.astro';
 const projects = await getProjects();
 ---
 
-<Layout>
+<Layout noindex={true}>
   <section class="bg-black text-white relative">
     <!-- Background image hero -->
     <div class="relative h-[50vh] w-full overflow-hidden">

@@ -83,7 +83,7 @@ const caseStudies: any[] = await getCaseStudies();
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         document.querySelectorAll<HTMLElement>('.cs-reveal-line').forEach((el, i) => {
-          el.animate(
+          const anim = el.animate(
             [
               { transform: 'translateY(110%)' },
               { transform: 'translateY(0)' },
@@ -95,10 +95,11 @@ const caseStudies: any[] = await getCaseStudies();
               fill: 'forwards',
             }
           );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
         });
 
         document.querySelectorAll<HTMLElement>('.cs-reveal-fade').forEach((el, i) => {
-          el.animate(
+          const anim = el.animate(
             [{ opacity: '0' }, { opacity: '1' }],
             {
               duration: 700,
@@ -107,14 +108,12 @@ const caseStudies: any[] = await getCaseStudies();
               fill: 'forwards',
             }
           );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
         });
       });
     });
   }
 
-  // Run on initial load
-  document.addEventListener('DOMContentLoaded', initHeroAnimations);
-  // Re-run after Astro view transitions
   document.addEventListener('astro:page-load', initHeroAnimations);
 </script>
 

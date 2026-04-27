@@ -34,8 +34,13 @@ import MarqueeStrip from '../components/MarqueeStrip.astro';
       ]
     })} />
   </Fragment>
-  <!-- LOADING SCREEN TEMPORARILY REMOVED FOR DEBUGGING -->
-  
+  <!-- Parallax background orbs — home page only -->
+  <div id="parallax-bg" aria-hidden="true" class="fixed inset-0 pointer-events-none overflow-hidden" style="z-index:-1">
+    <div id="orb-1" class="orb absolute rounded-full" style="width:700px;height:700px;top:-10%;right:-8%;background:radial-gradient(circle,rgba(0,241,159,0.09) 0%,transparent 70%);filter:blur(60px);will-change:transform;"></div>
+    <div id="orb-2" class="orb absolute rounded-full" style="width:500px;height:500px;top:30%;left:-10%;background:radial-gradient(circle,rgba(0,241,159,0.06) 0%,transparent 70%);filter:blur(80px);will-change:transform;"></div>
+    <div id="orb-3" class="orb absolute rounded-full" style="width:600px;height:600px;top:65%;right:5%;background:radial-gradient(circle,rgba(4,180,120,0.07) 0%,transparent 70%);filter:blur(70px);will-change:transform;"></div>
+  </div>
+
   <!-- Main Content - Should be visible immediately -->
   <Welcome />
   <MarqueeStrip />
@@ -50,12 +55,50 @@ import MarqueeStrip from '../components/MarqueeStrip.astro';
   
 </Layout>
 
+<script>
+  function initParallaxOrbs() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const orb1 = document.getElementById('orb-1') as HTMLElement | null;
+    const orb2 = document.getElementById('orb-2') as HTMLElement | null;
+    const orb3 = document.getElementById('orb-3') as HTMLElement | null;
+    if (!orb1 || !orb2 || !orb3) return;
+
+    let ticking = false;
+    let rafId = 0;
+
+    function update() {
+      ticking = false;
+      const y = window.scrollY;
+      orb1.style.transform = `translateY(${y * 0.18}px)`;
+      orb2.style.transform = `translateY(${y * 0.28}px)`;
+      orb3.style.transform = `translateY(${y * 0.12}px)`;
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        rafId = requestAnimationFrame(update);
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    document.addEventListener('astro:before-preparation', () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener('scroll', onScroll);
+    }, { once: true });
+  }
+
+  document.addEventListener('astro:page-load', initParallaxOrbs);
+</script>
+
 <style is:global>
   html {
     scroll-behavior: smooth;
     background: #000 !important;
   }
-  
+
   body {
     background: #000 !important;
   }

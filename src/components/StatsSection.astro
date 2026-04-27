@@ -56,6 +56,5 @@ const stats = [
     counters.forEach(el => observer.observe(el));
   }
 
-  document.addEventListener('DOMContentLoaded', initCounters);
   document.addEventListener('astro:page-load', initCounters);
 </script>

@@ -36,7 +36,6 @@ export default function OptimizedBlogList({
     // Only fetch if browser supports Firebase (prevents SSR errors)
     if (typeof window === 'undefined') return;
 
-    console.log('🔥 Initializing real-time blog updates...');
     setLoading(true);
 
     const blogsCollection = collection(db, 'post');
@@ -53,8 +52,6 @@ export default function OptimizedBlogList({
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
-        console.log(`✅ Real-time update: ${snapshot.size} posts`);
-
         const postsList: Post[] = snapshot.docs
           .map(doc => {
             const data = doc.data();

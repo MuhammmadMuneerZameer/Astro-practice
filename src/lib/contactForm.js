@@ -4,26 +4,34 @@ import { db } from "../lib/firebase";
 
 export async function submitContactForm(formData) {
   try {
+    // Reject if honeypot field is filled (bot detection)
+    if (formData._gotcha) return { success: false, error: 'Invalid submission' };
+
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!EMAIL_RE.test(String(formData.email || ''))) {
+      return { success: false, error: 'Invalid email address' };
+    }
+
+    // Enforce field length limits before writing to Firestore
+    const trim = (v, max) => String(v || '').trim().slice(0, max);
+
     const contactData = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
-      company: formData.company || '',
-      budget: formData.budget || '',
-      services: Array.isArray(formData.services) ? formData.services : [formData.services].filter(Boolean),
-      message: formData.message,
-      consent: formData.consent,
-      submittedAt: serverTimestamp(), // Use Firestore server timestamp
+      firstName: trim(formData.firstName, 100),
+      lastName:  trim(formData.lastName, 100),
+      email:     trim(formData.email, 254),
+      company:   trim(formData.company, 200),
+      budget:    trim(formData.budget, 50),
+      services:  Array.isArray(formData.services) ? formData.services.slice(0, 10) : [formData.services].filter(Boolean),
+      message:   trim(formData.message, 2000),
+      consent:   Boolean(formData.consent),
+      submittedAt: serverTimestamp(),
       status: 'new',
       source: 'website'
     };
 
-    console.log('Submitting contact form:', contactData);
-
     // Add to Firestore 'contacts' collection
     const docRef = await addDoc(collection(db, 'contacts'), contactData);
-    
-    console.log('Contact form submitted with ID:', docRef.id);
+
     return { success: true, id: docRef.id };
     
   } catch (error) {

@@ -6,13 +6,19 @@ const { title, description, image, technologies, link } = Astro.props;
   <a href={link} target="_blank" rel="noopener noreferrer" class="block h-full">
     <!-- Image Container with Overlay -->
     <div class="relative overflow-hidden h-64 sm:h-72 md:h-80">
-      <img 
-        src={image} 
-        alt={title} 
-        class="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-75" 
-        loading="lazy" 
-        sizes="(max-width: 768px) 100vw, 50vw" 
-      />
+      <picture>
+        <source srcset={image.replace(/\.png$/, '.webp')} type="image/webp" />
+        <img
+          src={image}
+          alt={title}
+          width="2247"
+          height="1640"
+          class="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-75"
+          loading="lazy"
+          decoding="async"
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
+      </picture>
       
       <!-- Gradient Overlay -->
       <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>

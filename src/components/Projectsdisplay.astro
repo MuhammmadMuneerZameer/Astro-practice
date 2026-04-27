@@ -48,11 +48,12 @@ import projects from '../data/ProjectShowcase.js';
               <img
                 src={project.image}
                 alt={project.title}
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
+                decoding="async"
               />
             ) : (
-              <div class="w-full h-full flex items-center justify-center text-gray-700 text-sm">No image</div>
+              <div class="absolute inset-0 flex items-center justify-center text-gray-700 text-sm">No image</div>
             )}
             <!-- Hover overlay -->
             <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -124,6 +125,5 @@ import projects from '../data/ProjectShowcase.js';
     cards.forEach(card => observer.observe(card));
   }
 
-  document.addEventListener('DOMContentLoaded', initProjectCards);
   document.addEventListener('astro:page-load', initProjectCards);
 </script>

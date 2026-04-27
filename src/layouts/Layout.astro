@@ -40,18 +40,16 @@ const ogImage = new URL(image, Astro.site);
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Google Analytics 4 -->
-    {import.meta.env.PUBLIC_FIREBASE_MEASURMENT_ID && (
+    <!-- Google Analytics 4 — runs in Partytown Web Worker (off main thread) -->
+    {import.meta.env.PUBLIC_FIREBASE_MEASUREMENT_ID && (
       <>
-        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_FIREBASE_MEASURMENT_ID}`}></script>
-        <script is:inline define:vars={{ gaId: import.meta.env.PUBLIC_FIREBASE_MEASURMENT_ID }}>
+        <script type="text/partytown" async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_FIREBASE_MEASUREMENT_ID}`}></script>
+        <script type="text/partytown" set:html={`
           window.dataLayer = window.dataLayer || [];
-          function gtag() {
-            dataLayer.push(arguments);
-          }
-          gtag("js", new Date());
-          gtag("config", gaId);
-        </script>
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${import.meta.env.PUBLIC_FIREBASE_MEASUREMENT_ID}');
+        `}></script>
       </>
     )}
 
@@ -84,19 +82,14 @@ const ogImage = new URL(image, Astro.site);
     <meta property="og:image" content={ogImage} />
     <meta property="og:site_name" content="Hydra Fox Designs" />
 
-    <!-- Twitter / X Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
-
     <!-- Theme color -->
     <meta name="theme-color" content="#000000" />
 
     <!-- Performance: Resource Hints -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://stream.mux.com" />
     <link rel="dns-prefetch" href="https://firestore.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
 
     <!-- Performance: Preload critical assets -->
     <link rel="preload" href="/images/hfd-logo-withoutBg.png" as="image" />
@@ -154,7 +147,7 @@ const ogImage = new URL(image, Astro.site);
   </head>
 
   <body class="pt-12 sm:pt-16 md:pt-0">
-    <Navbar client:only="react" transition:persist />
+    <Navbar client:load transition:persist />
 
     <main>
       <slot />
@@ -181,6 +174,7 @@ const ogImage = new URL(image, Astro.site);
         const EXPO_OUT = 'cubic-bezier(0.19, 1, 0.22, 1)';
         const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
         document.querySelectorAll<HTMLElement>('.scroll-section').forEach(section => {
+          if (section.dataset.revealed) return;
           const lines = section.querySelectorAll<HTMLElement>('.reveal-line');
           const fades = section.querySelectorAll<HTMLElement>('.reveal-fade');
           lines.forEach(el => { el.style.transform = 'translateY(110%)'; });
@@ -189,21 +183,27 @@ const ogImage = new URL(image, Astro.site);
           const observer = new IntersectionObserver(([entry]) => {
             if (entry.isIntersecting && !triggered) {
               triggered = true;
-              lines.forEach((el, i) => el.animate(
-                [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
-                { duration: 900, delay: i * 120, easing: EXPO_OUT, fill: 'forwards' }
-              ));
-              fades.forEach((el, i) => el.animate(
-                [{ opacity: '0' }, { opacity: '1' }],
-                { duration: 700, delay: 200 + i * 100, easing: CUBIC_OUT, fill: 'forwards' }
-              ));
+              section.dataset.revealed = 'true';
+              lines.forEach((el, i) => {
+                const anim = el.animate(
+                  [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+                  { duration: 900, delay: i * 120, easing: EXPO_OUT, fill: 'forwards' }
+                );
+                anim.onfinish = () => { el.style.willChange = 'auto'; };
+              });
+              fades.forEach((el, i) => {
+                const anim = el.animate(
+                  [{ opacity: '0' }, { opacity: '1' }],
+                  { duration: 700, delay: 200 + i * 100, easing: CUBIC_OUT, fill: 'forwards' }
+                );
+                anim.onfinish = () => { el.style.willChange = 'auto'; };
+              });
               observer.disconnect();
             }
           }, { threshold: 0.15 });
           observer.observe(section);
         });
       }
-      document.addEventListener('DOMContentLoaded', initScrollReveals);
       document.addEventListener('astro:page-load', initScrollReveals);
     </script>
   </body>

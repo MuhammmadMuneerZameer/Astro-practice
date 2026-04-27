@@ -1,13 +1,14 @@
 ---
-import Splineanimation from "./Splineanimation";
 ---
 
 <footer class="relative bg-black text-white overflow-hidden">
 
-  <!-- ── Background Spline ──────────────────────────────────────────────────── -->
-  <div class="absolute inset-0 z-0 opacity-30 blur-sm pointer-events-none">
-    <Splineanimation client:only="react" />
-  </div>
+  <!-- ── Background gradient (replaces 721 KB Spline bundle) ──────────────── -->
+  <div
+    class="absolute inset-0 z-0 pointer-events-none"
+    style="background: radial-gradient(ellipse 80% 60% at 50% 120%, #00f19f22 0%, #0a1a2e44 60%, transparent 100%); filter: blur(40px);"
+    aria-hidden="true"
+  ></div>
 
   <!-- ── Big CTA section ───────────────────────────────────────────────────── -->
   <div class="footer-cta relative z-10 border-t border-white/10 px-4 md:px-8 pt-24 pb-20">
@@ -147,17 +148,19 @@ import Splineanimation from "./Splineanimation";
           triggered = true;
 
           revealLines.forEach((el, i) => {
-            el.animate(
+            const anim = el.animate(
               [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
               { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
             );
+            anim.onfinish = () => { el.style.willChange = 'auto'; };
           });
 
           revealFades.forEach((el, i) => {
-            el.animate(
+            const anim = el.animate(
               [{ opacity: '0' }, { opacity: '1' }],
               { duration: 700, delay: 300 + i * 120, easing: CUBIC_OUT, fill: 'forwards' }
             );
+            anim.onfinish = () => { el.style.willChange = 'auto'; };
           });
 
           observer.disconnect();
@@ -169,7 +172,6 @@ import Splineanimation from "./Splineanimation";
     observer.observe(cta);
   }
 
-  document.addEventListener('DOMContentLoaded', initFooterAnimations);
   document.addEventListener('astro:page-load', initFooterAnimations);
 </script>
 

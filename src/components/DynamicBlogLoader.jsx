@@ -2,18 +2,17 @@
 // Loads blog posts dynamically from Firebase for URLs not built statically
 import { useState, useEffect } from 'react';
 import DOMPurify from 'dompurify';
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 
-// Firebase config (uses same env vars as the rest of the app)
-const firebaseConfig = {
-    apiKey: import.meta.env.PUBLIC_FIREBASE_API_KEY,
-    authDomain: import.meta.env.PUBLIC_FIREBASE_AUTH_DOMAIN,
-    projectId: import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
-    storageBucket: import.meta.env.PUBLIC_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-    appId: import.meta.env.PUBLIC_FIREBASE_APP_ID,
-};
+// Force rel="noopener noreferrer" on all _blank links after sanitization
+if (typeof window !== 'undefined') {
+    DOMPurify.addHook('afterSanitizeAttributes', (node) => {
+        if (node.tagName === 'A' && node.getAttribute('target') === '_blank') {
+            node.setAttribute('rel', 'noopener noreferrer');
+        }
+    });
+}
+import { db } from '../lib/firebase';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 // Category display names
 const CATEGORY_NAMES = {
@@ -43,10 +42,6 @@ export default function DynamicBlogLoader() {
                 }
 
                 const [, category, slug] = match;
-
-                // Initialize Firebase
-                const app = initializeApp(firebaseConfig, 'dynamic-blog-loader');
-                const db = getFirestore(app);
 
                 // Query for the post by slug
                 const postsRef = collection(db, 'post');

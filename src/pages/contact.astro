@@ -39,7 +39,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <!-- Spline bg -->
     <div class="absolute inset-0 z-0 opacity-25 blur-sm pointer-events-none">
-      <Splineanimation client:only="react" />
+      <Splineanimation client:visible />
     </div>
     <!-- Gradient vignette -->
     <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black pointer-events-none z-[1]" />
@@ -341,16 +341,18 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         document.querySelectorAll<HTMLElement>('.ct-reveal-line').forEach((el, i) => {
-          el.animate(
+          const anim = el.animate(
             [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
             { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
           );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
         });
         document.querySelectorAll<HTMLElement>('.ct-reveal-fade').forEach((el, i) => {
-          el.animate(
+          const anim = el.animate(
             [{ opacity: '0' }, { opacity: '1' }],
             { duration: 700, delay: 500 + i * 80, easing: CUBIC_OUT, fill: 'forwards' }
           );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
         });
       });
     });
@@ -387,10 +389,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         // Scroll reveal lines
         entry.target.querySelectorAll<HTMLElement>('.ct-scroll-reveal-line').forEach((el, i) => {
           el.style.transform = 'translateY(110%)';
-          el.animate(
+          const anim = el.animate(
             [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
             { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
           );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
         });
 
         io.unobserve(entry.target);
@@ -408,11 +411,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     document.querySelectorAll('section:not(.contact-hero)').forEach(s => io.observe(s));
   }
 
-  document.addEventListener('DOMContentLoaded', initContactAnimations);
   document.addEventListener('astro:page-load', initContactAnimations);
 
   // ── Form submission ─────────────────────────────────────────────────────────
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('astro:page-load', () => {
     const contactForm = document.getElementById('contactForm') as HTMLFormElement;
     const submitBtn   = document.getElementById('submitBtn')   as HTMLButtonElement;
     const submitText  = document.getElementById('submitText')  as HTMLSpanElement;
@@ -448,6 +450,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           services,
           message:   formData.get('message')   as string,
           consent:   formData.get('consent') === 'on',
+          _gotcha:   (formData.get('_gotcha')  as string) || '',
         };
 
         const [fsRes, fbRes] = await Promise.all([

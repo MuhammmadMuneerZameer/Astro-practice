@@ -12,7 +12,7 @@ import Splineanimation from "../components/Splineanimation";
 >
   <section class="relative bg-black text-white min-h-screen overflow-hidden px-4 sm:px-6 py-16 sm:py-24  md:px-16 flex flex-col items-center text-center mb-0 pb-0 -mt-12 sm:-mt-16 md:mt-0">
     <div class="absolute inset-0 z-0 bg-black mt-0 pt-0 h-[50vh] opacity-50 blur w-full sm:h-[30vh]">
-      <Splineanimation client:only="react" />
+      <Splineanimation client:visible />
     </div>
 
     <!-- Content -->
@@ -61,16 +61,6 @@ import Splineanimation from "../components/Splineanimation";
   </section>
 </Layout>
 
-<!-- Local time script -->
-<script is:inline>
-  const updateTime = () => {
-    const now = new Date();
-    const timeString = now.toLocaleTimeString([], { hour12: false });
-    document.getElementById("local-time").textContent = timeString;
-  };
-  setInterval(updateTime, 1000);
-  updateTime();
-</script>
 
 <style>
   .hero-button {

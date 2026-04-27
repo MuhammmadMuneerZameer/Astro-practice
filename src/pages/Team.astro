@@ -10,7 +10,7 @@ const team = [
     description:
       "Muneer is a visionary designer specializing in motion and interaction. He brings still graphics to life with emotional precision.",
     facebook: "https://www.facebook.com/muneer.zameer.5",
-    linkedin: "https://www.linkedin.com/in/muhammad-muneer-zameer-a9254a29a/om/embed/track/5mPvl9bFbyQn3hFfNCDYhJ",
+    linkedin: "https://www.linkedin.com/in/muhammad-muneer-zameer-a9254a29a/",
   },
   {
     name: "Farzam Ahmed",
@@ -25,15 +25,12 @@ const team = [
 ];
 ---
 
-<html lang="en">
-  <head>
-    <title>Team</title>
-  </head>
-  <body class="bg-black text-white min-h-screen">
-    <section class="py-20 px-6 grid md:grid-cols-2 gap-12">
-      {team.map((member) => (
-        <TeamMemberCard client:only="react" member={member} />
-      ))}
-    </section>
-  </body>
-</html>
+<head>
+  <meta name="robots" content="noindex, nofollow" />
+</head>
+
+<section class="py-20 px-6 grid md:grid-cols-2 gap-12">
+  {team.map((member) => (
+    <TeamMemberCard client:only="react" member={member} />
+  ))}
+</section>

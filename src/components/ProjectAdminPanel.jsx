@@ -15,7 +15,6 @@ const CONSTANTS = {
     MAX_FILE_SIZE: 5 * 1024 * 1024,
     ALLOWED_IMAGE_TYPES: ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'],
     MESSAGE_TIMEOUT: 3000,
-    IMGBB_API_KEY: import.meta.env.PUBLIC_IMGBB_API_KEY || 'demo_key'
 };
 
 const INITIAL_FORM_STATE = {
@@ -51,23 +50,17 @@ const validateImageFile = (file) => {
 };
 
 const uploadToImgBB = async (file) => {
-    if (!CONSTANTS.IMGBB_API_KEY || CONSTANTS.IMGBB_API_KEY === 'demo_key') {
-        return new Promise((resolve) => {
-            setTimeout(() => resolve('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800'), 1500);
-        });
-    }
-
     const formData = new FormData();
     formData.append('image', file);
-    const response = await fetch(`https://api.imgbb.com/1/upload?key=${CONSTANTS.IMGBB_API_KEY}`, {
+    const response = await fetch('/api/upload', {
         method: 'POST',
         body: formData
     });
 
     if (!response.ok) throw new Error(`Upload failed with status: ${response.status}`);
     const data = await response.json();
-    if (!data.success) throw new Error(data.error?.message || 'Upload failed');
-    return data.data.url;
+    if (!data.success) throw new Error(data.error || 'Upload failed');
+    return data.url;
 };
 
 export default function ProjectAdminPanel() {

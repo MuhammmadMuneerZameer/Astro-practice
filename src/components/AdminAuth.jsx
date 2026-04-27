@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../lib/firebase';
+import { auth } from '../lib/firebaseAuth';
 
 async function isAdminUser(user) {
   if (!user) return false;

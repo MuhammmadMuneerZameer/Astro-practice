@@ -55,15 +55,16 @@ const allFaqs = [
     <!-- Accordion items -->
     <div class="faq-list border-t border-white/10">
       {allFaqs.map((faq, i) => (
-        <div
-          class="faq-item border-b border-white/10 cursor-pointer"
-          data-index={i}
-        >
-          <div class="faq-header flex justify-between items-center py-6 gap-4">
+        <div class="faq-item border-b border-white/10" data-index={i}>
+          <button
+            class="faq-header w-full flex justify-between items-center py-6 gap-4 text-left bg-transparent border-0 cursor-pointer"
+            aria-expanded="false"
+            aria-controls={`faq-answer-${i}`}
+          >
             <span class="text-base md:text-lg font-medium text-white pr-4">{faq.question}</span>
             <span class="faq-icon text-[#00f19f] text-2xl leading-none flex-shrink-0 transition-transform duration-300">+</span>
-          </div>
-          <div class="faq-answer overflow-hidden" style="max-height: 0;">
+          </button>
+          <div class="faq-answer overflow-hidden" id={`faq-answer-${i}`} role="region" style="max-height: 0;">
             <p class="pb-6 text-gray-400 leading-relaxed text-sm md:text-base">{faq.answer}</p>
           </div>
         </div>
@@ -84,6 +85,9 @@ const allFaqs = [
       header.addEventListener('click', () => {
         const isOpen = answer.style.maxHeight !== '0px' && answer.style.maxHeight !== '';
         // Close all
+        document.querySelectorAll('.faq-header').forEach((h: Element) => {
+          (h as HTMLElement).setAttribute('aria-expanded', 'false');
+        });
         document.querySelectorAll('.faq-answer').forEach((a: Element) => {
           (a as HTMLElement).style.maxHeight = '0px';
         });
@@ -96,12 +100,12 @@ const allFaqs = [
           answer.style.maxHeight = answer.scrollHeight + 'px';
           icon.textContent = '×';
           icon.style.transform = 'rotate(0deg)';
+          header.setAttribute('aria-expanded', 'true');
         }
       });
     });
   }
 
-  document.addEventListener('DOMContentLoaded', initFAQ);
   document.addEventListener('astro:page-load', initFAQ);
 </script>
 

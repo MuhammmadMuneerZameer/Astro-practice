@@ -81,22 +81,23 @@ const categories = getAllResourceCategories();
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         lines.forEach((el, i) => {
-          el.animate(
+          const anim = el.animate(
             [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
             { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
           );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
         });
         fades.forEach((el, i) => {
-          el.animate(
+          const anim = el.animate(
             [{ opacity: '0' }, { opacity: '1' }],
             { duration: 700, delay: 400 + i * 100, easing: CUBIC_OUT, fill: 'forwards' }
           );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
         });
       });
     });
   }
 
-  document.addEventListener('DOMContentLoaded', initResAnimations);
   document.addEventListener('astro:page-load', initResAnimations);
 </script>
 
