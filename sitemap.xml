@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+
+  <!-- Core Pages -->
+  <url><loc>https://hydrafoxdesigns.com/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/about/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/contact/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/privacy-pages/</loc></url>
+
+  <!-- Work & Case Studies -->
+  <url><loc>https://hydrafoxdesigns.com/work/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/case-studies/</loc></url>
+
+  <!-- Projects -->
+  <url><loc>https://hydrafoxdesigns.com/projects/portfolio-website/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/projects/puchlo-pakistan/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/projects/rabbi-estate/</loc></url>
+
+  <!-- Industries -->
+  <url><loc>https://hydrafoxdesigns.com/industries/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/industries/food-beverage-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/industries/home-decor-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/industries/real-estate-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/industries/startups/</loc></url>
+
+  <!-- Services -->
+  <url><loc>https://hydrafoxdesigns.com/services/</loc></url>
+
+  <!-- Services: Branding -->
+  <url><loc>https://hydrafoxdesigns.com/services/branding/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/branding/brand-guidelines/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/branding/brand-guidelines/food-beverage-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/branding/brand-guidelines/home-decor-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/branding/brand-guidelines/real-estate-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/branding/brand-guidelines/startups/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/branding/brand-identity/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/branding/brand-identity/food-beverage-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/branding/brand-identity/home-decor-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/branding/brand-identity/real-estate-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/branding/brand-identity/startups/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/branding/brand-strategy/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/branding/brand-strategy/food-beverage-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/branding/brand-strategy/home-decor-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/branding/brand-strategy/real-estate-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/branding/brand-strategy/startups/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/branding/logo-design/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/branding/logo-design/food-beverage-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/branding/logo-design/home-decor-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/branding/logo-design/real-estate-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/branding/logo-design/startups/</loc></url>
+
+  <!-- Services: Design -->
+  <url><loc>https://hydrafoxdesigns.com/services/design/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/design/product-design/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/design/product-design/food-beverage-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/design/product-design/home-decor-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/design/product-design/real-estate-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/design/product-design/startups/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/design/ui-design/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/design/ui-design/food-beverage-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/design/ui-design/home-decor-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/design/ui-design/real-estate-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/design/ui-design/startups/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/design/ux-design/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/design/ux-design/food-beverage-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/design/ux-design/home-decor-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/design/ux-design/real-estate-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/design/ux-design/startups/</loc></url>
+
+  <!-- Services: Marketing -->
+  <url><loc>https://hydrafoxdesigns.com/services/marketing/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/marketing/content-strategy/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/marketing/content-strategy/food-beverage-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/marketing/content-strategy/home-decor-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/marketing/content-strategy/real-estate-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/marketing/content-strategy/startups/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/marketing/digital-marketing/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/marketing/digital-marketing/food-beverage-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/marketing/digital-marketing/home-decor-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/marketing/digital-marketing/real-estate-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/marketing/digital-marketing/startups/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/marketing/social-media/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/marketing/social-media/food-beverage-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/marketing/social-media/home-decor-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/marketing/social-media/real-estate-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/marketing/social-media/startups/</loc></url>
+
+  <!-- Services: Web -->
+  <url><loc>https://hydrafoxdesigns.com/services/web/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/web/ecommerce/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/web/ecommerce/food-beverage-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/web/ecommerce/home-decor-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/web/ecommerce/real-estate-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/web/ecommerce/startups/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/web/web-applications/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/web/web-applications/food-beverage-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/web/web-applications/home-decor-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/web/web-applications/real-estate-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/web/web-applications/startups/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/web/website-development/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/web/website-development/food-beverage-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/web/website-development/home-decor-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/web/website-development/real-estate-brands/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/services/web/website-development/startups/</loc></url>
+
+  <!-- Resources -->
+  <url><loc>https://hydrafoxdesigns.com/resources/</loc></url>
+
+  <!-- Resources: Brand Architecture -->
+  <url><loc>https://hydrafoxdesigns.com/resources/brand-architecture/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/brand-architecture/lifestyle-brand-marketing-strategy-2026/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/brand-architecture/premium-brand-decision-drift-ai-2026/</loc></url>
+
+  <!-- Resources: Brand Building -->
+  <url><loc>https://hydrafoxdesigns.com/resources/brand-building/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/brand-building/brand-is-bleeding-money-measurement/</loc></url>
+
+  <!-- Resources: Branding -->
+  <url><loc>https://hydrafoxdesigns.com/resources/branding/</loc></url>
+
+  <!-- Resources: Business Development -->
+  <url><loc>https://hydrafoxdesigns.com/resources/business-development/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/business-development/how-modern-web-development-is-changing-businesses-in-2026/</loc></url>
+
+  <!-- Resources: Case Study -->
+  <url><loc>https://hydrafoxdesigns.com/resources/case-study/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/case-study/google-ads-scaling-secret-seasonal-success/</loc></url>
+
+  <!-- Resources: Conversion Engineering -->
+  <url><loc>https://hydrafoxdesigns.com/resources/conversion-engineering/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/conversion-engineering/luxury-brand-belief-architecture-ai-shopping-2026/</loc></url>
+
+  <!-- Resources: Creative Markets -->
+  <url><loc>https://hydrafoxdesigns.com/resources/creative-markets/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/creative-markets/the-2000-super-bowl-moment-why-your-content-engine-is-either-ai-powered-or-obsolete/</loc></url>
+
+  <!-- Resources: CRM -->
+  <url><loc>https://hydrafoxdesigns.com/resources/crm/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/crm/why-your-hvac-leads-aren-t-converting-and-how-to-fix-it/</loc></url>
+
+  <!-- Resources: Design -->
+  <url><loc>https://hydrafoxdesigns.com/resources/design/</loc></url>
+
+  <!-- Resources: Email Marketing -->
+  <url><loc>https://hydrafoxdesigns.com/resources/email-marketing/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/email-marketing/if-your-email-automations-arent-printing-money-while-you-sleep-your-business-is-already-losing/</loc></url>
+
+  <!-- Resources: General -->
+  <url><loc>https://hydrafoxdesigns.com/resources/general/</loc></url>
+
+  <!-- Resources: Growth Engineering -->
+  <url><loc>https://hydrafoxdesigns.com/resources/growth-engineering/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/growth-engineering/luxury-brand-emotional-loyalty-vs-warmth-2026/</loc></url>
+
+  <!-- Resources: Growth Engineering Industry Roundup -->
+  <url><loc>https://hydrafoxdesigns.com/resources/growth-engineering-industry-roundup/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/growth-engineering-industry-roundup/digital-marketing-roundup-december-2025-growth-strategy/</loc></url>
+
+  <!-- Resources: Marketing -->
+  <url><loc>https://hydrafoxdesigns.com/resources/marketing/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/marketing/the-unorthodox-blueprint-what-digital-marketers-are-missing-right-now-october-2025-edition/</loc></url>
+
+  <!-- Resources: Marketing Plan -->
+  <url><loc>https://hydrafoxdesigns.com/resources/marketing-plan/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/marketing-plan/stop-guessing-start-dominating-the-architects-blueprint-for-a-high-velocity-marketing-plan/</loc></url>
+
+  <!-- Resources: Marketing SEO -->
+  <url><loc>https://hydrafoxdesigns.com/resources/marketing-seo/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/marketing-seo/ai-brainwashing-identity-new-seo/</loc></url>
+
+  <!-- Resources: Masterclass -->
+  <url><loc>https://hydrafoxdesigns.com/resources/masterclass/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/masterclass/google-ads-predictions-2026-blueprint/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/masterclass/premium-brand-strategy-fails-culture-blueprint-2026/</loc></url>
+
+  <!-- Resources: Masterclass Brand Architecture -->
+  <url><loc>https://hydrafoxdesigns.com/resources/masterclass-brand-architecture/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/masterclass-brand-architecture/premium-brand-core-values-decision-infrastructure/</loc></url>
+
+  <!-- Resources: Masterclass Data Engineering -->
+  <url><loc>https://hydrafoxdesigns.com/resources/masterclass-data-engineering/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/masterclass-data-engineering/marketing-attribution-blind-spots-blueprint-2026/</loc></url>
+
+  <!-- Resources: Masterclass Growth Engineering -->
+  <url><loc>https://hydrafoxdesigns.com/resources/masterclass-growth-engineering/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/masterclass-growth-engineering/ai-marketing-funnel-growth-blueprint-2026/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/masterclass-growth-engineering/marketing-budget-spending-trends-2026-blueprint/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/masterclass-growth-engineering/micro-influencer-marketing-roi-blueprint/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/masterclass-growth-engineering/social-first-ranking-strategies-2026/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/masterclass-growth-engineering/social-media-trends-2026-search-revolution/</loc></url>
+
+  <!-- Resources: Premium Brand Strategy -->
+  <url><loc>https://hydrafoxdesigns.com/resources/premium-brand-strategy-conversion-engineering/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/premium-brand-strategy-conversion-engineering/premium-brand-conversion-rate-optimization-luxury-ecommerce-2026/</loc></url>
+
+  <!-- Resources: Premium Retail Strategy -->
+  <url><loc>https://hydrafoxdesigns.com/resources/premium-retail-strategy/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/premium-retail-strategy/premium-retail-experience-vs-fulfillment-strategy-2026/</loc></url>
+
+  <!-- Resources: Sales -->
+  <url><loc>https://hydrafoxdesigns.com/resources/sales/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/sales/enough-thinking-its-time-to-architect-your-revenue-the-high-performance-guide-to-sales-planning/</loc></url>
+
+  <!-- Resources: Social Engineering -->
+  <url><loc>https://hydrafoxdesigns.com/resources/social-engineering/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/social-engineering/luxury-brand-social-media-vibe-officer-fail/</loc></url>
+
+  <!-- Resources: Web -->
+  <url><loc>https://hydrafoxdesigns.com/resources/web/</loc></url>
+
+  <!-- Resources: Zero Click Search Masterclass -->
+  <url><loc>https://hydrafoxdesigns.com/resources/zero-click-search-masterclass/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/zero-click-search-masterclass/premium-brand-visibility-crisis-2026-audit/</loc></url>
+
+  <!-- Resources: B2B / Multi-tag categories (comma slugs from Firestore) -->
+  <url><loc>https://hydrafoxdesigns.com/resources/b2b,-marketing/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/b2b,-marketing/brand-storytelling-b2b-specs-hydrafox/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/marketing,-brand-building/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/marketing,-brand-building/funnels-to-environments-of-influence-psychology/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/marketing-strategy,-software-development,-branding/</loc></url>
+  <url><loc>https://hydrafoxdesigns.com/resources/marketing-strategy,-software-development,-branding/why-your-creative-agencys-future-depends-on-ai-human-hybrids-the-unorthodox-blueprint-for-survival/</loc></url>
+
+</urlset>

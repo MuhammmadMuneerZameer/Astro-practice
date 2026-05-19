@@ -98,6 +98,33 @@ export const SERVICE_HIERARCHY = {
                 description: 'Custom web apps that solve complex business problems.'
             }
         }
+    },
+    'video-production': {
+        name: 'Video Production',
+        slug: 'video-production',
+        description: 'Brand films, social reels, and motion content that stop the scroll and convert viewers into customers.',
+        subservices: {
+            'brand-films': {
+                name: 'Brand Films',
+                slug: 'brand-films',
+                description: 'Cinematic brand stories that build trust and drive conversion.'
+            },
+            'social-reels': {
+                name: 'Social Reels',
+                slug: 'social-reels',
+                description: 'Short-form video content optimized for engagement and reach.'
+            },
+            'motion-design': {
+                name: 'Motion Design',
+                slug: 'motion-design',
+                description: 'Purposeful animations that bring your brand to life.'
+            },
+            'explainer-videos': {
+                name: 'Explainer Videos',
+                slug: 'explainer-videos',
+                description: 'Clear, compelling video that educates and converts.'
+            }
+        }
     }
 };
 

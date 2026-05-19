@@ -26,7 +26,8 @@ const services = [
   {
     title: "Video Editing",
     description: "Producing polished promotional, social, and explainer videos that tell your brand story.",
-    image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&h=600&fit=crop"
+    image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&h=600&fit=crop",
+    link: "/videos/"
   },
   {
     title: "Branding",
@@ -114,12 +115,12 @@ export default function ServicesSection() {
                 <motion.div
                   onHoverStart={() => !isMobile && setHoveredIndex(index)}
                   onHoverEnd={() => !isMobile && setHoveredIndex(null)}
-                  onClick={() => handleServiceClick(index)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleServiceClick(index)}
+                  onClick={() => service.link ? (window.location.href = service.link) : handleServiceClick(index)}
+                  onKeyDown={(e) => e.key === 'Enter' && (service.link ? (window.location.href = service.link) : handleServiceClick(index))}
                   role="button"
                   tabIndex={0}
-                  aria-expanded={hoveredIndex === index}
-                  aria-label={`${service.title} — click to expand`}
+                  aria-expanded={service.link ? undefined : hoveredIndex === index}
+                  aria-label={service.link ? `${service.title} — view our work` : `${service.title} — click to expand`}
                   className="relative border-t border-white/10 last:border-b last:border-white/10"
                 >
                   <div className="py-6 md:py-8 flex items-center justify-between group cursor-pointer">

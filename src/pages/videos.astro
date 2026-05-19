@@ -1,0 +1,283 @@
+---
+import Layout from '../layouts/Layout.astro';
+import VideoShowcase from '../components/VideoShowcase';
+---
+
+<Layout
+  title="Video Production & Editing | Hydra Fox Designs"
+  description="Brand films, social reels, and motion content that stop the scroll — crafted to build trust and drive results for your business."
+>
+
+  <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
+  <section class="vid-hero relative min-h-screen flex flex-col justify-end pb-24 px-4 md:px-8 bg-black overflow-hidden -mt-16 md:mt-0 pt-36 md:pt-48">
+
+    <!-- Ambient glow -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-1/3 left-1/4 w-[600px] h-[400px] bg-[#00f19f]/5 rounded-full blur-[120px]"></div>
+      <div class="absolute bottom-0 right-0 w-[400px] h-[300px] bg-[#00f19f]/3 rounded-full blur-[100px]"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto w-full">
+
+      <!-- Label + meta row -->
+      <div class="flex items-center justify-between mb-8">
+        <div class="overflow-hidden">
+          <span class="vid-reveal-line block text-[#00f19f] font-bold tracking-[0.25em] uppercase text-xs sm:text-sm">
+            Video Production & Editing
+          </span>
+        </div>
+        <div class="vid-reveal-fade hidden sm:flex items-center gap-6 text-xs text-gray-600 font-mono">
+          <span>4K Quality</span>
+          <span class="w-px h-4 bg-white/10"></span>
+          <span>Mux Delivery</span>
+        </div>
+      </div>
+
+      <!-- Main heading -->
+      <h1 class="font-heading font-bold leading-[0.95] tracking-tight mb-14">
+        <div class="overflow-hidden">
+          <span class="vid-reveal-line block text-[clamp(3rem,10vw,9rem)] text-white">
+            Stories That
+          </span>
+        </div>
+        <div class="overflow-hidden">
+          <span class="vid-reveal-line block text-[clamp(3rem,10vw,9rem)] text-[#00f19f]">
+            Stop the Scroll.
+          </span>
+        </div>
+      </h1>
+
+      <!-- Description + stats -->
+      <div class="flex flex-col sm:flex-row sm:items-end gap-10 sm:gap-20">
+        <p class="vid-reveal-fade text-gray-400 text-base md:text-lg leading-relaxed max-w-lg">
+          Every frame is intentional. Every edit is strategic.
+          We craft video content that builds trust, commands attention,
+          and moves people to act.
+        </p>
+
+        <div class="vid-reveal-fade flex gap-12 flex-shrink-0 pb-1">
+          <div class="border-l border-white/10 pl-6">
+            <p class="text-5xl font-heading font-bold text-white leading-none tabular-nums">3+</p>
+            <p class="text-[11px] text-gray-600 mt-2 uppercase tracking-[0.2em]">Projects</p>
+          </div>
+          <div class="border-l border-white/10 pl-6">
+            <p class="text-5xl font-heading font-bold text-[#00f19f] leading-none">4K</p>
+            <p class="text-[11px] text-gray-600 mt-2 uppercase tracking-[0.2em]">Quality</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="vid-reveal-fade absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-700">
+      <span class="text-[10px] tracking-[0.3em] uppercase">Scroll</span>
+      <div class="w-px h-10 bg-gradient-to-b from-gray-700 to-transparent scroll-line"></div>
+    </div>
+
+  </section>
+
+  <!-- ── Video Grid ────────────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-24">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="scroll-section flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14">
+        <div>
+          <div class="overflow-hidden mb-3">
+            <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
+              Selected Work
+            </span>
+          </div>
+          <div class="overflow-hidden">
+            <h2 class="reveal-line block text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-none">
+              Our Reels.
+            </h2>
+          </div>
+        </div>
+        <a
+          href="/contact/"
+          class="reveal-fade group inline-flex items-center gap-3 text-white text-sm font-medium hover:text-[#00f19f] transition-colors duration-300 flex-shrink-0"
+        >
+          Start a project
+          <span class="w-9 h-9 rounded-full border border-white/20 group-hover:border-[#00f19f] group-hover:bg-[#00f19f] flex items-center justify-center transition-all duration-300">
+            <svg class="w-4 h-4 text-white group-hover:text-black" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </span>
+        </a>
+      </div>
+
+      <VideoShowcase client:load />
+
+    </div>
+  </section>
+
+  <!-- ── What We Deliver ───────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-24">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="scroll-section mb-16">
+        <div class="overflow-hidden mb-3">
+          <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
+            What We Deliver
+          </span>
+        </div>
+        <div class="overflow-hidden">
+          <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-none">
+            Every Format. Every Platform.
+          </h2>
+        </div>
+      </div>
+
+      <!-- Service rows matching /services/ page pattern -->
+      <div class="border-t border-white/10">
+        {[
+          {
+            num: '01',
+            label: 'Brand Films',
+            desc: 'Cinematic long-form stories that build trust and communicate your brand at scale.',
+            tags: ['Narrative', 'Cinematic', 'Full Production'],
+          },
+          {
+            num: '02',
+            label: 'Social Reels',
+            desc: 'Thumb-stopping short-form content engineered for engagement, reach, and conversion.',
+            tags: ['Vertical', 'Short-form', 'Platform-native'],
+          },
+          {
+            num: '03',
+            label: 'Motion Design',
+            desc: 'Purposeful animations and motion graphics that bring your brand identity to life.',
+            tags: ['Animation', 'Brand Motion', 'UI Animation'],
+          },
+          {
+            num: '04',
+            label: 'Explainer Videos',
+            desc: 'Clear, compelling video that educates prospects and accelerates buying decisions.',
+            tags: ['Scriptwriting', 'Voiceover', 'Illustration'],
+          },
+        ].map(item => (
+          <div class="group flex items-start gap-6 md:gap-10 py-8 border-b border-white/10 hover:border-white/30 transition-colors duration-300">
+            <span class="text-gray-700 text-xs font-mono w-8 flex-shrink-0 pt-1 select-none">{item.num}</span>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-white group-hover:text-[#00f19f] transition-colors duration-300 mb-2">
+                {item.label}
+              </h3>
+              <p class="text-gray-500 text-sm leading-relaxed max-w-lg">{item.desc}</p>
+            </div>
+            <div class="hidden md:flex flex-wrap gap-2 max-w-xs pt-1">
+              {item.tags.map(tag => (
+                <span class="px-3 py-1 border border-white/10 text-gray-500 text-xs rounded-full">{tag}</span>
+              ))}
+            </div>
+            <div class="w-9 h-9 rounded-full border border-white/20 group-hover:border-[#00f19f] group-hover:bg-[#00f19f] flex items-center justify-center transition-all duration-300 flex-shrink-0 mt-0.5">
+              <svg class="w-4 h-4 text-white group-hover:text-black -rotate-45 group-hover:rotate-0 transition-all duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────────────────────────────── -->
+  <section class="relative bg-black border-t border-white/10 px-4 md:px-8 py-32 overflow-hidden">
+
+    <!-- Glow -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-[#00f19f]/6 rounded-full blur-[120px]"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto">
+      <div class="scroll-section flex flex-col md:flex-row md:items-end justify-between gap-12">
+        <div>
+          <div class="overflow-hidden mb-2">
+            <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
+              Ready to Start?
+            </span>
+          </div>
+          <div class="overflow-hidden">
+            <h2 class="reveal-line block text-5xl sm:text-6xl md:text-7xl font-heading font-bold text-white leading-none">
+              Let's Make Something
+            </h2>
+          </div>
+          <div class="overflow-hidden">
+            <h2 class="reveal-line block text-5xl sm:text-6xl md:text-7xl font-heading font-bold text-[#00f19f] leading-none">
+              Worth Watching.
+            </h2>
+          </div>
+        </div>
+
+        <div class="reveal-fade flex flex-col gap-4 flex-shrink-0">
+          <a
+            href="/contact/"
+            class="group inline-flex items-center gap-4 px-8 py-4 bg-[#00f19f] hover:bg-[#04b477] text-black font-bold text-base rounded-full transition-colors duration-300"
+          >
+            Start a Project
+            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a
+            href="/services/"
+            class="text-center text-sm text-gray-600 hover:text-white transition-colors duration-200"
+          >
+            View all services →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  const EXPO_OUT = 'cubic-bezier(0.19, 1, 0.22, 1)';
+  const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
+
+  function initVidAnimations() {
+    const lines = document.querySelectorAll<HTMLElement>('.vid-reveal-line');
+    const fades = document.querySelectorAll<HTMLElement>('.vid-reveal-fade');
+
+    lines.forEach(el => { el.style.transform = 'translateY(110%)'; });
+    fades.forEach(el => { el.style.opacity = '0'; });
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        lines.forEach((el, i) => {
+          const anim = el.animate(
+            [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+            { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
+          );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
+        });
+        fades.forEach((el, i) => {
+          const anim = el.animate(
+            [{ opacity: '0' }, { opacity: '1' }],
+            { duration: 700, delay: 500 + i * 100, easing: CUBIC_OUT, fill: 'forwards' }
+          );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
+        });
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initVidAnimations);
+</script>
+
+<style>
+  .vid-reveal-line { will-change: transform; }
+  .vid-reveal-fade { will-change: opacity; }
+
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; opacity: 1; }
+    50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+    51% { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+    100% { transform: scaleY(0); transform-origin: bottom; opacity: 0.3; }
+  }
+  .scroll-line {
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+</style>

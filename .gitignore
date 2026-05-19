@@ -31,3 +31,6 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 public/api/secure_secrets.php
+
+# Local Netlify folder
+.netlify
