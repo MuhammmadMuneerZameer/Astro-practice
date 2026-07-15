@@ -16,8 +16,6 @@ const COLLECTION_NAME = "projects";
  */
 export async function getProjects() {
   try {
-    console.log('🚀 Fetching projects from Firebase...');
-    
     if (!db) {
       throw new Error('Firebase database not initialized');
     }
@@ -34,15 +32,11 @@ export async function getProjects() {
       );
       querySnapshot = await getDocs(q);
     } catch (orderError) {
-      console.log('⚠️ Could not order projects, fetching without ordering:', orderError.message);
       const q = query(projectsCollection, where("status", "==", "published"));
       querySnapshot = await getDocs(q);
     }
     
-    console.log(`📊 Found ${querySnapshot.size} projects`);
-
     if (querySnapshot.empty) {
-      console.warn('⚠️ No projects found in database');
       return [];
     }
 
@@ -63,7 +57,6 @@ export async function getProjects() {
       });
     });
 
-    console.log(`✅ Successfully fetched ${projects.length} projects`);
     return projects;
 
   } catch (error) {
@@ -85,12 +78,7 @@ export async function getProjectBySlug(slug) {
     const projects = await getProjects();
     const project = projects.find(p => p.slug === slug);
     
-    if (!project) {
-      console.warn(`⚠️ No project found with slug: ${slug}`);
-      return null;
-    }
-    
-    console.log(`✅ Found project:`, project.title);
+    if (!project) return null;
     return project;
   } catch (error) {
     console.error('💥 Error in getProjectBySlug:', error);
@@ -98,19 +86,3 @@ export async function getProjectBySlug(slug) {
   }
 }
 
-/**
- * Get projects by technology
- * @param {string} tech - Technology name
- * @returns {Promise<Array>} Array of projects using that technology
- */
-export async function getProjectsByTechnology(tech) {
-  try {
-    const projects = await getProjects();
-    return projects.filter(p => 
-      p.technologies && p.technologies.includes(tech)
-    );
-  } catch (error) {
-    console.error('💥 Error in getProjectsByTechnology:', error);
-    return [];
-  }
-}

@@ -91,17 +91,6 @@ export default function OptimizedBlogList({
   // Show initial posts immediately, then update with real-time data
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {/* Real-time indicator */}
-      {/* {!loading && posts.length > 0 && (
-        <div className="col-span-full mb-4 p-2 bg-gray-900 rounded text-xs text-gray-400 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <span>Live updates active</span>
-          </div>
-          <span>{posts.length} posts</span>
-        </div>
-      )} */}
-
       {error && (
         <div className="col-span-full p-3 bg-yellow-900/20 border border-yellow-500/30 rounded text-yellow-300 text-sm">
           {error} - Showing cached content

@@ -28,8 +28,6 @@ export const SERVICES = {
  */
 export async function getCaseStudies() {
     try {
-        console.log('🚀 Fetching case studies from Firebase...');
-
         if (!db) {
             throw new Error('Firebase database not initialized');
         }
@@ -46,15 +44,11 @@ export async function getCaseStudies() {
             );
             querySnapshot = await getDocs(q);
         } catch (orderError) {
-            console.log('⚠️ Could not order case studies, fetching without ordering:', orderError.message);
             const q = query(caseStudiesCollection, where("status", "==", "published"));
             querySnapshot = await getDocs(q);
         }
 
-        console.log(`📊 Found ${querySnapshot.size} case studies`);
-
         if (querySnapshot.empty) {
-            console.warn('⚠️ No case studies found in database');
             return [];
         }
 
@@ -120,44 +114,11 @@ export async function getCaseStudies() {
             });
         });
 
-        console.log(`✅ Successfully fetched ${caseStudies.length} case studies`);
         return caseStudies;
 
     } catch (error) {
         console.error('💥 Error in getCaseStudies:', error);
         console.error('💥 Error stack:', error.stack);
-        return [];
-    }
-}
-
-/**
- * Get case studies filtered by service
- * @param {string} service - Service type (use SERVICES constants)
- * @returns {Promise<Array>} Array of case studies for that service
- */
-export async function getCaseStudiesByService(service) {
-    try {
-        const caseStudies = await getCaseStudies();
-        return caseStudies.filter(cs => cs.service === service);
-    } catch (error) {
-        console.error('💥 Error in getCaseStudiesByService:', error);
-        return [];
-    }
-}
-
-/**
- * Get featured case studies
- * @param {number} limit - Maximum number of case studies to return
- * @returns {Promise<Array>} Array of featured case studies
- */
-export async function getFeaturedCaseStudies(limit = 3) {
-    try {
-        const caseStudies = await getCaseStudies();
-        return caseStudies
-            .filter(cs => cs.featured)
-            .slice(0, limit);
-    } catch (error) {
-        console.error('💥 Error in getFeaturedCaseStudies:', error);
         return [];
     }
 }
@@ -172,12 +133,7 @@ export async function getCaseStudyBySlug(slug) {
         const caseStudies = await getCaseStudies();
         const caseStudy = caseStudies.find(cs => cs.slug === slug);
 
-        if (!caseStudy) {
-            console.warn(`⚠️ No case study found with slug: ${slug}`);
-            return null;
-        }
-
-        console.log(`✅ Found case study:`, caseStudy.title);
+        if (!caseStudy) return null;
         return caseStudy;
     } catch (error) {
         console.error('💥 Error in getCaseStudyBySlug:', error);

@@ -91,22 +91,7 @@ export async function getPosts() {
 
   } catch (error) {
     console.error('💥 Error in getPosts:', error);
-    console.error('💥 Error stack:', error.stack);
-
-    // Return mock data for debugging
-    return [
-      {
-        id: 'mock-1',
-        title: 'Mock Post 1',
-        slug: 'mock-post-1',
-        content: 'This is mock content',
-        image: 'https://via.placeholder.com/400x300',
-        description: 'This is a mock post for debugging',
-        tag: 'Debug',
-        category: 'Test',
-        date: '2024-01-01',
-      }
-    ];
+    return [];
   }
 }
 
