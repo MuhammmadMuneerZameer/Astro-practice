@@ -11,6 +11,7 @@ interface Props {
   description?: string;
   image?: string;
   noindex?: boolean;
+  hideChrome?: boolean;
 }
 
 const {
@@ -18,6 +19,7 @@ const {
   description = "Hydra Fox Designs helps businesses grow through creative web design, digital marketing, and automation solutions.",
   image = "/images/hfd-logo.png",
   noindex = false,
+  hideChrome = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -149,14 +151,14 @@ const ogImage = new URL(image, Astro.site);
     <slot name="head" />
   </head>
 
-  <body class="pt-12 sm:pt-16 md:pt-0">
-    <Navbar client:load transition:persist />
+  <body class:list={[hideChrome ? "" : "pt-12 sm:pt-16 md:pt-0"]}>
+    {!hideChrome && <Navbar client:load transition:persist />}
 
     <main>
       <slot />
     </main>
 
-    <Footer transition:persist />
+    {!hideChrome && <Footer transition:persist />}
 
 
     <!-- Service Worker Registration -->
