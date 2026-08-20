@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { getAuth } from 'firebase/auth';
+import { app } from '../lib/firebase';
 import {
     PlusCircle, Trash2, Edit, Save, X, AlertCircle,
     Upload, Link2, Loader, Check, Image as ImageIcon,
@@ -102,10 +104,12 @@ const validateImageFile = (file) => {
 };
 
 const uploadToImgBB = async (file) => {
+    const token = await getAuth(app).currentUser?.getIdToken() ?? '';
     const formData = new FormData();
     formData.append('image', file);
     const response = await fetch('/api/upload', {
         method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
         body: formData
     });
 

@@ -34,3 +34,8 @@ public/api/secure_secrets.php
 
 # Local Netlify folder
 .netlify
+
+# Firebase service account keys — never commit these
+scripts/serviceAccountKey.json
+**/serviceAccountKey.json
+*.serviceAccountKey.json

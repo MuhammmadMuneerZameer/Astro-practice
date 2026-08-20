@@ -37,12 +37,15 @@ function processContent(content: string): string {
   const escHtml = (s: string) =>
     s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
+  const safeUrl = (url: string) =>
+    /^(https?:|mailto:|\/|#)/.test(url) ? url : '#';
+
   const inline = (s: string) =>
     s
       .replace(/`(.+?)`/g, '<code>$1</code>')
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.+?)\*/g, '<em>$1</em>')
-      .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+      .replace(/\[(.+?)\]\((.+?)\)/g, (_, text, url) => `<a href="${safeUrl(url)}" target="_blank" rel="noopener noreferrer">${text}</a>`);
 
   const lines = trimmed.split('\n');
   let html = '';
@@ -64,13 +67,13 @@ function processContent(content: string): string {
     if (!t) { flushPara(); closeList(); continue; }
     if (t.match(/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?$/i)) {
       flushPara(); closeList();
-      html += `<figure class="w-full my-8 clear-both"><img src="${t}" alt="" class="w-full h-auto rounded-xl" /></figure>\n`;
+      html += `<figure class="w-full my-8 clear-both"><img src="${safeUrl(t)}" alt="" class="w-full h-auto rounded-xl" /></figure>\n`;
       continue;
     }
     const imgM = t.match(/^!\[(.*?)\]\((.+?)\)$/);
     if (imgM) {
       flushPara(); closeList();
-      html += `<figure class="w-full my-8 clear-both"><img src="${imgM[2]}" alt="${escHtml(imgM[1])}" class="w-full h-auto rounded-xl" /></figure>\n`;
+      html += `<figure class="w-full my-8 clear-both"><img src="${safeUrl(imgM[2])}" alt="${escHtml(imgM[1])}" class="w-full h-auto rounded-xl" /></figure>\n`;
       continue;
     }
     if (t.startsWith('### ')) { flushPara(); closeList(); html += `<h4>${inline(t.slice(4))}</h4>\n`; continue; }
