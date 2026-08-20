@@ -124,8 +124,8 @@ const morePosts = allPosts
 ---
 
 <Layout
-  title={`${post.title} | Hydra Fox Designs`}
-  description={post.description}
+  title={`${post.title || post.slug?.replace(/-/g, ' ') || 'Resource'} | Hydra Fox Designs`}
+  description={post.description || `Read this resource from Hydra Fox Designs.`}
   image={post.image}
 >
   <!-- Article JSON-LD -->

@@ -39,14 +39,17 @@ const categoryInfo = getResourceCategoryBySlug(category);
 const allCategories = getAllResourceCategories();
 const relatedService = (SERVICE_HIERARCHY as Record<string, any>)[category];
 
+const categoryLabel = categoryInfo?.name ||
+  category.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+
 // Other categories for internal linking
 const otherCategories = allCategories.filter((c) => c.slug !== category);
 ---
 
 <Layout
-  title={`${categoryInfo?.name || category} Resources | Hydra Fox Designs`}
+  title={`${categoryLabel} Resources | Hydra Fox Designs`}
   description={categoryInfo?.description ||
-    `Articles and insights about ${category}`}
+    `Articles and insights about ${categoryLabel} from the Hydra Fox Designs team.`}
 >
   <!-- Breadcrumb -->
   <nav class="bg-black pt-24 pb-4 px-6">

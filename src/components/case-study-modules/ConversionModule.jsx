@@ -54,7 +54,7 @@ export default function ConversionModule({ bookingLink, services = [] }) {
                     </a>
 
                     <a
-                        href="/case-studies"
+                        href="/case-studies/"
                         className="w-full sm:w-auto px-8 py-5 bg-gray-900 hover:bg-gray-800 text-white font-bold text-lg rounded-full transition-all border border-gray-700 flex items-center justify-center gap-3"
                     >
                         View More Stacks

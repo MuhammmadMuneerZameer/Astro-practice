@@ -12,6 +12,7 @@ interface Props {
   image?: string;
   noindex?: boolean;
   hideChrome?: boolean;
+  canonical?: string;
 }
 
 const {
@@ -20,9 +21,10 @@ const {
   image = "/images/hfd-logo.png",
   noindex = false,
   hideChrome = false,
+  canonical,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const canonicalURL = canonical ? new URL(canonical) : new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
 ---
 
