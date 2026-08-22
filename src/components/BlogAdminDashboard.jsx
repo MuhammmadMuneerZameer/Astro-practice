@@ -1320,7 +1320,7 @@ export default function BlogAdminDashboard() {
             </button>
           </div>
         ) : (
-          {(() => {
+          (() => {
             const filtered = listFilter === 'all' ? blogs
               : blogs.filter(b => (b.status || 'published') === listFilter);
             const counts = {
@@ -1463,7 +1463,7 @@ export default function BlogAdminDashboard() {
                 )}
               </>
             );
-          })()}
+          })()
         )}
       </div>
 
