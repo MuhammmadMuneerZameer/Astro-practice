@@ -16,7 +16,7 @@ const stats = [
           data-target={stat.num}
           data-suffix={stat.suffix}
         >
-          0{stat.suffix}
+          {stat.num}{stat.suffix}
         </span>
         <span class="reveal-fade block text-gray-500 text-xs uppercase tracking-wider mt-3">
           {stat.label}
@@ -37,6 +37,7 @@ const stats = [
         const target = parseInt(el.dataset.target || '0', 10);
         const suffix = el.dataset.suffix || '';
         const duration = 1800;
+        el.textContent = '0' + suffix;
         const startTime = performance.now();
 
         function tick(now: number) {

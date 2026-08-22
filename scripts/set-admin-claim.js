@@ -1,8 +1,10 @@
 /**
- * One-time setup script: Grant the admin custom claim to your admin Firebase user.
+ * One-time setup script: Grant the admin custom claim to a Firebase user.
  *
- * Run once from your local machine (not the public server):
- *   node scripts/set-admin-claim.js
+ * Usage:
+ *   node scripts/set-admin-claim.js <firebase-uid>
+ *
+ * Find the UID in Firebase Console → Authentication → Users
  *
  * Prerequisites:
  *   npm install firebase-admin
@@ -15,14 +17,17 @@ import { initializeApp, cert } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
 import { createRequire } from 'module';
 
+const ADMIN_UID = process.argv[2];
+if (!ADMIN_UID) {
+  console.error('Usage: node scripts/set-admin-claim.js <firebase-uid>');
+  console.error('Find the UID in Firebase Console → Authentication → Users');
+  process.exit(1);
+}
+
 const require = createRequire(import.meta.url);
 const serviceAccount = require('./serviceAccountKey.json');
 
 initializeApp({ credential: cert(serviceAccount) });
-
-// Replace with the UID of your admin Firebase user.
-// Find it in Firebase Console → Authentication → Users
-const ADMIN_UID = 'REPLACE_WITH_YOUR_ADMIN_USER_UID';
 
 async function grantAdminClaim() {
   await getAuth().setCustomUserClaims(ADMIN_UID, { admin: true });
