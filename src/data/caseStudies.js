@@ -26,6 +26,17 @@ export const SERVICES = {
  * Fetch all published case studies from Firebase
  * @returns {Promise<Array>} Array of case study objects
  */
+const FETCH_TIMEOUT_MS = 8000;
+
+function withTimeout(promise) {
+    return Promise.race([
+        promise,
+        new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Firebase fetch timed out')), FETCH_TIMEOUT_MS)
+        ),
+    ]);
+}
+
 export async function getCaseStudies() {
     try {
         if (!db) {
@@ -42,10 +53,10 @@ export async function getCaseStudies() {
                 where("status", "==", "published"),
                 orderBy("createdAt", "desc")
             );
-            querySnapshot = await getDocs(q);
+            querySnapshot = await withTimeout(getDocs(q));
         } catch (orderError) {
             const q = query(caseStudiesCollection, where("status", "==", "published"));
-            querySnapshot = await getDocs(q);
+            querySnapshot = await withTimeout(getDocs(q));
         }
 
         if (querySnapshot.empty) {
