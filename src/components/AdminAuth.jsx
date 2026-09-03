@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
 import { app } from '../lib/firebase';
+import UnifiedAdminDashboard from './UnifiedAdminDashboard';
 
 const auth = getAuth(app);
 
@@ -10,7 +11,7 @@ async function isAdminUser(user) {
   return tokenResult.claims.admin === true;
 }
 
-export default function AdminAuth({ children }) {
+export default function AdminAuth() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState('');
@@ -125,7 +126,7 @@ export default function AdminAuth({ children }) {
   // Login page with brand styling
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-black px-4 py-12">
+      <div className="relative min-h-screen flex items-center justify-center bg-black px-4 py-12">
         {/* Background gradient effect */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-20 left-10 w-72 h-72 bg-green-500/5 rounded-full blur-3xl"></div>
@@ -268,9 +269,9 @@ export default function AdminAuth({ children }) {
         </div>
       </div>
 
-      {/* Main Content - Dashboard will render here */}
+      {/* Main Content - Dashboard */}
       <div className="pt-0">
-        {children}
+        <UnifiedAdminDashboard />
       </div>
     </div>
   );

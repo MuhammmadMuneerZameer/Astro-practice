@@ -1,12 +1,12 @@
----
+﻿---
 const allFaqs = [
   {
     question: "How long does it take to design and build a website?",
     answer: "The timeline depends on the project's complexity. A basic website takes 2–4 weeks; more complex builds may take longer. We provide a project timeline after our discovery call."
   },
   {
-    question: "How much does a new website cost?",
-    answer: "Costs vary based on design and features. We offer custom packages tailored to your goals and budget. Get in touch for a free quote."
+    question: "What do your services cost?",
+    answer: "Store Design & Build starts from $4,500 (fixed price — no ongoing fee). Growth retainers start from $1,200–$2,500/mo: Ecommerce Growth from $2,500/mo, Growth Tools & Automation from $1,200/mo, and Brand & Content from $1,500/mo. All retainers are month-to-month with no lock-in. These floors mean you know whether we're in range before you reach out."
   },
   {
     question: "Will my website be mobile-friendly?",
@@ -17,12 +17,12 @@ const allFaqs = [
     answer: "Absolutely. We use user-friendly CMS platforms and provide tutorials so you can manage your content confidently."
   },
   {
-    question: "What digital marketing services do you offer?",
-    answer: "We provide complete digital marketing solutions including SEO, social media marketing, PPC ads, web design and development, and full branding strategy — everything your business needs to grow online."
+    question: "What if I'm not sure which service I need?",
+    answer: "Book a free 30-minute strategy call — no prep required. Tell us what's not working and we'll tell you what we'd do about it. Alternatively, request a free ecommerce growth audit and we'll review your store, ad account, and email flows and send you the three biggest gaps within 48 hours."
   },
   {
-    question: "How long does it take to see results from digital marketing?",
-    answer: "Paid ads can deliver results almost immediately, while SEO and organic strategies typically take 3–6 months to show noticeable growth depending on competition and consistency."
+    question: "How quickly do paid media campaigns show results?",
+    answer: "With Conversions API properly configured, meaningful MER data is typically available within 2–3 weeks of launch. We set a 90-day window as the minimum to draw conclusions about retention and LTV — but you'll see attribution data and early MER signals within the first month."
   },
   {
     question: "Do you work with international clients?",
@@ -31,6 +31,10 @@ const allFaqs = [
   {
     question: "Do I need to sign a long-term contract?",
     answer: "No. You can start with a flexible monthly plan. We focus on delivering measurable results that keep you working with us, not on locking you into long contracts."
+  },
+  {
+    question: "What does your email and SMS retention work actually include?",
+    answer: "We build six core flows in Klaviyo: welcome series, abandoned checkout recovery (3-touch), post-purchase upsell and review request, win-back for lapsed subscribers, browse and product abandonment, and segmentation architecture (VIP, at-risk, first-purchase, high-AOV). We report on revenue per recipient, retention revenue as a percentage of total, and LTV:CAC ratio improvement over 90-day cohorts — not open rates."
   },
   {
     question: "Do you offer payment plans?",
@@ -78,8 +82,8 @@ const allFaqs = [
   function initFAQ() {
     document.querySelectorAll('.faq-item').forEach(item => {
       const header = item.querySelector('.faq-header');
-      const answer = item.querySelector<HTMLElement>('.faq-answer');
-      const icon = item.querySelector<HTMLElement>('.faq-icon');
+      const answer = item.querySelector('.faq-answer');
+      const icon = item.querySelector('.faq-icon');
       if (!header || !answer || !icon) return;
 
       header.addEventListener('click', () => {

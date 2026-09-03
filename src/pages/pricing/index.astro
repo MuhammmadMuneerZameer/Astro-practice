@@ -1,0 +1,454 @@
+﻿---
+import Layout from '../../layouts/Layout.astro';
+
+const notIncluded = [
+  'Ad spend — paid directly to the platform (Meta, Google, TikTok)',
+  'Third-party software subscriptions (Klaviyo, Shopify apps)',
+  'Paid theme licences or premium template fees',
+  'Stock photography or licensed creative assets',
+  'App subscription costs or third-party integration fees',
+  'Work outside the agreed monthly scope — always quoted before it starts',
+];
+
+const faqs = [
+  {
+    q: 'Do prices change after the first month?',
+    a: 'The starting price is the minimum scope. If the engagement grows — more ad spend to manage, more platforms, additional flows — we scope and price the expansion before starting. Nothing is added silently.',
+  },
+  {
+    q: 'Can I start with just one service?',
+    a: "Yes. Most clients start with either the Shopify build or the Ecommerce Growth retainer, then add services once the baseline is established. We don't require bundling.",
+  },
+  {
+    q: 'What does the onboarding process look like?',
+    a: 'One 30-minute call, then we need ad account access, Shopify admin, and Klaviyo access. No strategy briefs, no lengthy discovery. Server-side tracking is live in week one.',
+  },
+];
+---
+
+<Layout
+  title="Pricing | Hydra Fox Designs"
+  description="We publish our prices because it saves everyone the wrong call. Shopify builds from $4,500. Ecommerce Growth retainer from $2,500/mo. Month-to-month. 30 days' notice. No lock-in."
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a }
+    }))
+  })} slot="head" />
+
+  <!-- ── Hero — why we publish prices ─────────────────────────────────────── -->
+  <section class="relative bg-black overflow-hidden -mt-16 md:mt-0 pt-36 md:pt-52 pb-24 px-4 md:px-8 border-b border-white/10">
+    <div class="absolute inset-0 bg-gradient-to-b from-green-900/5 to-transparent pointer-events-none" />
+    <div class="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-end">
+      <div>
+        <div class="overflow-hidden mb-4">
+          <span class="pr-reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
+            Transparent pricing
+          </span>
+        </div>
+        <h1 class="font-heading font-bold leading-none tracking-tight mb-8">
+          <div class="overflow-hidden">
+            <span class="pr-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white">
+              No surprises.
+            </span>
+          </div>
+        </h1>
+        <div class="overflow-hidden max-w-xl">
+          <p class="pr-reveal-fade text-gray-400 text-base md:text-lg font-light leading-relaxed">
+            Most agencies do not publish prices because a discovery call lets them size you up before quoting.
+            We publish them because it saves everyone the wrong call. If the numbers below are not in your
+            range, you know before you reach out. If they are, the conversation starts from a shared
+            baseline instead of a negotiation.
+          </p>
+        </div>
+      </div>
+
+      <!-- Contract terms — front and centre -->
+      <div class="pr-reveal-fade border border-white/10 rounded-2xl p-8 md:p-10 bg-gray-900/20">
+        <p class="text-gray-600 font-mono text-xs tracking-widest uppercase mb-6">Contract terms</p>
+        <div class="space-y-5">
+          {[
+            ['Month-to-month', 'No minimum term on any retainer.'],
+            ['30 days’ notice', 'Cancel any retainer with 30 days’ written notice. No penalty.'],
+            ['Fixed-price builds', 'One price agreed in writing before any work begins. No scope creep billed silently.'],
+            ['No lock-in', 'We keep clients through results, not contracts. If the results are not there, you should leave — and we’ll say so.'],
+          ].map(([term, desc]) => (
+            <div class="flex items-start gap-4">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#00f19f] flex-shrink-0 mt-2" />
+              <div>
+                <p class="text-white text-sm font-semibold mb-0.5">{term}</p>
+                <p class="text-gray-500 text-sm">{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Tier 01: Audit — the entry point ─────────────────────────────────── -->
+  <section class="bg-black border-b border-white/10 px-4 md:px-8 py-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="scroll-section">
+        <div class="flex flex-col lg:flex-row items-start gap-12 lg:gap-20">
+
+          <div class="lg:w-2/5">
+            <p class="text-[#00f19f] font-mono text-xs tracking-widest uppercase mb-4">Tier 01 — Start here</p>
+            <h2 class="font-heading font-bold text-4xl md:text-5xl text-white leading-none mb-6">The Growth Audit</h2>
+            <p class="reveal-line text-gray-400 text-base leading-relaxed mb-4">
+              Free. No call required. We review your store, ad account, and email flows and send you the three highest-impact gaps within 48 hours — in plain English, not agency jargon.
+            </p>
+            <p class="text-gray-600 text-sm leading-relaxed mb-8">
+              If you proceed to work with us, the audit findings carry directly into your onboarding scope. No re-discovery. No overlap billed.
+            </p>
+            <a
+              href="/audit/"
+              class="inline-flex items-center gap-3 px-7 py-3.5 bg-[#00f19f] text-black font-bold rounded-full hover:bg-white transition-colors duration-300 text-sm"
+            >
+              Request free audit
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+
+          <div class="flex-1 border-l-2 border-[#00f19f]/20 pl-8 lg:pl-12 self-start">
+            <p class="text-gray-600 font-mono text-xs tracking-widest uppercase mb-6">What's reviewed</p>
+            <div class="grid sm:grid-cols-3 gap-8">
+              {[
+                { area: 'Store', items: ['Mobile conversion rate vs. benchmark', 'Core Web Vitals & page speed', 'PDP structure and trust signals', 'Checkout friction points'] },
+                { area: 'Paid Media', items: ['Attribution setup (CAPI vs. browser-only)', 'Blended MER baseline and trend', 'Creative fatigue signals', 'Campaign structure & budget allocation'] },
+                { area: 'Retention', items: ['Klaviyo flow coverage (6 core flows)', 'List health and unsubscribe rate', 'Revenue per recipient by flow', 'Retention revenue as % of total'] },
+              ].map(({ area, items }) => (
+                <div>
+                  <p class="text-[#00f19f] text-xs font-bold tracking-widest uppercase mb-4">{area}</p>
+                  <ul class="space-y-2">
+                    {items.map(item => (
+                      <li class="flex items-start gap-2 text-xs text-gray-500 leading-relaxed">
+                        <span class="w-1 h-1 rounded-full bg-gray-700 flex-shrink-0 mt-1.5" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Tiers 02 & 03: Paid engagement ────────────────────────────────────── -->
+  <section class="bg-black border-b border-white/10 px-4 md:px-8 py-24">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="scroll-section mb-16">
+        <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-4">Tiers 02 & 03 — Paid engagement</span>
+        <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-none">When you're ready to proceed.</h2>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-px bg-white/10">
+
+        <!-- Column 1: The Build -->
+        <div class="bg-black p-8 md:p-10 flex flex-col">
+          <p class="text-gray-600 font-mono text-xs tracking-widest uppercase mb-4">Fixed price · one-time</p>
+          <h3 class="font-heading font-bold text-2xl text-white mb-2">The Build</h3>
+          <p class="text-gray-500 text-sm mb-6 leading-relaxed">
+            A Shopify or Shopify Plus store built for mobile conversion rate and Core Web Vitals — not just visual polish.
+          </p>
+          <div class="flex items-baseline gap-1 mb-8">
+            <span class="text-5xl font-heading font-bold text-[#00f19f]">$4,500</span>
+            <span class="text-gray-500 text-sm font-mono">starting from</span>
+          </div>
+          <ul class="space-y-3 flex-1 mb-8">
+            {[
+              'Custom Shopify or Shopify Plus theme',
+              'Mobile-first UX and Core Web Vitals',
+              'Product pages, collections, checkout flow',
+              '30-day bug-fix support after launch',
+              'CMS handover with video walkthroughs',
+            ].map((item) => (
+              <li class="flex items-start gap-3 text-sm text-gray-400">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#00f19f] flex-shrink-0 mt-1.5" />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <a href="/services/shopify/" class="inline-flex items-center gap-2 text-[#00f19f] text-sm font-medium hover:text-white transition-colors duration-300">
+            Learn more
+            <svg class="w-4 h-4 -rotate-45" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Column 2: The Retainer -->
+        <div class="bg-black p-8 md:p-10 flex flex-col">
+          <p class="text-gray-600 font-mono text-xs tracking-widest uppercase mb-4">Month-to-month · 30 days' notice</p>
+          <h3 class="font-heading font-bold text-2xl text-white mb-2">The Retainer</h3>
+          <p class="text-gray-500 text-sm mb-6 leading-relaxed">
+            Ongoing ecommerce growth — paid media managed to MER targets, server-side tracking, Klaviyo retention, and reporting.
+          </p>
+          <div class="flex items-baseline gap-1 mb-8">
+            <span class="text-5xl font-heading font-bold text-[#00f19f]">$2,500</span>
+            <span class="text-gray-500 text-sm font-mono">/mo starting from</span>
+          </div>
+          <ul class="space-y-3 flex-1 mb-8">
+            {[
+              'Paid media managed to blended MER target',
+              'Conversions API + server-side tracking in week one',
+              'Klaviyo lifecycle flows (welcome, checkout, post-purchase)',
+              'Creative testing and refresh cadence',
+              'Weekly MER, CAC, and LTV:CAC reporting',
+            ].map((item) => (
+              <li class="flex items-start gap-3 text-sm text-gray-400">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#00f19f] flex-shrink-0 mt-1.5" />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <a href="/services/ecommerce-growth/" class="inline-flex items-center gap-2 text-[#00f19f] text-sm font-medium hover:text-white transition-colors duration-300">
+            Learn more
+            <svg class="w-4 h-4 -rotate-45" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Column 3: The Full Loop -->
+        <div class="bg-black p-8 md:p-10 flex flex-col relative">
+          <div class="absolute top-6 right-6">
+            <span class="text-[10px] font-mono tracking-widest text-black bg-[#00f19f] px-2 py-1 rounded-full uppercase">Most common</span>
+          </div>
+          <p class="text-gray-600 font-mono text-xs tracking-widest uppercase mb-4">Build + retainer · full stack</p>
+          <h3 class="font-heading font-bold text-2xl text-white mb-2">The Full Loop</h3>
+          <p class="text-gray-500 text-sm mb-6 leading-relaxed">
+            Store built for conversion, then run for margin. One team owns every variable in the loop — from traffic to checkout to retention.
+          </p>
+          <div class="mb-8">
+            <div class="flex items-baseline gap-1 mb-1">
+              <span class="text-5xl font-heading font-bold text-[#00f19f]">$4,500</span>
+              <span class="text-gray-500 text-sm font-mono">build, then</span>
+            </div>
+            <div class="flex items-baseline gap-1">
+              <span class="text-3xl font-heading font-bold text-white">$2,500</span>
+              <span class="text-gray-500 text-sm font-mono">/mo ongoing</span>
+            </div>
+          </div>
+          <ul class="space-y-3 flex-1 mb-8">
+            {[
+              'Everything in The Build',
+              'Everything in The Retainer',
+              'Single point of accountability — no vendor blame',
+              'Store and ads optimised against the same MER target',
+              'Data from day one because tracking is built in, not retrofitted',
+            ].map((item) => (
+              <li class="flex items-start gap-3 text-sm text-gray-400">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#00f19f] flex-shrink-0 mt-1.5" />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <a href="/audit/" class="inline-flex items-center gap-3 px-6 py-3 bg-[#00f19f] text-black font-bold rounded-full hover:bg-white transition-colors duration-300 text-sm w-fit">
+            Start with a free audit
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Other retainer lines -->
+      <div class="mt-px bg-white/10">
+        <div class="bg-black px-8 md:px-10 py-6">
+          <p class="text-gray-600 font-mono text-xs tracking-widest uppercase mb-4">Additional retainer options</p>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="flex items-start gap-4">
+              <span class="text-[#00f19f] font-heading font-bold text-lg w-24 flex-shrink-0">$1,200<span class="text-gray-600 text-xs font-mono">/mo</span></span>
+              <div>
+                <p class="text-white text-sm font-semibold mb-0.5">Growth Tools & Automation</p>
+                <p class="text-gray-500 text-xs leading-relaxed">Conversions API, custom MER dashboard, server-side event pipelines, marketing automation.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="text-[#00f19f] font-heading font-bold text-lg w-24 flex-shrink-0">$1,500<span class="text-gray-600 text-xs font-mono">/mo</span></span>
+              <div>
+                <p class="text-white text-sm font-semibold mb-0.5">Brand & Content</p>
+                <p class="text-gray-500 text-xs leading-relaxed">Brand strategy, ad creative, UGC-style video, motion design — tied to creative MER performance.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Guarantees ──────────────────────────────────────────────────────── -->
+  <section class="bg-black border-b border-white/10 px-4 md:px-8 py-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="scroll-section mb-12">
+        <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-4">Risk reversal</span>
+        <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-none">What we guarantee.</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-px bg-white/10 rounded-2xl overflow-hidden">
+        {[
+          {
+            title: 'Timeline',
+            body: 'Shopify builds delivered in 6 weeks from the date we receive final content. If we miss it, the next milestone is at no charge. We only publish this because our delivery record supports it.',
+          },
+          {
+            title: 'Fixed scope',
+            body: 'Your quoted price does not move unless you change the brief in writing. Nothing is added to an invoice without prior written agreement — no silent scope creep.',
+          },
+          {
+            title: 'Tracking',
+            body: 'Server-side tracking and Conversions API verified live within the first 14 days of any retainer, or the setup is free. Almost no competitor offers this in writing.',
+          },
+          {
+            title: 'Data ownership',
+            body: 'Every ad account, pixel, domain, Shopify store, and Klaviyo list is registered in your name from day one. You own everything. If you leave, you take it all with you.',
+          },
+        ].map(({ title, body }) => (
+          <div class="bg-black p-8 md:p-10">
+            <h3 class="text-[#00f19f] font-mono text-xs font-bold tracking-widest uppercase mb-4">{title}</h3>
+            <p class="text-gray-300 text-sm leading-relaxed">{body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── What's not included ──────────────────────────────────────────────── -->
+  <section class="bg-black border-b border-white/10 px-4 md:px-8 py-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="scroll-section mb-12">
+        <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-4">Scope boundary</span>
+        <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-none">What's not included.</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-x-16 gap-y-4 max-w-3xl">
+        {notIncluded.map((item) => (
+          <div class="flex items-start gap-3 py-3 border-b border-white/5">
+            <span class="w-1.5 h-1.5 rounded-full bg-gray-700 flex-shrink-0 mt-2" />
+            <p class="text-gray-400 text-sm leading-relaxed">{item}</p>
+          </div>
+        ))}
+      </div>
+
+      <p class="text-gray-600 text-xs font-mono mt-8 max-w-xl leading-relaxed">
+        Every out-of-scope request is quoted separately before any work begins. Nothing is added to an invoice without prior written agreement.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── FAQ ──────────────────────────────────────────────────────────────── -->
+  <section class="bg-black border-b border-white/10 px-4 md:px-8 py-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="scroll-section mb-12">
+        <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-4">Common questions</span>
+        <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-none">Before you reach out.</h2>
+      </div>
+
+      <div class="max-w-3xl grid md:grid-cols-2 gap-x-16 gap-y-10">
+        {faqs.map((faq) => (
+          <div>
+            <h3 class="font-heading font-bold text-xl text-white mb-3">{faq.q}</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">{faq.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────────────────────────────── -->
+  <section class="bg-black px-4 md:px-8 py-24">
+    <div class="max-w-7xl mx-auto">
+      <div class="scroll-section max-w-2xl">
+        <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-6">Two ways in</span>
+        <h2 class="reveal-line block text-4xl md:text-6xl font-heading font-bold text-white leading-none mb-8">Ready when you are.</h2>
+        <p class="text-gray-400 text-base leading-relaxed mb-10">
+          High intent: book a 30-min call and we'll tell you exactly what we'd do and whether we're the right fit.
+          Lower intent: request the free audit and get the three biggest gaps in your store, ads, and email within 48 hours — no call required.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-5">
+          <a
+            href="https://cal.com/hydra-fox-sqrqbz/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-3 px-8 py-4 bg-[#00f19f] text-black font-bold rounded-full hover:bg-white transition-colors duration-300 text-sm"
+          >
+            Book a 30-min call
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a href="/audit/" class="inline-flex items-center gap-3 px-8 py-4 border border-white/20 text-white rounded-full hover:border-white/50 transition-colors duration-300 text-sm">
+            Request a free audit
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  const EXPO_OUT = 'cubic-bezier(0.19, 1, 0.22, 1)';
+  const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
+
+  function initPricingAnimations() {
+    document.querySelectorAll('.pr-reveal-line').forEach(el => { el.style.transform = 'translateY(110%)'; });
+    document.querySelectorAll('.pr-reveal-fade').forEach(el => { el.style.opacity = '0'; });
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.querySelectorAll('.pr-reveal-line').forEach((el, i) => {
+          const anim = el.animate(
+            [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+            { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
+          );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
+        });
+        document.querySelectorAll('.pr-reveal-fade').forEach((el, i) => {
+          const anim = el.animate(
+            [{ opacity: '0' }, { opacity: '1' }],
+            { duration: 700, delay: 400 + i * 100, easing: CUBIC_OUT, fill: 'forwards' }
+          );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
+        });
+      });
+    });
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.querySelectorAll('.reveal-line').forEach((el, i) => {
+          el.style.transform = 'translateY(110%)';
+          const anim = el.animate(
+            [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+            { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
+          );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
+        });
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.scroll-section').forEach(s => io.observe(s));
+  }
+
+  document.addEventListener('astro:page-load', initPricingAnimations);
+</script>
+
+<style>
+  .pr-reveal-line, .reveal-line { will-change: transform; display: block; }
+  .pr-reveal-fade { will-change: opacity; }
+</style>

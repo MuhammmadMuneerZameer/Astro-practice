@@ -4,7 +4,7 @@ const { image, title, description, tag } = Astro.props;
 
 <div class="bg-black border border-white/10 hover:border-white/25 rounded-2xl overflow-hidden transition-colors duration-300 h-full flex flex-col group">
   <div class="relative overflow-hidden">
-    <img src={image} alt={title} class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
+    <img src={image} alt={title} class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-[1.03]" width="800" height="450" loading="lazy" />
     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
   </div>
   <div class="p-5 flex flex-col flex-grow gap-3">

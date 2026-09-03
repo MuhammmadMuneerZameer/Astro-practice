@@ -7,12 +7,11 @@ const BIA_EASE = [0.45, 0.02, 0.09, 0.98];
 const CUBIC_OUT = [0.215, 0.61, 0.355, 1];
 
 const FILTERS = [
-  { id: 'all',              label: 'All Projects' },
-  { id: 'ux-ui-design',    label: 'UX/UI Design' },
-  { id: 'web-development', label: 'Web Development' },
-  { id: 'mobile-app',      label: 'Mobile App' },
-  { id: 'branding',        label: 'Branding' },
-  { id: 'digital-marketing', label: 'Digital Marketing' },
+  { id: 'all',                     label: 'All' },
+  { id: 'ecommerce-growth',        label: 'Ecommerce Growth' },
+  { id: 'store-design-build',      label: 'Store Design' },
+  { id: 'growth-tools-automation', label: 'Growth Tools' },
+  { id: 'brand-content',           label: 'Brand & Content' },
 ];
 
 // ─── Crossfade image panel ─────────────────────────────────────────────────────
@@ -31,6 +30,8 @@ function SlotImage({ slot, active }) {
       src={slot.image}
       alt={slot.title || ''}
       onError={() => setErrored(true)}
+      width="1200"
+      height="675"
       style={{
         position: 'absolute',
         inset: 0,

@@ -1,24 +1,24 @@
----
+﻿---
 const stats = [
-  { num: 50,  suffix: "+",  label: "Projects Delivered" },
-  { num: 30,  suffix: "+",  label: "Happy Clients" },
-  { num: 3,   suffix: "+",  label: "Years Experience" },
-  { num: 100, suffix: "%",  label: "Client Satisfaction" },
+  { num: 50,  suffix: "+",  label: "Shopify Stores Launched" },
+  { num: 30,  suffix: "+",  label: "DTC Brands Grown" },
+  { num: 3,   suffix: "+",  label: "Years Ecommerce Focus" },
+  { num: 40,  suffix: "+",  label: "Klaviyo Flows Built" },
 ];
 ---
 
 <section class="border-t border-white/10 bg-black py-16 px-4 md:px-8">
   <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10">
     {stats.map((stat) => (
-      <div class="scroll-section px-6 md:px-10 py-4 text-center">
+      <div class="px-6 md:px-10 py-4 text-center">
         <span
-          class="counter reveal-line block text-5xl md:text-6xl font-heading font-bold text-[#00f19f] tabular-nums leading-none"
+          class="counter block text-5xl md:text-6xl font-heading font-bold text-[#00f19f] tabular-nums leading-none"
           data-target={stat.num}
           data-suffix={stat.suffix}
         >
           {stat.num}{stat.suffix}
         </span>
-        <span class="reveal-fade block text-gray-500 text-xs uppercase tracking-wider mt-3">
+        <span class="block text-gray-500 text-xs uppercase tracking-wider mt-3">
           {stat.label}
         </span>
       </div>
@@ -28,7 +28,7 @@ const stats = [
 
 <script>
   function initCounters() {
-    const counters = document.querySelectorAll<HTMLElement>('.counter[data-target]');
+    const counters = document.querySelectorAll('.counter[data-target]');
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {

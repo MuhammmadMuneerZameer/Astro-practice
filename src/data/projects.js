@@ -47,7 +47,7 @@ export async function getProjects() {
         id: doc.id,
         title: data.title || 'Untitled Project',
         description: data.description || '',
-        image: data.image || 'https://via.placeholder.com/800x600',
+        image: data.image || '/images/desktop-opt.webp',
         technologies: data.technologies || [],
         link: data.link || '#',
         slug: data.slug || doc.id,

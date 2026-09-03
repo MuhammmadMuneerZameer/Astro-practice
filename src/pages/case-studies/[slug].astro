@@ -1,116 +1,229 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import { getCaseStudies, getCaseStudyBySlug } from "../../data/caseStudies";
-
-// Components
-import CaseStudyHero from "../../components/case-study-modules/CaseStudyHero";
-import BrandIdentityModule from "../../components/case-study-modules/BrandIdentityModule";
-import MarketRealityModule from "../../components/case-study-modules/MarketRealityModule";
-import GrowthBlockModule from "../../components/case-study-modules/GrowthBlockModule";
-import StrategicShiftModule from "../../components/case-study-modules/StrategicShiftModule";
-import SystemBuildModule from "../../components/case-study-modules/SystemBuildModule";
-import MarketImpactModule from "../../components/case-study-modules/MarketImpactModule";
-import VisualProofModule from "../../components/case-study-modules/VisualProofModule";
-import TestimonialModule from "../../components/case-study-modules/TestimonialModule";
-import ConversionModule from "../../components/case-study-modules/ConversionModule";
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
-  const caseStudies = await getCaseStudies();
-  return caseStudies.map((study) => ({
-    params: { slug: study.slug },
-    props: { caseStudy: study },
+  const entries = await getCollection('case-studies');
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
   }));
 }
 
-const { caseStudy } = Astro.props;
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const cs = entry.data;
 
-if (!caseStudy) {
-  return Astro.redirect("/case-studies");
-}
+const serviceLabels: Record<string, string> = {
+  'ecommerce-growth':        'Ecommerce Growth',
+  'store-design-build':      'Store Design & Build',
+  'growth-tools-automation': 'Growth Tools & Automation',
+  'brand-content':           'Brand & Content',
+};
 ---
 
 <Layout
-  title={`${caseStudy.title} | Case Study`}
-  description={caseStudy.challenge || `Case Study for ${caseStudy.client}`}
+  title={`${cs.client} — ${cs.title} | Hydra Fox Designs`}
+  description={cs.description}
 >
-  <main class="bg-black min-h-screen">
-    {/* 1. Hero Module */}
-    <CaseStudyHero
-      client:visible
-      title={caseStudy.title}
-      subtitle={caseStudy.subtitle}
-      client={caseStudy.client}
-      service={caseStudy.service}
-      industry={caseStudy.industry}
-      duration={caseStudy.duration}
-      image={caseStudy.heroImage || caseStudy.image}
-    />
 
-    {/* 2. Brand Identity Module */}
-    <BrandIdentityModule
-      client:visible
-      brandBio={caseStudy.brandBio}
-      visualIdentity={caseStudy.visualIdentity}
-      marketPos={caseStudy.marketPos}
-      persona={caseStudy.persona}
-    />
+  <!-- ── 1. Hero ─────────────────────────────────────────────────────────── -->
+  <section class="relative bg-black overflow-hidden -mt-16 md:mt-0 pt-36 md:pt-52 pb-20 px-4 md:px-8 border-b border-white/10">
+    {cs.image && (
+      <div class="absolute inset-0 z-0">
+        <img src={cs.image} alt={cs.title} class="w-full h-full object-cover opacity-10" width="1920" height="1080" />
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black" />
+      </div>
+    )}
 
-    {/* 3. Market Reality Module */}
-    <MarketRealityModule
-      client:visible
-      marketMap={caseStudy.marketMap}
-      competitors={caseStudy.competitors}
-      insights={caseStudy.insights}
-    />
+    <div class="relative z-10 max-w-7xl mx-auto">
+      <!-- Service tags -->
+      <div class="flex flex-wrap gap-2 mb-6">
+        {cs.services.map((s) => (
+          <span class="px-3 py-1 border border-[#00f19f]/40 text-[#00f19f] text-xs font-mono rounded-full">
+            {serviceLabels[s] ?? s}
+          </span>
+        ))}
+      </div>
 
-    {/* 4. Growth Block (Challenges) */}
-    <GrowthBlockModule
-      client:visible
-      challenges={caseStudy.challenges || caseStudy.challenge}
-      bottlenecks={caseStudy.bottlenecks}
-    />
+      <h1 class="font-heading font-bold text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-white leading-none tracking-tight mb-6 max-w-5xl">
+        {cs.title}
+      </h1>
 
-    {/* 5. Strategic Shift */}
-    <StrategicShiftModule
-      client:visible
-      oldStrategy={caseStudy.oldStrategy}
-      newStrategy={caseStudy.newStrategy || caseStudy.solution}
-    />
+      <!-- Meta strip -->
+      <div class="flex flex-wrap gap-x-10 gap-y-3 text-gray-500 text-sm font-mono mt-8">
+        <span><span class="text-gray-700 mr-2">Client</span>{cs.client}</span>
+        <span><span class="text-gray-700 mr-2">Industry</span>{cs.industry}</span>
+        <span><span class="text-gray-700 mr-2">Timeframe</span>{cs.timeframe}</span>
+      </div>
+    </div>
+  </section>
 
-    {/* 6. System Build */}
-    <SystemBuildModule
-      client:visible
-      ecosystem={caseStudy.ecosystem}
-      automation={caseStudy.automation}
-    />
+  <!-- Own-brand disclosure -->
+  {cs.isOwnBrand && (
+    <section class="bg-[#00f19f]/5 border-b border-[#00f19f]/20 px-4 md:px-8 py-6">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-start gap-4 md:gap-12">
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <span class="w-2 h-2 rounded-full bg-[#00f19f]" />
+          <span class="text-[#00f19f] text-xs font-bold tracking-[0.2em] uppercase">Own Brand — Full Disclosure</span>
+        </div>
+        <p class="text-gray-300 text-sm leading-relaxed flex-1">
+          This is a brand we own and operate, not a client project. We built the store, run the ad account, and handle fulfilment — with our own money at risk.
+        </p>
+        {cs.storeUrl && (
+          <a href={cs.storeUrl} target="_blank" rel="noopener noreferrer" class="text-[#00f19f] text-sm hover:underline flex-shrink-0">
+            Visit the store →
+          </a>
+        )}
+      </div>
+    </section>
+  )}
 
-    {/* 8. Market Impact */}
-    <MarketImpactModule
-      client:visible
-      revenueImpact={caseStudy.revenueImpact}
-      kpis={caseStudy.kpis}
-    />
+  <div class="bg-black">
 
-    {/* 9. Visual Proof */}
-    <VisualProofModule
-      client:visible
-      galleryImages={caseStudy.galleryImages || caseStudy.images}
-    />
+    <!-- ── 1. Context ───────────────────────────────────────────────────────── -->
+    <section class="border-b border-white/10 px-4 md:px-8 py-20">
+      <div class="max-w-7xl mx-auto grid md:grid-cols-[200px_1fr] gap-10 md:gap-20">
+        <div>
+          <span class="text-[#00f19f] text-xs font-bold tracking-[0.2em] uppercase">The Client</span>
+        </div>
+        <p class="text-gray-400 text-base md:text-lg leading-relaxed font-light max-w-3xl">
+          {cs.context}
+        </p>
+      </div>
+    </section>
 
-    {/* 10. Testimonial */}
-    <TestimonialModule
-      client:visible
-      quote={caseStudy.testimonialQuote}
-      author={caseStudy.testimonialAuthor}
-      role={caseStudy.testimonialRole}
-    />
+    <!-- ── 2. Problem ───────────────────────────────────────────────────────── -->
+    <section class="border-b border-white/10 px-4 md:px-8 py-20">
+      <div class="max-w-7xl mx-auto grid md:grid-cols-[200px_1fr] gap-10 md:gap-20">
+        <div>
+          <span class="text-[#00f19f] text-xs font-bold tracking-[0.2em] uppercase">The Problem</span>
+        </div>
+        <p class="text-white text-xl md:text-2xl leading-relaxed font-light max-w-3xl">
+          {cs.problem}
+        </p>
+      </div>
+    </section>
 
-    {/* 11. Conversion */}
-    <ConversionModule
-      client:visible
-      bookingLink={caseStudy.bookingLink}
-      services={caseStudy.services ||
-        (caseStudy.service ? [caseStudy.service] : [])}
-    />
-  </main>
+    <!-- ── 3. Baseline → Results ─────────────────────────────────────────────── -->
+    <section class="border-b border-white/10 px-4 md:px-8 py-20">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-0 md:divide-x divide-white/10">
+
+          <!-- Before -->
+          <div class="md:pr-16 pb-12 md:pb-0">
+            <p class="text-gray-600 text-xs font-mono tracking-widest uppercase mb-8">Before</p>
+            <div class="space-y-6">
+              {cs.baseline.map((m) => (
+                <div class="flex justify-between items-baseline border-b border-white/5 pb-4">
+                  <span class="text-gray-500 text-sm">{m.label}</span>
+                  <span class="text-white font-heading font-bold text-2xl md:text-3xl">{m.value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- After -->
+          <div class="md:pl-16 pt-12 md:pt-0">
+            <p class="text-[#00f19f] text-xs font-mono tracking-widest uppercase mb-8">After</p>
+            <div class="space-y-6">
+              {cs.results.map((m) => (
+                <div class="flex justify-between items-baseline border-b border-[#00f19f]/10 pb-4">
+                  <span class="text-gray-500 text-sm">{m.label}</span>
+                  <span class="text-[#00f19f] font-heading font-bold text-2xl md:text-3xl">{m.value}</span>
+                </div>
+              ))}
+            </div>
+            {cs.caveats && (
+              <p class="text-gray-600 text-xs font-mono leading-relaxed mt-8 max-w-sm">
+                {cs.caveats}
+              </p>
+            )}
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 4. Intervention (markdown body) ─────────────────────────────────── -->
+    <section class="border-b border-white/10 px-4 md:px-8 py-20">
+      <div class="max-w-7xl mx-auto grid md:grid-cols-[200px_1fr] gap-10 md:gap-20">
+        <div>
+          <span class="text-[#00f19f] text-xs font-bold tracking-[0.2em] uppercase">What We Did</span>
+        </div>
+        <div class="cs-body prose prose-invert prose-sm md:prose-base max-w-3xl
+                    prose-headings:font-heading prose-headings:font-bold prose-headings:text-white
+                    prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:first:mt-0
+                    prose-p:text-gray-400 prose-p:leading-relaxed
+                    prose-strong:text-white prose-li:text-gray-400">
+          <Content />
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 6. Quote ────────────────────────────────────────────────────────── -->
+    <section class="border-b border-white/10 px-4 md:px-8 py-20">
+      <div class="max-w-7xl mx-auto max-w-3xl">
+        <span class="text-[#00f19f] font-heading font-bold text-5xl leading-none select-none">"</span>
+        <blockquote class="text-white text-xl md:text-2xl leading-relaxed font-light mt-4 mb-8">
+          {cs.quote.text}
+        </blockquote>
+        <div class="flex items-center gap-4">
+          <div class="w-px h-8 bg-[#00f19f]/40" />
+          <div>
+            <p class="text-white text-sm font-semibold">{cs.quote.author}</p>
+            <p class="text-[#00f19f] text-xs font-bold tracking-[0.15em] uppercase mt-0.5">{cs.quote.role}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 7. Gallery (visual proof) ───────────────────────────────────────── -->
+    {cs.galleryImages && cs.galleryImages.length > 0 && (
+      <section class="border-b border-white/10 px-4 md:px-8 py-20">
+        <div class="max-w-7xl mx-auto">
+          <p class="text-gray-600 text-xs font-mono tracking-widest uppercase mb-10">Visual Proof</p>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {cs.galleryImages.map((src, i) => (
+              <div class="rounded-xl overflow-hidden border border-white/10 aspect-video bg-gray-900">
+                <img src={src} alt={`${cs.client} — result ${i + 1}`} class="w-full h-full object-cover" width="1200" height="675" loading="lazy" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- ── 7. What we'd do next ─────────────────────────────────────────────── -->
+    <section class="border-b border-white/10 px-4 md:px-8 py-20">
+      <div class="max-w-7xl mx-auto grid md:grid-cols-[200px_1fr] gap-10 md:gap-20">
+        <div>
+          <span class="text-[#00f19f] text-xs font-bold tracking-[0.2em] uppercase">What's Next</span>
+        </div>
+        <p class="text-gray-400 text-base md:text-lg leading-relaxed font-light max-w-3xl">
+          {cs.nextSteps}
+        </p>
+      </div>
+    </section>
+
+    <!-- ── CTA ─────────────────────────────────────────────────────────────── -->
+    <section class="px-4 md:px-8 py-24">
+      <div class="max-w-7xl mx-auto text-center">
+        <p class="text-[#00f19f] text-xs font-bold tracking-[0.2em] uppercase mb-6">Ready to see results like this?</p>
+        <h2 class="font-heading font-bold text-4xl md:text-6xl text-white mb-10">Let's talk about your brand.</h2>
+        <a
+          href="/contact"
+          class="inline-flex items-center gap-4 text-white group"
+        >
+          <span class="w-14 h-14 rounded-full border-2 border-white/30 group-hover:border-[#00f19f] group-hover:bg-[#00f19f] flex items-center justify-center transition-all duration-500 flex-shrink-0">
+            <svg class="w-5 h-5 text-white group-hover:text-black -rotate-45 group-hover:rotate-0 transition-all duration-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </span>
+          <span class="font-heading font-bold text-2xl md:text-3xl group-hover:text-[#00f19f] transition-colors duration-300">Get in touch</span>
+        </a>
+      </div>
+    </section>
+
+  </div>
 </Layout>

@@ -1,0 +1,264 @@
+﻿---
+import Layout from '../../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('case-studies');
+const caseStudies = entries
+  .filter((e) => e.data.services?.some((s: string) => s === 'growth-tools-automation'))
+  .slice(0, 2)
+  .map((e) => ({
+    slug:  e.slug,
+    title: e.data.title,
+    client: e.data.client,
+    image: e.data.image ?? '/images/desktop-opt.webp',
+  }));
+
+const deliverables = [
+  {
+    num: '01',
+    name: 'Conversions API Implementation',
+    desc: 'Server-side event pipelines for Meta and Google that send purchase, add-to-cart, and checkout events directly from your server — so attribution holds as browsers block third-party cookies and iOS blocks pixel signals.',
+  },
+  {
+    num: '02',
+    name: 'Custom MER Dashboard',
+    desc: 'A single view of Marketing Efficiency Ratio, blended CAC, LTV:CAC, AOV, and retention revenue — pulling from GA4, Shopify, and your ad platforms. Decision-making data, not platform ROAS.',
+  },
+  {
+    num: '03',
+    name: 'Server-Side Tracking Audit',
+    desc: 'Full audit of your current tracking setup — what\'s firing, what\'s missing, what\'s double-counting. We document the gaps and implement the fixes, then run ongoing accuracy checks monthly.',
+  },
+  {
+    num: '04',
+    name: 'Marketing Automation',
+    desc: 'Automated flows, trigger-based campaigns, and segmentation logic across Klaviyo and your ad platforms — so the right message reaches the right segment without manual intervention.',
+  },
+  {
+    num: '05',
+    name: 'AI Systems & Internal Tooling',
+    desc: 'Custom internal tools for reporting, creative review, or inventory intelligence — built where repetitive workflows are costing hours per week and a lightweight AI layer would eliminate them.',
+  },
+];
+
+const siblings = [
+  { label: 'Ecommerce Growth',   href: '/services/ecommerce-growth/' },
+  { label: 'Shopify Stores',     href: '/services/shopify/' },
+  { label: 'Brand & Content',    href: '/services/brand-content/' },
+];
+---
+
+<Layout
+  title="Growth Tools & Automation | Hydra Fox Designs"
+  description="Conversions API, MER dashboards, server-side tracking, and marketing automation for DTC brands. From $1,200/mo."
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://hydrafoxdesigns.com/" },
+          { "@type": "ListItem", position: 2, name: "Services", item: "https://hydrafoxdesigns.com/services/" },
+          { "@type": "ListItem", position: 3, name: "Growth Tools", item: "https://hydrafoxdesigns.com/services/growth-tools/" },
+        ]
+      },
+      {
+        "@type": "Service",
+        "@id": "https://hydrafoxdesigns.com/services/growth-tools/#service",
+        name: "Growth Tools & Automation",
+        provider: { "@id": "https://hydrafoxdesigns.com/#organization" },
+        description: "Conversions API, MER dashboards, server-side tracking, and marketing automation for DTC brands.",
+        offers: { "@type": "Offer", price: "1200", priceCurrency: "USD", priceSpecification: { "@type": "UnitPriceSpecification", priceType: "https://schema.org/MinimumAdvertisedPrice", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" } } },
+        areaServed: ["PK", "AE", "SA", "GB", "US"],
+        url: "https://hydrafoxdesigns.com/services/growth-tools/",
+      }
+    ]
+  })} slot="head" />
+
+  <!-- ── Breadcrumb ────────────────────────────────────────────────────────── -->
+  <nav class="bg-black pt-24 pb-4 px-6">
+    <div class="max-w-7xl mx-auto">
+      <ol class="flex items-center gap-2 text-sm text-gray-500 flex-wrap">
+        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+        <li class="text-gray-700">/</li>
+        <li><a href="/services/" class="hover:text-white transition-colors">Services</a></li>
+        <li class="text-gray-700">/</li>
+        <li class="text-white font-medium">Growth Tools</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
+  <section class="bg-black text-white px-6 pb-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="px-3 py-1 bg-green-500/10 text-green-400 rounded-full text-xs font-medium border border-green-500/20">
+          Growth Tools & Automation
+        </span>
+      </div>
+      <h1 class="text-5xl md:text-7xl font-heading font-bold mb-6 leading-none">
+        Data you can actually act on.
+      </h1>
+      <p class="text-gray-400 text-xl max-w-2xl leading-relaxed">
+        Conversions API, server-side tracking, and custom MER dashboards that give you accurate attribution and better decisions — without requiring an in-house data team. From $1,200/mo.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Why tracking comes first ─────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-16">
+    <div class="max-w-7xl mx-auto">
+      <div class="scroll-section max-w-3xl">
+        <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-6">Why it matters</span>
+        <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-none mb-8">Why does tracking come before campaigns?</h2>
+        <p class="text-gray-400 text-base leading-relaxed mb-5">
+          iOS 14, cookie deprecation, and ad blocker adoption have eroded browser-side attribution to the point where most ad accounts are optimising against data that reflects 40–60% of actual conversions. Conversions API runs server-to-server, bypassing browser restrictions entirely.
+        </p>
+        <p class="text-gray-400 text-base leading-relaxed">
+          On every Ecommerce Growth retainer, we install server-side tracking in week one — before the first campaign launches. You are never spending budget against data a browser decided not to share.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Deliverables ──────────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="scroll-section mb-12">
+        <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-4">What we implement</span>
+        <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-none">What does Growth Tools & Automation include?</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-0">
+        {deliverables.map((d) => (
+          <div class="border-t border-white/10 py-8 md:pr-12 even:md:pl-12 even:md:border-l even:border-white/10">
+            <p class="text-gray-700 font-mono text-xs mb-3">{d.num}</p>
+            <h3 class="font-heading font-bold text-xl text-white mb-3">{d.name}</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">{d.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Metrics strip ─────────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-16">
+    <div class="max-w-7xl mx-auto">
+      <div class="scroll-section">
+        <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-8">Metrics we report on</span>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { metric: 'MER', desc: 'Total revenue ÷ total ad spend — across all channels' },
+            { metric: 'Blended CAC', desc: 'Total acquisition cost across paid and organic' },
+            { metric: 'LTV:CAC', desc: 'Customer lifetime value vs. acquisition cost by 90-day cohort' },
+            { metric: 'RPR', desc: 'Revenue per recipient by Klaviyo flow' },
+          ].map(({ metric, desc }) => (
+            <div class="border border-white/10 rounded-xl p-5">
+              <p class="font-mono font-bold text-[#00f19f] text-lg mb-2">{metric}</p>
+              <p class="text-gray-500 text-xs leading-relaxed">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Related case studies ──────────────────────────────────────────────── -->
+  {caseStudies.length > 0 && (
+    <section class="bg-black border-t border-white/10 px-4 md:px-8 py-20">
+      <div class="max-w-7xl mx-auto">
+        <div class="scroll-section mb-12">
+          <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-4">Client work</span>
+          <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-none">Results.</h2>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8">
+          {caseStudies.map((cs) => (
+            <a href={`/case-studies/${cs.slug}/`} class="group block">
+              <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gray-900">
+                <img src={cs.image} alt={cs.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width="800" height="450" />
+              </div>
+              <h3 class="text-xl font-heading font-bold text-white group-hover:text-[#00f19f] transition-colors">{cs.title}</h3>
+              <p class="text-gray-500 text-sm mt-1">{cs.client}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ── Other services ────────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-16">
+    <div class="max-w-7xl mx-auto">
+      <p class="text-gray-600 text-xs font-mono tracking-widest uppercase mb-6">Other services</p>
+      <div class="flex flex-wrap gap-3">
+        {siblings.map(({ label, href }) => (
+          <a href={href} class="px-5 py-3 bg-gray-900/50 hover:bg-gray-800 border border-white/10 rounded-lg text-gray-300 hover:text-white text-sm transition-colors duration-200">
+            {label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Accountability ───────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-16">
+    <div class="max-w-7xl mx-auto flex items-start gap-6 md:gap-10">
+      <img src="/images/muneer.png" alt="Muneer Zameer" class="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover flex-shrink-0 grayscale" width="64" height="64" loading="lazy" />
+      <div>
+        <p class="text-white font-semibold mb-1.5">Muneer Zameer runs this account.</p>
+        <p class="text-gray-500 text-sm leading-relaxed max-w-2xl">There is no account manager layer. Tracking is verified live within 14 days of any retainer — or the setup is free. That guarantee is in writing because our implementation record supports it.</p>
+        <a href="/about/" class="inline-flex items-center gap-1.5 text-[#00f19f] text-xs font-mono mt-4 hover:text-white transition-colors duration-200">Meet the team →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-24">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-heading font-bold text-white mb-6 leading-none">Fix your tracking first.</h2>
+      <p class="text-gray-400 text-lg mb-10 leading-relaxed">
+        A free audit tells you exactly what your current setup is missing — before you spend another dollar on campaigns built on bad data.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/audit/" class="inline-flex items-center gap-2 px-8 py-4 bg-[#00f19f] hover:bg-white text-black font-bold rounded-full transition-colors text-sm">
+          Request free audit
+        </a>
+        <a href="https://cal.com/hydra-fox-sqrqbz/30min" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 px-8 py-4 border border-white/20 text-white hover:border-white/50 rounded-full transition-colors text-sm">
+          Book a 30-min call
+        </a>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  const EXPO_OUT = 'cubic-bezier(0.19, 1, 0.22, 1)';
+
+  function initGTAnimations() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.querySelectorAll('.reveal-line').forEach((el, i) => {
+          el.style.transform = 'translateY(110%)';
+          const anim = el.animate(
+            [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+            { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
+          );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
+        });
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.scroll-section').forEach(s => io.observe(s));
+  }
+
+  document.addEventListener('astro:page-load', initGTAnimations);
+</script>
+
+<style>
+  .reveal-line { will-change: transform; display: block; }
+</style>

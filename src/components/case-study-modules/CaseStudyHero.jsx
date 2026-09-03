@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowDown, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-export default function CaseStudyHero({ title, subtitle, client, service, industry, duration, image }) {
+export default function CaseStudyHero({ title, subtitle, client, service, industry, duration, image, isOwnBrand }) {
     return (
         <div className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-brand-dark">
             {/* Background Image with Overlay */}
@@ -12,6 +12,8 @@ export default function CaseStudyHero({ title, subtitle, client, service, indust
                     src={image}
                     alt={client}
                     className="w-full h-full object-cover scale-105 animate-slow-zoom opacity-60"
+                    width="1920"
+                    height="1080"
                 />
             </div>
 
@@ -25,6 +27,11 @@ export default function CaseStudyHero({ title, subtitle, client, service, indust
                 >
                     {/* Tags */}
                     <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
+                        {isOwnBrand && (
+                            <span className="px-4 py-1.5 bg-[#00f19f]/10 backdrop-blur-md border border-[#00f19f]/40 rounded-full text-[#00f19f] text-sm font-bold tracking-wide uppercase">
+                                Own Brand
+                            </span>
+                        )}
                         <span className="px-4 py-1.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-brand-neutral-200 text-sm font-bold tracking-wide uppercase">
                             {service}
                         </span>

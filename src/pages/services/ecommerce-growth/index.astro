@@ -1,0 +1,261 @@
+﻿---
+import Layout from '../../../layouts/Layout.astro';
+import { SERVICE_HIERARCHY } from '../../../data/taxonomy.js';
+import { getCollection } from 'astro:content';
+
+const service = SERVICE_HIERARCHY['ecommerce-growth'];
+const subservices = Object.values(service.subservices) as Array<{ name: string; slug: string; description: string }>;
+
+const entries = await getCollection('case-studies');
+const caseStudies = entries
+  .filter((e) => e.data.services?.includes('ecommerce-growth'))
+  .slice(0, 2)
+  .map((e) => ({
+    slug:  e.slug,
+    title: e.data.title,
+    client: e.data.client,
+    image: e.data.image ?? '/images/desktop-opt.webp',
+    timeframe: e.data.timeframe,
+  }));
+
+const metrics = [
+  { metric: 'MER',          desc: 'Total revenue ÷ total ad spend — the only number that captures the full picture' },
+  { metric: 'Blended CAC',  desc: 'Cost to acquire one customer across all paid and organic channels combined' },
+  { metric: 'LTV:CAC',      desc: 'How much a customer is worth vs. what they cost to acquire — tracked by 90-day cohort' },
+  { metric: 'Retention %',  desc: 'Revenue from owned channels (email + SMS) as a share of total monthly revenue' },
+];
+
+const sequenceSteps = [
+  { step: '01', label: 'Tracking',  desc: 'Conversions API live in week one. Attribution holds before the first ad goes live.' },
+  { step: '02', label: 'Creative',  desc: 'Ad creative and messaging tested against scroll-stop rate before scaling spend.' },
+  { step: '03', label: 'Paid Media', desc: 'Meta, Google, or TikTok campaigns launched against a blended MER target — not platform ROAS.' },
+  { step: '04', label: 'Retention', desc: 'Klaviyo flows capture value from acquired traffic so each customer repays their acquisition cost.' },
+];
+---
+
+<Layout
+  title="Ecommerce Growth | Hydra Fox Designs"
+  description="Paid media on Meta, Google, and TikTok managed to MER targets — with Klaviyo lifecycle infrastructure and Conversions API for attribution that holds. From $2,500/mo."
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://hydrafoxdesigns.com/" },
+          { "@type": "ListItem", position: 2, name: "Services", item: "https://hydrafoxdesigns.com/services/" },
+          { "@type": "ListItem", position: 3, name: "Ecommerce Growth", item: "https://hydrafoxdesigns.com/services/ecommerce-growth/" },
+        ]
+      },
+      {
+        "@type": "Service",
+        "@id": "https://hydrafoxdesigns.com/services/ecommerce-growth/#service",
+        name: "Ecommerce Growth",
+        provider: { "@id": "https://hydrafoxdesigns.com/#organization" },
+        description: "Paid media on Meta, Google, and TikTok managed to MER targets — with Klaviyo lifecycle infrastructure and Conversions API for attribution that holds.",
+        offers: { "@type": "Offer", price: "2500", priceCurrency: "USD", priceSpecification: { "@type": "UnitPriceSpecification", priceType: "https://schema.org/MinimumAdvertisedPrice", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" } } },
+        areaServed: ["PK", "AE", "SA", "GB", "US"],
+        url: "https://hydrafoxdesigns.com/services/ecommerce-growth/",
+      }
+    ]
+  })} slot="head" />
+
+  <!-- ── Breadcrumb ────────────────────────────────────────────────────────── -->
+  <nav class="bg-black pt-24 pb-4 px-6">
+    <div class="max-w-7xl mx-auto">
+      <ol class="flex items-center gap-2 text-sm text-gray-500 flex-wrap">
+        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+        <li class="text-gray-700">/</li>
+        <li><a href="/services/" class="hover:text-white transition-colors">Services</a></li>
+        <li class="text-gray-700">/</li>
+        <li class="text-white font-medium">Ecommerce Growth</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
+  <section class="bg-black text-white px-6 pb-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="px-3 py-1 bg-green-500/10 text-green-400 rounded-full text-xs font-medium border border-green-500/20">
+          Ecommerce Growth
+        </span>
+        <span class="text-gray-600 text-xs font-mono">from $2,500/mo</span>
+      </div>
+      <h1 class="text-5xl md:text-7xl font-heading font-bold mb-6 leading-none">
+        Paid media that pays for itself.
+      </h1>
+      <p class="text-gray-400 text-xl max-w-2xl leading-relaxed">
+        {service.description}
+      </p>
+    </div>
+  </section>
+
+  <!-- ── The system ────────────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="scroll-section mb-12">
+        <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-4">Four pillars</span>
+        <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-none">What does an Ecommerce Growth retainer include?</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-0">
+        {subservices.map((sub, i) => (
+          <a
+            href={`/services/ecommerce-growth/${sub.slug}/`}
+            class="group border-t border-white/10 py-8 md:pr-12 even:md:pl-12 even:md:border-l even:border-white/10 block"
+          >
+            <p class="text-gray-700 font-mono text-xs mb-3">{String(i + 1).padStart(2, '0')}</p>
+            <h3 class="font-heading font-bold text-2xl text-white group-hover:text-[#00f19f] transition-colors duration-300 mb-3">{sub.name}</h3>
+            <p class="text-gray-500 text-sm leading-relaxed mb-4">{sub.description}</p>
+            <span class="text-[#00f19f] text-xs font-mono group-hover:text-white transition-colors">Learn more →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Sequence ──────────────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="scroll-section mb-12">
+        <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-4">Why order matters</span>
+        <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-none">Why does tracking come before paid media?</h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-0 divide-y sm:divide-y-0 sm:divide-x divide-white/10 border-t border-white/10">
+        {sequenceSteps.map((s) => (
+          <div class="py-8 sm:px-8 first:pl-0">
+            <p class="text-gray-700 font-mono text-xs mb-4">{s.step}</p>
+            <h3 class="font-heading font-bold text-lg text-white mb-3">{s.label}</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Metrics ───────────────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-16">
+    <div class="max-w-7xl mx-auto">
+      <div class="scroll-section">
+        <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-8">How we measure it</span>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {metrics.map(({ metric, desc }) => (
+            <div class="border border-white/10 rounded-xl p-5">
+              <p class="font-mono font-bold text-[#00f19f] text-lg mb-2">{metric}</p>
+              <p class="text-gray-500 text-xs leading-relaxed">{desc}</p>
+            </div>
+          ))}
+        </div>
+        <p class="text-gray-600 text-xs font-mono mt-6">We don't report on impressions, CTR, or follower count.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Case studies ──────────────────────────────────────────────────────── -->
+  {caseStudies.length > 0 && (
+    <section class="bg-black border-t border-white/10 px-4 md:px-8 py-20">
+      <div class="max-w-7xl mx-auto">
+        <div class="scroll-section mb-12">
+          <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-4">Client results</span>
+          <div class="flex items-end justify-between gap-6">
+            <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-none">Ecommerce growth results.</h2>
+            <a href="/work/" class="text-gray-500 hover:text-white text-sm transition-colors flex-shrink-0">All work →</a>
+          </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8">
+          {caseStudies.map((cs) => (
+            <a href={`/case-studies/${cs.slug}/`} class="group block">
+              <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gray-900">
+                <img src={cs.image} alt={cs.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width="800" height="450" />
+              </div>
+              <h3 class="text-xl font-heading font-bold text-white group-hover:text-[#00f19f] transition-colors">{cs.title}</h3>
+              <p class="text-gray-500 text-sm mt-1">{cs.client} · {cs.timeframe}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ── Other services ────────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-16">
+    <div class="max-w-7xl mx-auto">
+      <p class="text-gray-600 text-xs font-mono tracking-widest uppercase mb-6">Other services</p>
+      <div class="flex flex-wrap gap-3">
+        {[
+          { label: 'Shopify Stores',   href: '/services/shopify/' },
+          { label: 'Growth Tools',     href: '/services/growth-tools/' },
+          { label: 'Brand & Content',  href: '/services/brand-content/' },
+        ].map(({ label, href }) => (
+          <a href={href} class="px-5 py-3 bg-gray-900/50 hover:bg-gray-800 border border-white/10 rounded-lg text-gray-300 hover:text-white text-sm transition-colors duration-200">
+            {label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Accountability ───────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-16">
+    <div class="max-w-7xl mx-auto flex items-start gap-6 md:gap-10">
+      <img src="/images/muneer.png" alt="Muneer Zameer" class="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover flex-shrink-0 grayscale" width="64" height="64" loading="lazy" />
+      <div>
+        <p class="text-white font-semibold mb-1.5">Muneer Zameer runs this account.</p>
+        <p class="text-gray-500 text-sm leading-relaxed max-w-2xl">There is no account manager layer. No hand-off after the pitch. The person who scoped your engagement is the person who delivers it — discovery, strategy, and weekly reporting. If something is wrong, you have a direct line to the decision-maker.</p>
+        <a href="/about/" class="inline-flex items-center gap-1.5 text-[#00f19f] text-xs font-mono mt-4 hover:text-white transition-colors duration-200">Meet the team →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-24">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-heading font-bold text-white mb-6 leading-none">Start with a free audit.</h2>
+      <p class="text-gray-400 text-lg mb-10 leading-relaxed">
+        We'll review your ad account, Klaviyo flows, and tracking setup — and send you the three biggest gaps within 48 hours.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/audit/" class="inline-flex items-center gap-2 px-8 py-4 bg-[#00f19f] hover:bg-white text-black font-bold rounded-full transition-colors text-sm">
+          Request free audit
+        </a>
+        <a href="https://cal.com/hydra-fox-sqrqbz/30min" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 px-8 py-4 border border-white/20 text-white hover:border-white/50 rounded-full transition-colors text-sm">
+          Book a 30-min call
+        </a>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  const EXPO_OUT = 'cubic-bezier(0.19, 1, 0.22, 1)';
+
+  function initEGAnimations() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.querySelectorAll('.reveal-line').forEach((el, i) => {
+          el.style.transform = 'translateY(110%)';
+          const anim = el.animate(
+            [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+            { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
+          );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
+        });
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.scroll-section').forEach(s => io.observe(s));
+  }
+
+  document.addEventListener('astro:page-load', initEGAnimations);
+</script>
+
+<style>
+  .reveal-line { will-change: transform; display: block; }
+</style>

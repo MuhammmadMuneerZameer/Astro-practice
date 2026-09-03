@@ -1,0 +1,386 @@
+﻿---
+import Layout from '../../layouts/Layout.astro';
+
+const auditAreas = [
+  {
+    area: 'Store',
+    items: [
+      'Mobile conversion rate vs. industry benchmark',
+      'Page speed and Core Web Vitals scores',
+      'Product page structure and trust signals',
+      'Checkout friction points',
+      'Post-purchase upsell coverage',
+    ],
+  },
+  {
+    area: 'Paid Media',
+    items: [
+      'Attribution setup (Conversions API vs. browser-only)',
+      'Blended MER baseline and trend',
+      'Creative fatigue and refresh cadence',
+      'Audience targeting and exclusion logic',
+      'Campaign structure and budget allocation',
+    ],
+  },
+  {
+    area: 'Retention',
+    items: [
+      'Klaviyo flow coverage (6 core flows)',
+      'List health: growth rate and unsubscribe rate',
+      'Revenue per recipient by flow',
+      'Segmentation architecture',
+      'Retention revenue as % of total',
+    ],
+  },
+];
+
+const deliverables = [
+  'Written summary of the three highest-impact gaps — in plain English, not agency jargon',
+  'For each gap: what we found, why it matters in revenue terms, and what we would do first',
+  'Delivered as a PDF or Loom walkthrough within 48 hours of receiving your details',
+  'No call required — if we have follow-up questions we will email them',
+  'If we work together, the audit findings carry directly into your onboarding — no re-discovery, no overlap billed',
+];
+
+const faqs = [
+  {
+    q: 'Is it really free?',
+    a: 'Yes. No hidden cost, no "strategy call" required to receive it. We do this because it gives you something useful and lets us demonstrate what we actually look at. If there is a fit, we talk. If not, you still have the audit.',
+  },
+  {
+    q: 'What do you do with my data?',
+    a: 'We use your brand URL and revenue range to calibrate the benchmarks we compare against. We do not share your data with third parties or use it for anything other than producing your audit.',
+  },
+  {
+    q: 'What happens after I receive the audit?',
+    a: 'Nothing unless you want it to. If you want to discuss the findings or get a quote for fixing them, book a 30-min call. If not, the audit is yours to use however you like.',
+  },
+  {
+    q: 'What do you need from me?',
+    a: 'Your name, email, brand URL, and a rough monthly revenue range so we can apply the right benchmarks. That is all. No logins, no screen shares, no prep work on your end.',
+  },
+];
+---
+
+<Layout
+  title="Free Ecommerce Growth Audit | Hydra Fox Designs"
+  description="We'll review your Shopify store, ad account, and Klaviyo flows and send you the three biggest gaps within 48 hours. No call required."
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://hydrafoxdesigns.com/" },
+          { "@type": "ListItem", position: 2, name: "Free Audit", item: "https://hydrafoxdesigns.com/audit/" },
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": faqs.map(f => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a }
+        }))
+      }
+    ]
+  })} slot="head" />
+
+  <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
+  <section class="relative bg-black overflow-hidden -mt-16 md:mt-0 pt-36 md:pt-52 pb-20 px-4 md:px-8 border-b border-white/10">
+    <div class="absolute inset-0 bg-gradient-to-b from-green-900/5 to-transparent pointer-events-none" />
+    <div class="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-end">
+      <div>
+        <div class="overflow-hidden mb-4">
+          <span class="au-reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
+            Free · No call required · Credited toward first month if you proceed
+          </span>
+        </div>
+        <h1 class="font-heading font-bold leading-none tracking-tight mb-8">
+          <div class="overflow-hidden">
+            <span class="au-reveal-line block text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white">
+              We'll find the
+            </span>
+          </div>
+          <div class="overflow-hidden">
+            <span class="au-reveal-line block text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white">
+              three biggest
+            </span>
+          </div>
+          <div class="overflow-hidden">
+            <span class="au-reveal-line block text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-[#00f19f]">
+              gaps.
+            </span>
+          </div>
+        </h1>
+        <div class="overflow-hidden max-w-lg">
+          <p class="au-reveal-fade text-gray-400 text-base md:text-lg font-light leading-relaxed">
+            Send us your store URL and revenue range. Within 48 hours we'll send you a written review of your store, ad account, and email flows — with the three highest-impact gaps and what we'd fix first.
+          </p>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="au-reveal-fade">
+        <form
+          id="auditForm"
+          action="https://formspree.io/f/xblzajnd"
+          method="POST"
+          class="space-y-8"
+          aria-label="Audit request form"
+        >
+          <input type="hidden" name="_subject" value="Free Audit Request" />
+
+          <div>
+            <label for="au-name" class="block text-[10px] font-mono tracking-widest text-gray-600 uppercase mb-3">Your Name *</label>
+            <input
+              type="text" id="au-name" name="name" required aria-required="true"
+              placeholder="First Last"
+              class="w-full bg-transparent border-0 border-b border-white/20 focus:border-[#00f19f] outline-none py-3 text-white text-lg placeholder-gray-700 transition-colors duration-300"
+            />
+          </div>
+
+          <div>
+            <label for="au-email" class="block text-[10px] font-mono tracking-widest text-gray-600 uppercase mb-3">Email *</label>
+            <input
+              type="email" id="au-email" name="email" required aria-required="true"
+              placeholder="you@brand.com"
+              class="w-full bg-transparent border-0 border-b border-white/20 focus:border-[#00f19f] outline-none py-3 text-white text-lg placeholder-gray-700 transition-colors duration-300"
+            />
+          </div>
+
+          <div>
+            <label for="au-url" class="block text-[10px] font-mono tracking-widest text-gray-600 uppercase mb-3">Brand / Store URL *</label>
+            <input
+              type="url" id="au-url" name="store_url" required aria-required="true"
+              placeholder="https://yourbrand.com"
+              class="w-full bg-transparent border-0 border-b border-white/20 focus:border-[#00f19f] outline-none py-3 text-white text-lg placeholder-gray-700 transition-colors duration-300"
+            />
+          </div>
+
+          <div>
+            <label class="block text-[10px] font-mono tracking-widest text-gray-600 uppercase mb-4">Monthly Revenue Range *</label>
+            <div class="flex flex-col gap-3">
+              {[
+                ['under-10k',  'Under $10k/mo'],
+                ['10k-50k',    '$10k–$50k/mo'],
+                ['50k-200k',   '$50k–$200k/mo'],
+                ['over-200k',  'Over $200k/mo'],
+              ].map(([val, label]) => (
+                <label class="flex items-center gap-3 cursor-pointer group">
+                  <input type="radio" name="revenue_range" value={val} required
+                    class="accent-[#00f19f] w-4 h-4 flex-shrink-0" />
+                  <span class="text-gray-400 text-sm group-hover:text-white transition-colors">{label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <!-- Honeypot -->
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <button
+            type="submit"
+            id="auditSubmit"
+            class="group relative inline-flex items-center gap-4 text-white"
+          >
+            <span class="w-14 h-14 rounded-full border-2 border-white/30 group-hover:border-[#00f19f] group-hover:bg-[#00f19f] flex items-center justify-center transition-all duration-500 flex-shrink-0">
+              <svg class="w-5 h-5 text-white group-hover:text-black -rotate-45 group-hover:rotate-0 transition-all duration-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </span>
+            <span id="auditSubmitText" class="font-heading font-bold text-2xl md:text-3xl group-hover:text-[#00f19f] transition-colors duration-300">
+              Request Audit
+            </span>
+          </button>
+
+          <div id="auditSuccess" class="hidden p-5 border border-[#00f19f]/30 rounded-xl bg-[#00f19f]/5" role="alert" aria-live="polite">
+            <p class="font-bold text-[#00f19f] mb-1">Request received.</p>
+            <p class="text-gray-400 text-sm">We'll send your audit within 48 hours.</p>
+          </div>
+          <div id="auditError" class="hidden p-5 border border-red-500/30 rounded-xl bg-red-500/5" role="alert" aria-live="assertive">
+            <p class="font-bold text-red-400 mb-1">Something went wrong.</p>
+            <p class="text-gray-400 text-sm">Please try again or email us directly.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── What we audit ─────────────────────────────────────────────────────── -->
+  <section class="bg-black border-b border-white/10 px-4 md:px-8 py-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="scroll-section mb-12">
+        <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-4">Scope</span>
+        <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-none">What we look at.</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-0 divide-y md:divide-y-0 md:divide-x divide-white/10">
+        {auditAreas.map((area, i) => (
+          <div class={`py-10 ${i > 0 ? 'md:pl-10' : ''} ${i < 2 ? 'md:pr-10' : ''}`}>
+            <p class="text-[#00f19f] font-mono text-xs tracking-widest uppercase mb-6">{area.area}</p>
+            <ul class="space-y-3">
+              {area.items.map((item) => (
+                <li class="flex items-start gap-3 text-sm text-gray-400">
+                  <span class="w-1 h-1 rounded-full bg-gray-600 flex-shrink-0 mt-2" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── What you get ──────────────────────────────────────────────────────── -->
+  <section class="bg-black border-b border-white/10 px-4 md:px-8 py-20">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <div class="scroll-section">
+        <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-4">Deliverable</span>
+        <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-none mb-8">What you receive.</h2>
+        <ul class="space-y-5">
+          {deliverables.map((item) => (
+            <li class="flex items-start gap-4 text-gray-400 text-sm leading-relaxed">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#00f19f] flex-shrink-0 mt-1.5" />
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="border border-white/10 rounded-2xl p-8 md:p-10 bg-gray-900/20">
+        <p class="text-gray-600 font-mono text-xs tracking-widest uppercase mb-4">Timeline</p>
+        <p class="font-heading font-bold text-5xl text-white mb-2">48</p>
+        <p class="text-gray-400 text-sm mb-6">hours from submission to delivery</p>
+        <div class="space-y-3 text-sm">
+          <div class="flex items-center gap-3 text-gray-300">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#00f19f] flex-shrink-0" />
+            No call required
+          </div>
+          <div class="flex items-center gap-3 text-gray-300">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#00f19f] flex-shrink-0" />
+            No logins or screen shares
+          </div>
+          <div class="flex items-center gap-3 text-gray-300">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#00f19f] flex-shrink-0" />
+            No obligation after
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ──────────────────────────────────────────────────────────────── -->
+  <section class="bg-black px-4 md:px-8 py-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="scroll-section mb-12">
+        <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-4">Questions</span>
+        <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-none">About the audit.</h2>
+      </div>
+
+      <div class="max-w-3xl grid md:grid-cols-2 gap-x-16 gap-y-10">
+        {faqs.map((faq) => (
+          <div>
+            <h3 class="font-heading font-bold text-lg text-white mb-3">{faq.q}</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">{faq.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  const EXPO_OUT = 'cubic-bezier(0.19, 1, 0.22, 1)';
+  const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
+
+  function initAuditAnimations() {
+    document.querySelectorAll('.au-reveal-line').forEach(el => { el.style.transform = 'translateY(110%)'; });
+    document.querySelectorAll('.au-reveal-fade').forEach(el => { el.style.opacity = '0'; });
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.querySelectorAll('.au-reveal-line').forEach((el, i) => {
+          const anim = el.animate(
+            [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+            { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
+          );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
+        });
+        document.querySelectorAll('.au-reveal-fade').forEach((el, i) => {
+          const anim = el.animate(
+            [{ opacity: '0' }, { opacity: '1' }],
+            { duration: 700, delay: 400 + i * 100, easing: CUBIC_OUT, fill: 'forwards' }
+          );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
+        });
+      });
+    });
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.querySelectorAll('.reveal-line').forEach((el, i) => {
+          el.style.transform = 'translateY(110%)';
+          const anim = el.animate(
+            [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+            { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
+          );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
+        });
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.scroll-section').forEach(s => io.observe(s));
+  }
+
+  document.addEventListener('astro:page-load', initAuditAnimations);
+
+  document.addEventListener('astro:page-load', () => {
+    const form = document.getElementById('auditForm') as HTMLFormElement;
+    const btn  = document.getElementById('auditSubmit') as HTMLButtonElement;
+    const txt  = document.getElementById('auditSubmitText') as HTMLSpanElement;
+    const ok   = document.getElementById('auditSuccess') as HTMLDivElement;
+    const err  = document.getElementById('auditError')   as HTMLDivElement;
+
+    form?.addEventListener('submit', async (e: Event) => {
+      e.preventDefault();
+      if (btn) btn.disabled = true;
+      if (txt) txt.textContent = 'Sending…';
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (res.ok) {
+          ok?.classList.remove('hidden');
+          err?.classList.add('hidden');
+          form.reset();
+          (window as any).gtag?.('event', 'generate_lead', {
+            event_category: 'Audit',
+            event_label: 'free_audit_request',
+            value: 1,
+          });
+        } else {
+          throw new Error();
+        }
+      } catch {
+        err?.classList.remove('hidden');
+        ok?.classList.add('hidden');
+      } finally {
+        if (btn) btn.disabled = false;
+        if (txt) txt.textContent = 'Request Audit';
+      }
+    });
+  });
+</script>
+
+<style>
+  .au-reveal-line, .reveal-line { will-change: transform; display: block; }
+  .au-reveal-fade { will-change: opacity; }
+</style>

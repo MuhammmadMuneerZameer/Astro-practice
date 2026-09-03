@@ -1,0 +1,36 @@
+{
+  "ci": {
+    "collect": {
+      "url": [
+        "https://hydrafoxdesigns.com/",
+        "https://hydrafoxdesigns.com/services/ecommerce-growth/",
+        "https://hydrafoxdesigns.com/services/shopify/",
+        "https://hydrafoxdesigns.com/audit/"
+      ],
+      "settings": {
+        "preset": "perf",
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638,
+          "cpuSlowdownMultiplier": 4
+        }
+      }
+    },
+    "assert": {
+      "assertions": {
+        "largest-contentful-paint":  ["error", { "maxNumericValue": 2000 }],
+        "cumulative-layout-shift":   ["error", { "maxNumericValue": 0.1  }],
+        "total-blocking-time":       ["warn",  { "maxNumericValue": 300  }],
+        "first-contentful-paint":    ["warn",  { "maxNumericValue": 1800 }],
+        "uses-optimized-images":     ["warn"  ],
+        "uses-webp-images":          ["warn"  ],
+        "uses-text-compression":     ["error" ],
+        "render-blocking-resources": ["warn"  ]
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

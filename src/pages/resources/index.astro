@@ -58,6 +58,33 @@ const categories = getAllResourceCategories();
     </div>
   </section>
 
+  <!-- ── Audit lead magnet ────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-10">
+    <div class="max-w-7xl mx-auto">
+      <a href="/audit/" class="group block border border-[#00f19f]/20 hover:border-[#00f19f]/50 rounded-2xl p-8 md:p-10 bg-[#00f19f]/3 transition-colors duration-300">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div>
+            <p class="text-[#00f19f] text-xs font-mono tracking-widest uppercase mb-3">Free · 48-hour turnaround</p>
+            <h2 class="font-heading font-bold text-2xl md:text-3xl text-white mb-3 group-hover:text-[#00f19f] transition-colors duration-300">
+              Free Ecommerce Growth Audit
+            </h2>
+            <ul class="flex flex-col sm:flex-row gap-3 sm:gap-6 text-sm text-gray-400">
+              <li class="flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-[#00f19f]" />Store speed and CVR review</li>
+              <li class="flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-[#00f19f]" />Ad account and attribution audit</li>
+              <li class="flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-[#00f19f]" />Klaviyo flow coverage check</li>
+            </ul>
+          </div>
+          <span class="inline-flex items-center gap-2 text-[#00f19f] text-sm font-medium group-hover:text-white transition-colors duration-300 flex-shrink-0">
+            Request free audit
+            <svg class="w-4 h-4 -rotate-45 group-hover:rotate-0 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </span>
+        </div>
+      </a>
+    </div>
+  </section>
+
   <!-- ── Posts ─────────────────────────────────────────────────────────────── -->
   <section class="bg-black px-4 md:px-8 pt-4 pb-24">
     <div class="max-w-7xl mx-auto">
@@ -72,8 +99,8 @@ const categories = getAllResourceCategories();
   const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
 
   function initResAnimations() {
-    const lines = document.querySelectorAll<HTMLElement>('.res-reveal-line');
-    const fades = document.querySelectorAll<HTMLElement>('.res-reveal-fade');
+    const lines = document.querySelectorAll('.res-reveal-line');
+    const fades = document.querySelectorAll('.res-reveal-fade');
 
     lines.forEach(el => { el.style.transform = 'translateY(110%)'; });
     fades.forEach(el => { el.style.opacity = '0'; });

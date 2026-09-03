@@ -1,8 +1,7 @@
----
+﻿---
 import { ClientRouter } from "astro:transitions";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer.astro";
-
 import "../styles/global.css";
 import "../styles/fonts.css";
 
@@ -16,8 +15,8 @@ interface Props {
 }
 
 const {
-  title = "Hydra Fox Designs | Web Design & Digital Marketing Agency",
-  description = "Hydra Fox Designs helps businesses grow through creative web design, digital marketing, and automation solutions.",
+  title = "Hydra Fox Designs | DTC Ecommerce Agency",
+  description = "DTC ecommerce agency based in Karachi, Pakistan. Shopify builds, paid media on Meta and Google, Klaviyo email flows, and server-side tracking. Month-to-month retainers from $2,500/mo.",
   image = "/images/hfd-logo.png",
   noindex = false,
   hideChrome = false,
@@ -44,8 +43,8 @@ const ogImage = new URL(image, Astro.site);
     <!-- Google Analytics 4 — runs in Partytown Web Worker (off main thread) -->
     {import.meta.env.PUBLIC_FIREBASE_MEASUREMENT_ID && (
       <>
-        <script type="text/partytown" async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_FIREBASE_MEASUREMENT_ID}`}></script>
-        <script type="text/partytown" set:html={`
+        <script is:inline type="text/partytown" async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_FIREBASE_MEASUREMENT_ID}`}></script>
+        <script is:inline type="text/partytown" set:html={`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
@@ -113,36 +112,70 @@ const ogImage = new URL(image, Astro.site);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- JSON-LD Structured Data: ProfessionalService -->
+    <!-- JSON-LD Structured Data: Organization -->
     <script
       is:inline
       type="application/ld+json"
       set:html={JSON.stringify({
         "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        name: "Hydra Fox Designs",
-        url: "https://hydrafoxdesigns.com",
-        logo: "https://hydrafoxdesigns.com/images/hfd-logo.png",
-        description:
-          "Hydra Fox Designs helps businesses grow through creative web design, digital marketing, branding, and automation solutions.",
-        telephone: "+92-335-4345625",
-        email: "muneerzameer@hydrafoxdesigns.com",
-        areaServed: "Worldwide",
-        serviceType: ["Branding", "Web Design", "Digital Marketing", "UX/UI Design"],
-        hasOfferCatalog: {
-          "@type": "OfferCatalog",
-          name: "Services",
-          itemListElement: [
-            { "@type": "Offer", itemOffered: { "@type": "Service", name: "Branding" } },
-            { "@type": "Offer", itemOffered: { "@type": "Service", name: "Design" } },
-            { "@type": "Offer", itemOffered: { "@type": "Service", name: "Marketing" } },
-            { "@type": "Offer", itemOffered: { "@type": "Service", name: "Web Development" } },
-          ],
-        },
-        sameAs: [
-          "https://www.facebook.com/hydrafoxdesign",
-          "https://www.instagram.com/official_hydra_fox/",
-          "https://www.linkedin.com/company/hydrafox-designs/",
+        "@graph": [
+          {
+            "@type": ["Organization", "ProfessionalService"],
+            "@id": "https://hydrafoxdesigns.com/#organization",
+            name: "Hydra Fox Designs",
+            url: "https://hydrafoxdesigns.com",
+            logo: {
+              "@type": "ImageObject",
+              url: "https://hydrafoxdesigns.com/images/hfd-logo.png",
+            },
+            description:
+              "Shopify builds, paid media, and the tracking and automation between them. One accountable team for DTC ecommerce brands.",
+            telephone: "+92-335-4345625",
+            email: "muneerzameer@hydrafoxdesigns.com",
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: "Karachi",
+              addressCountry: "PK",
+            },
+            areaServed: ["PK", "AE", "SA", "GB", "US"],
+            foundingDate: "2019",
+            knowsAbout: [
+              "Shopify", "Ecommerce", "Paid Media", "Meta Ads",
+              "Google Ads", "Klaviyo", "Conversions API", "Brand Strategy",
+            ],
+            hasOfferCatalog: {
+              "@type": "OfferCatalog",
+              name: "Services",
+              itemListElement: [
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Ecommerce Growth", url: "https://hydrafoxdesigns.com/services/ecommerce-growth/" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Shopify Store Build", url: "https://hydrafoxdesigns.com/services/shopify/" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Growth Tools & Automation", url: "https://hydrafoxdesigns.com/services/growth-tools/" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Brand & Content", url: "https://hydrafoxdesigns.com/services/brand-content/" } },
+              ],
+            },
+            member: [
+              {
+                "@type": "Person",
+                "@id": "https://hydrafoxdesigns.com/#muneer-zameer",
+                name: "Muneer Zameer",
+                jobTitle: "Founder",
+                sameAs: "https://www.linkedin.com/in/muneer-zameer/",
+              },
+            ],
+            sameAs: [
+              "https://www.facebook.com/hydrafoxdesign",
+              "https://www.instagram.com/official_hydra_fox/",
+              "https://www.linkedin.com/company/hydrafox-designs/",
+            ],
+          },
+          {
+            "@type": "Person",
+            "@id": "https://hydrafoxdesigns.com/#muneer-zameer",
+            name: "Muneer Zameer",
+            jobTitle: "Founder",
+            worksFor: { "@id": "https://hydrafoxdesigns.com/#organization" },
+            sameAs: "https://www.linkedin.com/in/muneer-zameer/",
+          },
         ],
       })}
     />
@@ -172,15 +205,29 @@ const ogImage = new URL(image, Astro.site);
       }
     </script>
 
+    <!-- Global conversion tracking: cal.com clicks -->
+    <script>
+      document.addEventListener('astro:page-load', () => {
+        document.querySelectorAll<HTMLAnchorElement>('a[href*="cal.com"]').forEach(link => {
+          link.addEventListener('click', () => {
+            (window as any).gtag?.('event', 'book_call', {
+              event_category: 'Engagement',
+              event_label: (link.textContent?.trim() || 'Book a call'),
+            });
+          }, { once: true });
+        });
+      });
+    </script>
+
     <!-- Global scroll-triggered reveal system -->
     <script>
       function initScrollReveals() {
         const EXPO_OUT = 'cubic-bezier(0.19, 1, 0.22, 1)';
         const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
-        document.querySelectorAll<HTMLElement>('.scroll-section').forEach(section => {
+        document.querySelectorAll('.scroll-section').forEach(section => {
           if (section.dataset.revealed) return;
-          const lines = section.querySelectorAll<HTMLElement>('.reveal-line');
-          const fades = section.querySelectorAll<HTMLElement>('.reveal-fade');
+          const lines = section.querySelectorAll('.reveal-line');
+          const fades = section.querySelectorAll('.reveal-fade');
           lines.forEach(el => { el.style.transform = 'translateY(110%)'; });
           fades.forEach(el => { el.style.opacity = '0'; });
           let triggered = false;

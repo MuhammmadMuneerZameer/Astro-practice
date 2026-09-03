@@ -97,6 +97,43 @@ const siblingSubservices = (
     </div>
   </section>
 
+  <!-- Deliverables — rendered when subservice has structured deliverables -->
+  {(subservice as any).deliverables?.length > 0 && (
+    <section class="bg-black border-t border-white/10 px-4 md:px-8 py-20">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-12">
+          <span class="block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-4">What we build</span>
+          <h2 class="text-4xl md:text-5xl font-heading font-bold text-white leading-none">
+            The lifecycle infrastructure.
+          </h2>
+        </div>
+        <div class="grid md:grid-cols-2 gap-0">
+          {(subservice as any).deliverables.map((d: any, i: number) => (
+            <div class="border-t border-white/10 py-8 md:pr-12 odd:md:pr-12 even:md:pl-12 even:md:border-l even:border-white/10">
+              <p class="text-gray-700 font-mono text-xs mb-3">{String(i + 1).padStart(2, '0')}</p>
+              <h3 class="font-heading font-bold text-xl text-white mb-3">{d.name}</h3>
+              <p class="text-gray-500 text-sm leading-relaxed">{d.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-black border-t border-white/10 px-4 md:px-8 py-16">
+      <div class="max-w-7xl mx-auto">
+        <span class="block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-8">How we measure it</span>
+        <div class="grid sm:grid-cols-2 gap-4">
+          {(subservice as any).outcomes?.map((o: string) => (
+            <div class="flex items-start gap-3 text-sm text-gray-400">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#00f19f] flex-shrink-0 mt-1.5" />
+              {o}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
   <!-- Industry-Specific Pages -->
   <section class="bg-black text-white px-6 py-20 border-t border-gray-800">
     <div class="max-w-7xl mx-auto">

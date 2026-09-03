@@ -74,8 +74,9 @@ export async function getPosts() {
         slug: data.slug.replace(/^\/+|\/+$/g, ''),
         content: sanitizeContent(data.content || ''),
 
-        image: data.coverImage || data.image || 'https://via.placeholder.com/400x300',
+        image: data.coverImage || data.image || '/images/blog-1.jpg',
         description: data.excerpt || data.description || 'No description available',
+        author: data.author || null,
         tag: data.tag || null,
         category: data.category || null,
         date: data.date || null,

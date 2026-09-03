@@ -6,7 +6,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check-links": "node scripts/check-links.js",
+    "check-images": "node scripts/check-images.js",
+    "postbuild": "node scripts/check-links.js && node scripts/check-images.js"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",

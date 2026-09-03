@@ -4,15 +4,15 @@ import TestimonialSection from '../components/TestimonialSection';
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 
-const pageTitle = "Contact Us — Let's Build Something Together | Hydra Fox Designs";
-const pageDescription = "Ready to launch your brand? Contact Hydra Fox Designs for web design, branding, UI/UX, and digital marketing. We respond within 24–48 hours.";
+const pageTitle = "Contact | Hydra Fox Designs � DTC Growth Agency";
+const pageDescription = "Ready to improve your MER, build on Shopify, or launch a Klaviyo retention program? Contact Hydra Fox Designs. We respond within 24�48 hours.";
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <Layout title={pageTitle}>
   <Fragment slot="head">
     <meta name="description" content={pageDescription} />
-    <meta name="keywords" content="contact brand designer, web development consultation, UI/UX design services, digital marketing agency" />
+    <meta name="keywords" content="Shopify agency contact, DTC growth agency, ecommerce paid media, Klaviyo retention, server-side tracking" />
     <link rel="canonical" href={canonicalURL} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
@@ -27,14 +27,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
       "name": "Hydra Fox Designs",
-      "description": "Web design, branding, UI/UX, and digital marketing agency",
+      "description": "Shopify development, paid media, Klaviyo retention, and brand content for DTC brands",
       "url": "https://hydrafoxdesigns.com",
       "contactPoint": { "@type": "ContactPoint", "contactType": "Customer Service", "availableLanguage": ["English"] },
       "areaServed": "Worldwide"
     })} />
   </Fragment>
 
-  <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
+  <!-- -- Hero --------------------------------------------------------------- -->
   <section class="contact-hero relative bg-black overflow-hidden -mt-16 md:mt-0 pt-36 md:pt-48 pb-20 px-4 md:px-8">
 
     <!-- Spline bg -->
@@ -68,10 +68,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       </h1>
 
       <!-- Sub-info row -->
-      <div class="flex flex-col sm:flex-row gap-6 sm:gap-16">
+      <div class="flex flex-col gap-4">
         <div class="overflow-hidden">
           <p class="ct-reveal-fade text-gray-500 text-sm font-mono">
-            Response within 24–48 hrs
+            Karachi, Pakistan � Response within 24 hrs � Same-day for Gulf & UK
           </p>
         </div>
         <div class="overflow-hidden">
@@ -81,27 +81,48 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           </a>
         </div>
         <div class="overflow-hidden">
-          <a href="tel:+923354345625"
+          <a href="https://cal.com/hydra-fox-sqrqbz/30min"
+             target="_blank" rel="noopener noreferrer"
+             class="ct-reveal-fade block text-[#00f19f] hover:text-white transition-colors text-sm font-mono font-bold">
+            Book a 30-min call ?
+          </a>
+        </div>
+        <div class="overflow-hidden">
+          <!-- UPDATE: replace with your WhatsApp number in international format, e.g. 923354345625 -->
+          <a href="https://wa.me/923354345625"
+             target="_blank" rel="noopener noreferrer"
              class="ct-reveal-fade block text-gray-400 hover:text-[#00f19f] transition-colors text-sm font-mono">
-            +92 335 4345625
+            WhatsApp ?
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── Main content: Info + Form ─────────────────────────────────────────── -->
+  <!-- -- Main content: Info + Form ------------------------------------------- -->
   <section class="bg-black border-t border-white/10 px-4 md:px-8 py-20 md:py-28">
     <div class="max-w-7xl mx-auto grid lg:grid-cols-[1fr_2fr] gap-16 lg:gap-24">
 
       <!-- Left: Info panel -->
       <div class="ct-fade-in space-y-12">
 
+        <!-- Location -->
+        <div class="border border-white/10 rounded-xl p-6 bg-gray-900/20">
+          <p class="text-gray-600 text-xs font-mono tracking-widest uppercase mb-4">Where we are</p>
+          <p class="text-white text-sm font-semibold mb-2">Karachi, Pakistan</p>
+          <p class="text-gray-500 text-sm leading-relaxed mb-4">
+            We work with brands across the Gulf, UK, and US. Response within 24 hours every working day � same-day for Gulf and UK clients.
+          </p>
+          <p class="text-gray-600 text-xs font-mono leading-relaxed">
+            We say this on the first page rather than the last, because you would find out anyway � and how a company handles the things it could have hidden tells you most of what you need to know about it.
+          </p>
+        </div>
+
         <!-- What we do -->
         <div>
           <p class="text-gray-600 text-xs font-mono tracking-widest uppercase mb-4">Services</p>
           <ul class="space-y-3">
-            {['Brand Identity & Logo', 'Web Development', 'UI/UX Design', 'Digital Marketing', 'Motion Design', 'Mobile Apps'].map(s => (
+            {['Ecommerce Growth', 'Shopify Store Build', 'Growth Tools & Automation', 'Brand & Content'].map(s => (
               <li class="flex items-center gap-3 text-gray-400 text-sm border-b border-white/5 pb-3">
                 <span class="w-1.5 h-1.5 rounded-full bg-[#00f19f] flex-shrink-0" />
                 {s}
@@ -113,7 +134,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         <!-- Process -->
         <div>
           <p class="text-gray-600 text-xs font-mono tracking-widest uppercase mb-4">Our process</p>
-          <ol class="space-y-4">
+          <ol class="space-y-4 mb-5">
             {[
               ['01', 'Brief & Discovery'],
               ['02', 'Strategy & Proposal'],
@@ -126,6 +147,30 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
               </li>
             ))}
           </ol>
+          <a href="/process/" class="inline-flex items-center gap-2 text-[#00f19f] text-xs font-mono hover:text-white transition-colors duration-300">
+            See full engagement model ?
+          </a>
+        </div>
+
+        <!-- Lighter entry point -->
+        <div class="border border-white/10 rounded-xl p-6 bg-gray-900/20">
+          <p class="text-gray-600 text-xs font-mono tracking-widest uppercase mb-3">Not ready for a brief?</p>
+          <p class="text-gray-400 text-sm leading-relaxed mb-5">
+            Book a 30-minute strategy call. No prep required � just show up and
+            tell us what's not working. We'll tell you what we'd do about it.
+          </p>
+          <!-- REPLACE with your Cal.com or Calendly URL -->
+          <a
+            href="https://cal.com/hydra-fox-sqrqbz/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-[#00f19f] text-sm font-medium hover:text-white transition-colors duration-300"
+          >
+            Book a 30-min call
+            <svg class="w-4 h-4 -rotate-45" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
         </div>
       </div>
 
@@ -177,30 +222,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           <!-- Company -->
           <div class="ct-field">
             <label for="company" class="block text-[10px] font-mono tracking-widest text-gray-600 uppercase mb-3">
-              Company / Startup
+              Brand / Company
             </label>
             <input
               type="text" id="company" name="company"
-              placeholder="Your Company"
+              placeholder="Your Brand"
               class="w-full bg-transparent border-0 border-b border-white/20 focus:border-[#00f19f] outline-none py-3 text-white text-lg placeholder-gray-700 transition-colors duration-300"
             />
-          </div>
-
-          <!-- Budget -->
-          <div class="ct-field">
-            <label for="budget" class="block text-[10px] font-mono tracking-widest text-gray-600 uppercase mb-3">
-              Budget Range
-            </label>
-            <select
-              id="budget" name="budget"
-              class="w-full bg-transparent border-0 border-b border-white/20 focus:border-[#00f19f] outline-none py-3 text-white text-lg transition-colors duration-300 cursor-pointer appearance-none"
-            >
-              <option value="" class="bg-black">Select range…</option>
-              <option value="$5k-$10k" class="bg-black">$5,000 – $10,000</option>
-              <option value="$10k-$25k" class="bg-black">$10,000 – $25,000</option>
-              <option value="$25k-$50k" class="bg-black">$25,000 – $50,000</option>
-              <option value="$50k+" class="bg-black">$50,000+</option>
-            </select>
           </div>
 
           <!-- Services checkboxes -->
@@ -209,7 +237,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
               Services Needed
             </label>
             <div class="flex flex-wrap gap-2">
-              {['Brand Identity & Logo', 'Web Development', 'UI/UX Design', 'Digital Marketing', 'Motion Design', 'Other'].map(s => (
+              {['Ecommerce Growth', 'Store Design & Build', 'Growth Tools & Automation', 'Brand & Content', 'Other'].map(s => (
                 <label class="cursor-pointer">
                   <input type="checkbox" name="services[]" value={s} class="peer sr-only" />
                   <span class="inline-flex items-center px-4 py-2 rounded-full border border-white/15 text-gray-500 text-sm hover:border-[#00f19f]/50 hover:text-gray-300 transition-all duration-200 peer-checked:border-[#00f19f] peer-checked:text-[#00f19f] peer-checked:bg-[#00f19f]/10">
@@ -227,7 +255,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
             </label>
             <textarea
               id="message" name="message" rows="4"
-              placeholder="Tell us about your project, goals, and timeline…"
+              placeholder="Tell us about your project, goals, and timeline�"
               class="w-full bg-transparent border-0 border-b border-white/20 focus:border-[#00f19f] outline-none py-3 text-white text-base placeholder-gray-700 transition-colors duration-300 resize-none"
             ></textarea>
           </div>
@@ -267,7 +295,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           <!-- Success / Error messages -->
           <div id="successMessage" class="hidden p-5 border border-[#00f19f]/30 rounded-xl bg-[#00f19f]/5" role="alert" aria-live="polite">
             <p class="font-bold text-[#00f19f] mb-1">Message sent!</p>
-            <p class="text-gray-400 text-sm">We'll get back to you within 24–48 hours.</p>
+            <p class="text-gray-400 text-sm">We'll get back to you within 24 hours.</p>
           </div>
           <div id="errorMessage" class="hidden p-5 border border-red-500/30 rounded-xl bg-red-500/5" role="alert" aria-live="assertive">
             <p class="font-bold text-red-400 mb-1">Something went wrong.</p>
@@ -278,7 +306,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </div>
   </section>
 
-  <!-- ── Why Us — list style ────────────────────────────────────────────────── -->
+  <!-- -- Why Us � list style -------------------------------------------------- -->
   <section class="bg-black border-t border-white/10 px-4 md:px-8 py-20">
     <div class="max-w-7xl mx-auto">
 
@@ -292,18 +320,18 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         {[
           {
             num: '01',
-            title: 'Fast Turnaround',
-            desc: 'We respond within 24–48 hours and deliver projects on time, every time.',
+            title: 'One team. Ads, store, and tracking.',
+            desc: 'No paid media agency blaming the developer. No developer blaming the tracking consultant. One team owns the full stack � one conversation when something\'s wrong.',
           },
           {
             num: '02',
-            title: 'Startup-Focused',
-            desc: 'We understand startup constraints and build brands that scale with your growth.',
+            title: 'Month-to-month. No lock-in.',
+            desc: 'Cancel with 30 days\' notice. We don\'t use contracts to keep clients � we use results. If the numbers aren\'t moving after 90 days, we\'ll tell you why and what to do next.',
           },
           {
             num: '03',
-            title: 'Full-Service Team',
-            desc: 'From brand identity to development, we handle everything under one roof.',
+            title: 'Tracking before campaigns.',
+            desc: 'Conversions API and server-side event pipelines go live in week one. You\'re never optimising spend against data a browser decided not to share.',
           },
         ].map(({ num, title, desc }) => (
           <div class="ct-why-card group px-0 md:px-10 py-10 first:pl-0 last:pr-0">
@@ -321,33 +349,33 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <TestimonialSection client:visible />
 </Layout>
 
-<!-- ── Animations ─────────────────────────────────────────────────────────── -->
+<!-- -- Animations ----------------------------------------------------------- -->
 <script>
   import { submitContactForm } from '../lib/contactForm';
 
   const EXPO_OUT = 'cubic-bezier(0.19, 1, 0.22, 1)';
   const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
 
-  // ── Hero masked reveal ──────────────────────────────────────────────────────
+  // -- Hero masked reveal ------------------------------------------------------
   function initContactAnimations() {
     // Set initial state
-    document.querySelectorAll<HTMLElement>('.ct-reveal-line').forEach(el => {
+    document.querySelectorAll('.ct-reveal-line').forEach(el => {
       el.style.transform = 'translateY(110%)';
     });
-    document.querySelectorAll<HTMLElement>('.ct-reveal-fade').forEach(el => {
+    document.querySelectorAll('.ct-reveal-fade').forEach(el => {
       el.style.opacity = '0';
     });
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        document.querySelectorAll<HTMLElement>('.ct-reveal-line').forEach((el, i) => {
+        document.querySelectorAll('.ct-reveal-line').forEach((el, i) => {
           const anim = el.animate(
             [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
             { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
           );
           anim.onfinish = () => { el.style.willChange = 'auto'; };
         });
-        document.querySelectorAll<HTMLElement>('.ct-reveal-fade').forEach((el, i) => {
+        document.querySelectorAll('.ct-reveal-fade').forEach((el, i) => {
           const anim = el.animate(
             [{ opacity: '0' }, { opacity: '1' }],
             { duration: 700, delay: 500 + i * 80, easing: CUBIC_OUT, fill: 'forwards' }
@@ -357,13 +385,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       });
     });
 
-    // ── Scroll-triggered reveals ──────────────────────────────────────────────
+    // -- Scroll-triggered reveals ----------------------------------------------
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
 
         // Info + form fade up
-        entry.target.querySelectorAll<HTMLElement>('.ct-fade-in').forEach((el, i) => {
+        entry.target.querySelectorAll('.ct-fade-in').forEach((el, i) => {
           el.animate(
             [{ opacity: '0', transform: 'translateY(32px)' }, { opacity: '1', transform: 'translateY(0)' }],
             { duration: 800, delay: i * 120, easing: CUBIC_OUT, fill: 'forwards' }
@@ -371,7 +399,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         });
 
         // Form fields stagger
-        entry.target.querySelectorAll<HTMLElement>('.ct-field').forEach((el, i) => {
+        entry.target.querySelectorAll('.ct-field').forEach((el, i) => {
           el.animate(
             [{ opacity: '0', transform: 'translateY(20px)' }, { opacity: '1', transform: 'translateY(0)' }],
             { duration: 600, delay: 200 + i * 60, easing: CUBIC_OUT, fill: 'forwards' }
@@ -379,7 +407,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         });
 
         // Why us cards
-        entry.target.querySelectorAll<HTMLElement>('.ct-why-card').forEach((el, i) => {
+        entry.target.querySelectorAll('.ct-why-card').forEach((el, i) => {
           el.animate(
             [{ opacity: '0', transform: 'translateY(24px)' }, { opacity: '1', transform: 'translateY(0)' }],
             { duration: 700, delay: i * 100, easing: CUBIC_OUT, fill: 'forwards' }
@@ -387,7 +415,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         });
 
         // Scroll reveal lines
-        entry.target.querySelectorAll<HTMLElement>('.ct-scroll-reveal-line').forEach((el, i) => {
+        entry.target.querySelectorAll('.ct-scroll-reveal-line').forEach((el, i) => {
           el.style.transform = 'translateY(110%)';
           const anim = el.animate(
             [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
@@ -401,10 +429,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     }, { threshold: 0.1 });
 
     // Set initial hidden state for scroll elements
-    document.querySelectorAll<HTMLElement>('.ct-fade-in, .ct-field, .ct-why-card').forEach(el => {
+    document.querySelectorAll('.ct-fade-in, .ct-field, .ct-why-card').forEach(el => {
       el.style.opacity = '0';
     });
-    document.querySelectorAll<HTMLElement>('.ct-scroll-reveal-line').forEach(el => {
+    document.querySelectorAll('.ct-scroll-reveal-line').forEach(el => {
       el.style.transform = 'translateY(110%)';
     });
 
@@ -413,7 +441,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
   document.addEventListener('astro:page-load', initContactAnimations);
 
-  // ── Form submission ─────────────────────────────────────────────────────────
+  // -- Form submission ---------------------------------------------------------
   document.addEventListener('astro:page-load', () => {
     const contactForm = document.getElementById('contactForm') as HTMLFormElement;
     const submitBtn   = document.getElementById('submitBtn')   as HTMLButtonElement;
@@ -430,12 +458,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       const now = Date.now();
       if (now - lastSubmitTime < THROTTLE_MS) {
         const remaining = Math.ceil((THROTTLE_MS - (now - lastSubmitTime)) / 1000);
-        if (submitText) submitText.textContent = `Wait ${remaining}s…`;
+        if (submitText) submitText.textContent = `Wait ${remaining}s�`;
         return;
       }
 
       if (submitBtn) submitBtn.disabled = true;
-      if (submitText) submitText.textContent = 'Sending…';
+      if (submitText) submitText.textContent = 'Sending�';
 
       try {
         const formData = new FormData(contactForm);
@@ -446,7 +474,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           lastName:  formData.get('lastName')  as string,
           email:     formData.get('email')     as string,
           company:   (formData.get('company')  as string) || '',
-          budget:    (formData.get('budget')   as string) || '',
           services,
           message:   formData.get('message')   as string,
           consent:   formData.get('consent') === 'on',
@@ -468,6 +495,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           contactForm.reset();
           successMsg?.scrollIntoView({ behavior: 'smooth' });
           lastSubmitTime = Date.now();
+          (window as any).gtag?.('event', 'generate_lead', {
+            event_category: 'Contact',
+            event_label: 'submit_brief',
+            value: 1,
+          });
         } else {
           throw new Error('Submission failed');
         }
@@ -490,13 +522,5 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   }
   .ct-reveal-fade {
     will-change: opacity;
-  }
-  /* Remove browser default select arrow */
-  select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0 center;
-    background-size: 1.25rem;
-    padding-right: 1.5rem;
   }
 </style>

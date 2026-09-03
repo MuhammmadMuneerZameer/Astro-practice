@@ -103,7 +103,25 @@ function processContent(content: string): string {
 const renderedContent = processContent(post.content || '');
 
 const categoryInfo = getResourceCategoryBySlug(category);
-const relatedService = (SERVICE_HIERARCHY as Record<string, any>)[category];
+
+// Map blog category slugs (old and new) to SERVICE_HIERARCHY keys
+const CATEGORY_TO_SERVICE_SLUG: Record<string, string> = {
+  // New slugs — direct match
+  'ecommerce-growth':        'ecommerce-growth',
+  'store-design-build':      'store-design-build',
+  'growth-tools-automation': 'growth-tools-automation',
+  'brand-content':           'brand-content',
+  // Old taxonomy slugs
+  'marketing':               'ecommerce-growth',
+  'growth-engineering':      'ecommerce-growth',
+  'conversion-engineering':  'ecommerce-growth',
+  'branding':                'brand-content',
+  'design':                  'store-design-build',
+  'web':                     'store-design-build',
+  'video-production':        'brand-content',
+};
+const serviceSlug = CATEGORY_TO_SERVICE_SLUG[category];
+const relatedService = serviceSlug ? (SERVICE_HIERARCHY as Record<string, any>)[serviceSlug] : null;
 
 // Get related posts (same category, different post)
 const allPosts = await getPosts();
@@ -140,9 +158,9 @@ const morePosts = allPosts
       image: post.image ? new URL(post.image, Astro.site).href : undefined,
       datePublished: post.date || undefined,
       author: {
-        "@type": "Organization",
-        name: "Hydra Fox Designs",
-        url: "https://hydrafoxdesigns.com",
+        "@type": "Person",
+        name: "Muneer Zameer",
+        url: "https://hydrafoxdesigns.com/about/",
       },
       publisher: {
         "@type": "Organization",
@@ -205,17 +223,25 @@ const morePosts = allPosts
         <p class="text-gray-400 text-xl leading-relaxed">
           {post.description}
         </p>
-        {
-          post.date && (
-            <p class="text-gray-500 text-sm mt-6">
-              {new Date(post.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
+        <div class="flex items-center gap-3 mt-6">
+          <img
+            src="/images/muneer.png"
+            alt="Muneer Zameer"
+            class="w-10 h-10 rounded-full object-cover flex-shrink-0"
+            width="40"
+            height="40"
+            loading="lazy"
+          />
+          <div>
+            <p class="text-white text-sm font-medium">Muneer Zameer</p>
+            <p class="text-gray-500 text-xs">
+              Founder &amp; CEO · DTC operator, Pakistan National Store
+              {post.date && (
+                <span class="ml-2 text-gray-600">·&nbsp;{new Date(post.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</span>
+              )}
             </p>
-          )
-        }
+          </div>
+        </div>
       </div>
     </header>
 
@@ -229,6 +255,8 @@ const morePosts = allPosts
                 src={post.image}
                 alt={post.title}
                 class="w-full h-full object-cover"
+                width="1200"
+                height="675"
                 loading="lazy"
               />
             </div>
@@ -263,40 +291,6 @@ const morePosts = allPosts
       )
     }
 
-    <!-- Related Service -->
-    {
-      relatedService && (
-        <div class="px-6 pb-12 border-t border-gray-800 pt-12">
-          <div class="max-w-3xl mx-auto">
-            <div class="p-6 bg-gray-900/50 rounded-xl border border-gray-800">
-              <h3 class="text-xl font-bold mb-2">
-                Need Help With {relatedService.name}?
-              </h3>
-              <p class="text-gray-400 mb-4">{relatedService.description}</p>
-              <a
-                href={`/services/${relatedService.slug}/`}
-                class="inline-flex items-center gap-2 text-green-400 font-medium hover:text-green-300"
-              >
-                Explore {relatedService.name} Services
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      )
-    }
 
     <!-- Related Articles -->
     {
@@ -315,6 +309,9 @@ const morePosts = allPosts
                       src={related.image}
                       alt={related.title}
                       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      width="800"
+                      height="500"
+                      loading="lazy"
                     />
                   </div>
                   <h3 class="text-lg font-bold group-hover:text-green-400 transition-colors line-clamp-2">
@@ -361,6 +358,8 @@ const morePosts = allPosts
                       src={p.image}
                       alt={p.title}
                       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      width="800"
+                      height="500"
                       loading="lazy"
                     />
                   </div>
@@ -386,21 +385,63 @@ const morePosts = allPosts
     )
   }
 
-  <!-- CTA -->
-  <section
-    class="bg-gradient-to-b from-black to-gray-900 text-white px-6 py-24 border-t border-gray-800"
-  >
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-6">Ready to Put This Into Practice?</h2>
-      <p class="text-gray-400 text-lg mb-10">
-        Let's discuss how we can help you implement these strategies.
-      </p>
-      <a
-        href="/contact/"
-        class="inline-flex items-center gap-2 px-10 py-4 bg-green-500 hover:bg-green-600 text-black font-bold rounded-full transition-colors"
-      >
-        Get in Touch
-      </a>
+  <!-- Closing block -->
+  <section class="bg-black border-t border-white/10 px-6 py-20">
+    <div class="max-w-3xl mx-auto space-y-6">
+
+      <!-- Relevant service card -->
+      {relatedService && (
+        <div class="p-6 bg-white/[0.03] rounded-xl border border-white/10">
+          <p class="text-[#00f19f] text-xs font-bold tracking-[0.2em] uppercase mb-3">{relatedService.name}</p>
+          <p class="text-white font-semibold text-base mb-2 leading-snug">{relatedService.description}</p>
+          <a
+            href={`/services/${relatedService.slug}/`}
+            class="inline-flex items-center gap-1.5 text-[#00f19f] text-sm font-medium hover:text-white transition-colors duration-300 mt-1"
+          >
+            See how we do it
+            <svg class="w-3.5 h-3.5 -rotate-45" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      )}
+
+      <!-- Case study card -->
+      <div class="p-6 bg-white/[0.03] rounded-xl border border-white/10">
+        <p class="text-[#00f19f] text-xs font-bold tracking-[0.2em] uppercase mb-3">Case Study</p>
+        <p class="text-white font-semibold text-base mb-2 leading-snug">See what this looks like with a real DTC brand and real numbers.</p>
+        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+          We worked with Ahd e Qadeem on Shopify store build, paid media, and Klaviyo retention. The case study breaks down the specific changes we made and the metrics they moved.
+        </p>
+        <a
+          href="/case-studies/pakistan-national-store/"
+          class="inline-flex items-center gap-1.5 text-[#00f19f] text-sm font-medium hover:text-white transition-colors duration-300"
+        >
+          Read the full case study
+          <svg class="w-3.5 h-3.5 -rotate-45" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Free audit CTA -->
+      <div class="p-6 rounded-xl border border-[#00f19f]/20 bg-[#00f19f]/5">
+        <p class="text-[#00f19f] text-xs font-bold tracking-[0.2em] uppercase mb-3">Free Audit</p>
+        <p class="text-white font-semibold text-base mb-2 leading-snug">Find out what's costing you contribution margin.</p>
+        <p class="text-gray-400 text-sm leading-relaxed mb-5">
+          We'll review your Shopify store, ad account structure, email flows, and attribution setup — then send you the three biggest gaps within 48 hours. No sales call required.
+        </p>
+        <a
+          href="/#audit"
+          class="inline-flex items-center gap-1.5 text-black bg-[#00f19f] hover:bg-white px-5 py-2.5 rounded-full text-sm font-bold transition-colors duration-300"
+        >
+          Request my free audit
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+
     </div>
   </section>
 </Layout>

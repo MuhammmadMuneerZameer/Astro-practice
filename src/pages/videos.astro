@@ -1,4 +1,4 @@
----
+﻿---
 import Layout from '../layouts/Layout.astro';
 import VideoShowcase from '../components/VideoShowcase';
 ---
@@ -238,8 +238,8 @@ import VideoShowcase from '../components/VideoShowcase';
   const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
 
   function initVidAnimations() {
-    const lines = document.querySelectorAll<HTMLElement>('.vid-reveal-line');
-    const fades = document.querySelectorAll<HTMLElement>('.vid-reveal-fade');
+    const lines = document.querySelectorAll('.vid-reveal-line');
+    const fades = document.querySelectorAll('.vid-reveal-fade');
 
     lines.forEach(el => { el.style.transform = 'translateY(110%)'; });
     fades.forEach(el => { el.style.opacity = '0'; });

@@ -1,15 +1,39 @@
----
+﻿---
 import Layout from "../../layouts/Layout.astro";
-import { getCaseStudies } from "../../data/caseStudies.js";
+import { getCollection } from 'astro:content';
 import WorkListAnimated from "../../components/WorkListAnimated";
+import MouseTrail from "../../components/MouseTrail";
 
-const caseStudies: any[] = await getCaseStudies();
+const entries = await getCollection('case-studies');
+const caseStudies = entries.map((e) => ({
+  id:       e.slug,
+  slug:     e.slug,
+  title:    e.data.title,
+  client:   e.data.client,
+  industry: e.data.industry,
+  services: e.data.services,
+  image:    e.data.image ?? '/images/desktop-opt.webp',
+  featured: e.data.featured,
+  isOwnBrand: e.data.isOwnBrand,
+}));
 ---
 
 <Layout
-  title="Our Work | Hydra Fox Designs"
-  description="Explore our portfolio of successful projects. See how we've helped clients solve challenges and achieve their goals."
+  title="Client Work | Hydra Fox Designs"
+  description="Shopify builds, paid media campaigns, and Klaviyo retention programs — real results for DTC brands, measured in MER, CAC, and LTV:CAC."
 >
+  <MouseTrail
+    client:only="react"
+    images={[
+      '/images/PNS%20image.jpg',
+      '/images/websiteUI.webp',
+      '/images/rabbi-estate-opt.webp',
+      '/images/puchlo-pakistan-opt.webp',
+      '/images/mockup.png',
+      '/images/mobileUI.png',
+      '/images/laptop.jpg',
+    ]}
+  />
 
   <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
   <section class="work-hero relative min-h-[60vh] flex flex-col justify-end pb-16 px-4 md:px-8 bg-black overflow-hidden -mt-16 md:mt-0 pt-32 md:pt-40">
@@ -18,26 +42,26 @@ const caseStudies: any[] = await getCaseStudies();
     <div class="relative z-10 max-w-7xl mx-auto w-full">
       <div class="overflow-hidden mb-4">
         <span class="work-reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
-          Our Work
+          Client Results
         </span>
       </div>
       <h1 class="font-heading font-bold leading-none tracking-tight mb-8">
         <div class="overflow-hidden">
           <span class="work-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white">
-            Building Trust
+            Real Brands.
           </span>
         </div>
         <div class="overflow-hidden">
           <span class="work-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white">
-            Through Results.
+            Real Numbers.
           </span>
         </div>
       </h1>
       <div class="flex flex-col sm:flex-row sm:items-end gap-6">
         <div class="overflow-hidden flex-1">
           <p class="work-reveal-fade text-gray-400 text-base md:text-lg max-w-xl font-light">
-            We don't just showcase designs — we demonstrate the tangible impact
-            we've created for brands across industries.
+            Every project here includes the baseline metrics we started with,
+            what we changed, and what moved — in MER, CAC, or LTV:CAC.
           </p>
         </div>
         <div class="overflow-hidden flex-shrink-0">
@@ -59,8 +83,8 @@ const caseStudies: any[] = await getCaseStudies();
   const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
 
   function initWorkAnimations() {
-    const lines = document.querySelectorAll<HTMLElement>('.work-reveal-line');
-    const fades = document.querySelectorAll<HTMLElement>('.work-reveal-fade');
+    const lines = document.querySelectorAll('.work-reveal-line');
+    const fades = document.querySelectorAll('.work-reveal-fade');
 
     lines.forEach(el => { el.style.transform = 'translateY(110%)'; });
     fades.forEach(el => { el.style.opacity = '0'; });

@@ -1,91 +1,96 @@
----
+﻿---
 import Layout from "../../layouts/Layout.astro";
-import { getAllServices } from "../../data/taxonomy.js";
-import { getCaseStudies } from "../../data/caseStudies.js";
+import { getCollection } from 'astro:content';
 
-const services = getAllServices();
-const caseStudies = await getCaseStudies();
-const featuredCaseStudies = caseStudies.filter((cs) => cs.featured).slice(0, 4);
+const lines = [
+  {
+    num: '01',
+    name: 'Ecommerce Growth',
+    outcome: 'Lower your CAC. Grow LTV. Hit your MER target.',
+    href: '/services/ecommerce-growth/',
+    price: 'from $2,500/mo',
+  },
+  {
+    num: '02',
+    name: 'Shopify Stores',
+    outcome: 'A store that converts on mobile and passes Core Web Vitals.',
+    href: '/services/shopify/',
+    price: 'from $4,500',
+  },
+  {
+    num: '03',
+    name: 'Growth Tools & Automation',
+    outcome: 'Attribution that holds. Dashboards you can make decisions from.',
+    href: '/services/growth-tools/',
+    price: 'from $1,200/mo',
+  },
+  {
+    num: '04',
+    name: 'Brand & Content',
+    outcome: 'The margin premium that makes paid acquisition sustainable.',
+    href: '/services/brand-content/',
+    price: 'from $1,500/mo',
+  },
+];
+
+const csEntries = await getCollection('case-studies');
+const featured = csEntries.filter((e) => e.data.featured).slice(0, 1).map((e) => ({
+  slug:   e.slug,
+  title:  e.data.title,
+  client: e.data.client,
+  image:  e.data.image ?? '/images/desktop-opt.webp',
+  timeframe: e.data.timeframe,
+}));
 ---
 
 <Layout
-  title="Strategic Services | Hydra Fox Designs"
-  description="We solve business problems through branding, design, marketing, and web development. Stop losing customers to poor digital experiences."
+  title="Services | Hydra Fox Designs"
+  description="Four service lines for DTC brands: Ecommerce Growth, Shopify builds, Growth Tools & Automation, and Brand & Content. Month-to-month. No lock-in."
 >
 
   <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
-  <section class="svc-hero relative min-h-[70vh] flex flex-col justify-end pb-20 px-4 md:px-8 bg-black overflow-hidden -mt-16 md:mt-0 pt-32 md:pt-40">
-    <div class="absolute inset-0 bg-gradient-to-b from-green-900/5 to-transparent pointer-events-none"></div>
-
+  <section class="svc-hero relative min-h-[60vh] flex flex-col justify-end pb-20 px-4 md:px-8 bg-black overflow-hidden -mt-16 md:mt-0 pt-32 md:pt-40">
+    <div class="absolute inset-0 bg-gradient-to-b from-green-900/5 to-transparent pointer-events-none" />
     <div class="relative z-10 max-w-7xl mx-auto w-full">
       <div class="overflow-hidden mb-4">
         <span class="svc-reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
-          What We Do
+          Four service lines
         </span>
       </div>
       <h1 class="font-heading font-bold leading-none tracking-tight mb-8">
         <div class="overflow-hidden">
           <span class="svc-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white">
-            We Build Systems
-          </span>
-        </div>
-        <div class="overflow-hidden">
-          <span class="svc-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white">
-            That Scale &
-          </span>
-        </div>
-        <div class="overflow-hidden">
-          <span class="svc-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white">
-            Convert.
+            What we do.
           </span>
         </div>
       </h1>
-      <div class="overflow-hidden max-w-2xl">
+      <div class="overflow-hidden max-w-xl">
         <p class="svc-reveal-fade text-gray-400 text-base md:text-lg font-light leading-relaxed">
-          Stop treating your website like a brochure. Start treating it like a
-          business engine. We identify where you're losing money and build the
-          infrastructure to fix it.
+          Each line has one job. Pick the one that matches the problem you're solving — or book a call and we'll tell you which one to start with.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- ── Services List ─────────────────────────────────────────────────────── -->
-  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-24">
+  <!-- ── Service rows ──────────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-16">
     <div class="max-w-7xl mx-auto">
-      <div class="scroll-section mb-12">
-        <div class="overflow-hidden mb-4">
-          <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
-            Core Services
-          </span>
-        </div>
-        <div class="overflow-hidden">
-          <h2 class="reveal-line block text-5xl md:text-6xl font-heading font-bold text-white leading-none">What We Offer.</h2>
-        </div>
-      </div>
-
       <div class="border-t border-white/10">
-        {services.map((service, i) => (
+        {lines.map((line) => (
           <a
-            href={`/services/${service.slug}/`}
+            href={line.href}
             class="group flex items-center gap-6 md:gap-10 py-8 border-b border-white/10 hover:border-white/30 transition-colors duration-300"
           >
-            <span class="text-gray-600 text-xs font-mono w-8 flex-shrink-0 select-none">
-              {String(i + 1).padStart(2, '0')}
-            </span>
+            <span class="text-gray-700 font-mono text-xs w-8 flex-shrink-0 select-none">{line.num}</span>
             <div class="flex-1 min-w-0">
-              <h3 class="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-white group-hover:text-[#00f19f] transition-colors duration-300 mb-2">
-                {service.name}
-              </h3>
-              <p class="text-gray-500 text-sm hidden sm:block line-clamp-1">{service.description}</p>
+              <h2 class="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-white group-hover:text-[#00f19f] transition-colors duration-300 mb-1.5">
+                {line.name}
+              </h2>
+              <p class="text-gray-500 text-sm">{line.outcome}</p>
             </div>
-            <div class="hidden md:flex flex-wrap gap-2 max-w-xs">
-              {Object.values(service.subservices).slice(0, 2).map((sub: any) => (
-                <span class="px-3 py-1 border border-white/10 text-gray-500 text-xs rounded-full">
-                  {sub.name}
-                </span>
-              ))}
-            </div>
+            <span class="hidden lg:block text-[#00f19f] text-xs font-mono tracking-wide flex-shrink-0 text-right min-w-[110px]">
+              {line.price}
+            </span>
             <span class="w-9 h-9 rounded-full border border-white/20 group-hover:border-[#00f19f] group-hover:bg-[#00f19f] flex items-center justify-center transition-all duration-300 flex-shrink-0">
               <svg class="w-4 h-4 text-white group-hover:text-black -rotate-45 group-hover:rotate-0 transition-all duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
@@ -97,47 +102,61 @@ const featuredCaseStudies = caseStudies.filter((cs) => cs.featured).slice(0, 4);
     </div>
   </section>
 
-  <!-- ── Featured Work ─────────────────────────────────────────────────────── -->
-  {featuredCaseStudies.length > 0 && (
-    <section class="bg-black border-t border-white/10 px-4 md:px-8 py-24">
+  <!-- ── Featured work (max 1) ─────────────────────────────────────────────── -->
+  {featured.length > 0 && (
+    <section class="bg-black border-t border-white/10 px-4 md:px-8 py-20">
       <div class="max-w-7xl mx-auto">
-        <div class="scroll-section mb-12">
-          <div class="overflow-hidden mb-4">
-            <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
-              Featured Work
-            </span>
-          </div>
-          <div class="overflow-hidden flex items-end justify-between gap-6">
-            <h2 class="reveal-line block text-5xl md:text-6xl font-heading font-bold text-white leading-none">Selected Projects.</h2>
-            <a href="/case-studies/" class="reveal-fade text-gray-500 hover:text-white text-sm transition-colors flex-shrink-0">
-              View all →
-            </a>
+        <div class="scroll-section mb-10">
+          <div class="flex items-end justify-between gap-6">
+            <div>
+              <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-4">Recent work</span>
+              <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-none">Latest result.</h2>
+            </div>
+            <a href="/work/" class="text-gray-500 hover:text-white text-sm transition-colors flex-shrink-0 mb-1">All work →</a>
           </div>
         </div>
 
-        <div class="border-t border-white/10">
-          {featuredCaseStudies.map((cs) => (
-            <a href={`/case-studies/${cs.slug}/`} class="group flex items-center gap-6 md:gap-10 py-6 border-b border-white/10 hover:border-white/30 transition-colors duration-300">
-              <div class="w-20 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-gray-900">
-                {cs.image && (
-                  <img src={cs.image} alt={cs.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-                )}
+        {featured.map((cs) => (
+          <a href={`/case-studies/${cs.slug}/`} class="group block">
+            <div class="aspect-video md:aspect-[16/7] rounded-xl overflow-hidden mb-5 bg-gray-900">
+              <img src={cs.image} alt={cs.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" width="1200" height="525" />
+            </div>
+            <div class="flex items-end justify-between gap-6">
+              <div>
+                <h3 class="text-2xl md:text-3xl font-heading font-bold text-white group-hover:text-[#00f19f] transition-colors">{cs.title}</h3>
+                <p class="text-gray-500 text-sm mt-1">{cs.client} · {cs.timeframe}</p>
               </div>
-              <div class="flex-1 min-w-0">
-                <h3 class="text-xl md:text-2xl font-heading font-bold text-white group-hover:text-[#00f19f] transition-colors duration-300 truncate">{cs.title}</h3>
-                <p class="text-gray-500 text-sm mt-0.5">{cs.client}</p>
-              </div>
-              <span class="w-9 h-9 rounded-full border border-white/20 group-hover:border-[#00f19f] group-hover:bg-[#00f19f] flex items-center justify-center transition-all duration-300 flex-shrink-0">
+              <span class="w-10 h-10 rounded-full border border-white/20 group-hover:border-[#00f19f] group-hover:bg-[#00f19f] flex items-center justify-center transition-all duration-300 flex-shrink-0">
                 <svg class="w-4 h-4 text-white group-hover:text-black -rotate-45 group-hover:rotate-0 transition-all duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </span>
-            </a>
-          ))}
-        </div>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
   )}
+
+  <!-- ── Bottom CTA ────────────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-20">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
+      <div>
+        <p class="text-gray-600 text-xs font-mono tracking-widest uppercase mb-3">Not sure where to start?</p>
+        <p class="text-white text-lg font-medium">Book a 30-min call — we'll tell you which service fits your problem.</p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-4 flex-shrink-0">
+        <a href="https://cal.com/hydra-fox-sqrqbz/30min" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 px-6 py-3 bg-[#00f19f] hover:bg-white text-black font-bold rounded-full transition-colors text-sm">
+          Book a call
+        </a>
+        <a href="/pricing/"
+           class="inline-flex items-center gap-2 px-6 py-3 border border-white/20 text-white hover:border-white/50 rounded-full transition-colors text-sm">
+          See pricing
+        </a>
+      </div>
+    </div>
+  </section>
 
 </Layout>
 
@@ -146,36 +165,50 @@ const featuredCaseStudies = caseStudies.filter((cs) => cs.featured).slice(0, 4);
   const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
 
   function initSvcAnimations() {
-    const lines = document.querySelectorAll<HTMLElement>('.svc-reveal-line');
-    const fades = document.querySelectorAll<HTMLElement>('.svc-reveal-fade');
-
-    lines.forEach(el => { el.style.transform = 'translateY(110%)'; });
-    fades.forEach(el => { el.style.opacity = '0'; });
+    document.querySelectorAll('.svc-reveal-line').forEach(el => { el.style.transform = 'translateY(110%)'; });
+    document.querySelectorAll('.svc-reveal-fade').forEach(el => { el.style.opacity = '0'; });
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        lines.forEach((el, i) => {
+        document.querySelectorAll('.svc-reveal-line').forEach((el, i) => {
           const anim = el.animate(
             [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
             { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
           );
           anim.onfinish = () => { el.style.willChange = 'auto'; };
         });
-        fades.forEach((el, i) => {
+        document.querySelectorAll('.svc-reveal-fade').forEach((el, i) => {
           const anim = el.animate(
             [{ opacity: '0' }, { opacity: '1' }],
-            { duration: 700, delay: 500 + i * 100, easing: CUBIC_OUT, fill: 'forwards' }
+            { duration: 700, delay: 400 + i * 100, easing: CUBIC_OUT, fill: 'forwards' }
           );
           anim.onfinish = () => { el.style.willChange = 'auto'; };
         });
       });
     });
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.querySelectorAll('.reveal-line').forEach((el, i) => {
+          el.style.transform = 'translateY(110%)';
+          const anim = el.animate(
+            [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+            { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
+          );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
+        });
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.scroll-section').forEach(s => io.observe(s));
   }
 
   document.addEventListener('astro:page-load', initSvcAnimations);
 </script>
 
 <style>
-  .svc-reveal-line { will-change: transform; }
+  .svc-reveal-line, .reveal-line { will-change: transform; display: block; }
   .svc-reveal-fade { will-change: opacity; }
 </style>

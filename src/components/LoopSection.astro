@@ -1,0 +1,106 @@
+﻿---
+const nodes = [
+  {
+    num: '01',
+    stage: 'Traffic',
+    service: 'Paid Media',
+    desc: 'Meta, Google & TikTok campaigns managed to a MER target — not a platform ROAS figure.',
+  },
+  {
+    num: '02',
+    stage: 'Store',
+    service: 'Shopify + CRO',
+    desc: 'A store built to convert on mobile. Core Web Vitals passing. Checkout friction removed.',
+  },
+  {
+    num: '03',
+    stage: 'Data',
+    service: 'Attribution',
+    desc: 'Conversions API from day one. Server-side signals that hold after iOS and cookie changes.',
+  },
+  {
+    num: '04',
+    stage: 'Retention',
+    service: 'Klaviyo',
+    desc: 'Lifecycle flows that grow LTV and reduce dependence on paid acquisition over time.',
+  },
+];
+---
+
+<section class="loop-section bg-black border-t border-white/10 px-4 md:px-8 py-24">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="mb-12">
+      <div class="overflow-hidden mb-4">
+        <p class="loop-reveal text-[#00f19f] text-xs font-bold tracking-[0.2em] uppercase">The growth loop</p>
+      </div>
+      <h2 class="font-heading font-bold text-white leading-none">
+        <div class="overflow-hidden">
+          <span class="loop-reveal block text-4xl sm:text-5xl md:text-6xl">We own every arrow.</span>
+        </div>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 rounded-2xl overflow-hidden">
+      {nodes.map((node) => (
+        <div class="loop-node bg-black p-7 md:p-8">
+          <span class="block text-[#00f19f]/40 font-mono text-xs mb-6">{node.num}</span>
+          <p class="text-[#00f19f] text-[10px] font-bold tracking-[0.15em] uppercase mb-1">{node.service}</p>
+          <h3 class="text-xl font-heading font-bold text-white mb-3">{node.stage}</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">{node.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="hidden lg:flex items-center mt-0">
+      <div class="w-10 h-6 border-l border-b border-[#00f19f]/20 rounded-bl-xl flex-shrink-0"></div>
+      <div class="flex-1 border-b border-[#00f19f]/20 text-center">
+        <span class="text-gray-700 text-[10px] font-mono tracking-[0.2em] uppercase">
+          lower cac · compound ltv · better creative signals
+        </span>
+      </div>
+      <div class="w-10 h-6 border-r border-b border-[#00f19f]/20 rounded-br-xl flex-shrink-0"></div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const EXPO = 'cubic-bezier(0.19, 1, 0.22, 1)';
+  const CUBIC = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
+
+  function initLoop() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const lines = entry.target.querySelectorAll('.loop-reveal');
+        const nodes = entry.target.querySelectorAll('.loop-node');
+
+        lines.forEach(el => { el.style.transform = 'translateY(110%)'; });
+        lines.forEach((el, i) => {
+          el.animate(
+            [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+            { duration: 900, delay: i * 120, easing: EXPO, fill: 'forwards' }
+          ).onfinish = () => { el.style.willChange = 'auto'; };
+        });
+        nodes.forEach((el, i) => {
+          el.animate(
+            [{ opacity: '0', transform: 'translateY(16px)' }, { opacity: '1', transform: 'translateY(0)' }],
+            { duration: 700, delay: 300 + i * 100, easing: CUBIC, fill: 'forwards' }
+          );
+        });
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.1 });
+
+    const section = document.querySelector('.loop-section');
+    if (section) io.observe(section);
+  }
+
+  document.addEventListener('astro:page-load', initLoop);
+</script>
+
+<style>
+  .loop-reveal { will-change: transform; display: block; }
+  .loop-node { opacity: 0; }
+</style>

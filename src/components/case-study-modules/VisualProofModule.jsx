@@ -23,6 +23,8 @@ export default function VisualProofModule({ galleryImages }) {
                                 src={img}
                                 alt={`Proof ${idx + 1}`}
                                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                width="800"
+                                height="600"
                             />
                             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                 <span className="text-white font-medium border border-white/30 px-4 py-2 rounded-full backdrop-blur-md">View Fullscreen</span>

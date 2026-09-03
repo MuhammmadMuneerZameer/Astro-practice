@@ -1,0 +1,142 @@
+---
+const lines = [
+  { name: 'Growth Audit', price: 'Free', type: 'No call required', note: 'Store, ad account & email reviewed. Three gaps delivered in 48 hrs. Credited toward first month if you proceed.', href: '/audit/' },
+  { name: 'Shopify Store Build', price: 'from $4,500', type: 'Fixed price', note: 'One-time build fee. No ongoing commitment.', href: '/services/shopify/' },
+  { name: 'Ecommerce Growth', price: 'from $2,500/mo', type: 'Monthly retainer', note: 'Paid media, retention, creative — managed to MER.', href: '/services/ecommerce-growth/' },
+  { name: 'Growth Tools & Automation', price: 'from $1,200/mo', type: 'Monthly retainer', note: 'Tracking, attribution, dashboards, AI systems.', href: '/services/growth-tools/' },
+  { name: 'Brand & Content', price: 'from $1,500/mo', type: 'Monthly retainer', note: 'Identity, video production, motion design.', href: '/services/brand-content/' },
+];
+
+const notIncluded = ['Ad spend', 'App subscriptions', 'Theme licences', 'Stock imagery'];
+const terms = ['Month-to-month', '30-day cancel notice', 'No lock-in', 'No penalty'];
+---
+
+<section class="ps-section bg-black border-t border-white/10 px-4 md:px-8 py-24">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20">
+
+      <!-- Left: copy -->
+      <div>
+        <div class="overflow-hidden mb-4">
+          <p class="ps-reveal text-[#00f19f] text-xs font-bold tracking-[0.2em] uppercase">Pricing</p>
+        </div>
+        <h2 class="font-heading font-bold text-white leading-none mb-6">
+          <div class="overflow-hidden">
+            <span class="ps-reveal block text-4xl sm:text-5xl md:text-[3.25rem]">We publish prices.</span>
+          </div>
+          <div class="overflow-hidden">
+            <span class="ps-reveal block text-4xl sm:text-5xl md:text-[3.25rem]">Most agencies don't.</span>
+          </div>
+        </h2>
+        <p class="ps-fade text-gray-400 text-base leading-relaxed mb-8 max-w-md">
+          We do it because it saves everyone the wrong call. If the starting figure puts us out of range, we'd both rather know before spending an hour on a discovery session.
+        </p>
+
+        <div class="ps-fade mb-8">
+          <p class="text-gray-600 text-xs font-mono uppercase tracking-widest mb-3">Not included in any retainer</p>
+          <div class="flex flex-wrap gap-2">
+            {notIncluded.map(item => (
+              <span class="inline-flex items-center px-3 py-1 rounded-full border border-white/10 text-gray-500 text-xs">{item}</span>
+            ))}
+          </div>
+        </div>
+
+        <div class="ps-fade space-y-4">
+          <div class="flex flex-wrap gap-3">
+            {terms.map(term => (
+              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#00f19f]/30 text-[#00f19f] text-xs font-mono">
+                <span class="w-1 h-1 rounded-full bg-[#00f19f]" />
+                {term}
+              </span>
+            ))}
+          </div>
+          <a
+            href="/pricing/"
+            class="inline-flex items-center gap-2 text-[#00f19f] text-sm font-medium hover:text-white transition-colors duration-200"
+          >
+            Full pricing &amp; what&#39;s included
+            <svg class="w-4 h-4 -rotate-45" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: price lines -->
+      <div class="ps-lines border-t border-white/10 self-center">
+        {lines.map((line, i) => (
+          <a
+            href={line.href}
+            class:list={[
+              "group flex items-start justify-between gap-6 py-6 border-b border-white/10 hover:border-white/30 transition-colors duration-300 block",
+              { "bg-[#00f19f]/5 -mx-4 px-4 md:-mx-6 md:px-6 rounded-lg": i === 0 },
+            ]}
+          >
+            <div class="flex-1 min-w-0">
+              <p class:list={[
+                "text-sm font-semibold mb-0.5 group-hover:text-[#00f19f] transition-colors",
+                { "text-[#00f19f]": i === 0, "text-white": i !== 0 },
+              ]}>{line.name}</p>
+              <p class="text-gray-500 text-xs leading-relaxed">{line.note}</p>
+            </div>
+            <div class="text-right flex-shrink-0">
+              <p class="text-[#00f19f] text-sm font-mono font-bold">{line.price}</p>
+              <p class="text-gray-600 text-[10px] tracking-wide uppercase mt-0.5">{line.type}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  const EXPO = 'cubic-bezier(0.19, 1, 0.22, 1)';
+  const CUBIC = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
+
+  function initPricingSignal() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const revealEls = entry.target.querySelectorAll<HTMLElement>('.ps-reveal');
+        const fadeEls = entry.target.querySelectorAll('.ps-fade');
+        const priceLines = entry.target.querySelector('.ps-lines');
+
+        revealEls.forEach(el => { el.style.transform = 'translateY(110%)'; });
+        revealEls.forEach((el, i) => {
+          const anim = el.animate(
+            [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+            { duration: 900, delay: i * 120, easing: EXPO, fill: 'forwards' }
+          );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
+        });
+        fadeEls.forEach((el, i) => {
+          el.animate(
+            [{ opacity: '0', transform: 'translateY(12px)' }, { opacity: '1', transform: 'translateY(0)' }],
+            { duration: 700, delay: 400 + i * 80, easing: CUBIC, fill: 'forwards' }
+          );
+        });
+        if (priceLines) {
+          priceLines.animate(
+            [{ opacity: '0', transform: 'translateX(24px)' }, { opacity: '1', transform: 'translateX(0)' }],
+            { duration: 800, delay: 300, easing: EXPO, fill: 'forwards' }
+          );
+        }
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.1 });
+
+    const section = document.querySelector('.ps-section');
+    if (section) io.observe(section);
+  }
+
+  document.addEventListener('astro:page-load', initPricingSignal);
+</script>
+
+<style>
+  .ps-reveal { will-change: transform; display: block; }
+  .ps-fade { opacity: 0; }
+  .ps-lines { opacity: 0; }
+</style>

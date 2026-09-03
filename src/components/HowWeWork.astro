@@ -1,0 +1,108 @@
+﻿---
+const steps = [
+  {
+    span: 'Day 1–3',
+    heading: 'Onboarding & baseline.',
+    body: 'We pull your ad account, Shopify analytics, and Klaviyo health. You get a written baseline before the first week ends — not a discovery call with no deliverable.',
+  },
+  {
+    span: 'Week 1–2',
+    heading: 'Tracking before spend.',
+    body: "Conversions API goes live before a single paid campaign launches. We don't run ads against browser-degraded signals. Attribution is verified before budget scales.",
+  },
+  {
+    span: 'Ongoing',
+    heading: 'Weekly Loom. Monthly deck.',
+    body: "Every week: a short video walking through MER, blended CAC, and one decision we made and why. Every month: a full report with 90-day cohort data and what we're testing next.",
+  },
+  {
+    span: 'Always',
+    heading: 'One strategist. Not a rotation.',
+    body: "The person who scoped your account runs it. You're not routed through an account manager who relays decisions from someone you've never met.",
+  },
+];
+---
+
+<section class="hww-section bg-black border-t border-white/10 px-4 md:px-8 py-24">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="mb-16">
+      <div class="overflow-hidden mb-4">
+        <p class="hww-reveal text-[#00f19f] text-xs font-bold tracking-[0.2em] uppercase">How we work</p>
+      </div>
+      <h2 class="font-heading font-bold text-white leading-none">
+        <div class="overflow-hidden">
+          <span class="hww-reveal block text-4xl sm:text-5xl md:text-6xl">No surprises.</span>
+        </div>
+        <div class="overflow-hidden">
+          <span class="hww-reveal block text-4xl sm:text-5xl md:text-6xl">No handoffs.</span>
+        </div>
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-px bg-white/10 rounded-2xl overflow-hidden">
+      {steps.map((step) => (
+        <div class="hww-card bg-black p-8 md:p-10">
+          <p class="text-[#00f19f] text-xs font-mono tracking-widest uppercase mb-4">{step.span}</p>
+          <h3 class="text-xl font-heading font-bold text-white mb-3 leading-snug">{step.heading}</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">{step.body}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="hww-footer mt-8">
+      <a href="/process/" class="text-gray-500 hover:text-white text-sm transition-colors duration-200">
+        Full process detail →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const EXPO = 'cubic-bezier(0.19, 1, 0.22, 1)';
+  const CUBIC = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
+
+  function initHowWeWork() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const lines = entry.target.querySelectorAll('.hww-reveal');
+        const cards = entry.target.querySelectorAll('.hww-card');
+        const footer = entry.target.querySelector('.hww-footer');
+
+        lines.forEach(el => { el.style.transform = 'translateY(110%)'; });
+        lines.forEach((el, i) => {
+          el.animate(
+            [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+            { duration: 900, delay: i * 120, easing: EXPO, fill: 'forwards' }
+          ).onfinish = () => { el.style.willChange = 'auto'; };
+        });
+        cards.forEach((el, i) => {
+          el.animate(
+            [{ opacity: '0', transform: 'translateY(16px)' }, { opacity: '1', transform: 'translateY(0)' }],
+            { duration: 700, delay: 300 + i * 80, easing: CUBIC, fill: 'forwards' }
+          );
+        });
+        if (footer) {
+          footer.animate(
+            [{ opacity: '0' }, { opacity: '1' }],
+            { duration: 600, delay: 650, easing: CUBIC, fill: 'forwards' }
+          );
+        }
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.1 });
+
+    const section = document.querySelector('.hww-section');
+    if (section) io.observe(section);
+  }
+
+  document.addEventListener('astro:page-load', initHowWeWork);
+</script>
+
+<style>
+  .hww-reveal { will-change: transform; display: block; }
+  .hww-card { opacity: 0; }
+  .hww-footer { opacity: 0; }
+</style>

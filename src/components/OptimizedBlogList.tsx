@@ -62,7 +62,7 @@ export default function OptimizedBlogList({
               slug: cleanSlug,
               title: data.title || 'Untitled',
               description: data.description || data.excerpt || '',
-              image: data.image || data.coverImage || 'https://via.placeholder.com/400x300',
+              image: data.image || data.coverImage || '/images/blog-1.jpg',
               tag: data.tag || null,
               category: data.category || null,
               date: data.date || new Date().toLocaleDateString(),
@@ -109,6 +109,8 @@ export default function OptimizedBlogList({
                 src={post.image}
                 alt={post.title}
                 className="w-full h-52 object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                width="800"
+                height="450"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />

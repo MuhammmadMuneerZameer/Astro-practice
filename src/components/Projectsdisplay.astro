@@ -1,5 +1,18 @@
----
-import projects from '../data/ProjectShowcase.js';
+﻿---
+import { getCollection } from 'astro:content';
+import conceptProjects from '../data/ProjectShowcase.js';
+
+const entries = await getCollection('case-studies');
+const featured = entries
+  .map((e) => ({
+    slug:    e.slug,
+    title:   e.data.title,
+    client:  e.data.client,
+    image:   e.data.image ?? '/images/desktop-opt.webp',
+    featured: e.data.featured,
+  }))
+  .filter((cs) => cs.featured)
+  .slice(0, 3);
 ---
 
 <section id="work" class="bg-black border-t border-white/10 px-4 md:px-8 py-24 text-white">
@@ -20,10 +33,10 @@ import projects from '../data/ProjectShowcase.js';
         </div>
       </div>
       <a
-        href="/work/"
+        href="/case-studies/"
         class="reveal-fade group inline-flex items-center gap-3 text-white text-sm font-medium hover:text-[#00f19f] transition-colors duration-300 flex-shrink-0"
       >
-        View all projects
+        View all case studies
         <span class="w-9 h-9 rounded-full border border-white/20 group-hover:border-[#00f19f] group-hover:bg-[#00f19f] flex items-center justify-center transition-all duration-300">
           <svg class="w-4 h-4 text-white group-hover:text-black -rotate-45 group-hover:rotate-0 transition-all duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
@@ -32,63 +45,99 @@ import projects from '../data/ProjectShowcase.js';
       </a>
     </div>
 
-    <!-- Card grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {projects.map((project, i) => (
-        <a
-          href={project.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="project-card group flex flex-col"
-          style={`animation-delay: ${i * 80}ms`}
-        >
-          <!-- Image container -->
-          <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-gray-900 mb-4">
-            {project.image ? (
+    <!-- Client case studies -->
+    {featured.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {featured.map((study, i) => (
+          <a
+            href={`/case-studies/${study.slug}/`}
+            class="project-card group flex flex-col"
+            style={`animation-delay: ${i * 80}ms`}
+          >
+            <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-gray-900 mb-4">
               <img
-                src={project.image}
-                alt={project.title}
+                src={study.image}
+                alt={study.title}
+                width="800"
+                height="600"
                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
                 decoding="async"
               />
-            ) : (
-              <div class="absolute inset-0 flex items-center justify-center text-gray-700 text-sm">No image</div>
-            )}
-            <!-- Hover overlay -->
-            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <span class="w-12 h-12 rounded-full bg-[#00f19f] flex items-center justify-center">
-                <svg class="w-5 h-5 text-black -rotate-45" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </span>
-            </div>
-          </div>
-
-          <!-- Meta row -->
-          <div class="flex items-start justify-between gap-3">
-            <div class="min-w-0">
-              <h3 class="text-white font-heading font-bold text-lg leading-snug group-hover:text-[#00f19f] transition-colors duration-300 truncate">
-                {project.title}
-              </h3>
-              <!-- Tags as author-style line -->
-              <div class="flex items-center gap-2 mt-1.5 flex-wrap">
-                {project.technologies && project.technologies.slice(0, 2).map((tech: string) => (
-                  <span class="text-xs text-gray-500 font-medium">{tech}</span>
-                ))}
-                {project.technologies && project.technologies.length > 2 && (
-                  <span class="text-xs text-gray-600">+{project.technologies.length - 2}</span>
-                )}
+              <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <span class="w-12 h-12 rounded-full bg-[#00f19f] flex items-center justify-center">
+                  <svg class="w-5 h-5 text-black -rotate-45" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </span>
               </div>
             </div>
-            <!-- Index badge -->
-            <span class="text-gray-700 text-xs font-mono flex-shrink-0 mt-0.5">
-              {String(i + 1).padStart(2, '0')}
-            </span>
-          </div>
-        </a>
-      ))}
-    </div>
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+                <h3 class="text-white font-heading font-bold text-lg leading-snug group-hover:text-[#00f19f] transition-colors duration-300 truncate">
+                  {study.title}
+                </h3>
+                {study.client && (
+                  <p class="text-xs text-gray-500 font-medium mt-1.5">{study.client}</p>
+                )}
+              </div>
+              <span class="text-gray-700 text-xs font-mono flex-shrink-0 mt-0.5">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <p class="text-gray-600 text-sm italic">Case studies coming soon.</p>
+    )}
+
+    <!-- Concept explorations — clearly separated and labelled -->
+    {conceptProjects.length > 0 && (
+      <div class="mt-20 pt-12 border-t border-white/5">
+        <div class="flex items-center gap-4 mb-8">
+          <span class="text-gray-600 font-bold tracking-[0.2em] uppercase text-xs">Concept Explorations</span>
+          <div class="flex-1 h-px bg-white/5"></div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {conceptProjects.map((project) => (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group flex items-center gap-4 p-4 rounded-xl border border-white/5 hover:border-white/10 transition-colors duration-300"
+            >
+              <div class="relative w-20 h-14 rounded-lg overflow-hidden bg-gray-900 flex-shrink-0">
+                {project.image && (
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    width="80"
+                    height="56"
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
+              </div>
+              <div class="min-w-0 flex-1">
+                <h3 class="text-gray-400 font-medium text-sm group-hover:text-white transition-colors duration-200 truncate">
+                  {project.title}
+                </h3>
+                <div class="flex items-center gap-2 mt-1 flex-wrap">
+                  {project.technologies.slice(0, 2).map((tech: string) => (
+                    <span class="text-xs text-gray-600">{tech}</span>
+                  ))}
+                </div>
+              </div>
+              <svg class="w-4 h-4 text-gray-700 group-hover:text-gray-400 flex-shrink-0 -rotate-45 transition-colors duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
 
   </div>
 </section>
@@ -110,7 +159,7 @@ import projects from '../data/ProjectShowcase.js';
 
 <script>
   function initProjectCards() {
-    const cards = document.querySelectorAll<HTMLElement>('.project-card');
+    const cards = document.querySelectorAll('.project-card');
     if (!cards.length) return;
 
     const observer = new IntersectionObserver((entries) => {

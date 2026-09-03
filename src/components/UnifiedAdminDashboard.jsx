@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { FileText, Briefcase, FolderOpen } from 'lucide-react';
+import { FileText, Briefcase, FolderOpen, MessageSquare } from 'lucide-react';
 import BlogAdminDashboard from './BlogAdminDashboard';
 import ProjectAdminPanel from './ProjectAdminPanel';
 import CaseStudyAdminPanel from './CaseStudyAdminPanel';
+import TestimonialAdminPanel from './TestimonialAdminPanel';
 
 export default function UnifiedAdminDashboard() {
     const [activeTab, setActiveTab] = useState('blogs');
 
     const tabs = [
-        { id: 'blogs', label: 'Blog Posts', icon: FileText, component: BlogAdminDashboard },
-        { id: 'projects', label: 'Projects', icon: FolderOpen, component: ProjectAdminPanel },
-        { id: 'case-studies', label: 'Case Studies', icon: Briefcase, component: CaseStudyAdminPanel },
+        { id: 'blogs',        label: 'Blog Posts',    icon: FileText,      component: BlogAdminDashboard },
+        { id: 'projects',     label: 'Projects',      icon: FolderOpen,    component: ProjectAdminPanel },
+        { id: 'case-studies', label: 'Case Studies',  icon: Briefcase,     component: CaseStudyAdminPanel },
+        { id: 'testimonials', label: 'Testimonials',  icon: MessageSquare, component: TestimonialAdminPanel },
     ];
 
     const ActiveComponent = tabs.find(tab => tab.id === activeTab)?.component;
@@ -18,11 +20,11 @@ export default function UnifiedAdminDashboard() {
     return (
         <div className="min-h-screen bg-black text-white">
             {/* Header Section */}
-            <section className="relative w-full h-[300px] flex flex-col items-center justify-center bg-black text-white">
+            <section className="relative w-full flex flex-col items-center justify-center bg-black text-white py-16">
                 <div className="absolute inset-0 z-0 bg-gradient-to-br from-green-500/5 via-transparent to-green-400/5"></div>
 
-                <div className="relative z-10 px-4 mt-24 text-center">
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-6 pt-24 text-green-300">
+                <div className="relative z-10 px-4 text-center">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-6 text-green-300">
                         Content Management Dashboard
                     </h1>
                     <p className="text-gray-300 mb-8 max-w-2xl mx-auto text-sm sm:text-base">

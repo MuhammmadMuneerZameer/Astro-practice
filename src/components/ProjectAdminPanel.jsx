@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { getAuth } from 'firebase/auth';
-import { app } from '../lib/firebase';
 import {
     PlusCircle, Trash2, Edit, Save, X, AlertCircle,
     Upload, Link2, Loader, Check, Image as ImageIcon,
@@ -8,9 +6,10 @@ import {
 } from 'lucide-react';
 import {
     collection, addDoc, updateDoc, deleteDoc, doc,
-    onSnapshot, serverTimestamp, query, orderBy
+    getDocs, onSnapshot, serverTimestamp, query, orderBy, where
 } from 'firebase/firestore';
 import { db } from '../lib/firebase';
+import { generateSlug, validateImageFile, uploadToImgBB } from '../lib/adminUtils';
 
 const CONSTANTS = {
     COLLECTION_NAME: 'projects',
@@ -29,43 +28,6 @@ const INITIAL_FORM_STATE = {
     status: 'published'
 };
 
-// Utility functions
-const generateSlug = (title) => {
-    return title
-        .toLowerCase()
-        .trim()
-        .replace(/[^a-z0-9\s-]/g, '')
-        .replace(/\s+/g, '-')
-        .replace(/-+/g, '-')
-        .replace(/^-|-$/g, '');
-};
-
-const validateImageFile = (file) => {
-    if (!file) throw new Error('No file selected');
-    if (!CONSTANTS.ALLOWED_IMAGE_TYPES.includes(file.type)) {
-        throw new Error('Invalid file type. Please upload JPG, PNG, GIF, WEBP, or SVG');
-    }
-    if (file.size > CONSTANTS.MAX_FILE_SIZE) {
-        throw new Error(`File size must be less than ${CONSTANTS.MAX_FILE_SIZE / (1024 * 1024)}MB`);
-    }
-    return true;
-};
-
-const uploadToImgBB = async (file) => {
-    const token = await getAuth(app).currentUser?.getIdToken() ?? '';
-    const formData = new FormData();
-    formData.append('image', file);
-    const response = await fetch('/api/upload', {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${token}` },
-        body: formData
-    });
-
-    if (!response.ok) throw new Error(`Upload failed with status: ${response.status}`);
-    const data = await response.json();
-    if (!data.success) throw new Error(data.error || 'Upload failed');
-    return data.url;
-};
 
 export default function ProjectAdminPanel() {
     const [projects, setProjects] = useState([]);
@@ -209,16 +171,19 @@ export default function ProjectAdminPanel() {
             setError('');
             setSuccess('');
 
-            if (!formData.title.trim()) {
-                setError('Title is required');
-                return;
-            }
-            if (!formData.description.trim()) {
-                setError('Description is required');
-                return;
-            }
-            if (!formData.image.trim()) {
-                setError('Image is required');
+            if (!formData.title.trim()) { setError('Title is required'); return; }
+            if (!formData.description.trim()) { setError('Description is required'); return; }
+            if (!formData.image.trim()) { setError('Image is required'); return; }
+
+            const slug = formData.slug.trim();
+            if (!slug) { setError('Slug is required'); return; }
+
+            // Slug uniqueness check
+            const slugSnap = await getDocs(
+                query(collection(db, CONSTANTS.COLLECTION_NAME), where('slug', '==', slug))
+            );
+            if (slugSnap.docs.some(d => d.id !== editingId)) {
+                setError('A project with this slug already exists. Change the title or edit the slug.');
                 return;
             }
 
@@ -228,7 +193,7 @@ export default function ProjectAdminPanel() {
                 image: formData.image.trim(),
                 technologies: formData.technologies,
                 link: formData.link.trim() || '#',
-                slug: formData.slug.trim(),
+                slug,
                 status: formData.status,
                 updatedAt: serverTimestamp()
             };

@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { getAuth } from 'firebase/auth';
-import { app } from '../lib/firebase';
 import {
     PlusCircle, Trash2, Edit, Save, X, AlertCircle,
     Upload, Link2, Loader, Check, Image as ImageIcon,
@@ -10,9 +8,10 @@ import {
 } from 'lucide-react';
 import {
     collection, addDoc, updateDoc, deleteDoc, doc,
-    onSnapshot, serverTimestamp, query, orderBy
+    getDocs, onSnapshot, serverTimestamp, query, orderBy, where
 } from 'firebase/firestore';
 import { db } from '../lib/firebase';
+import { generateSlug, validateImageFile, uploadToImgBB } from '../lib/adminUtils';
 import { SERVICES, getServiceDisplayName } from '../data/caseStudies';
 
 const CONSTANTS = {
@@ -82,43 +81,6 @@ const INITIAL_FORM_STATE = {
     technologies: [] // Kept for compatibility
 };
 
-const generateSlug = (title) => {
-    return title
-        .toLowerCase()
-        .trim()
-        .replace(/[^a-z0-9\s-]/g, '')
-        .replace(/\s+/g, '-')
-        .replace(/-+/g, '-')
-        .replace(/^-|-$/g, '');
-};
-
-const validateImageFile = (file) => {
-    if (!file) throw new Error('No file selected');
-    if (!CONSTANTS.ALLOWED_IMAGE_TYPES.includes(file.type)) {
-        throw new Error('Invalid file type. Please upload JPG, PNG, GIF, WEBP, or SVG');
-    }
-    if (file.size > CONSTANTS.MAX_FILE_SIZE) {
-        throw new Error(`File size must be less than ${CONSTANTS.MAX_FILE_SIZE / (1024 * 1024)}MB`);
-    }
-    return true;
-};
-
-const uploadToImgBB = async (file) => {
-    const token = await getAuth(app).currentUser?.getIdToken() ?? '';
-    const formData = new FormData();
-    formData.append('image', file);
-    const response = await fetch('/api/upload', {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${token}` },
-        body: formData
-    });
-
-    if (!response.ok) throw new Error(`Upload failed with status: ${response.status}`);
-    const data = await response.json();
-    if (!data.success) throw new Error(data.error || 'Upload failed');
-    return data.url;
-};
-
 // Collapsible Section Component
 const FormSection = ({ title, icon: Icon, children, defaultOpen = false }) => {
     const [isOpen, setIsOpen] = useState(defaultOpen);
@@ -172,10 +134,10 @@ export default function CaseStudyAdminPanel() {
     const handleInputChange = useCallback((field, value) => {
         setFormData(prev => {
             const updates = { [field]: value };
-            if (field === 'title') updates.slug = generateSlug(value);
+            if (field === 'title' && !editingId) updates.slug = generateSlug(value);
             return { ...prev, ...updates };
         });
-    }, []);
+    }, [editingId]);
 
     // Form Reset
     const resetForm = useCallback(() => {
@@ -240,9 +202,30 @@ export default function CaseStudyAdminPanel() {
 
     // Submission
     const handleSubmit = async () => {
+        const slug = formData.slug.trim();
+
+        if (!formData.title.trim()) { setError('Title is required'); return; }
+        if (!slug) { setError('Slug is required'); return; }
+        if (!formData.heroImage?.trim()) { setError('Hero image is required'); return; }
+
         setSaving(true);
         try {
-            const data = { ...formData, updatedAt: serverTimestamp() };
+            // Slug uniqueness check
+            const slugSnap = await getDocs(
+                query(collection(db, CONSTANTS.COLLECTION_NAME), where('slug', '==', slug))
+            );
+            if (slugSnap.docs.some(d => d.id !== editingId)) {
+                setError('A case study with this slug already exists. Change the title or edit the slug.');
+                return;
+            }
+
+            const data = {
+                ...formData,
+                slug,
+                kpis: formData.kpis.filter(k => k.label.trim() || k.value.trim()),
+                updatedAt: serverTimestamp(),
+            };
+
             if (editingId) {
                 await updateDoc(doc(db, CONSTANTS.COLLECTION_NAME, editingId), data);
                 setSuccess('Updated successfully');
@@ -520,6 +503,21 @@ export default function CaseStudyAdminPanel() {
                         </button>
                         <button onClick={resetForm} className="bg-gray-800 text-white px-6 rounded-lg font-bold">Cancel</button>
                     </div>
+                </div>
+            ) : caseStudies.length === 0 ? (
+                <div className="text-center py-20">
+                    <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-800 mb-6">
+                        <Briefcase className="text-gray-400" size={40} />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-3">No Case Studies Yet</h3>
+                    <p className="text-gray-400 mb-8">Add your first case study to showcase client results.</p>
+                    <button
+                        onClick={() => setShowForm(true)}
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-black font-semibold rounded-lg transition-all"
+                    >
+                        <PlusCircle size={20} />
+                        Create Your First Case Study
+                    </button>
                 </div>
             ) : (
                 <div className="grid gap-4">

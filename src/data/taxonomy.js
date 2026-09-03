@@ -6,123 +6,138 @@
  * Parent Services -> Sub-Services
  */
 export const SERVICE_HIERARCHY = {
-    branding: {
-        name: 'Branding',
-        slug: 'branding',
-        description: 'Build a brand that commands premium pricing and instant recognition.',
+    'ecommerce-growth': {
+        name: 'Ecommerce Growth',
+        slug: 'ecommerce-growth',
+        description: 'Cut your cost per acquisition and grow revenue that keeps — paid media managed to MER targets, Klaviyo retention, and creative that earns its spend.',
         subservices: {
-            'brand-strategy': {
-                name: 'Brand Strategy',
-                slug: 'brand-strategy',
-                description: 'Define your market position, messaging, and competitive advantage.'
+            'paid-media': {
+                name: 'Paid Media',
+                slug: 'paid-media',
+                description: 'Meta, Google, and TikTok campaigns managed to MER targets with Conversions API for attribution that holds as browser-side signals degrade.'
             },
-            'brand-identity': {
-                name: 'Brand Identity',
-                slug: 'brand-identity',
-                description: 'Create a cohesive visual system that communicates your brand values.'
+            'email-sms': {
+                name: 'Email & SMS Retention',
+                slug: 'email-sms',
+                description: 'Lifecycle infrastructure built in Klaviyo — flows, segmentation, and win-back campaigns that grow LTV and AOV without increasing ad spend. Retention is where margin lives; acquisition is just how you fill the top of the funnel.',
+                deliverables: [
+                    {
+                        name: 'Welcome Series',
+                        desc: '3–5 email sequence that converts new subscribers before they disengage. Timed to brand engagement signals, not arbitrary send intervals. Typically the second-highest revenue flow after abandoned checkout.'
+                    },
+                    {
+                        name: 'Abandoned Checkout Recovery',
+                        desc: '3-touch sequence targeting cart abandoners at 1, 12, and 24 hours. The highest-ROI flow in most Shopify stores — recovers revenue that is already committed by the buyer, just interrupted.'
+                    },
+                    {
+                        name: 'Post-Purchase Flow',
+                        desc: 'Upsell, cross-sell, and review request sequence timed to the natural product usage cycle — not arbitrary days after order. Increases AOV and generates social proof at the moment of highest satisfaction.'
+                    },
+                    {
+                        name: 'Win-Back Campaign',
+                        desc: 'Reactivation sequence for subscribers who have not engaged in 90–180 days, followed by hard suppression of non-responders. Protects deliverability and list health while recovering a meaningful percentage of lapsed customers.'
+                    },
+                    {
+                        name: 'Segmentation Architecture',
+                        desc: 'VIP, at-risk, first-purchase, and high-AOV segments built before any broadcast campaign launches — so every send goes to the right audience at the right cadence and protects sender reputation.'
+                    },
+                    {
+                        name: 'Browse & Product Abandonment',
+                        desc: 'Triggered flows for high-intent visitors who viewed products but did not add to cart. Often the second-highest revenue flow for traffic-heavy stores and requires no additional ad spend to activate.'
+                    },
+                ],
+                outcomes: [
+                    'Retention revenue as a % of total — target: 25–35% of monthly revenue from owned channels',
+                    'Revenue per recipient (RPR) by flow — benchmark against Klaviyo industry average',
+                    'List growth rate and unsubscribe rate — health indicators that predict deliverability',
+                    'LTV:CAC ratio improvement over 90-day cohorts',
+                ]
             },
-            'logo-design': {
-                name: 'Logo Design',
-                slug: 'logo-design',
-                description: 'Design a memorable mark that becomes synonymous with your brand.'
+            'cro-testing': {
+                name: 'CRO & Landing Page Testing',
+                slug: 'cro-testing',
+                description: 'Systematic A/B testing on PDPs, checkout flows, and landing pages to raise conversion rate and lower blended CAC.'
             },
-            'brand-guidelines': {
-                name: 'Brand Guidelines',
-                slug: 'brand-guidelines',
-                description: 'Document your brand standards for consistent application.'
+            'creative-strategy': {
+                name: 'Creative Strategy',
+                slug: 'creative-strategy',
+                description: 'Ad creative and video content engineered for scroll-stop rate and click-through — tested against MER, not just aesthetics.'
             }
         }
     },
-    design: {
-        name: 'Design',
-        slug: 'design',
-        description: 'User-centered design that converts visitors into customers.',
+    'store-design-build': {
+        name: 'Store Design & Build',
+        slug: 'store-design-build',
+        description: 'Shopify and Shopify Plus storefronts built for conversion rate, Core Web Vitals, and a post-purchase experience that increases LTV.',
         subservices: {
-            'ux-design': {
-                name: 'UX Design',
-                slug: 'ux-design',
-                description: 'Research-driven user experience that removes friction from your funnel.'
+            'shopify-development': {
+                name: 'Shopify Development',
+                slug: 'shopify-development',
+                description: 'Custom theme builds and storefront development engineered for page speed, mobile UX, and conversion rate — not just visual polish.'
             },
-            'ui-design': {
-                name: 'UI Design',
-                slug: 'ui-design',
-                description: 'Beautiful interfaces that guide users toward conversion.'
+            'shopify-plus': {
+                name: 'Shopify Plus',
+                slug: 'shopify-plus',
+                description: 'Checkout customization, custom apps, and enterprise-scale storefront builds for high-volume DTC brands.'
             },
-            'product-design': {
-                name: 'Product Design',
-                slug: 'product-design',
-                description: 'End-to-end digital product design from concept to launch.'
+            'ux-ui-design': {
+                name: 'UX & UI Design',
+                slug: 'ux-ui-design',
+                description: 'User experience design that removes friction from the funnel — from PDP layout to checkout flow and post-purchase page.'
+            },
+            'product-photography': {
+                name: 'Creative Direction',
+                slug: 'product-photography',
+                description: 'Art direction for product photography and brand visual language that converts in-feed and on-page across mobile and desktop.'
             }
         }
     },
-    marketing: {
-        name: 'Marketing',
-        slug: 'marketing',
-        description: 'Data-driven marketing that puts your brand in front of buyers.',
+    'growth-tools-automation': {
+        name: 'Growth Tools & Automation',
+        slug: 'growth-tools-automation',
+        description: 'Server-side tracking, first-party data infrastructure, and marketing automation that make your stack more accurate and your decisions better.',
         subservices: {
-            'digital-marketing': {
-                name: 'Digital Marketing',
-                slug: 'digital-marketing',
-                description: 'Targeted campaigns that drive qualified traffic.'
+            'server-side-tracking': {
+                name: 'Server-Side Tracking',
+                slug: 'server-side-tracking',
+                description: 'Conversions API implementation and first-party data pipelines so attribution holds as browser-side signals continue to degrade.'
             },
-            'social-media': {
-                name: 'Social Media',
-                slug: 'social-media',
-                description: 'Build an engaged community around your brand.'
+            'analytics-reporting': {
+                name: 'MER & Analytics Reporting',
+                slug: 'analytics-reporting',
+                description: 'Custom dashboards tracking MER, blended CAC, LTV:CAC, AOV, and retention rate — not just platform ROAS.'
             },
-            'content-strategy': {
-                name: 'Content Strategy',
-                slug: 'content-strategy',
-                description: 'Create content that ranks, converts, and establishes authority.'
+            'marketing-automation': {
+                name: 'Marketing Automation',
+                slug: 'marketing-automation',
+                description: 'Automated flows, segmentation logic, and trigger-based campaigns that improve efficiency without adding headcount.'
             }
         }
     },
-    web: {
-        name: 'Web Development',
-        slug: 'web',
-        description: 'Fast, scalable websites that rank and convert.',
+    'brand-content': {
+        name: 'Brand & Content',
+        slug: 'brand-content',
+        description: 'Brand identity, video, and motion content that earns the margin premium to make paid acquisition sustainable and defensible.',
         subservices: {
-            'website-development': {
-                name: 'Website Development',
-                slug: 'website-development',
-                description: 'Custom-built websites optimized for speed and SEO.'
+            'brand-strategy-identity': {
+                name: 'Brand Strategy & Identity',
+                slug: 'brand-strategy-identity',
+                description: 'Positioning, visual identity, and messaging that commands premium pricing and differentiates on brand, not price.'
             },
-            'ecommerce': {
-                name: 'E-commerce Development',
-                slug: 'ecommerce',
-                description: 'Online stores built for conversion and scale.'
-            },
-            'web-applications': {
-                name: 'Web Applications',
-                slug: 'web-applications',
-                description: 'Custom web apps that solve complex business problems.'
-            }
-        }
-    },
-    'video-production': {
-        name: 'Video Production',
-        slug: 'video-production',
-        description: 'Brand films, social reels, and motion content that stop the scroll and convert viewers into customers.',
-        subservices: {
-            'brand-films': {
-                name: 'Brand Films',
-                slug: 'brand-films',
-                description: 'Cinematic brand stories that build trust and drive conversion.'
-            },
-            'social-reels': {
-                name: 'Social Reels',
-                slug: 'social-reels',
-                description: 'Short-form video content optimized for engagement and reach.'
+            'video-production': {
+                name: 'Video Production',
+                slug: 'video-production',
+                description: 'Brand films, social reels, and ad creative — video that performs in-feed and builds trust off it.'
             },
             'motion-design': {
                 name: 'Motion Design',
                 slug: 'motion-design',
-                description: 'Purposeful animations that bring your brand to life.'
+                description: 'Purposeful animation for ads, landing pages, and product demos that increase engagement and conversion rate.'
             },
-            'explainer-videos': {
-                name: 'Explainer Videos',
-                slug: 'explainer-videos',
-                description: 'Clear, compelling video that educates and converts.'
+            'content-creation': {
+                name: 'Content Creation',
+                slug: 'content-creation',
+                description: 'UGC-style and studio content for paid media creative that stops the scroll and drives click-through at scale.'
             }
         }
     }
@@ -133,44 +148,34 @@ export const SERVICE_HIERARCHY = {
  * Industries we serve with specialized expertise
  */
 export const INDUSTRIES = {
+    'ecommerce-dtc': {
+        name: 'Ecommerce & DTC Brands',
+        slug: 'ecommerce-dtc',
+        description: 'Shopify development, paid media, and Klaviyo retention for direct-to-consumer brands that compete on contribution margin — not just top-line revenue.',
+        challenges: [
+            'Protecting margin as rising Meta CPMs compress MER and product parity erodes pricing power across every category',
+            'Converting cold traffic profitably when blended CAC keeps climbing and browser-side attribution is increasingly unreliable without server-side tracking',
+            'Increasing AOV and LTV:CAC through post-purchase email flows, subscription mechanics, and retention programs that turn single orders into recurring revenue'
+        ]
+    },
     'home-decor-brands': {
         name: 'Home Decor Brands',
         slug: 'home-decor-brands',
-        description: 'Branding and design for furniture, interiors, and lifestyle products.',
+        description: 'Shopify stores, paid media creative, and Klaviyo retention systems for furniture, home goods, and lifestyle brands competing on aesthetic and customer experience.',
         challenges: [
-            'Standing out in a visually competitive market',
-            'Communicating quality and craftsmanship online',
-            'Building aspirational brand perception'
-        ]
-    },
-    'real-estate-brands': {
-        name: 'Real Estate Brands',
-        slug: 'real-estate-brands',
-        description: 'Brand identity and marketing for developers, agents, and property companies.',
-        challenges: [
-            'Building trust in high-value transactions',
-            'Differentiating in a commoditized market',
-            'Generating qualified leads consistently'
+            'Standing out in a visually saturated Meta and TikTok feed where creative quality directly determines CPM efficiency and thumb-stop rate',
+            'Communicating material quality, scale, and craftsmanship through digital photography when buyers cannot touch the product before a high-consideration purchase',
+            'Building a first-party data asset through email capture and Klaviyo post-purchase flows that reduces dependence on paid acquisition to hit MER targets'
         ]
     },
     'food-beverage-brands': {
         name: 'Food & Beverage Brands',
         slug: 'food-beverage-brands',
-        description: 'Packaging, branding, and digital presence for F&B companies.',
+        description: 'Shopify DTC builds, performance creative, and email retention for F&B brands scaling from shelf to direct-to-consumer subscription.',
         challenges: [
-            'Creating appetite appeal through design',
-            'Shelf presence and packaging differentiation',
-            'Building brand loyalty in impulse categories'
-        ]
-    },
-    'startups': {
-        name: 'Startups',
-        slug: 'startups',
-        description: 'Launch-ready branding and MVPs for early-stage companies.',
-        challenges: [
-            'Building credibility with limited history',
-            'Rapid iteration and market validation',
-            'Maximizing impact with constrained budgets'
+            'Creating enough appetite appeal and purchase intent through digital creative to drive impulse conversion without the in-store sensory experience',
+            'Translating one-time buyers into a repeatable subscription or reorder flow using Klaviyo win-back sequences that increase AOV and lifetime value',
+            'Retaining customers in a category where taste fatigue and constant new entrants make post-purchase email nurture the primary lever for LTV growth'
         ]
     }
 };

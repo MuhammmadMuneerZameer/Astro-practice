@@ -1,39 +1,24 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Shield, Target, Users, BarChart3, Globe, Rocket } from 'lucide-react';
+import { ArrowRight, Layers, Calendar, Radio } from 'lucide-react';
 
 const CUBIC_OUT = [0.215, 0.61, 0.355, 1];
 
 const features = [
   {
-    title: 'Trusted Security',
-    description: 'We prioritize your data privacy and implement enterprise-grade security at every layer.',
-    icon: Shield
+    title: 'One team owns ads, store, and tracking.',
+    description: 'Most DTC brands end up with a paid media agency, a Shopify developer, and a tracking consultant who can each blame the other when MER slips. We own the full stack — store architecture, ad account, email retention, and server-side tracking. When MER drifts or attribution breaks, one team is accountable: us.',
+    icon: Layers
   },
   {
-    title: 'Goal-Driven Approach',
-    description: 'Every project is aligned with measurable goals to ensure we drive tangible outcomes.',
-    icon: Target
+    title: 'No retainer lock-in. Cancel with 30 days\' notice.',
+    description: 'Every engagement runs month-to-month. We don\'t use contracts to retain clients — we use results. If the numbers aren\'t moving in the right direction after 90 days, you should leave, and we\'ll tell you honestly what didn\'t work and why.',
+    icon: Calendar
   },
   {
-    title: 'Expert Teamwork',
-    description: 'Our team consists of skilled professionals who work collaboratively to deliver excellence.',
-    icon: Users
-  },
-  {
-    title: 'Data-Backed Results',
-    description: 'We leverage advanced analytics to provide actionable insights and data-driven decisions.',
-    icon: BarChart3
-  },
-  {
-    title: 'Global Reach',
-    description: 'We serve clients worldwide, offering scalable solutions with international support.',
-    icon: Globe
-  },
-  {
-    title: 'Fast Execution',
-    description: 'With agile methodologies, we accelerate project delivery without compromising quality.',
-    icon: Rocket
+    title: 'Conversions API live before your first campaign.',
+    description: 'We treat server-side tracking as infrastructure, not an afterthought. Conversions API and first-party event pipelines go live in week one — so you\'re never optimising Meta spend against data a browser decided not to share.',
+    icon: Radio
   }
 ];
 
@@ -46,10 +31,10 @@ export default function WhyChooseUs() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
           <div>
             <p className="text-[#00f19f] text-xs font-bold tracking-[0.2em] uppercase mb-4">
-              Our Mission
+              Why Work With Us
             </p>
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white leading-none">
-              Why Choose Us
+              Three Reasons.
             </h2>
           </div>
           <a

@@ -1,4 +1,4 @@
----
+﻿---
 import Layout from '../../layouts/Layout.astro';
 import { getAllServices } from '../../data/taxonomy.js';
 
@@ -6,8 +6,8 @@ const services = getAllServices();
 ---
 
 <Layout
-  title="About Us | Hydra Fox Designs"
-  description="Learn about Hydra Fox Designs - a strategic design agency building systems that scale and convert for ambitious brands."
+  title="About | Hydra Fox Designs — DTC Growth Agency"
+  description="Hydra Fox Designs is a DTC growth agency. We build Shopify stores, run paid media to MER targets, and implement Klaviyo retention systems for ecommerce brands that compete on contribution margin."
 >
 
   <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
@@ -15,9 +15,12 @@ const services = getAllServices();
     <div class="absolute inset-0 bg-gradient-to-b from-[#00f19f]/5 to-transparent pointer-events-none"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto w-full">
-      <div class="overflow-hidden mb-4">
+      <div class="overflow-hidden mb-4 flex flex-wrap items-center gap-x-4 gap-y-1">
         <span class="about-reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
           About Us
+        </span>
+        <span class="about-reveal-line block text-gray-600 font-mono text-xs tracking-wide">
+          Karachi, Pakistan
         </span>
       </div>
       <h1 class="font-heading font-bold leading-none tracking-tight mb-8">
@@ -38,9 +41,16 @@ const services = getAllServices();
         </div>
       </h1>
       <div class="overflow-hidden max-w-2xl">
-        <p class="about-reveal-fade text-gray-400 text-base md:text-lg font-light leading-relaxed">
-          Hydra Fox Designs is a strategic design agency that transforms brands through
-          conversion-focused design, development, and marketing.
+        <p class="about-reveal-fade text-gray-400 text-base md:text-lg font-light leading-relaxed mb-5">
+          We are based in Karachi and we work with brands across Pakistan, the Gulf, the UK, and the US.
+          That means you get senior people on your account instead of a junior team, at a rate that would
+          buy you an account coordinator at a Western agency. We respond within 24 hours every working
+          day — same-day for Gulf and UK clients.
+        </p>
+        <p class="about-reveal-fade text-gray-500 text-sm leading-relaxed border-l-2 border-[#00f19f]/40 pl-5 italic max-w-xl">
+          We say this on the first page rather than the last, because you would find out anyway —
+          and how a company handles the things it could have hidden tells you most of what you need
+          to know about it.
         </p>
       </div>
     </div>
@@ -58,16 +68,17 @@ const services = getAllServices();
           </div>
           <div class="overflow-hidden mb-8">
             <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-tight">
-              Stop Losing Money to Poor Digital Experiences.
+              Built for Operators, Not Browsers.
             </h2>
           </div>
           <p class="reveal-fade text-gray-400 text-base leading-relaxed mb-6">
-            Too many businesses treat their website like a brochure instead of a business engine.
-            We change that by building systems designed to convert, scale, and generate real ROI.
+            Ecommerce brands come to us when they've plateaued — when rising CPMs are
+            compressing MER, when Klaviyo hasn't been touched since the store launched,
+            when a slow Shopify theme is costing them conversion rate every day.
           </p>
           <p class="reveal-fade text-gray-400 text-base leading-relaxed">
-            Every design decision, every line of code, every marketing strategy is built around
-            one question: <strong class="text-white">Will this make money for our client?</strong>
+            We fix the underlying infrastructure first. Then we grow on top of it. Every
+            decision maps back to one number: <strong class="text-white">contribution margin</strong>.
           </p>
         </div>
 
@@ -77,10 +88,10 @@ const services = getAllServices();
           </div>
           <ul class="space-y-6">
             {[
-              "Design without strategy is just decoration.",
-              "Websites should pay for themselves within weeks, not years.",
-              "Your brand is your most valuable asset. Treat it like one.",
-              "Confused customers don't buy. Clear messaging wins."
+              "MER is the metric that matters. Platform ROAS is a story platforms tell themselves.",
+              "A 1% lift in conversion rate is worth more than a 10% increase in ad budget.",
+              "Your brand is your margin premium. Without it, you compete on price forever.",
+              "Accurate attribution is infrastructure. Conversions API is not optional."
             ].map((belief, i) => (
               <li class="reveal-fade flex items-start gap-4">
                 <span class="text-[#00f19f] font-mono text-xs mt-1 flex-shrink-0">{String(i + 1).padStart(2, '0')}</span>
@@ -133,10 +144,11 @@ const services = getAllServices();
     </div>
   </section>
 
+
   <!-- ── Team ──────────────────────────────────────────────────────────────── -->
   <section class="bg-black border-t border-white/10 px-4 md:px-8 py-24">
     <div class="max-w-7xl mx-auto">
-      <div class="scroll-section mb-16">
+      <div class="scroll-section mb-12">
         <div class="overflow-hidden mb-4">
           <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
             The Team
@@ -144,25 +156,37 @@ const services = getAllServices();
         </div>
         <div class="overflow-hidden">
           <h2 class="reveal-line block text-5xl md:text-6xl font-heading font-bold text-white leading-none">
-            Who We Are.
+            Who's on your account.
           </h2>
         </div>
+      </div>
+
+      <!-- Working model callout -->
+      <div class="reveal-fade border-l-4 border-[#00f19f] pl-8 mb-16 max-w-2xl">
+        <p class="text-white text-lg md:text-xl leading-relaxed font-medium mb-3">
+          You work directly with the founder. There is no account manager layer and no junior hand-off after the pitch.
+        </p>
+        <p class="text-gray-400 text-sm leading-relaxed">
+          Muneer leads every client engagement — discovery, strategy, and weekly reporting. Farzam runs paid media execution across active accounts. The person who pitches is the person who delivers.
+        </p>
       </div>
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
         <div class="reveal-fade group">
           <div class="aspect-[3/4] rounded-xl overflow-hidden bg-gray-900 mb-5">
-            <img src="/images/avater1.png" alt="Muneer Zameer" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" loading="lazy" />
+            <img src="/images/muneer.png" alt="Muneer Zameer" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" width="400" height="533" loading="lazy" />
           </div>
           <h3 class="text-white font-heading font-bold text-xl">Muneer Zameer</h3>
           <p class="text-[#00f19f] text-xs font-bold tracking-[0.15em] uppercase mt-1">Founder & CEO</p>
+          <p class="text-gray-500 text-sm mt-2 leading-relaxed">Leads every client account — discovery, strategy, and reporting. Your direct contact from day one.</p>
         </div>
         <div class="reveal-fade group">
           <div class="aspect-[3/4] rounded-xl overflow-hidden bg-gray-900 mb-5">
-            <img src="/images/farzam.png" alt="Farzam Ahmed" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" loading="lazy" />
+            <img src="/images/farzam.png" alt="Farzam Ahmed" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" width="400" height="533" loading="lazy" />
           </div>
           <h3 class="text-white font-heading font-bold text-xl">Farzam Ahmed</h3>
           <p class="text-[#00f19f] text-xs font-bold tracking-[0.15em] uppercase mt-1">Marketing Head</p>
+          <p class="text-gray-500 text-sm mt-2 leading-relaxed">Paid media execution across Meta, Google, and TikTok — campaign management, creative testing, and MER reporting.</p>
         </div>
       </div>
     </div>
@@ -175,8 +199,8 @@ const services = getAllServices();
   const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
 
   function initAboutAnimations() {
-    const lines = document.querySelectorAll<HTMLElement>('.about-reveal-line');
-    const fades = document.querySelectorAll<HTMLElement>('.about-reveal-fade');
+    const lines = document.querySelectorAll('.about-reveal-line');
+    const fades = document.querySelectorAll('.about-reveal-fade');
 
     lines.forEach(el => { el.style.transform = 'translateY(110%)'; });
     fades.forEach(el => { el.style.opacity = '0'; });

@@ -3,14 +3,14 @@
 
 <footer class="relative bg-black text-white overflow-hidden">
 
-  <!-- ── Background gradient (replaces 721 KB Spline bundle) ──────────────── -->
+  <!-- -- Background gradient (replaces 721 KB Spline bundle) ---------------- -->
   <div
     class="absolute inset-0 z-0 pointer-events-none"
     style="background: radial-gradient(ellipse 80% 60% at 50% 120%, #00f19f22 0%, #0a1a2e44 60%, transparent 100%); filter: blur(40px);"
     aria-hidden="true"
   ></div>
 
-  <!-- ── Big CTA section ───────────────────────────────────────────────────── -->
+  <!-- -- Big CTA section ----------------------------------------------------- -->
   <div class="footer-cta relative z-10 border-t border-white/10 px-4 md:px-8 pt-24 pb-20">
     <div class="max-w-7xl mx-auto">
 
@@ -21,7 +21,7 @@
         </span>
       </div>
 
-      <!-- Big heading — two masked lines -->
+      <!-- Big heading � two masked lines -->
       <a href="/contact/" class="group block">
         <h2 class="font-heading font-bold leading-none tracking-tight">
           <div class="overflow-hidden">
@@ -43,17 +43,32 @@
         </h2>
       </a>
 
-      <!-- Email link -->
-      <div class="overflow-hidden mt-10">
+      <!-- Secondary CTAs -->
+      <div class="mt-10 flex flex-col gap-3">
         <a href="mailto:muneerzameer@hydrafoxdesigns.com"
            class="footer-reveal-fade block text-gray-500 hover:text-[#00f19f] transition-colors duration-300 text-sm md:text-base font-mono">
           muneerzameer@hydrafoxdesigns.com
+        </a>
+        <!-- REPLACE with your Cal.com or Calendly URL -->
+        <a href="https://cal.com/hydra-fox-sqrqbz/30min"
+           target="_blank" rel="noopener noreferrer"
+           class="footer-reveal-fade inline-flex items-center gap-2 text-[#00f19f] hover:text-white transition-colors duration-300 text-sm font-mono font-bold">
+          Book a 30-min call
+          <svg class="w-3.5 h-3.5 -rotate-45" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <!-- UPDATE: replace number with your WhatsApp in international format, e.g. 923354345625 -->
+        <a href="https://wa.me/923354345625"
+           target="_blank" rel="noopener noreferrer"
+           class="footer-reveal-fade inline-flex items-center gap-2 text-gray-500 hover:text-[#00f19f] transition-colors duration-300 text-sm font-mono">
+          WhatsApp
         </a>
       </div>
     </div>
   </div>
 
-  <!-- ── Bottom bar ─────────────────────────────────────────────────────────── -->
+  <!-- -- Bottom bar ----------------------------------------------------------- -->
   <div class="relative z-10 border-t border-white/10 px-4 md:px-8 py-10">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
 
@@ -65,7 +80,13 @@
           <span class="font-bold text-sm tracking-wide">Hydra Fox Designs</span>
         </div>
         <p class="text-gray-600 text-xs">
-          &copy; {new Date().getFullYear()} Hydra Fox. All rights reserved.
+          &copy; {new Date().getFullYear()} Hydra Fox Designs. All rights reserved.
+        </p>
+        <p class="text-gray-500 text-xs mt-1.5 font-mono">
+          Karachi, Pakistan
+        </p>
+        <p class="text-gray-600 text-xs mt-0.5">
+          Response within 24 hrs � Same-day for Gulf & UK
         </p>
         <p class="text-gray-600 text-xs mt-1">
           <a href="/privacy-pages/" class="hover:text-gray-400 transition-colors">Privacy Policy</a>
@@ -79,10 +100,10 @@
             { href: '/',              label: 'Home' },
             { href: '/services/',     label: 'Services' },
             { href: '/work/',         label: 'Work' },
-            { href: '/case-studies/', label: 'Case Studies' },
             { href: '/industries/',   label: 'Industries' },
             { href: '/resources/',    label: 'Resources' },
             { href: '/about/',        label: 'About' },
+            { href: '/process/',      label: 'Process' },
             { href: '/contact/',      label: 'Contact' },
           ].map(({ href, label }) => (
             <li>
@@ -100,14 +121,14 @@
         <a href="https://www.facebook.com/hydrafoxdesign"
            aria-label="Facebook"
            class="text-gray-600 hover:text-white transition-colors duration-200">
-          <img src="/images/facebook (1).png" alt="Facebook"
+          <img src="/images/facebook.png" alt="Facebook"
                class="w-5 h-5 opacity-50 hover:opacity-100 transition-opacity"
                loading="lazy" width="20" height="20" />
         </a>
         <a href="https://www.instagram.com/official_hydra_fox/"
            aria-label="Instagram"
            class="text-gray-600 hover:text-white transition-colors duration-200">
-          <img src="/images/instagram (1).png" alt="Instagram"
+          <img src="/images/instagram.png" alt="Instagram"
                class="w-5 h-5 opacity-50 hover:opacity-100 transition-opacity"
                loading="lazy" width="20" height="20" />
         </a>
@@ -124,14 +145,14 @@
 
 </footer>
 
-<!-- ── Scroll-triggered animations ───────────────────────────────────────────── -->
+<!-- -- Scroll-triggered animations --------------------------------------------- -->
 <script>
   const EXPO_OUT = 'cubic-bezier(0.19, 1, 0.22, 1)';
   const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
 
   function initFooterAnimations() {
-    const revealLines = document.querySelectorAll<HTMLElement>('.footer-reveal-line');
-    const revealFades = document.querySelectorAll<HTMLElement>('.footer-reveal-fade');
+    const revealLines = document.querySelectorAll('.footer-reveal-line');
+    const revealFades = document.querySelectorAll('.footer-reveal-fade');
 
     // Set initial hidden state
     revealLines.forEach(el => { el.style.transform = 'translateY(110%)'; });

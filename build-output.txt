@@ -1,0 +1,296 @@
+
+> curved-cloud@0.0.1 build
+> astro build
+
+[2m03:42:37[22m [34m[@astrojs/netlify][39m Enabling sessions with Netlify Blobs
+[2m03:42:38[22m [34m[vite][39m Re-optimizing dependencies because vite config has changed
+[2m03:42:40[22m [34m[content][39m Syncing content
+[2m03:42:40[22m [34m[content][39m Synced content
+[2m03:42:40[22m [34m[types][39m Generated [2m1.96s[22m
+[2m03:42:40[22m [34m[build][39m output: [34m"static"[39m
+[2m03:42:40[22m [34m[build][39m mode: [34m"server"[39m
+[2m03:42:40[22m [34m[build][39m directory: [34mE:\HFD\Astro-practice\dist\[39m
+[2m03:42:40[22m [34m[build][39m adapter: [32m@astrojs/netlify[39m
+[2m03:42:40[22m [34m[build][39m Collecting build info...
+[2m03:42:40[22m [34m[build][39m [32m✓ Completed in 2.38s.[39m
+[2m03:42:40[22m [34m[build][39m Building server entrypoints...
+Browserslist: browsers data (caniuse-lite) is 7 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+[33m[1m03:42:44[22m [WARN] [vite][39m [33m[vite:css][postcss] @import must precede all other statements (besides @charset or empty @layer)
+27 |     ========================================================================== */
+28 |  
+29 |  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+   |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+30 |  
+31 |  :root {[39m
+[33m[1m03:42:44[22m [WARN] [vite][39m [33m"Settings", "TrendingUp" and "Activity" are imported from external module "lucide-react" but never used in "src/components/case-study-modules/SystemBuildModule.jsx" and "src/components/case-study-modules/MarketImpactModule.jsx".[39m
+[2m03:42:45[22m [34m[vite][39m [32m✓ built in 4.63s[39m
+[2m03:42:45[22m [34m[build][39m [32m✓ Completed in 4.78s.[39m
+
+[42m[30m building client (vite) [39m[49m
+[2m03:42:45[22m [34m[vite][39m transforming...
+[2m03:43:08[22m [34m[vite][39m [32m✓[39m 2334 modules transformed.
+[2m03:43:08[22m [34m[vite][39m rendering chunks...
+[2m03:43:13[22m [34m[vite][39m computing gzip size...
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/page.CWe2LBI6.js                                               [39m[1m[2m    0.04 kB[22m[1m[22m[2m │ gzip:   0.06 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/TestimonialSection.BrZJ3OWy.js                                 [39m[1m[2m    0.12 kB[22m[1m[22m[2m │ gzip:   0.12 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/OptimizedBlogList.CKwG2lIV.js                                  [39m[1m[2m    0.15 kB[22m[1m[22m[2m │ gzip:   0.14 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/x.CyawjqLh.js                                                  [39m[1m[2m    0.34 kB[22m[1m[22m[2m │ gzip:   0.26 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/arrow-right.BThywHUO.js                                        [39m[1m[2m    0.35 kB[22m[1m[22m[2m │ gzip:   0.27 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/search.Bmbcyofl.js                                             [39m[1m[2m    0.35 kB[22m[1m[22m[2m │ gzip:   0.28 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/calendar.B4Gq2_mJ.js                                           [39m[1m[2m    0.44 kB[22m[1m[22m[2m │ gzip:   0.31 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/zap.BePCVn-Y.js                                                [39m[1m[2m    0.45 kB[22m[1m[22m[2m │ gzip:   0.32 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/shield.BlBhP6dM.js                                             [39m[1m[2m    0.45 kB[22m[1m[22m[2m │ gzip:   0.33 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/lightbulb.BElTSljS.js                                          [39m[1m[2m    0.47 kB[22m[1m[22m[2m │ gzip:   0.33 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/Splineanimation.Dk0hSYoW.js                                    [39m[1m[2m    0.51 kB[22m[1m[22m[2m │ gzip:   0.38 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/rocket.Ci-LgrHQ.js                                             [39m[1m[2m    0.64 kB[22m[1m[22m[2m │ gzip:   0.42 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/users.cFKc-_5D.js                                              [39m[1m[2m    0.84 kB[22m[1m[22m[2m │ gzip:   0.39 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/quote.BOA4S4PY.js                                              [39m[1m[2m    0.93 kB[22m[1m[22m[2m │ gzip:   0.41 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/TestimonialModule.CZdjTDfd.js                                  [39m[1m[2m    1.03 kB[22m[1m[22m[2m │ gzip:   0.53 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/file-text.CekE-vd3.js                                          [39m[1m[2m    1.27 kB[22m[1m[22m[2m │ gzip:   0.50 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/TeamMemberCard.R5P6Xr4i.js                                     [39m[1m[2m    1.51 kB[22m[1m[22m[2m │ gzip:   0.64 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/VisualProofModule.B2VpFl1A.js                                  [39m[1m[2m    1.57 kB[22m[1m[22m[2m │ gzip:   0.79 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/GrowthBlockModule.CwkHseZC.js                                  [39m[1m[2m    1.67 kB[22m[1m[22m[2m │ gzip:   0.62 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/MarketImpactModule.CtBD5Cjm.js                                 [39m[1m[2m    1.76 kB[22m[1m[22m[2m │ gzip:   0.83 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/createLucideIcon.B3gHtTBo.js                                   [39m[1m[2m    1.87 kB[22m[1m[22m[2m │ gzip:   0.80 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/SystemBuildModule.BNBqCErq.js                                  [39m[1m[2m    1.96 kB[22m[1m[22m[2m │ gzip:   0.78 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/index.2TnVP-z6.js                                              [39m[1m[2m    2.31 kB[22m[1m[22m[2m │ gzip:   1.05 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/StrategicShiftModule.RIOvQ_OT.js                               [39m[1m[2m    2.39 kB[22m[1m[22m[2m │ gzip:   1.05 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/TestimonialSection.BL6PC3lR.js                                 [39m[1m[2m    2.67 kB[22m[1m[22m[2m │ gzip:   1.17 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/BrandIdentityModule.BT631M4g.js                                [39m[1m[2m    2.85 kB[22m[1m[22m[2m │ gzip:   1.27 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/CaseStudyHero.4x4xoVn4.js                                      [39m[1m[2m    2.88 kB[22m[1m[22m[2m │ gzip:   1.11 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/NesLSection.JmcW7osJ.js                                        [39m[1m[2m    2.89 kB[22m[1m[22m[2m │ gzip:   1.20 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/MarketRealityModule.DIBCq8SM.js                                [39m[1m[2m    2.93 kB[22m[1m[22m[2m │ gzip:   1.18 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/OptimizedBlogList.pHZPU0VU.js                                  [39m[1m[2m    3.12 kB[22m[1m[22m[2m │ gzip:   1.48 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/ConversionModule.D22cgID5.js                                   [39m[1m[2m    3.16 kB[22m[1m[22m[2m │ gzip:   1.38 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/FeatureListSection.H8r0dYMY.js                                 [39m[1m[2m    3.79 kB[22m[1m[22m[2m │ gzip:   1.67 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/Navbar.CptwchjF.js                                             [39m[1m[2m    4.05 kB[22m[1m[22m[2m │ gzip:   1.14 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/LiquidChrome.CBQSUueP.js                                       [39m[1m[2m    4.37 kB[22m[1m[22m[2m │ gzip:   2.05 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/CaseStudyListAnimated.CGaSyRmd.js                              [39m[1m[2m    6.14 kB[22m[1m[22m[2m │ gzip:   2.51 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/ServicesSection.rK08n2E0.js                                    [39m[1m[2m    7.56 kB[22m[1m[22m[2m │ gzip:   2.68 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/VideoShowcase.CR5jYkbC.js                                      [39m[1m[2m    8.03 kB[22m[1m[22m[2m │ gzip:   2.77 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/WorkListAnimated.B0JbPVOK.js                                   [39m[1m[2m    8.31 kB[22m[1m[22m[2m │ gzip:   3.09 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/AdminAuth.CoI0lLiL.js                                          [39m[1m[2m    8.66 kB[22m[1m[22m[2m │ gzip:   2.93 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/DynamicBlogLoader.B5SZPU0Y.js                                  [39m[1m[2m    8.88 kB[22m[1m[22m[2m │ gzip:   2.76 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/PrivacyPolicy.Bob-kxcF.js                                      [39m[1m[2m   10.62 kB[22m[1m[22m[2m │ gzip:   2.79 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/ClientRouter.astro_astro_type_script_index_0_lang.C5Ve43f5.js  [39m[1m[2m   13.11 kB[22m[1m[22m[2m │ gzip:   4.54 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/purify.es.BlZidd4c.js                                          [39m[1m[2m   24.29 kB[22m[1m[22m[2m │ gzip:   9.17 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/ogl.thLSoEGV.js                                                [39m[1m[2m   47.03 kB[22m[1m[22m[2m │ gzip:  13.52 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/UnifiedAdminDashboard.CDpcywex.js                              [39m[1m[2m   81.90 kB[22m[1m[22m[2m │ gzip:  18.56 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/framer-motion.dnjlrbiE.js                                      [39m[1m[2m  134.54 kB[22m[1m[22m[2m │ gzip:  44.45 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/client.-iH-pvo-.js                                             [39m[1m[2m  186.63 kB[22m[1m[22m[2m │ gzip:  58.54 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/firebase.ANB3Mo7d.js                                           [39m[1m[2m  467.82 kB[22m[1m[22m[2m │ gzip: 110.06 kB[22m
+[2m03:43:13[22m [34m[vite][39m [2mdist/[22m[36m_astro/index.SBormwtE.js                                              [39m[1m[33m1,062.98 kB[39m[22m[2m │ gzip: 302.19 kB[22m
+[33m[1m03:43:13[22m [WARN] [vite][39m [33m
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+[2m03:43:13[22m [34m[vite][39m [32m✓ built in 28.14s[39m
+
+[42m[30m prerendering static routes [39m[49m
+[2m03:43:13[22m [32m▶[39m src/pages/404.astro
+[2m03:43:13[22m   [34m└─[39m [2m/404.html[22m [2m(+30ms)[22m 
+[2m03:43:13[22m [32m▶[39m src/pages/about/index.astro
+[2m03:43:13[22m   [34m└─[39m [2m/about/index.html[22m [2m(+7ms)[22m 
+[2m03:43:13[22m [32m▶[39m src/pages/admin.astro
+[2m03:43:13[22m   [34m└─[39m [2m/admin/index.html[22m [2m(+8ms)[22m 
+[2m03:43:17[22m [32m▶[39m src/pages/case-studies/[slug].astro
+[2m03:43:19[22m   [34m└─[39m [2m/case-studies/ahdeqadeem/index.html[22m [2m(+38ms)[22m 
+[2m03:43:19[22m [32m▶[39m src/pages/case-studies/index.astro
+[2m03:43:19[22m   [34m└─[39m [2m/case-studies/index.html[22m [31m(+683ms)[39m 
+[2m03:43:19[22m [32m▶[39m src/pages/contact.astro
+[2m03:43:19[22m   [34m└─[39m [2m/contact/index.html[22m [2m(+10ms)[22m 
+[2m03:43:19[22m [32m▶[39m src/pages/industries/[industry].astro
+[2m03:43:19[22m   [34m├─[39m [2m/industries/home-decor-brands/index.html[22m [31m(+620ms)[39m 
+[2m03:43:20[22m   [34m├─[39m [2m/industries/real-estate-brands/index.html[22m [31m(+551ms)[39m 
+[2m03:43:21[22m   [34m├─[39m [2m/industries/food-beverage-brands/index.html[22m [31m(+653ms)[39m 
+[2m03:43:21[22m   [34m└─[39m [2m/industries/startups/index.html[22m [31m(+615ms)[39m 
+[2m03:43:22[22m [32m▶[39m src/pages/industries/index.astro
+[2m03:43:22[22m   [34m└─[39m [2m/industries/index.html[22m [31m(+600ms)[39m 
+[2m03:43:23[22m [32m▶[39m src/pages/privacy-pages.astro
+[2m03:43:23[22m   [34m└─[39m [2m/privacy-pages/index.html[22m [2m(+16ms)[22m 
+[2m03:43:23[22m [32m▶[39m src/pages/projects/[slug].astro
+[2m03:43:23[22m   [34m├─[39m [2m/projects/puchlo-pakistan/index.html[22m [2m(+5ms)[22m 
+[2m03:43:23[22m   [34m├─[39m [2m/projects/portfolio-website/index.html[22m [2m(+6ms)[22m 
+[2m03:43:23[22m   [34m└─[39m [2m/projects/rabbi-estate/index.html[22m [2m(+6ms)[22m 
+[2m03:43:23[22m [32m▶[39m src/pages/resources/[category]/[slug].astro
+[2m03:43:23[22m   [34m├─[39m [2m/resources/growth-engineering/luxury-brand-emotional-loyalty-vs-warmth-2026/index.html[22m [2m(+260ms)[22m 
+[2m03:43:24[22m   [34m├─[39m [2m/resources/conversion-engineering/luxury-brand-belief-architecture-ai-shopping-2026/index.html[22m [2m(+274ms)[22m 
+[2m03:43:24[22m   [34m├─[39m [2m/resources/social-engineering/luxury-brand-social-media-vibe-officer-fail/index.html[22m [2m(+274ms)[22m 
+[2m03:43:24[22m   [34m├─[39m [2m/resources/masterclass-brand-architecture/premium-brand-core-values-decision-infrastructure/index.html[22m [2m(+431ms)[22m 
+[2m03:43:25[22m   [34m├─[39m [2m/resources/premium-retail-strategy/premium-retail-experience-vs-fulfillment-strategy-2026/index.html[22m [2m(+240ms)[22m 
+[2m03:43:25[22m   [34m├─[39m [2m/resources/masterclass/premium-brand-strategy-fails-culture-blueprint-2026/index.html[22m [2m(+348ms)[22m 
+[2m03:43:25[22m   [34m├─[39m [2m/resources/brand-architecture/premium-brand-decision-drift-ai-2026/index.html[22m [2m(+281ms)[22m 
+[2m03:43:26[22m   [34m├─[39m [2m/resources/zero-click-search-masterclass/premium-brand-visibility-crisis-2026-audit/index.html[22m [2m(+276ms)[22m 
+[2m03:43:26[22m   [34m├─[39m [2m/resources/premium-brand-strategy-conversion-engineering/premium-brand-conversion-rate-optimization-luxury-ecommerce-2026/index.html[22m [2m(+302ms)[22m 
+[2m03:43:26[22m   [34m├─[39m [2m/resources/marketing-plan/stop-guessing-start-dominating-the-architects-blueprint-for-a-high-velocity-marketing-plan/index.html[22m [2m(+335ms)[22m 
+[2m03:43:27[22m   [34m├─[39m [2m/resources/sales/enough-thinking-its-time-to-architect-your-revenue-the-high-performance-guide-to-sales-planning/index.html[22m [2m(+254ms)[22m 
+[2m03:43:27[22m   [34m├─[39m [2m/resources/creative-markets/the-2000-super-bowl-moment-why-your-content-engine-is-either-ai-powered-or-obsolete/index.html[22m [2m(+293ms)[22m 
+[2m03:43:27[22m   [34m├─[39m [2m/resources/brand-architecture/lifestyle-brand-marketing-strategy-2026/index.html[22m [2m(+246ms)[22m 
+[2m03:43:27[22m   [34m├─[39m [2m/resources/masterclass/google-ads-predictions-2026-blueprint/index.html[22m [2m(+286ms)[22m 
+[2m03:43:28[22m   [34m├─[39m [2m/resources/case-study/google-ads-scaling-secret-seasonal-success/index.html[22m [2m(+253ms)[22m 
+[2m03:43:28[22m   [34m├─[39m [2m/resources/masterclass-data-engineering/marketing-attribution-blind-spots-blueprint-2026/index.html[22m [2m(+321ms)[22m 
+[2m03:43:28[22m   [34m├─[39m [2m/resources/masterclass-growth-engineering/micro-influencer-marketing-roi-blueprint/index.html[22m [2m(+311ms)[22m 
+[2m03:43:28[22m   [34m├─[39m [2m/resources/masterclass-growth-engineering/social-media-trends-2026-search-revolution/index.html[22m [2m(+241ms)[22m 
+[2m03:43:29[22m   [34m├─[39m [2m/resources/growth-engineering-industry-roundup/digital-marketing-roundup-december-2025-growth-strategy/index.html[22m [2m(+310ms)[22m 
+[2m03:43:29[22m   [34m├─[39m [2m/resources/masterclass-growth-engineering/social-first-ranking-strategies-2026/index.html[22m [2m(+251ms)[22m 
+[2m03:43:29[22m   [34m├─[39m [2m/resources/masterclass-growth-engineering/ai-marketing-funnel-growth-blueprint-2026/index.html[22m [2m(+266ms)[22m 
+[2m03:43:30[22m   [34m├─[39m [2m/resources/masterclass-growth-engineering/marketing-budget-spending-trends-2026-blueprint/index.html[22m [2m(+251ms)[22m 
+[2m03:43:30[22m   [34m├─[39m [2m/resources/business-development/how-modern-web-development-is-changing-businesses-in-2026/index.html[22m [2m(+252ms)[22m 
+[2m03:43:30[22m   [34m├─[39m [2m/resources/email-marketing/if-your-email-automations-arent-printing-money-while-you-sleep-your-business-is-already-losing/index.html[22m [2m(+260ms)[22m 
+[2m03:43:30[22m   [34m├─[39m [2m/resources/brand-building/brand-is-bleeding-money-measurement/index.html[22m [2m(+249ms)[22m 
+[2m03:43:31[22m   [34m├─[39m [2m/resources/marketing,-brand-building/funnels-to-environments-of-influence-psychology/index.html[22m [2m(+255ms)[22m 
+[2m03:43:31[22m   [34m├─[39m [2m/resources/marketing-seo/ai-brainwashing-identity-new-seo/index.html[22m [2m(+311ms)[22m 
+[2m03:43:31[22m   [34m├─[39m [2m/resources/b2b,-marketing/brand-storytelling-b2b-specs-hydrafox/index.html[22m [2m(+317ms)[22m 
+[2m03:43:31[22m   [34m├─[39m [2m/resources/marketing-strategy,-software-development,-branding/why-your-creative-agencys-future-depends-on-ai-human-hybrids-the-unorthodox-blueprint-for-survival/index.html[22m [2m(+262ms)[22m 
+[2m03:43:32[22m   [34m├─[39m [2m/resources/marketing/the-unorthodox-blueprint-what-digital-marketers-are-missing-right-now-october-2025-edition/index.html[22m [2m(+294ms)[22m 
+[2m03:43:32[22m   [34m└─[39m [2m/resources/crm/why-your-hvac-leads-aren-t-converting-and-how-to-fix-it/index.html[22m [2m(+236ms)[22m 
+[2m03:43:32[22m [32m▶[39m src/pages/resources/[category]/index.astro
+[2m03:43:33[22m   [34m├─[39m [2m/resources/growth-engineering/index.html[22m [2m(+316ms)[22m 
+[2m03:43:33[22m   [34m├─[39m [2m/resources/conversion-engineering/index.html[22m [2m(+296ms)[22m 
+[2m03:43:33[22m   [34m├─[39m [2m/resources/social-engineering/index.html[22m [2m(+240ms)[22m 
+[2m03:43:33[22m   [34m├─[39m [2m/resources/masterclass-brand-architecture/index.html[22m [2m(+276ms)[22m 
+[2m03:43:34[22m   [34m├─[39m [2m/resources/premium-retail-strategy/index.html[22m [2m(+254ms)[22m 
+[2m03:43:34[22m   [34m├─[39m [2m/resources/masterclass/index.html[22m [2m(+271ms)[22m 
+[2m03:43:34[22m   [34m├─[39m [2m/resources/brand-architecture/index.html[22m [2m(+292ms)[22m 
+[2m03:43:35[22m   [34m├─[39m [2m/resources/zero-click-search-masterclass/index.html[22m [2m(+247ms)[22m 
+[2m03:43:35[22m   [34m├─[39m [2m/resources/premium-brand-strategy-conversion-engineering/index.html[22m [2m(+263ms)[22m 
+[2m03:43:35[22m   [34m├─[39m [2m/resources/marketing-plan/index.html[22m [2m(+330ms)[22m 
+[2m03:43:35[22m   [34m├─[39m [2m/resources/sales/index.html[22m [2m(+288ms)[22m 
+[2m03:43:36[22m   [34m├─[39m [2m/resources/creative-markets/index.html[22m [2m(+234ms)[22m 
+[2m03:43:36[22m   [34m├─[39m [2m/resources/case-study/index.html[22m [2m(+282ms)[22m 
+[2m03:43:36[22m   [34m├─[39m [2m/resources/masterclass-data-engineering/index.html[22m [2m(+305ms)[22m 
+[2m03:43:36[22m   [34m├─[39m [2m/resources/masterclass-growth-engineering/index.html[22m [2m(+247ms)[22m 
+[2m03:43:37[22m   [34m├─[39m [2m/resources/growth-engineering-industry-roundup/index.html[22m [2m(+270ms)[22m 
+[2m03:43:37[22m   [34m├─[39m [2m/resources/business-development/index.html[22m [2m(+301ms)[22m 
+[2m03:43:37[22m   [34m├─[39m [2m/resources/email-marketing/index.html[22m [2m(+299ms)[22m 
+[2m03:43:38[22m   [34m├─[39m [2m/resources/brand-building/index.html[22m [2m(+331ms)[22m 
+[2m03:43:38[22m   [34m├─[39m [2m/resources/marketing,-brand-building/index.html[22m [2m(+301ms)[22m 
+[2m03:43:38[22m   [34m├─[39m [2m/resources/marketing-seo/index.html[22m [2m(+305ms)[22m 
+[2m03:43:39[22m   [34m├─[39m [2m/resources/b2b,-marketing/index.html[22m [2m(+266ms)[22m 
+[2m03:43:39[22m   [34m├─[39m [2m/resources/marketing-strategy,-software-development,-branding/index.html[22m [2m(+269ms)[22m 
+[2m03:43:39[22m   [34m├─[39m [2m/resources/marketing/index.html[22m [2m(+279ms)[22m 
+[2m03:43:39[22m   [34m├─[39m [2m/resources/crm/index.html[22m [2m(+246ms)[22m 
+[2m03:43:40[22m   [34m├─[39m [2m/resources/branding/index.html[22m [2m(+264ms)[22m 
+[2m03:43:40[22m   [34m├─[39m [2m/resources/design/index.html[22m [2m(+300ms)[22m 
+[2m03:43:40[22m   [34m├─[39m [2m/resources/web/index.html[22m [2m(+320ms)[22m 
+[2m03:43:40[22m   [34m└─[39m [2m/resources/general/index.html[22m [2m(+246ms)[22m 
+[2m03:43:41[22m [32m▶[39m src/pages/resources/index.astro
+[2m03:43:41[22m   [34m└─[39m [2m/resources/index.html[22m [2m(+5ms)[22m 
+[2m03:43:41[22m [32m▶[39m src/pages/services/[service]/[subservice]/[industry].astro
+[2m03:43:41[22m   [34m├─[39m [2m/services/branding/brand-strategy/home-decor-brands/index.html[22m [31m(+558ms)[39m 
+[2m03:43:41[22m   [34m├─[39m [2m/services/branding/brand-strategy/real-estate-brands/index.html[22m [31m(+627ms)[39m 
+[2m03:43:42[22m   [34m├─[39m [2m/services/branding/brand-strategy/food-beverage-brands/index.html[22m [31m(+589ms)[39m 
+[2m03:43:42[22m   [34m├─[39m [2m/services/branding/brand-strategy/startups/index.html[22m [2m(+498ms)[22m 
+[2m03:43:43[22m   [34m├─[39m [2m/services/branding/brand-identity/home-decor-brands/index.html[22m [31m(+637ms)[39m 
+[2m03:43:44[22m   [34m├─[39m [2m/services/branding/brand-identity/real-estate-brands/index.html[22m [31m(+516ms)[39m 
+[2m03:43:44[22m   [34m├─[39m [2m/services/branding/brand-identity/food-beverage-brands/index.html[22m [31m(+550ms)[39m 
+[2m03:43:45[22m   [34m├─[39m [2m/services/branding/brand-identity/startups/index.html[22m [31m(+514ms)[39m 
+[2m03:43:45[22m   [34m├─[39m [2m/services/branding/logo-design/home-decor-brands/index.html[22m [2m(+486ms)[22m 
+[2m03:43:46[22m   [34m├─[39m [2m/services/branding/logo-design/real-estate-brands/index.html[22m [31m(+585ms)[39m 
+[2m03:43:46[22m   [34m├─[39m [2m/services/branding/logo-design/food-beverage-brands/index.html[22m [31m(+627ms)[39m 
+[2m03:43:47[22m   [34m├─[39m [2m/services/branding/logo-design/startups/index.html[22m [31m(+510ms)[39m 
+[2m03:43:47[22m   [34m├─[39m [2m/services/branding/brand-guidelines/home-decor-brands/index.html[22m [31m(+511ms)[39m 
+[2m03:43:48[22m   [34m├─[39m [2m/services/branding/brand-guidelines/real-estate-brands/index.html[22m [31m(+615ms)[39m 
+[2m03:43:49[22m   [34m├─[39m [2m/services/branding/brand-guidelines/food-beverage-brands/index.html[22m [31m(+507ms)[39m 
+[2m03:43:49[22m   [34m├─[39m [2m/services/branding/brand-guidelines/startups/index.html[22m [31m(+598ms)[39m 
+[2m03:43:50[22m   [34m├─[39m [2m/services/design/ux-design/home-decor-brands/index.html[22m [31m(+541ms)[39m 
+[2m03:43:50[22m   [34m├─[39m [2m/services/design/ux-design/real-estate-brands/index.html[22m [31m(+587ms)[39m 
+[2m03:43:51[22m   [34m├─[39m [2m/services/design/ux-design/food-beverage-brands/index.html[22m [31m(+538ms)[39m 
+[2m03:43:51[22m   [34m├─[39m [2m/services/design/ux-design/startups/index.html[22m [31m(+604ms)[39m 
+[2m03:43:52[22m   [34m├─[39m [2m/services/design/ui-design/home-decor-brands/index.html[22m [31m(+523ms)[39m 
+[2m03:43:52[22m   [34m├─[39m [2m/services/design/ui-design/real-estate-brands/index.html[22m [31m(+527ms)[39m 
+[2m03:43:53[22m   [34m├─[39m [2m/services/design/ui-design/food-beverage-brands/index.html[22m [31m(+589ms)[39m 
+[2m03:43:54[22m   [34m├─[39m [2m/services/design/ui-design/startups/index.html[22m [31m(+516ms)[39m 
+[2m03:43:54[22m   [34m├─[39m [2m/services/design/product-design/home-decor-brands/index.html[22m [31m(+524ms)[39m 
+[2m03:43:55[22m   [34m├─[39m [2m/services/design/product-design/real-estate-brands/index.html[22m [31m(+605ms)[39m 
+[2m03:43:55[22m   [34m├─[39m [2m/services/design/product-design/food-beverage-brands/index.html[22m [31m(+509ms)[39m 
+[2m03:43:56[22m   [34m├─[39m [2m/services/design/product-design/startups/index.html[22m [31m(+512ms)[39m 
+[2m03:43:56[22m   [34m├─[39m [2m/services/marketing/digital-marketing/home-decor-brands/index.html[22m [31m(+557ms)[39m 
+[2m03:43:57[22m   [34m├─[39m [2m/services/marketing/digital-marketing/real-estate-brands/index.html[22m [31m(+582ms)[39m 
+[2m03:43:57[22m   [34m├─[39m [2m/services/marketing/digital-marketing/food-beverage-brands/index.html[22m [31m(+519ms)[39m 
+[2m03:43:58[22m   [34m├─[39m [2m/services/marketing/digital-marketing/startups/index.html[22m [31m(+601ms)[39m 
+[2m03:43:58[22m   [34m├─[39m [2m/services/marketing/social-media/home-decor-brands/index.html[22m [31m(+524ms)[39m 
+[2m03:43:59[22m   [34m├─[39m [2m/services/marketing/social-media/real-estate-brands/index.html[22m [31m(+518ms)[39m 
+[2m03:44:00[22m   [34m├─[39m [2m/services/marketing/social-media/food-beverage-brands/index.html[22m [31m(+589ms)[39m 
+[2m03:44:00[22m   [34m├─[39m [2m/services/marketing/social-media/startups/index.html[22m [31m(+671ms)[39m 
+[2m03:44:01[22m   [34m├─[39m [2m/services/marketing/content-strategy/home-decor-brands/index.html[22m [2m(+481ms)[22m 
+[2m03:44:01[22m   [34m├─[39m [2m/services/marketing/content-strategy/real-estate-brands/index.html[22m [31m(+631ms)[39m 
+[2m03:44:02[22m   [34m├─[39m [2m/services/marketing/content-strategy/food-beverage-brands/index.html[22m [31m(+565ms)[39m 
+[2m03:44:02[22m   [34m├─[39m [2m/services/marketing/content-strategy/startups/index.html[22m [31m(+505ms)[39m 
+[2m03:44:03[22m   [34m├─[39m [2m/services/web/website-development/home-decor-brands/index.html[22m [31m(+627ms)[39m 
+[2m03:44:04[22m   [34m├─[39m [2m/services/web/website-development/real-estate-brands/index.html[22m [31m(+578ms)[39m 
+[2m03:44:04[22m   [34m├─[39m [2m/services/web/website-development/food-beverage-brands/index.html[22m [31m(+609ms)[39m 
+[2m03:44:05[22m   [34m├─[39m [2m/services/web/website-development/startups/index.html[22m [31m(+559ms)[39m 
+[2m03:44:05[22m   [34m├─[39m [2m/services/web/ecommerce/home-decor-brands/index.html[22m [31m(+554ms)[39m 
+[2m03:44:06[22m   [34m├─[39m [2m/services/web/ecommerce/real-estate-brands/index.html[22m [31m(+565ms)[39m 
+[2m03:44:06[22m   [34m├─[39m [2m/services/web/ecommerce/food-beverage-brands/index.html[22m [31m(+507ms)[39m 
+[2m03:44:07[22m   [34m├─[39m [2m/services/web/ecommerce/startups/index.html[22m [31m(+616ms)[39m 
+[2m03:44:08[22m   [34m├─[39m [2m/services/web/web-applications/home-decor-brands/index.html[22m [31m(+629ms)[39m 
+[2m03:44:08[22m   [34m├─[39m [2m/services/web/web-applications/real-estate-brands/index.html[22m [31m(+561ms)[39m 
+[2m03:44:09[22m   [34m├─[39m [2m/services/web/web-applications/food-beverage-brands/index.html[22m [31m(+515ms)[39m 
+[2m03:44:09[22m   [34m├─[39m [2m/services/web/web-applications/startups/index.html[22m [31m(+544ms)[39m 
+[2m03:44:10[22m   [34m├─[39m [2m/services/video-production/brand-films/home-decor-brands/index.html[22m [31m(+548ms)[39m 
+[2m03:44:10[22m   [34m├─[39m [2m/services/video-production/brand-films/real-estate-brands/index.html[22m [31m(+527ms)[39m 
+[2m03:44:11[22m   [34m├─[39m [2m/services/video-production/brand-films/food-beverage-brands/index.html[22m [31m(+572ms)[39m 
+[2m03:44:11[22m   [34m├─[39m [2m/services/video-production/brand-films/startups/index.html[22m [2m(+497ms)[22m 
+[2m03:44:12[22m   [34m├─[39m [2m/services/video-production/social-reels/home-decor-brands/index.html[22m [31m(+623ms)[39m 
+[2m03:44:13[22m   [34m├─[39m [2m/services/video-production/social-reels/real-estate-brands/index.html[22m [2m(+484ms)[22m 
+[2m03:44:13[22m   [34m├─[39m [2m/services/video-production/social-reels/food-beverage-brands/index.html[22m [31m(+595ms)[39m 
+[2m03:44:14[22m   [34m├─[39m [2m/services/video-production/social-reels/startups/index.html[22m [31m(+562ms)[39m 
+[2m03:44:14[22m   [34m├─[39m [2m/services/video-production/motion-design/home-decor-brands/index.html[22m [31m(+612ms)[39m 
+[2m03:44:15[22m   [34m├─[39m [2m/services/video-production/motion-design/real-estate-brands/index.html[22m [31m(+511ms)[39m 
+[2m03:44:15[22m   [34m├─[39m [2m/services/video-production/motion-design/food-beverage-brands/index.html[22m [31m(+548ms)[39m 
+[2m03:44:16[22m   [34m├─[39m [2m/services/video-production/motion-design/startups/index.html[22m [31m(+580ms)[39m 
+[2m03:44:16[22m   [34m├─[39m [2m/services/video-production/explainer-videos/home-decor-brands/index.html[22m [2m(+485ms)[22m 
+[2m03:44:17[22m   [34m├─[39m [2m/services/video-production/explainer-videos/real-estate-brands/index.html[22m [31m(+645ms)[39m 
+[2m03:44:18[22m   [34m├─[39m [2m/services/video-production/explainer-videos/food-beverage-brands/index.html[22m [31m(+570ms)[39m 
+[2m03:44:18[22m   [34m└─[39m [2m/services/video-production/explainer-videos/startups/index.html[22m [2m(+478ms)[22m 
+[2m03:44:19[22m [32m▶[39m src/pages/services/[service]/[subservice]/index.astro
+[2m03:44:19[22m   [34m├─[39m [2m/services/branding/brand-strategy/index.html[22m [31m(+589ms)[39m 
+[2m03:44:19[22m   [34m├─[39m [2m/services/branding/brand-identity/index.html[22m [31m(+609ms)[39m 
+[2m03:44:20[22m   [34m├─[39m [2m/services/branding/logo-design/index.html[22m [2m(+490ms)[22m 
+[2m03:44:20[22m   [34m├─[39m [2m/services/branding/brand-guidelines/index.html[22m [31m(+547ms)[39m 
+[2m03:44:21[22m   [34m├─[39m [2m/services/design/ux-design/index.html[22m [31m(+607ms)[39m 
+[2m03:44:22[22m   [34m├─[39m [2m/services/design/ui-design/index.html[22m [2m(+490ms)[22m 
+[2m03:44:22[22m   [34m├─[39m [2m/services/design/product-design/index.html[22m [31m(+626ms)[39m 
+[2m03:44:23[22m   [34m├─[39m [2m/services/marketing/digital-marketing/index.html[22m [31m(+519ms)[39m 
+[2m03:44:23[22m   [34m├─[39m [2m/services/marketing/social-media/index.html[22m [31m(+543ms)[39m 
+[2m03:44:24[22m   [34m├─[39m [2m/services/marketing/content-strategy/index.html[22m [2m(+478ms)[22m 
+[2m03:44:24[22m   [34m├─[39m [2m/services/web/website-development/index.html[22m [31m(+566ms)[39m 
+[2m03:44:25[22m   [34m├─[39m [2m/services/web/ecommerce/index.html[22m [31m(+665ms)[39m 
+[2m03:44:25[22m   [34m├─[39m [2m/services/web/web-applications/index.html[22m [31m(+502ms)[39m 
+[2m03:44:26[22m   [34m├─[39m [2m/services/video-production/brand-films/index.html[22m [31m(+625ms)[39m 
+[2m03:44:27[22m   [34m├─[39m [2m/services/video-production/social-reels/index.html[22m [2m(+472ms)[22m 
+[2m03:44:27[22m   [34m├─[39m [2m/services/video-production/motion-design/index.html[22m [31m(+632ms)[39m 
+[2m03:44:28[22m   [34m└─[39m [2m/services/video-production/explainer-videos/index.html[22m [31m(+526ms)[39m 
+[2m03:44:28[22m [32m▶[39m src/pages/services/[service]/index.astro
+[2m03:44:28[22m   [34m├─[39m [2m/services/branding/index.html[22m [2m(+492ms)[22m 
+[2m03:44:29[22m   [34m├─[39m [2m/services/design/index.html[22m [2m(+489ms)[22m 
+[2m03:44:29[22m   [34m├─[39m [2m/services/marketing/index.html[22m [31m(+504ms)[39m 
+[2m03:44:30[22m   [34m├─[39m [2m/services/web/index.html[22m [2m(+500ms)[22m 
+[2m03:44:30[22m   [34m└─[39m [2m/services/video-production/index.html[22m [2m(+479ms)[22m 
+[2m03:44:31[22m [32m▶[39m src/pages/services/index.astro
+[2m03:44:31[22m   [34m└─[39m [2m/services/index.html[22m [31m(+552ms)[39m 
+[2m03:44:31[22m [32m▶[39m src/pages/Team.astro
+[2m03:44:31[22m   [34m└─[39m [2m/Team/index.html[22m [2m(+3ms)[22m 
+[2m03:44:31[22m [32m▶[39m src/pages/videos.astro
+[2m03:44:31[22m   [34m└─[39m [2m/videos/index.html[22m [2m(+8ms)[22m 
+[2m03:44:31[22m [32m▶[39m src/pages/work/[slug].astro
+[2m03:44:32[22m   [34m└─[39m [2m/work/ahdeqadeem/index.html[22m [31m(+532ms)[39m 
+[2m03:44:32[22m [32m▶[39m src/pages/work/index.astro
+[2m03:44:32[22m   [34m└─[39m [2m/work/index.html[22m [31m(+522ms)[39m 
+[2m03:44:33[22m [32m▶[39m src/pages/index.astro
+[2m03:44:33[22m   [34m└─[39m [2m/index.html[22m [2m(+296ms)[22m 
+[2m03:44:33[22m [32m✓ Completed in 80.38s.
+[39m
+[2m03:44:33[22m [34m[build][39m Rearranging server assets...
+[2m03:44:33[22m [34m[@astrojs/netlify][39m Emitted _redirects
+[2m03:44:33[22m [34m[@astrojs/netlify][39m Bundling function ..\..\..\build\entry.mjs
+[2m03:44:36[22m [34m[build][39m Waiting for integration [1m"@astrojs/netlify"[22m, hook [1m"astro:build:done"[22m...
+[2m03:44:37[22m [34m[@astrojs/netlify][39m Generated SSR Function
+[2m03:44:37[22m [34m[@astrojs/sitemap][39m `sitemap-index.xml` created at `dist`
+[2m03:44:37[22m [34m[build][39m Server built in [1m119.19s[22m
+[2m03:44:37[22m [34m[build][39m [1mComplete![22m

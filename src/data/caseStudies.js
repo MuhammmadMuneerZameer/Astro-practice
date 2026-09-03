@@ -10,6 +10,8 @@ import { db } from "../lib/firebase";
 
 const COLLECTION_NAME = "caseStudies";
 
+let _caseStudiesCache = null;
+
 // Service types mapping
 export const SERVICES = {
     UX_UI_DESIGN: 'ux-ui-design',
@@ -38,6 +40,8 @@ function withTimeout(promise) {
 }
 
 export async function getCaseStudies() {
+    if (_caseStudiesCache !== null) return _caseStudiesCache;
+
     try {
         if (!db) {
             throw new Error('Firebase database not initialized');
@@ -77,7 +81,7 @@ export async function getCaseStudies() {
                 duration: data.duration || '',
 
                 // Images
-                image: data.image || 'https://via.placeholder.com/800x600', // Main listing image
+                image: data.image || '/images/desktop-opt.webp',
                 heroImage: data.heroImage || data.image, // New dedicated hero image
                 images: data.images || [], // Old field
                 galleryImages: data.galleryImages || data.images || [], // New field, fallback to old
@@ -117,6 +121,10 @@ export async function getCaseStudies() {
                 // Conversion
                 bookingLink: data.bookingLink || '',
 
+                isOwnBrand: data.isOwnBrand || false,
+                ownBrandNote: data.ownBrandNote || '',
+                storeUrl: data.storeUrl || '',
+
                 slug: data.slug || doc.id,
                 featured: data.featured || false,
                 status: data.status || 'published',
@@ -125,11 +133,13 @@ export async function getCaseStudies() {
             });
         });
 
+        _caseStudiesCache = caseStudies;
         return caseStudies;
 
     } catch (error) {
         console.error('💥 Error in getCaseStudies:', error);
         console.error('💥 Error stack:', error.stack);
+        _caseStudiesCache = [];
         return [];
     }
 }

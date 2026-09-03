@@ -1,4 +1,4 @@
----
+﻿---
 import LiquidChrome from "./LiquidChrome.jsx";
 ---
 
@@ -18,10 +18,13 @@ import LiquidChrome from "./LiquidChrome.jsx";
 <!-- Content -->
   <div id="hero-content-layer" class="relative z-10 max-w-7xl mx-auto w-full">
 
-    <!-- "Digital Agency" label -->
-    <div class="overflow-hidden mb-6">
+    <!-- Label + location -->
+    <div class="overflow-hidden mb-6 flex flex-wrap items-center gap-x-4 gap-y-1">
       <span class="welcome-reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm">
-        Digital Agency
+        Shopify · Paid Media · Klaviyo
+      </span>
+      <span class="welcome-reveal-line block text-gray-600 font-mono text-xs tracking-wide">
+        For DTC brands · Karachi, Pakistan
       </span>
     </div>
 
@@ -29,12 +32,12 @@ import LiquidChrome from "./LiquidChrome.jsx";
     <h1 class="font-heading font-bold leading-none tracking-tight mb-10">
       <div class="overflow-hidden">
         <span class="welcome-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white">
-          We build brands
+          ROAS is not profit.
         </span>
       </div>
       <div class="overflow-hidden">
         <span id="hero-scramble" class="welcome-reveal-line block text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-[#00f19f]">
-          that convert.
+          MER is.
         </span>
       </div>
     </h1>
@@ -43,17 +46,16 @@ import LiquidChrome from "./LiquidChrome.jsx";
     <div class="flex flex-col sm:flex-row sm:items-end gap-8">
       <div class="overflow-hidden flex-1">
         <p class="welcome-reveal-fade text-gray-400 text-base md:text-lg max-w-xl font-light leading-relaxed">
-          Most agencies hand you a website. We hand you a growth system —
-          design, development, and marketing engineered to turn visitors
-          into paying clients.
+          Shopify build, paid media, and the tracking and automation between them.
+          One accountable team. No long contracts.
         </p>
       </div>
       <div class="welcome-reveal-fade flex flex-col sm:flex-row items-start sm:items-center gap-4 flex-shrink-0">
         <a
-          href="/contact/"
+          href="/audit/"
           class="group inline-flex items-center gap-3 text-white text-sm md:text-base font-medium hover:text-[#00f19f] transition-colors duration-300"
         >
-          Start a project
+          Get a free audit
           <span class="w-10 h-10 rounded-full border border-white/30 group-hover:border-[#00f19f] group-hover:bg-[#00f19f] flex items-center justify-center transition-all duration-500">
             <svg class="w-4 h-4 text-white group-hover:text-black -rotate-45 group-hover:rotate-0 transition-all duration-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
@@ -109,10 +111,10 @@ import LiquidChrome from "./LiquidChrome.jsx";
   }
 
   function initWelcomeAnimations() {
-    const lines = document.querySelectorAll<HTMLElement>('.welcome-reveal-line');
-    const fades = document.querySelectorAll<HTMLElement>('.welcome-reveal-fade');
+    const lines = document.querySelectorAll('.welcome-reveal-line');
+    const fades = document.querySelectorAll('.welcome-reveal-fade');
     const scrambleEl = document.getElementById('hero-scramble') as HTMLElement | null;
-    const finalText = 'that convert.';
+    const finalText = 'MER is.';
 
     lines.forEach(el => { el.style.transform = 'translateY(110%)'; });
     fades.forEach(el => { el.style.opacity = '0'; });
@@ -142,7 +144,7 @@ import LiquidChrome from "./LiquidChrome.jsx";
   function initHeroParallax() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const hero    = document.querySelector<HTMLElement>('.hero-container');
+    const hero    = document.querySelector('.hero-container');
     const bgLayer = document.getElementById('hero-bg-layer') as HTMLElement | null;
     const content = document.getElementById('hero-content-layer') as HTMLElement | null;
     if (!hero || !bgLayer || !content) return;

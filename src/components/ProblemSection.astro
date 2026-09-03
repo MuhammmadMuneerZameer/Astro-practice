@@ -1,0 +1,91 @@
+﻿---
+---
+<section class="prob-section bg-black border-t border-white/10 px-4 md:px-8 py-24 overflow-hidden">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="mb-16">
+      <div class="overflow-hidden mb-4">
+        <p class="prob-reveal text-[#00f19f] text-xs font-bold tracking-[0.2em] uppercase">The problem</p>
+      </div>
+      <h2 class="font-heading font-bold text-white leading-none">
+        <div class="overflow-hidden">
+          <span class="prob-reveal block text-4xl sm:text-5xl md:text-6xl">Three vendors.</span>
+        </div>
+        <div class="overflow-hidden">
+          <span class="prob-reveal block text-4xl sm:text-5xl md:text-6xl">Zero accountability.</span>
+        </div>
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-px bg-white/10 rounded-2xl overflow-hidden mb-12">
+      <div class="prob-card bg-black p-8 md:p-10">
+        <span class="block text-[#00f19f]/40 font-mono text-xs mb-6">01</span>
+        <h3 class="text-xl font-heading font-bold text-white mb-4 leading-snug">Your ad agency blames the store.</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">CTR looks fine. CPM is competitive. The problem, they say, is your CVR. Not their job to fix it.</p>
+      </div>
+      <div class="prob-card bg-black p-8 md:p-10">
+        <span class="block text-[#00f19f]/40 font-mono text-xs mb-6">02</span>
+        <h3 class="text-xl font-heading font-bold text-white mb-4 leading-snug">Your dev shop blames the ads.</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">The store is fast. The UX is clean. The traffic is just low-quality. Not their budget, not their problem.</p>
+      </div>
+      <div class="prob-card bg-black p-8 md:p-10">
+        <span class="block text-[#00f19f]/40 font-mono text-xs mb-6">03</span>
+        <h3 class="text-xl font-heading font-bold text-white mb-4 leading-snug">Nobody owns the number.</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Your MER stays flat. CAC creeps up. Every vendor presents their metrics looking fine while the business bleeds.</p>
+      </div>
+    </div>
+
+    <p class="prob-footer text-gray-500 text-base max-w-2xl leading-relaxed">
+      The real issue is structural. When no single party owns the full loop — traffic, store, data, retention — every diagnosis is self-serving.
+    </p>
+
+  </div>
+</section>
+
+<script>
+  const EXPO = 'cubic-bezier(0.19, 1, 0.22, 1)';
+  const CUBIC = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
+
+  function initProblem() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const lines = entry.target.querySelectorAll('.prob-reveal');
+        const cards = entry.target.querySelectorAll('.prob-card');
+        const footer = entry.target.querySelector('.prob-footer');
+
+        lines.forEach(el => { el.style.transform = 'translateY(110%)'; });
+        lines.forEach((el, i) => {
+          el.animate(
+            [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+            { duration: 900, delay: i * 120, easing: EXPO, fill: 'forwards' }
+          ).onfinish = () => { el.style.willChange = 'auto'; };
+        });
+        cards.forEach((el, i) => {
+          el.animate(
+            [{ opacity: '0', transform: 'translateY(20px)' }, { opacity: '1', transform: 'translateY(0)' }],
+            { duration: 700, delay: 400 + i * 100, easing: CUBIC, fill: 'forwards' }
+          );
+        });
+        if (footer) {
+          footer.animate(
+            [{ opacity: '0' }, { opacity: '1' }],
+            { duration: 600, delay: 700, easing: CUBIC, fill: 'forwards' }
+          );
+        }
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.1 });
+
+    const section = document.querySelector('.prob-section');
+    if (section) io.observe(section);
+  }
+
+  document.addEventListener('astro:page-load', initProblem);
+</script>
+
+<style>
+  .prob-reveal { will-change: transform; display: block; }
+  .prob-card { opacity: 0; }
+  .prob-footer { opacity: 0; }
+</style>

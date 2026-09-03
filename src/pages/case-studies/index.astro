@@ -1,9 +1,20 @@
----
+﻿---
+import { getCollection } from 'astro:content';
 import Layout from "../../layouts/Layout.astro";
-import { getCaseStudies } from "../../data/caseStudies";
 import CaseStudyListAnimated from "../../components/CaseStudyListAnimated";
 
-const caseStudies: any[] = await getCaseStudies();
+const entries = await getCollection('case-studies');
+const caseStudies = entries.map((e) => ({
+  id:       e.slug,
+  slug:     e.slug,
+  title:    e.data.title,
+  client:   e.data.client,
+  industry: e.data.industry,
+  services: e.data.services,
+  image:    e.data.image ?? '/images/desktop-opt.webp',
+  featured: e.data.featured,
+  isOwnBrand: e.data.isOwnBrand,
+}));
 ---
 
 <Layout
@@ -46,8 +57,8 @@ const caseStudies: any[] = await getCaseStudies();
       <div class="flex flex-col sm:flex-row sm:items-end gap-6">
         <div class="overflow-hidden flex-1">
           <p class="cs-reveal-fade text-gray-400 text-base md:text-lg max-w-xl font-light">
-            We don't just showcase designs — we demonstrate the tangible impact
-            we've created for our clients.
+            One of these is a brand we own and operate ourselves. We disclose it because
+            an agency with skin in the game gives different advice than one that only consults.
           </p>
         </div>
         <div class="overflow-hidden flex-shrink-0">
@@ -72,17 +83,17 @@ const caseStudies: any[] = await getCaseStudies();
     const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
 
     // Set initial hidden state immediately so there's no flash
-    document.querySelectorAll<HTMLElement>('.cs-reveal-line').forEach(el => {
+    document.querySelectorAll('.cs-reveal-line').forEach(el => {
       el.style.transform = 'translateY(110%)';
     });
-    document.querySelectorAll<HTMLElement>('.cs-reveal-fade').forEach(el => {
+    document.querySelectorAll('.cs-reveal-fade').forEach(el => {
       el.style.opacity = '0';
     });
 
     // Small tick to let the browser paint the hidden state before animating
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        document.querySelectorAll<HTMLElement>('.cs-reveal-line').forEach((el, i) => {
+        document.querySelectorAll('.cs-reveal-line').forEach((el, i) => {
           const anim = el.animate(
             [
               { transform: 'translateY(110%)' },
@@ -98,7 +109,7 @@ const caseStudies: any[] = await getCaseStudies();
           anim.onfinish = () => { el.style.willChange = 'auto'; };
         });
 
-        document.querySelectorAll<HTMLElement>('.cs-reveal-fade').forEach((el, i) => {
+        document.querySelectorAll('.cs-reveal-fade').forEach((el, i) => {
           const anim = el.animate(
             [{ opacity: '0' }, { opacity: '1' }],
             {

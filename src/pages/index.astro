@@ -2,20 +2,23 @@
 import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
-import FeatureListSection from '../components/FeatureListSection.jsx';
 import ServicesSection from '../components/ServicesSection.jsx';
 import FAQsection from '../components/FAQsection.astro';
-import TestimonialSection from '../components/TestimonialSection.jsx';
 import NesLSection from '../components/NesLSection.jsx';
-import BlogSection from '../components/BlogSection.astro';
-import Projectsdisplay from '../components/Projectsdisplay.astro';
 import StatsSection from '../components/StatsSection.astro';
 import MarqueeStrip from '../components/MarqueeStrip.astro';
+import TestimonialSection from '../components/TestimonialSection.jsx';
+import ProblemSection from '../components/ProblemSection.astro';
+import LoopSection from '../components/LoopSection.astro';
+import OperatorProof from '../components/OperatorProof.astro';
+import FlagshipCaseStudy from '../components/FlagshipCaseStudy.astro';
+import HowWeWork from '../components/HowWeWork.astro';
+import PricingSignal from '../components/PricingSignal.astro';
 ---
 
 <Layout
-  title="Digital Marketing & Web Design Agency | Hydra Fox Designs"
-  description="Hydra Fox Designs helps brands grow through creative web design, digital marketing, and automation. Get a modern website that converts visitors into clients."
+  title="Shopify Agency for DTC Brands | Hydra Fox Designs"
+  description="Hydra Fox Designs builds Shopify stores, runs paid media to MER targets, and implements Klaviyo retention systems for DTC brands that compete on contribution margin."
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -23,13 +26,14 @@ import MarqueeStrip from '../components/MarqueeStrip.astro';
       "@type": "FAQPage",
       mainEntity: [
         { "@type": "Question", name: "How long does it take to design and build a website?", acceptedAnswer: { "@type": "Answer", text: "The timeline depends on the project's complexity. A basic website takes 2–4 weeks; more complex builds may take longer. We provide a project timeline after our discovery call." } },
-        { "@type": "Question", name: "How much does a new website cost?", acceptedAnswer: { "@type": "Answer", text: "Costs vary based on design and features. We offer custom packages tailored to your goals and budget. Get in touch for a free quote." } },
+        { "@type": "Question", name: "What do your services cost?", acceptedAnswer: { "@type": "Answer", text: "Store Design & Build starts from $4,500 (fixed price — no ongoing fee). Growth retainers start from $1,200–$2,500/mo: Ecommerce Growth from $2,500/mo, Growth Tools & Automation from $1,200/mo, and Brand & Content from $1,500/mo. All retainers are month-to-month with no lock-in." } },
         { "@type": "Question", name: "Will my website be mobile-friendly?", acceptedAnswer: { "@type": "Answer", text: "Yes. Every site we build is fully responsive and optimized for all devices — desktops, tablets, and smartphones." } },
         { "@type": "Question", name: "Can I update the website myself after it's built?", acceptedAnswer: { "@type": "Answer", text: "Absolutely. We use user-friendly CMS platforms and provide tutorials so you can manage your content confidently." } },
-        { "@type": "Question", name: "What digital marketing services do you offer?", acceptedAnswer: { "@type": "Answer", text: "We provide complete digital marketing solutions including SEO, social media marketing, PPC ads, web design and development, and full branding strategy — everything your business needs to grow online." } },
-        { "@type": "Question", name: "How long does it take to see results from digital marketing?", acceptedAnswer: { "@type": "Answer", text: "Paid ads can deliver results almost immediately, while SEO and organic strategies typically take 3–6 months to show noticeable growth depending on competition and consistency." } },
+        { "@type": "Question", name: "What services do you offer for DTC and ecommerce brands?", acceptedAnswer: { "@type": "Answer", text: "We offer Shopify and Shopify Plus development, paid media managed to MER targets (Meta, Google, TikTok), Klaviyo email and SMS retention, server-side tracking via Conversions API, CRO and landing page testing, branding, and video production." } },
+        { "@type": "Question", name: "How do you measure marketing performance?", acceptedAnswer: { "@type": "Answer", text: "We report on Marketing Efficiency Ratio (MER), blended CAC, LTV:CAC, AOV, and retention rate — not vanity metrics. Every campaign decision is made against contribution margin, not just ROAS." } },
         { "@type": "Question", name: "Do you work with international clients?", acceptedAnswer: { "@type": "Answer", text: "Yes! We work remotely with clients around the world via Zoom, Trello, Notion, and email." } },
         { "@type": "Question", name: "Do I need to sign a long-term contract?", acceptedAnswer: { "@type": "Answer", text: "No. You can start with a flexible monthly plan. We focus on delivering measurable results that keep you working with us, not on locking you into long contracts." } },
+        { "@type": "Question", name: "What does your email and SMS retention work actually include?", acceptedAnswer: { "@type": "Answer", text: "We build six core flows in Klaviyo: welcome series, abandoned checkout recovery (3-touch), post-purchase upsell and review request, win-back for lapsed subscribers, browse and product abandonment, and segmentation architecture. We report on revenue per recipient, retention revenue as a percentage of total, and LTV:CAC ratio improvement over 90-day cohorts." } },
       ]
     })} />
   </Fragment>
@@ -40,15 +44,18 @@ import MarqueeStrip from '../components/MarqueeStrip.astro';
     <div id="orb-3" class="orb absolute rounded-full" style="width:600px;height:600px;top:65%;right:5%;background:radial-gradient(circle,rgba(4,180,120,0.07) 0%,transparent 70%);filter:blur(70px);will-change:transform;"></div>
   </div>
 
-  <!-- Main Content - Should be visible immediately -->
+  <!-- Main Content -->
   <Welcome />
   <MarqueeStrip />
+  <ProblemSection />
+  <LoopSection />
+  <OperatorProof />
   <StatsSection />
   <ServicesSection client:visible />
-  <Projectsdisplay />
+  <FlagshipCaseStudy />
+  <HowWeWork />
+  <PricingSignal />
   <TestimonialSection client:visible />
-  <FeatureListSection client:visible />
-  <BlogSection />
   <FAQsection />
   <NesLSection client:only="react" />
   

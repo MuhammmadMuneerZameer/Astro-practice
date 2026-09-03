@@ -1,4 +1,4 @@
----
+﻿---
 import Layout from '../../layouts/Layout.astro';
 import { getAllIndustries, getAllServices } from '../../data/taxonomy.js';
 import { getCaseStudies } from '../../data/caseStudies.js';
@@ -10,7 +10,7 @@ const caseStudies = await getCaseStudies();
 
 <Layout
   title="Industries We Serve | Hydra Fox Designs"
-  description="Specialized branding, design, and marketing expertise for home decor, real estate, food & beverage, and startups."
+  description="Specialized branding, design, and digital marketing for ecommerce and DTC brands — including home decor, food & beverage, and consumer goods."
 >
 
   <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
@@ -138,8 +138,8 @@ const caseStudies = await getCaseStudies();
   const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
 
   function initIndAnimations() {
-    const lines = document.querySelectorAll<HTMLElement>('.ind-reveal-line');
-    const fades = document.querySelectorAll<HTMLElement>('.ind-reveal-fade');
+    const lines = document.querySelectorAll('.ind-reveal-line');
+    const fades = document.querySelectorAll('.ind-reveal-fade');
 
     lines.forEach(el => { el.style.transform = 'translateY(110%)'; });
     fades.forEach(el => { el.style.opacity = '0'; });

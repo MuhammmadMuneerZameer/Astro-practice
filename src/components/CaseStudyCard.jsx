@@ -24,9 +24,11 @@ export default function CaseStudyCard({ study, layoutId }) {
                 <div className="aspect-[4/3] overflow-hidden relative">
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10" />
                     <img
-                        src={study.image || 'https://via.placeholder.com/800x600?text=No+Image'}
+                        src={study.image || '/images/desktop-opt.webp'}
                         alt={study.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        width="800"
+                        height="600"
                     />
 
                     {/* Tags overlay */}

@@ -1,0 +1,139 @@
+﻿---
+---
+<section class="op-section bg-black border-t border-white/10 px-4 md:px-8 py-24">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+      <!-- Copy -->
+      <div>
+        <div class="overflow-hidden mb-4">
+          <p class="op-reveal text-[#00f19f] text-xs font-bold tracking-[0.2em] uppercase">Operator credential</p>
+        </div>
+        <h2 class="font-heading font-bold text-white leading-none mb-8">
+          <div class="overflow-hidden">
+            <span class="op-reveal block text-4xl sm:text-5xl md:text-[3.25rem]">We run our own</span>
+          </div>
+          <div class="overflow-hidden">
+            <span class="op-reveal block text-4xl sm:text-5xl md:text-[3.25rem]">DTC brand.</span>
+          </div>
+        </h2>
+
+        <p class="op-fade text-gray-400 text-base leading-relaxed mb-5 max-w-lg">
+          Ahdeqadeem — Pakistan National Store — is our in-house Shopify brand selling luxury handcrafted bronze sculptures and antique home décor. We built the store, run Meta ads to a MER target, implemented Conversions API before the first campaign launched, and manage the Klaviyo retention flows.
+        </p>
+        <p class="op-fade text-gray-400 text-base leading-relaxed mb-8 max-w-lg">
+          Every system we recommend to clients, we run with our own money. The recommendations are not theoretical.
+        </p>
+
+        <blockquote class="op-fade border-l-2 border-[#00f19f] pl-6 mb-8">
+          <p class="text-white text-sm italic leading-relaxed mb-3">
+            "Running our own brand changed how we advise clients. The pressure of spending real money on ads with real margin consequences is a different discipline than managing someone else's account."
+          </p>
+          <footer class="text-gray-600 text-xs">Muneer Zameer · Founder, Hydra Fox Designs</footer>
+        </blockquote>
+
+        <div class="op-fade flex flex-wrap gap-5">
+          <a
+            href="/case-studies/pakistan-national-store/"
+            class="inline-flex items-center gap-2 text-[#00f19f] text-sm font-medium hover:text-white transition-colors duration-200"
+          >
+            Read the case study
+            <svg class="w-4 h-4 -rotate-45" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a
+            href="https://pakistannationalstore.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-gray-500 text-sm hover:text-white transition-colors duration-200"
+          >
+            Visit the store ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- Image + overlay stats -->
+      <div class="op-image">
+        <div class="relative">
+          <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-gray-900">
+            <img
+              src="/images/PNS%20image.jpg"
+              alt="Ahdeqadeem — Pakistan National Store, a luxury Shopify brand built and operated by Hydra Fox Designs"
+              class="w-full h-full object-cover"
+              width="800"
+              height="600"
+              loading="lazy"
+            />
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent rounded-b-2xl p-6 pt-10">
+            <div class="grid grid-cols-3 gap-4">
+              <div>
+                <p class="text-[#00f19f] font-bold font-mono text-sm">Q3 '23</p>
+                <p class="text-gray-500 text-xs mt-0.5">Launched</p>
+              </div>
+              <div>
+                <p class="text-[#00f19f] font-bold font-mono text-sm">CAPI</p>
+                <p class="text-gray-500 text-xs mt-0.5">From day one</p>
+              </div>
+              <div>
+                <p class="text-[#00f19f] font-bold font-mono text-sm">MER</p>
+                <p class="text-gray-500 text-xs mt-0.5">Not ROAS</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  const EXPO = 'cubic-bezier(0.19, 1, 0.22, 1)';
+  const CUBIC = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
+
+  function initOperatorProof() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const lines = entry.target.querySelectorAll('.op-reveal');
+        const fades = entry.target.querySelectorAll('.op-fade');
+        const img = entry.target.querySelector('.op-image');
+
+        lines.forEach(el => { el.style.transform = 'translateY(110%)'; });
+        lines.forEach((el, i) => {
+          el.animate(
+            [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+            { duration: 900, delay: i * 120, easing: EXPO, fill: 'forwards' }
+          ).onfinish = () => { el.style.willChange = 'auto'; };
+        });
+        fades.forEach((el, i) => {
+          el.animate(
+            [{ opacity: '0', transform: 'translateY(12px)' }, { opacity: '1', transform: 'translateY(0)' }],
+            { duration: 700, delay: 400 + i * 80, easing: CUBIC, fill: 'forwards' }
+          );
+        });
+        if (img) {
+          img.animate(
+            [{ opacity: '0', transform: 'translateX(24px)' }, { opacity: '1', transform: 'translateX(0)' }],
+            { duration: 900, delay: 250, easing: EXPO, fill: 'forwards' }
+          );
+        }
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.1 });
+
+    const section = document.querySelector('.op-section');
+    if (section) io.observe(section);
+  }
+
+  document.addEventListener('astro:page-load', initOperatorProof);
+</script>
+
+<style>
+  .op-reveal { will-change: transform; display: block; }
+  .op-fade { opacity: 0; }
+  .op-image { opacity: 0; }
+</style>

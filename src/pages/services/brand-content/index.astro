@@ -1,0 +1,241 @@
+﻿---
+import Layout from '../../../layouts/Layout.astro';
+import { SERVICE_HIERARCHY } from '../../../data/taxonomy.js';
+import { getCollection } from 'astro:content';
+
+const service = SERVICE_HIERARCHY['brand-content'];
+const subservices = Object.values(service.subservices) as Array<{ name: string; slug: string; description: string }>;
+
+const entries = await getCollection('case-studies');
+const caseStudies = entries
+  .filter((e) => e.data.services?.includes('brand-content'))
+  .slice(0, 2)
+  .map((e) => ({
+    slug:  e.slug,
+    title: e.data.title,
+    client: e.data.client,
+    image: e.data.image ?? '/images/desktop-opt.webp',
+  }));
+---
+
+<Layout
+  title="Brand & Content | Hydra Fox Designs"
+  description="Brand strategy, video production, motion design, and ad creative that earns the margin premium to make paid acquisition sustainable. From $1,500/mo."
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://hydrafoxdesigns.com/" },
+          { "@type": "ListItem", position: 2, name: "Services", item: "https://hydrafoxdesigns.com/services/" },
+          { "@type": "ListItem", position: 3, name: "Brand & Content", item: "https://hydrafoxdesigns.com/services/brand-content/" },
+        ]
+      },
+      {
+        "@type": "Service",
+        "@id": "https://hydrafoxdesigns.com/services/brand-content/#service",
+        name: "Brand & Content",
+        provider: { "@id": "https://hydrafoxdesigns.com/#organization" },
+        description: "Brand strategy, video production, motion design, and ad creative that earns the margin premium to make paid acquisition sustainable.",
+        offers: { "@type": "Offer", price: "1500", priceCurrency: "USD", priceSpecification: { "@type": "UnitPriceSpecification", priceType: "https://schema.org/MinimumAdvertisedPrice", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" } } },
+        areaServed: ["PK", "AE", "SA", "GB", "US"],
+        url: "https://hydrafoxdesigns.com/services/brand-content/",
+      }
+    ]
+  })} slot="head" />
+
+  <!-- ── Breadcrumb ────────────────────────────────────────────────────────── -->
+  <nav class="bg-black pt-24 pb-4 px-6">
+    <div class="max-w-7xl mx-auto">
+      <ol class="flex items-center gap-2 text-sm text-gray-500 flex-wrap">
+        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+        <li class="text-gray-700">/</li>
+        <li><a href="/services/" class="hover:text-white transition-colors">Services</a></li>
+        <li class="text-gray-700">/</li>
+        <li class="text-white font-medium">Brand & Content</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
+  <section class="bg-black text-white px-6 pb-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="px-3 py-1 bg-green-500/10 text-green-400 rounded-full text-xs font-medium border border-green-500/20">
+          Brand & Content
+        </span>
+        <span class="text-gray-600 text-xs font-mono">from $1,500/mo</span>
+      </div>
+      <h1 class="text-5xl md:text-7xl font-heading font-bold mb-6 leading-none">
+        The margin that makes growth sustainable.
+      </h1>
+      <p class="text-gray-400 text-xl max-w-2xl leading-relaxed">
+        {service.description}
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Why brand is infrastructure ─────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-16">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16">
+      <div class="scroll-section">
+        <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-6">Why it matters</span>
+        <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-none mb-8">Why does brand investment compound for DTC brands?</h2>
+        <p class="text-gray-400 text-base leading-relaxed mb-5">
+          An unbranded store competes on price. A branded store can hold margin and reduce blended CAC quarter over quarter — because return visitors cost nothing to acquire and they convert at a higher rate.
+        </p>
+        <p class="text-gray-400 text-base leading-relaxed">
+          Brand also earns CPM efficiency. A recognisable creative in-feed gets a higher click-through rate than a cold product shot at the same spend level. Brand work compounds; performance spend doesn't.
+        </p>
+      </div>
+      <div class="border border-white/10 rounded-2xl p-8 md:p-10 self-start">
+        <p class="text-gray-600 font-mono text-xs tracking-widest uppercase mb-6">The growth loop</p>
+        <div class="space-y-4">
+          {[
+            ['Brand identity', 'Earns margin premium and CPM efficiency'],
+            ['Ad creative',    'Higher CTR at lower CPM → lower blended CAC'],
+            ['Retention',      'Branded post-purchase experience → higher LTV:CAC'],
+            ['Reinvestment',   'Better unit economics fund more acquisition spend'],
+          ].map(([label, desc]) => (
+            <div class="flex items-start gap-4">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#00f19f] flex-shrink-0 mt-1.5" />
+              <div>
+                <p class="text-white text-sm font-medium">{label}</p>
+                <p class="text-gray-500 text-xs leading-relaxed mt-0.5">{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Deliverables ──────────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="scroll-section mb-12">
+        <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-4">Four deliverables</span>
+        <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-none">What does Brand & Content include?</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-0">
+        {subservices.map((sub, i) => (
+          <a
+            href={`/services/brand-content/${sub.slug}/`}
+            class="group border-t border-white/10 py-8 md:pr-12 even:md:pl-12 even:md:border-l even:border-white/10 block"
+          >
+            <p class="text-gray-700 font-mono text-xs mb-3">{String(i + 1).padStart(2, '0')}</p>
+            <h3 class="font-heading font-bold text-2xl text-white group-hover:text-[#00f19f] transition-colors duration-300 mb-3">{sub.name}</h3>
+            <p class="text-gray-500 text-sm leading-relaxed mb-4">{sub.description}</p>
+            <span class="text-[#00f19f] text-xs font-mono group-hover:text-white transition-colors">Learn more →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Case studies ──────────────────────────────────────────────────────── -->
+  {caseStudies.length > 0 && (
+    <section class="bg-black border-t border-white/10 px-4 md:px-8 py-20">
+      <div class="max-w-7xl mx-auto">
+        <div class="scroll-section mb-12">
+          <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-4">Client work</span>
+          <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-none">Brand results.</h2>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8">
+          {caseStudies.map((cs) => (
+            <a href={`/case-studies/${cs.slug}/`} class="group block">
+              <div class="aspect-video rounded-xl overflow-hidden mb-4 bg-gray-900">
+                <img src={cs.image} alt={cs.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width="800" height="450" />
+              </div>
+              <h3 class="text-xl font-heading font-bold text-white group-hover:text-[#00f19f] transition-colors">{cs.title}</h3>
+              <p class="text-gray-500 text-sm mt-1">{cs.client}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ── Other services ────────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-16">
+    <div class="max-w-7xl mx-auto">
+      <p class="text-gray-600 text-xs font-mono tracking-widest uppercase mb-6">Other services</p>
+      <div class="flex flex-wrap gap-3">
+        {[
+          { label: 'Ecommerce Growth', href: '/services/ecommerce-growth/' },
+          { label: 'Shopify Stores',   href: '/services/shopify/' },
+          { label: 'Growth Tools',     href: '/services/growth-tools/' },
+        ].map(({ label, href }) => (
+          <a href={href} class="px-5 py-3 bg-gray-900/50 hover:bg-gray-800 border border-white/10 rounded-lg text-gray-300 hover:text-white text-sm transition-colors duration-200">
+            {label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Accountability ───────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-16">
+    <div class="max-w-7xl mx-auto flex items-start gap-6 md:gap-10">
+      <img src="/images/muneer.png" alt="Muneer Zameer" class="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover flex-shrink-0 grayscale" width="64" height="64" loading="lazy" />
+      <div>
+        <p class="text-white font-semibold mb-1.5">Muneer Zameer runs this account.</p>
+        <p class="text-gray-500 text-sm leading-relaxed max-w-2xl">There is no account manager layer. No hand-off after signing. Brand strategy is led by the same person who runs your paid media — so creative decisions are made against the same MER target, not in a separate brief.</p>
+        <a href="/about/" class="inline-flex items-center gap-1.5 text-[#00f19f] text-xs font-mono mt-4 hover:text-white transition-colors duration-200">Meet the team →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-24">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-heading font-bold text-white mb-6 leading-none">Ready to build the brand?</h2>
+      <p class="text-gray-400 text-lg mb-10 leading-relaxed">
+        A 30-min call is enough to understand whether we can move the metrics that matter for your brand.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="https://cal.com/hydra-fox-sqrqbz/30min" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 px-8 py-4 bg-[#00f19f] hover:bg-white text-black font-bold rounded-full transition-colors text-sm">
+          Book a 30-min call
+        </a>
+        <a href="/contact/"
+           class="inline-flex items-center gap-2 px-8 py-4 border border-white/20 text-white hover:border-white/50 rounded-full transition-colors text-sm">
+          Send a brief
+        </a>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  const EXPO_OUT = 'cubic-bezier(0.19, 1, 0.22, 1)';
+
+  function initBCAnimations() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.querySelectorAll('.reveal-line').forEach((el, i) => {
+          el.style.transform = 'translateY(110%)';
+          const anim = el.animate(
+            [{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+            { duration: 900, delay: i * 130, easing: EXPO_OUT, fill: 'forwards' }
+          );
+          anim.onfinish = () => { el.style.willChange = 'auto'; };
+        });
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.scroll-section').forEach(s => io.observe(s));
+  }
+
+  document.addEventListener('astro:page-load', initBCAnimations);
+</script>
+
+<style>
+  .reveal-line { will-change: transform; display: block; }
+</style>

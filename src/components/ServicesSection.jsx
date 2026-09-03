@@ -4,45 +4,28 @@ import { ArrowRight } from 'lucide-react';
 
 const services = [
   {
-    title: "Product Design",
-    description: "Designing digital products from concept to launch, balancing user needs with business goals.",
-    image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop"
+    title: "Ecommerce Growth",
+    description: "Paid media managed to MER targets — and the Klaviyo lifecycle infrastructure to make it profitable. Welcome series, abandoned checkout, post-purchase, win-back, and segmentation built before the first campaign launches.",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+    link: "/services/ecommerce-growth/"
   },
   {
-    title: "UX/UI Design",
-    description: "Understanding user behavior to craft intuitive interfaces that convert visitors into clients.",
-    image: "https://images.unsplash.com/photo-1559028012-481c04fa702d?w=800&h=600&fit=crop"
+    title: "Store Design & Build",
+    description: "Shopify and Shopify Plus storefronts engineered for conversion rate, Core Web Vitals, and a post-purchase experience that compounds LTV.",
+    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=600&fit=crop",
+    link: "/services/store-design-build/"
   },
   {
-    title: "Mobile Applications",
-    description: "Building fast, native-quality mobile apps for iOS and Android with modern frameworks.",
-    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop"
+    title: "Growth Tools & Automation",
+    description: "Conversions API, server-side tracking, and custom MER dashboards that give you accurate data to make better decisions with less spend.",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
+    link: "/services/growth-tools-automation/"
   },
   {
-    title: "Web Development",
-    description: "Developing performant, scalable websites and web apps tailored to your business.",
-    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=600&fit=crop"
-  },
-  {
-    title: "Video Editing",
-    description: "Producing polished promotional, social, and explainer videos that tell your brand story.",
-    image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&h=600&fit=crop",
-    link: "/videos/"
-  },
-  {
-    title: "Branding",
-    description: "Creating cohesive brand identities — logos, typography, colors — that stick in people's minds.",
-    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&h=600&fit=crop"
-  },
-  {
-    title: "Motion Design",
-    description: "Bringing interfaces to life with purposeful animations that guide and delight users.",
-    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&h=600&fit=crop"
-  },
-  {
-    title: "Digital Marketing",
-    description: "Growing your audience through SEO, paid ads, and content strategies that drive real ROI.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop"
+    title: "Brand & Content",
+    description: "Brand identity, video, and motion content that earns the margin premium to make paid acquisition sustainable — and defensible against commoditization.",
+    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&h=600&fit=crop",
+    link: "/services/brand-content/"
   }
 ];
 
@@ -105,7 +88,7 @@ export default function ServicesSection() {
         </div>
 
         <p className="text-gray-500 max-w-2xl text-sm md:text-base leading-relaxed mb-12">
-          We offer services that help businesses improve their visibility, expand market reach, and increase turnover through effective digital strategies.
+          We build the full stack for DTC growth — Shopify development, paid media managed to MER targets, Klaviyo retention systems, and brand work that earns the margin to make all of it profitable.
         </p>
 
         <div className="relative">
@@ -115,12 +98,11 @@ export default function ServicesSection() {
                 <motion.div
                   onHoverStart={() => !isMobile && setHoveredIndex(index)}
                   onHoverEnd={() => !isMobile && setHoveredIndex(null)}
-                  onClick={() => service.link ? (window.location.href = service.link) : handleServiceClick(index)}
-                  onKeyDown={(e) => e.key === 'Enter' && (service.link ? (window.location.href = service.link) : handleServiceClick(index))}
-                  role="button"
+                  onClick={() => window.location.href = service.link}
+                  onKeyDown={(e) => e.key === 'Enter' && (window.location.href = service.link)}
+                  role="link"
                   tabIndex={0}
-                  aria-expanded={service.link ? undefined : hoveredIndex === index}
-                  aria-label={service.link ? `${service.title} — view our work` : `${service.title} — click to expand`}
+                  aria-label={`${service.title} — learn more`}
                   className="relative border-t border-white/10 last:border-b last:border-white/10"
                 >
                   <div className="py-6 md:py-8 flex items-center justify-between group cursor-pointer">
