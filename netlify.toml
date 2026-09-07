@@ -31,72 +31,7 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-[[redirects]]
-  from = "/case-studies/"
-  to = "/work/"
-  status = 301
-
-[[redirects]]
-  from = "/services/store-design-build/"
-  to = "/services/shopify/"
-  status = 301
-
-[[redirects]]
-  from = "/services/store-design-build/*"
-  to = "/services/shopify/"
-  status = 301
-
-[[redirects]]
-  from = "/services/growth-tools-automation/"
-  to = "/services/growth-tools/"
-  status = 301
-
-[[redirects]]
-  from = "/services/growth-tools-automation/*"
-  to = "/services/growth-tools/"
-  status = 301
-
-[[redirects]]
-  from = "/projects/*"
-  to = "/work/"
-  status = 301
-
-[[redirects]]
-  from = "/industries/real-estate-brands/"
-  to = "/industries/"
-  status = 301
-
-[[redirects]]
-  from = "/industries/startups/"
-  to = "/industries/"
-  status = 301
-
-[[redirects]]
-  from = "/services/*/real-estate-brands/"
-  to = "/industries/"
-  status = 301
-
-[[redirects]]
-  from = "/services/*/startups/"
-  to = "/industries/"
-  status = 301
-
-[[redirects]]
-  from = "/services/web/"
-  to = "/services/"
-  status = 302
-  force = false
-
-[[redirects]]
-  from = "/admin"
-  to = "/admin/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/admin/*"
-  to = "/admin/index.html"
-  status = 200
-
+# All redirect rules live in public/_redirects (processed first by Netlify).
 # Performance budget — auto-installed by Netlify on first deploy
 # Fails the deploy if Lighthouse performance score drops below 0.85
 # or accessibility below 0.90.

@@ -21,9 +21,10 @@ npm run preview    # preview the production build locally
 
 | Route | File |
 |---|---|
-| `/services/[service]` | `src/pages/services/[service]/index.astro` |
-| `/services/[service]/[subservice]` | `src/pages/services/[service]/[subservice]/index.astro` |
-| `/services/[service]/[subservice]/[industry]` | `src/pages/services/[service]/[subservice]/[industry].astro` |
+| `/services/shopify/` | `src/pages/services/shopify/index.astro` (static) |
+| `/services/ecommerce-growth/` | `src/pages/services/ecommerce-growth/index.astro` (static) |
+| `/services/growth-tools/` | `src/pages/services/growth-tools/index.astro` (static) |
+| `/services/brand-content/` | `src/pages/services/brand-content/index.astro` (static) |
 | `/resources/[category]` | `src/pages/resources/[category]/index.astro` |
 | `/resources/[category]/[slug]` | `src/pages/resources/[category]/[slug].astro` |
 | `/case-studies/[slug]` | `src/pages/case-studies/[slug].astro` |

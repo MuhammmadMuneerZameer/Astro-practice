@@ -1,0 +1,73 @@
+# ============================================================================
+# HFD — Netlify _redirects
+# Rule ordering: Netlify uses first match. More specific rules MUST precede
+# catch-alls. Industry placeholder rules MUST precede splat rules so that
+# /services/*/home-decor-brands/ lands on the industry page, not the parent
+# service page.
+# ============================================================================
+
+
+# ── 1. Service × sub-service × INDUSTRY → industry pages (3-level) ──────────
+# These must be the very first rules in the file.
+/services/:svc/:sub/home-decor-brands/     /industries/home-decor-brands/     301
+/services/:svc/:sub/food-beverage-brands/  /industries/food-beverage-brands/  301
+/services/:svc/:sub/ecommerce-dtc/         /industries/ecommerce-dtc/         301
+/services/:svc/:sub/startups/              /industries/                       301
+/services/:svc/:sub/real-estate-brands/    /industries/                       301
+
+# ── 2. Service × INDUSTRY → industry pages (2-level) ────────────────────────
+/services/:svc/home-decor-brands/          /industries/home-decor-brands/     301
+/services/:svc/food-beverage-brands/       /industries/food-beverage-brands/  301
+/services/:svc/ecommerce-dtc/              /industries/ecommerce-dtc/         301
+/services/:svc/startups/                   /industries/                       301
+/services/:svc/real-estate-brands/         /industries/                       301
+
+
+# ── 3. Old service slug renames → canonical service pages ────────────────────
+/services/store-design-build/              /services/shopify/                 301
+/services/store-design-build/*             /services/shopify/                 301
+/services/growth-tools-automation/         /services/growth-tools/            301
+/services/growth-tools-automation/*        /services/growth-tools/            301
+/services/video-production/                /services/brand-content/           301
+/services/video-production/*               /services/brand-content/           301
+
+
+# ── 4. Sub-service paths under canonical slugs → parent service page ─────────
+# Static files for the parent (/services/shopify/, etc.) are served directly
+# by Netlify, so these rules only fire for sub-paths that have no file.
+/services/ecommerce-growth/*               /services/ecommerce-growth/        301
+/services/brand-content/*                  /services/brand-content/           301
+/services/shopify/*                        /services/shopify/                 301
+/services/growth-tools/*                   /services/growth-tools/            301
+
+
+# ── 5. Remaining unknown service paths → services index ──────────────────────
+/services/marketing/                       /services/                         301
+/services/marketing/*                      /services/                         301
+/services/web/                             /services/                         301
+/services/web/*                            /services/                         301
+/services/:slug/                           /services/                         301
+/services/:slug/*                          /services/                         301
+
+
+# ── 6. Removed industry pages → industry index ───────────────────────────────
+/industries/real-estate-brands/            /industries/                       301
+/industries/startups/                      /industries/                       301
+
+
+# ── 7. Resource URL flattening ───────────────────────────────────────────────
+# category/slug/ → slug/ (all old two-segment resource URLs)
+/resources/:category/:slug/                /resources/:slug/                  301
+# category indexes → resources index
+/resources/:category/                      /resources/                        301
+
+
+# ── 8. Legacy URL consolidation ──────────────────────────────────────────────
+/case-studies/                             /work/                             301
+/projects/*                                /work/                             301
+/blog/*                                    /resources/                        410
+
+
+# ── 9. Admin SPA rewrite (200 = no redirect, serve the SPA shell) ────────────
+/admin                                     /admin/index.html                  200
+/admin/*                                   /admin/index.html                  200

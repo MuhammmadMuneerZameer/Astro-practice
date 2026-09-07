@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { collection, onSnapshot, query, orderBy, limit } from 'firebase/firestore';
 import { db } from '../lib/firebase';
-import { categoryToSlug } from '../lib/utils';
 
 // Define the Post type
 export interface Post {
@@ -100,7 +99,7 @@ export default function OptimizedBlogList({
       {posts.map((post) => (
         <a
           key={post.id}
-          href={`/resources/${categoryToSlug(post.category)}/${post.slug}/`}
+          href={`/resources/${post.slug}/`}
           className="block group"
         >
           <div className="bg-black border border-white/10 group-hover:border-white/25 rounded-2xl overflow-hidden transition-colors duration-300 h-full flex flex-col">

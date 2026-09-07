@@ -230,6 +230,8 @@ export default function DynamicBlogLoader() {
                                 src={post.image}
                                 alt={post.title}
                                 className="w-full h-full object-cover"
+                                width="800"
+                                height="450"
                             />
                         </div>
                     </div>
@@ -278,6 +280,8 @@ export default function DynamicBlogLoader() {
                                                 src={related.image}
                                                 alt={related.title}
                                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                width="800"
+                                                height="500"
                                             />
                                         )}
                                     </div>

@@ -54,8 +54,8 @@ const siblings = [
 ---
 
 <Layout
-  title="Shopify & Shopify Plus Development | Hydra Fox Designs"
-  description="Custom Shopify store builds, migrations, and CRO-optimised themes for DTC brands. Mobile-first, Core Web Vitals compliant, from $4,500."
+  title="Shopify Store Build Agency | Hydra Fox Designs"
+  description="Shopify and Shopify Plus builds for DTC brands — mobile-first, CWV-optimised, CRO-engineered. Migrations, theme builds, checkout optimisation. From $4,500."
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -65,7 +65,7 @@ const siblings = [
         "itemListElement": [
           { "@type": "ListItem", position: 1, name: "Home", item: "https://hydrafoxdesigns.com/" },
           { "@type": "ListItem", position: 2, name: "Services", item: "https://hydrafoxdesigns.com/services/" },
-          { "@type": "ListItem", position: 3, name: "Shopify Stores", item: "https://hydrafoxdesigns.com/services/shopify/" },
+          { "@type": "ListItem", position: 3, name: "Shopify Agency", item: "https://hydrafoxdesigns.com/services/shopify/" },
         ]
       },
       {
@@ -77,6 +77,41 @@ const siblings = [
         offers: { "@type": "Offer", price: "4500", priceCurrency: "USD", priceSpecification: { "@type": "UnitPriceSpecification", priceType: "https://schema.org/MinimumAdvertisedPrice" } },
         areaServed: ["PK", "AE", "SA", "GB", "US"],
         url: "https://hydrafoxdesigns.com/services/shopify/",
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "How much does a Shopify store build cost?",
+            acceptedAnswer: { "@type": "Answer", text: "Custom Shopify builds start from $4,500 — fixed price, no ongoing fee. Shopify Plus builds and complex migrations are quoted separately based on scope. We confirm pricing before any work starts." }
+          },
+          {
+            "@type": "Question",
+            name: "How long does a Shopify store build take?",
+            acceptedAnswer: { "@type": "Answer", text: "Standard Shopify builds are delivered in 5–6 weeks from final content received. We build to a fixed timeline — if delivery is late, the next milestone is at no charge." }
+          },
+          {
+            "@type": "Question",
+            name: "Do you migrate existing stores to Shopify?",
+            acceptedAnswer: { "@type": "Answer", text: "Yes. We migrate from WooCommerce, Squarespace, BigCommerce, and custom platforms — including products, collections, customer records, and URL redirects — without downtime or lost search rankings." }
+          },
+          {
+            "@type": "Question",
+            name: "Do you build on Shopify Plus?",
+            acceptedAnswer: { "@type": "Answer", text: "Yes. Shopify Plus builds include checkout extensibility — custom fields, upsell blocks, and post-purchase pages that increase AOV. We also set up Shopify Scripts and advanced discount logic where needed." }
+          },
+          {
+            "@type": "Question",
+            name: "What is included after the store launches?",
+            acceptedAnswer: { "@type": "Answer", text: "Every build includes a 30-day bug-fix support period after launch and video walkthroughs of all sections you will manage — so you can update products, collections, and homepage content without asking us." }
+          },
+          {
+            "@type": "Question",
+            name: "Do you do ongoing Shopify work after the build?",
+            acceptedAnswer: { "@type": "Answer", text: "Yes, as a separate retainer. Post-launch we offer Ecommerce Growth retainers covering paid media and Klaviyo, or a Growth Tools retainer covering tracking, Conversions API, and MER dashboards." }
+          },
+        ]
       }
     ]
   })} slot="head" />
@@ -103,7 +138,7 @@ const siblings = [
         </span>
       </div>
       <h1 class="text-5xl md:text-7xl font-heading font-bold mb-6 leading-none">
-        Stores built to convert.
+        Shopify Agency for DTC Brands.
       </h1>
       <p class="text-gray-400 text-xl max-w-2xl leading-relaxed">
         Custom Shopify builds engineered for mobile conversion rate, Core Web Vitals, and a post-purchase experience that increases LTV. Starting from $4,500 — fixed price, no ongoing fee.
@@ -194,6 +229,56 @@ const siblings = [
         <p class="text-white font-semibold mb-1.5">Muneer Zameer scopes and delivers every build.</p>
         <p class="text-gray-500 text-sm leading-relaxed max-w-2xl">There is no account manager layer. The person who quotes your build is the person who builds it. Shopify delivery in 6 weeks from final content — or the next milestone is at no charge.</p>
         <a href="/about/" class="inline-flex items-center gap-1.5 text-[#00f19f] text-xs font-mono mt-4 hover:text-white transition-colors duration-200">Meet the team →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ─────────────────────────────────────────────────────────────── -->
+  <section class="bg-black border-t border-white/10 px-4 md:px-8 py-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="scroll-section mb-12">
+        <span class="reveal-line block text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-4">Common questions</span>
+        <h2 class="reveal-line block text-4xl md:text-5xl font-heading font-bold text-white leading-none">Shopify build FAQs.</h2>
+      </div>
+      <div class="divide-y divide-white/10 border-t border-white/10">
+        {[
+          {
+            q: 'How much does a Shopify store build cost?',
+            a: 'Custom Shopify builds start from $4,500 — fixed price, no ongoing fee. Shopify Plus builds and complex migrations are quoted separately. We confirm pricing before any work starts.',
+          },
+          {
+            q: 'How long does a build take?',
+            a: '5–6 weeks from final content received. If delivery is late, the next milestone is at no charge.',
+          },
+          {
+            q: 'Do you migrate existing stores to Shopify?',
+            a: 'Yes — from WooCommerce, Squarespace, BigCommerce, and custom platforms. We transfer products, collections, customer records, and URL redirects without downtime or lost search rankings.',
+          },
+          {
+            q: 'Do you build on Shopify Plus?',
+            a: 'Yes. Shopify Plus builds include checkout extensibility — custom upsell blocks, post-purchase pages, and Shopify Scripts for advanced discount logic.',
+          },
+          {
+            q: 'What support is included after launch?',
+            a: 'A 30-day bug-fix support period and video walkthroughs of every section you will manage. You should be able to run the store without asking us first.',
+          },
+          {
+            q: 'Do you offer ongoing Shopify work after the build?',
+            a: 'Yes, as a separate retainer. Post-launch we offer Ecommerce Growth retainers (paid media + Klaviyo) or Growth Tools retainers (tracking, Conversions API, MER dashboards).',
+          },
+        ].map(({ q, a }) => (
+          <details class="group py-6 cursor-pointer">
+            <summary class="flex items-start justify-between gap-6 list-none">
+              <span class="font-heading font-bold text-lg text-white group-open:text-[#00f19f] transition-colors duration-200">{q}</span>
+              <span class="flex-shrink-0 w-6 h-6 rounded-full border border-white/20 group-open:border-[#00f19f] flex items-center justify-center transition-colors duration-200 mt-0.5">
+                <svg class="w-3 h-3 text-white group-open:rotate-45 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                </svg>
+              </span>
+            </summary>
+            <p class="mt-4 text-gray-500 text-sm leading-relaxed max-w-3xl">{a}</p>
+          </details>
+        ))}
       </div>
     </div>
   </section>

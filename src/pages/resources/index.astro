@@ -1,14 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getAllResourceCategories } from '../../data/taxonomy.js';
 import OptimizedBlogList from '../../components/OptimizedBlogList.tsx';
-
-const categories = getAllResourceCategories();
 ---
 
 <Layout
   title="Resources | Hydra Fox Designs"
-  description="Insights on branding, design, marketing, and web development to help your business grow."
+  description="Practical guides on Shopify, paid media, Klaviyo retention, and DTC brand strategy — for ecommerce founders who compete on contribution margin."
 >
 
   <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
@@ -35,25 +32,6 @@ const categories = getAllResourceCategories();
         <p class="res-reveal-fade text-gray-400 text-base md:text-lg font-light leading-relaxed">
           Practical insights on branding, design, marketing, and web development.
         </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Category Navigation ───────────────────────────────────────────────── -->
-  <section transition:name="resources-category-nav" transition:animate="none" class="bg-black border-t border-white/10 px-4 md:px-8 py-8">
-    <div class="max-w-7xl mx-auto">
-      <div class="flex flex-wrap items-center gap-3">
-        <span class="inline-flex items-center h-9 px-4 bg-[#00f19f] text-black rounded-full text-sm font-bold">
-          All Resources
-        </span>
-        {categories.map(cat => (
-          <a
-            href={`/resources/${cat.slug}/`}
-            class="inline-flex items-center h-9 px-4 border border-white/20 hover:border-white/50 text-gray-400 hover:text-white rounded-full text-sm transition-colors duration-200"
-          >
-            {cat.name}
-          </a>
-        ))}
       </div>
     </div>
   </section>
@@ -99,8 +77,8 @@ const categories = getAllResourceCategories();
   const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
 
   function initResAnimations() {
-    const lines = document.querySelectorAll('.res-reveal-line');
-    const fades = document.querySelectorAll('.res-reveal-fade');
+    const lines = document.querySelectorAll<HTMLElement>('.res-reveal-line');
+    const fades = document.querySelectorAll<HTMLElement>('.res-reveal-fade');
 
     lines.forEach(el => { el.style.transform = 'translateY(110%)'; });
     fades.forEach(el => { el.style.opacity = '0'; });

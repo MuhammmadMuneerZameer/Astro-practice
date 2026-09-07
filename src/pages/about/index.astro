@@ -3,11 +3,16 @@ import Layout from '../../layouts/Layout.astro';
 import { getAllServices } from '../../data/taxonomy.js';
 
 const services = getAllServices();
+const SERVICE_URL: Record<string, string> = {
+  'store-design-build':      '/services/shopify/',
+  'growth-tools-automation': '/services/growth-tools/',
+};
+const serviceUrl = (slug: string) => SERVICE_URL[slug] ?? `/services/${slug}/`;
 ---
 
 <Layout
   title="About | Hydra Fox Designs — DTC Growth Agency"
-  description="Hydra Fox Designs is a DTC growth agency. We build Shopify stores, run paid media to MER targets, and implement Klaviyo retention systems for ecommerce brands that compete on contribution margin."
+  description="Hydra Fox Designs is a DTC growth agency helping ecommerce brands own their contribution margin — through Shopify, paid media, and Klaviyo retention."
 >
 
   <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
@@ -121,7 +126,7 @@ const services = getAllServices();
       <div class="border-t border-white/10">
         {services.map((service, i) => (
           <a
-            href={`/services/${service.slug}/`}
+            href={serviceUrl(service.slug)}
             class="group flex items-center gap-6 md:gap-10 py-6 border-b border-white/10 hover:border-white/30 transition-colors duration-300"
           >
             <span class="text-gray-600 text-xs font-mono w-8 flex-shrink-0 select-none">

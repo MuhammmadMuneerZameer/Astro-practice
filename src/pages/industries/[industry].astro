@@ -21,6 +21,11 @@ if (!industry) {
 }
 
 const services = Object.values(SERVICE_HIERARCHY);
+const SERVICE_URL: Record<string, string> = {
+  'store-design-build':      '/services/shopify/',
+  'growth-tools-automation': '/services/growth-tools/',
+};
+const serviceUrl = (slug: string) => SERVICE_URL[slug] ?? `/services/${slug}/`;
 const allCaseStudies = await getCaseStudies();
 const industryCaseStudies = allCaseStudies.filter(
   (cs) => cs.industry === industrySlug,
@@ -103,7 +108,7 @@ const otherIndustries = Object.values(INDUSTRIES).filter(
         {
           services.map((service) => (
             <a
-              href={`/services/${service.slug}/`}
+              href={serviceUrl(service.slug)}
               class="group block p-6 bg-gray-900/50 rounded-xl border border-gray-800 hover:border-green-500/50 transition-all"
             >
               <h3 class="text-xl font-bold mb-3 group-hover:text-green-400 transition-colors">
@@ -147,6 +152,8 @@ const otherIndustries = Object.values(INDUSTRIES).filter(
                     alt={cs.title}
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
+                    width="800"
+                    height="600"
                   />
                 </div>
                 <h3 class="text-lg font-bold group-hover:text-green-400 transition-colors">

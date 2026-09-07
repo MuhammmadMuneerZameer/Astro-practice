@@ -359,6 +359,8 @@ export default function WorkListAnimated({ initialCaseStudies = [] }) {
               src={previewStudy.image}
               alt={previewStudy.title}
               className="w-full aspect-[4/3] object-cover block"
+              width="800"
+              height="600"
             />
           )}
         </div>

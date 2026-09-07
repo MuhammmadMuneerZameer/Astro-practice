@@ -122,15 +122,11 @@ const caseStudies = entries
 
       <div class="grid md:grid-cols-2 gap-0">
         {subservices.map((sub, i) => (
-          <a
-            href={`/services/brand-content/${sub.slug}/`}
-            class="group border-t border-white/10 py-8 md:pr-12 even:md:pl-12 even:md:border-l even:border-white/10 block"
-          >
+          <div class="border-t border-white/10 py-8 md:pr-12 even:md:pl-12 even:md:border-l even:border-white/10">
             <p class="text-gray-700 font-mono text-xs mb-3">{String(i + 1).padStart(2, '0')}</p>
-            <h3 class="font-heading font-bold text-2xl text-white group-hover:text-[#00f19f] transition-colors duration-300 mb-3">{sub.name}</h3>
-            <p class="text-gray-500 text-sm leading-relaxed mb-4">{sub.description}</p>
-            <span class="text-[#00f19f] text-xs font-mono group-hover:text-white transition-colors">Learn more →</span>
-          </a>
+            <h3 class="font-heading font-bold text-2xl text-white mb-3">{sub.name}</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">{sub.description}</p>
+          </div>
         ))}
       </div>
     </div>

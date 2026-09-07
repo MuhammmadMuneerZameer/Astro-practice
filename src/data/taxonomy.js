@@ -161,7 +161,7 @@ export const INDUSTRIES = {
     'home-decor-brands': {
         name: 'Home Decor Brands',
         slug: 'home-decor-brands',
-        description: 'Shopify stores, paid media creative, and Klaviyo retention systems for furniture, home goods, and lifestyle brands competing on aesthetic and customer experience.',
+        description: 'Shopify, paid media, and Klaviyo retention for furniture, home goods, and lifestyle brands that compete on aesthetic and customer experience.',
         challenges: [
             'Standing out in a visually saturated Meta and TikTok feed where creative quality directly determines CPM efficiency and thumb-stop rate',
             'Communicating material quality, scale, and craftsmanship through digital photography when buyers cannot touch the product before a high-consideration purchase',

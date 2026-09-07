@@ -13,13 +13,13 @@ const services = [
     title: "Store Design & Build",
     description: "Shopify and Shopify Plus storefronts engineered for conversion rate, Core Web Vitals, and a post-purchase experience that compounds LTV.",
     image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=600&fit=crop",
-    link: "/services/store-design-build/"
+    link: "/services/shopify/"
   },
   {
     title: "Growth Tools & Automation",
     description: "Conversions API, server-side tracking, and custom MER dashboards that give you accurate data to make better decisions with less spend.",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
-    link: "/services/growth-tools-automation/"
+    link: "/services/growth-tools/"
   },
   {
     title: "Brand & Content",
