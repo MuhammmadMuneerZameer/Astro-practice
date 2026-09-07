@@ -132,3 +132,5 @@ The store launched with the infrastructure to support paid media and organic gro
 structured product data, clean URL architecture, SEO-ready metadata across all collections,
 and an enquiry path that routes international buyers efficiently. The foundation is built
 to scale into paid search and Meta advertising as the brand grows its international footprint.
+
+If you sell home decor or high-ticket lifestyle products, the conversion mechanics that shaped this build — room-context photography, considered-purchase PDP structure, and pre-purchase information that reduces return risk — are covered in our [home decor marketing guide](/industries/home-decor-brands/).

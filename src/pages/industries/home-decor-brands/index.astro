@@ -1,0 +1,746 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+
+const title = "Digital Marketing Agency for Home Decor Brands | Hydra Fox";
+const description = "Hydra Fox is a digital marketing agency for home decor brands — Shopify store builds, paid media, and email retention built for considered-purchase ecommerce.";
+
+const faqs = [
+  {
+    q: "How long before we see results?",
+    a: "It depends on what you mean by results. A Shopify store rebuild or CRO fix can show conversion rate changes within 30 days. Paid media typically takes 60–90 days to optimise to a stable MER target. Organic growth from improved collection architecture compounds over six months. We set baselines before we start so results have something to be measured against.",
+  },
+  {
+    q: "Do you work with furniture brands, or only smaller decor items?",
+    a: "Both. The fundamentals — room-context photography, detailed material specifications, multi-session purchase paths, and return-reducing pre-purchase information — apply across furniture, lighting, textiles, and decorative objects. The specific implementation differs by product type and price point.",
+  },
+  {
+    q: "We already have good photography — why isn't the store converting?",
+    a: "Good photography solves one of five conversion problems. The others are collection architecture (can buyers find the product?), PDP structure (does the page answer every objection at the right moment?), email infrastructure (are you recovering the 60–70% who don't buy on the first visit?), and attribution (are you cutting the channels that actually started the journey?). Most stores have the photography. The rest needs work.",
+  },
+  {
+    q: "Can you help with Shopify migration as well as marketing?",
+    a: "Yes. We build and migrate Shopify stores as a standalone service and combine it with paid media and email when the brief requires both. Migration projects typically run 8–12 weeks depending on catalogue size and complexity.",
+  },
+  {
+    q: "Do you work with brands outside the US?",
+    a: "Yes. We work with brands in the US, UK, Australia, UAE, and internationally. All our engagements are remote. Time zone gaps are managed through documented briefs and async project management rather than synchronous calls.",
+  },
+  {
+    q: "What size brand do you typically work with?",
+    a: "Home decor brands doing $500K–$5M in annual revenue — enough transaction volume to optimise paid media and build meaningful email lists, but not yet at enterprise scale. Below that threshold the ROI on paid acquisition is difficult to model. Above it you typically need an internal team.",
+  },
+  {
+    q: "How is this different from a generalist ecommerce agency?",
+    a: "A generalist agency applies the same playbook across all categories. We have worked specifically with high-ticket, considered-purchase products where room-context photography, multi-session attribution, and return reduction are the levers — not volume discounts or subscription mechanics. The briefs, the analytics, and the creative direction are different.",
+  },
+];
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Digital Marketing for Home Decor Brands",
+  description:
+    "Shopify store design, paid media, email retention, and brand content for home decor and furniture brands. Built for considered-purchase ecommerce where multi-session purchase paths and room-context photography decide conversion rate.",
+  provider: {
+    "@type": "Organization",
+    name: "Hydra Fox Designs",
+    url: "https://hydrafoxdesigns.com",
+  },
+  serviceType: "Digital Marketing Agency",
+  areaServed: ["US", "GB", "AU", "AE"],
+  url: "https://hydrafoxdesigns.com/industries/home-decor-brands/",
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.a,
+    },
+  })),
+};
+---
+
+<Layout title={title} description={description}>
+  <script
+    slot="head"
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(serviceSchema)}
+  />
+  <script
+    slot="head"
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(faqSchema)}
+  />
+
+  <!-- Breadcrumb -->
+  <nav class="bg-black pt-24 pb-4 px-6">
+    <div class="max-w-5xl mx-auto">
+      <ol class="flex items-center gap-2 text-sm text-gray-500">
+        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+        <li class="text-gray-700">/</li>
+        <li>
+          <a href="/industries/" class="hover:text-white transition-colors"
+            >Industries</a
+          >
+        </li>
+        <li class="text-gray-700">/</li>
+        <li class="text-white">Home Decor Brands</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
+  <section class="bg-black text-white px-6 pb-24 pt-8">
+    <div class="max-w-5xl mx-auto">
+      <span
+        class="inline-block px-4 py-2 bg-[#00f19f]/10 text-[#00f19f] rounded-full text-sm font-medium mb-8 border border-[#00f19f]/20 tracking-[0.15em] uppercase"
+      >
+        Industry Focus
+      </span>
+      <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-8">
+        Digital Marketing<br />for Home Decor Brands
+      </h1>
+      <p class="text-gray-300 text-xl max-w-2xl leading-relaxed mb-6">
+        Your product photography isn't the problem. Your product page is. We are
+        a digital marketing agency for home decor brands — and the founders we
+        work with consistently hit the same wall: traffic that should convert,
+        priced for margin, disappearing at checkout. The fix is not more spend.
+        It is different work.
+      </p>
+      <p class="text-gray-400 text-lg max-w-2xl leading-relaxed mb-10">
+        Home decor ecommerce fails at a different set of conversion points than
+        the generic playbook accounts for. Below is the diagnosis. If it sounds
+        familiar, the <a
+          href="/audit/"
+          class="text-[#00f19f] hover:text-[#00d88a] underline underline-offset-2 transition-colors"
+          >Conversion Leak Audit</a
+        > is the starting point.
+      </p>
+      <a
+        href="/audit/"
+        class="inline-flex items-center gap-2 px-8 py-4 bg-[#00f19f] hover:bg-[#00d88a] text-black font-bold rounded-full transition-colors"
+      >
+        Get a Conversion Audit
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── Section 1: Why home decor converts differently ────────────────────── -->
+  <section class="bg-black text-white px-6 py-24 border-t border-gray-800">
+    <div class="max-w-5xl mx-auto">
+      <div class="scroll-section mb-20">
+        <div class="overflow-hidden mb-6">
+          <h2 class="reveal-line text-4xl md:text-5xl font-bold leading-tight">
+            Home decor doesn't convert<br />like other ecommerce
+          </h2>
+        </div>
+        <p class="reveal-fade text-gray-400 text-lg max-w-3xl leading-relaxed">
+          The standard ecommerce growth playbook assumes a category where a
+          buyer decides in a single session. Home decor is not that category.
+          Here is what is actually happening in your funnel.
+        </p>
+      </div>
+
+      <div class="space-y-0">
+        <!-- Point 1 -->
+        <div
+          class="grid md:grid-cols-[200px_1fr] gap-8 items-start py-14 border-t border-gray-800"
+        >
+          <div>
+            <span
+              class="text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs"
+              >01</span
+            >
+            <h3 class="text-xl font-bold mt-3 text-white leading-snug">
+              Considered purchase, long windows
+            </h3>
+          </div>
+          <div class="space-y-4">
+            <p class="text-gray-300 leading-relaxed text-lg">
+              A $2,400 sofa is not an impulse buy. The purchase path typically
+              runs 3–8 sessions across 2–6 weeks, often across devices, and
+              often with a second person involved in the decision. Last-click
+              attribution reads this as "Google Ads worked" when the first
+              touchpoint happened on Pinterest three weeks earlier.
+            </p>
+            <p class="text-gray-400 leading-relaxed">
+              Founders cut the channel that started the journey because the
+              reporting attributes the close to the channel that finished it.
+              Your analytics almost certainly undercount the channels doing the
+              early-stage work. Fixing this is not a creative problem — it is a
+              tracking problem.
+            </p>
+          </div>
+        </div>
+
+        <!-- Point 2 -->
+        <div
+          class="grid md:grid-cols-[200px_1fr] gap-8 items-start py-14 border-t border-gray-800"
+        >
+          <div>
+            <span
+              class="text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs"
+              >02</span
+            >
+            <h3 class="text-xl font-bold mt-3 text-white leading-snug">
+              Photography is the product page
+            </h3>
+          </div>
+          <div class="space-y-4">
+            <p class="text-gray-300 leading-relaxed text-lg">
+              In apparel, a customer knows what a t-shirt feels like. In home
+              decor, they are buying scale, texture, and how a piece sits in a
+              room they have never seen it in. Room-context imagery — styled in
+              a real space, with visible proportions and reference objects —
+              outperforms white-background product shots on conversion.
+            </p>
+            <p class="text-gray-400 leading-relaxed">
+              Most catalogues are built white-background-first because that is
+              what the manufacturer supplied. It is also why most home decor
+              stores convert below what their traffic warrants. The photography
+              brief is a conversion brief. Treating it as a branding exercise
+              leaves money on the table.
+            </p>
+          </div>
+        </div>
+
+        <!-- Point 3 -->
+        <div
+          class="grid md:grid-cols-[200px_1fr] gap-8 items-start py-14 border-t border-gray-800"
+        >
+          <div>
+            <span
+              class="text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs"
+              >03</span
+            >
+            <h3 class="text-xl font-bold mt-3 text-white leading-snug">
+              Returns eat the margin
+            </h3>
+          </div>
+          <div class="space-y-4">
+            <p class="text-gray-300 leading-relaxed text-lg">
+              Large-format returns cost 3–5x what apparel returns cost — freight
+              both ways, inspection, restocking, damage in transit. A 12% return
+              rate on a sofa is a different business problem than a 12% return
+              rate on candles.
+            </p>
+            <p class="text-gray-400 leading-relaxed">
+              Reducing returns through better pre-purchase information — accurate
+              scale indicators, material specificity, assembly requirements,
+              detailed finish descriptions — is a conversion lever, not a
+              logistics one. The return happens because the product page did not
+              do its job. The fix lives on the PDP, not in the warehouse.
+            </p>
+          </div>
+        </div>
+
+        <!-- Point 4 -->
+        <div
+          class="grid md:grid-cols-[200px_1fr] gap-8 items-start py-14 border-t border-gray-800"
+        >
+          <div>
+            <span
+              class="text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs"
+              >04</span
+            >
+            <h3 class="text-xl font-bold mt-3 text-white leading-snug">
+              Seasonality is brutal and bimodal
+            </h3>
+          </div>
+          <div class="space-y-4">
+            <p class="text-gray-300 leading-relaxed text-lg">
+              Q4 gifting and the spring refresh cycle. These two windows
+              generate a disproportionate share of annual revenue in home decor.
+              Paid budgets that stay flat across the year underspend the windows
+              that matter and overspend the eight months that do not.
+            </p>
+            <p class="text-gray-400 leading-relaxed">
+              Seasonal flex requires planning six weeks in advance — enough
+              creative production lead time to have the right assets live before
+              CPMs spike. Most brands miss the peak because they start planning
+              when the season starts. By then the creative is late and the budget
+              is deploying into expensive inventory.
+            </p>
+          </div>
+        </div>
+
+        <!-- Point 5 -->
+        <div
+          class="grid md:grid-cols-[200px_1fr] gap-8 items-start py-14 border-t border-gray-800"
+        >
+          <div>
+            <span
+              class="text-[#00f19f] font-bold tracking-[0.2em] uppercase text-xs"
+              >05</span
+            >
+            <h3 class="text-xl font-bold mt-3 text-white leading-snug">
+              Catalogue scale breaks navigation
+            </h3>
+          </div>
+          <div class="space-y-4">
+            <p class="text-gray-300 leading-relaxed text-lg">
+              100+ SKUs across categories, materials, colourways, and
+              dimensions. Collection architecture and filter design decide
+              whether a visitor finds what they came for — or leaves after three
+              clicks of dead ends. Most Shopify themes ship with filtering that
+              cannot handle a serious home decor catalogue.
+            </p>
+            <p class="text-gray-400 leading-relaxed">
+              Your conversion rate on traffic you are already paying for depends
+              heavily on this. A store with strong navigation and a modest ad
+              budget will consistently outperform a store with excellent ads and
+              broken filtering. Navigation is the cheapest CRO lever available
+              to most home decor brands, and it is almost always broken.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 2: What we actually do ───────────────────────────────────── -->
+  <section class="bg-black text-white px-6 py-24 border-t border-gray-800">
+    <div class="max-w-5xl mx-auto">
+      <div class="scroll-section mb-16">
+        <div class="overflow-hidden mb-6">
+          <h2 class="reveal-line text-4xl md:text-5xl font-bold leading-tight">
+            What a home decor marketing agency<br />should be responsible for
+          </h2>
+        </div>
+        <p class="reveal-fade text-gray-400 text-lg max-w-3xl leading-relaxed">
+          Not a list of services. A mapping of the problems above to the work
+          that actually moves them.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Store design -->
+        <a
+          href="/services/shopify/"
+          class="group block p-8 bg-gray-900/30 rounded-2xl border border-gray-800 hover:border-[#00f19f]/40 transition-all"
+        >
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <h3
+              class="text-2xl font-bold group-hover:text-[#00f19f] transition-colors"
+            >
+              Store Design & Build
+            </h3>
+            <svg
+              class="w-5 h-5 text-gray-600 group-hover:text-[#00f19f] mt-1 flex-shrink-0 transition-colors"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </div>
+          <p class="text-gray-400 leading-relaxed mb-4">
+            The problem: your catalogue is running on a Shopify theme designed
+            for apparel. Collection architecture, filter logic, and PDP
+            structure were built for a different category with different buyer
+            behaviour.
+          </p>
+          <p class="text-gray-300 leading-relaxed">
+            What gets built: collection hierarchy mapped to how home decor
+            buyers actually shop — by room, material, and dimension — filtering
+            that handles multi-attribute combinations, and PDPs structured to
+            answer the objections of a high-consideration buyer in the right
+            sequence. Scale indicators, material specifications, and room-context
+            imagery integrated into the page layout rather than added as an
+            afterthought.
+          </p>
+        </a>
+
+        <!-- Ecommerce growth -->
+        <a
+          href="/services/ecommerce-growth/"
+          class="group block p-8 bg-gray-900/30 rounded-2xl border border-gray-800 hover:border-[#00f19f]/40 transition-all"
+        >
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <h3
+              class="text-2xl font-bold group-hover:text-[#00f19f] transition-colors"
+            >
+              Ecommerce Growth
+            </h3>
+            <svg
+              class="w-5 h-5 text-gray-600 group-hover:text-[#00f19f] mt-1 flex-shrink-0 transition-colors"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </div>
+          <p class="text-gray-400 leading-relaxed mb-4">
+            The problem: paid media optimised for last-click is cutting the
+            wrong channels. Email sequences timed to impulse-purchase intervals
+            are not built for a buyer who spends three weeks in consideration.
+            Budget that stays flat across the year misses the two peaks that
+            matter.
+          </p>
+          <p class="text-gray-300 leading-relaxed">
+            What gets built: paid media that flexes budget around Q4 and spring
+            peaks with enough lead time for creative production. Email and SMS
+            flows calibrated to a 2–6 week consideration window — browse
+            abandonment, multi-visit sequences, cart recovery timed to the
+            actual decision cycle. CRO on PDPs and checkout focused on the
+            friction points specific to high-ticket purchases: policy anxiety,
+            return risk, and scale uncertainty.
+          </p>
+        </a>
+
+        <!-- Brand and content -->
+        <a
+          href="/services/brand-content/"
+          class="group block p-8 bg-gray-900/30 rounded-2xl border border-gray-800 hover:border-[#00f19f]/40 transition-all"
+        >
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <h3
+              class="text-2xl font-bold group-hover:text-[#00f19f] transition-colors"
+            >
+              Brand & Content
+            </h3>
+            <svg
+              class="w-5 h-5 text-gray-600 group-hover:text-[#00f19f] mt-1 flex-shrink-0 transition-colors"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </div>
+          <p class="text-gray-400 leading-relaxed mb-4">
+            The problem: manufacturer-supplied imagery was shot for a product
+            catalogue, not a conversion page. It communicates the object. It
+            does not communicate what the object does to a room — or justify a
+            $2,400 price point to someone buying on a screen.
+          </p>
+          <p class="text-gray-300 leading-relaxed">
+            What gets built: room-context photography direction, the visual
+            system that makes a premium price legible, lifestyle content that
+            places product in aspirational environments without looking staged.
+            The creative brief starts with the conversion problem: what does a
+            buyer need to see, in what order, to commit at this price?
+          </p>
+        </a>
+
+        <!-- Growth tools -->
+        <a
+          href="/services/growth-tools/"
+          class="group block p-8 bg-gray-900/30 rounded-2xl border border-gray-800 hover:border-[#00f19f]/40 transition-all"
+        >
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <h3
+              class="text-2xl font-bold group-hover:text-[#00f19f] transition-colors"
+            >
+              Growth Tools & Attribution
+            </h3>
+            <svg
+              class="w-5 h-5 text-gray-600 group-hover:text-[#00f19f] mt-1 flex-shrink-0 transition-colors"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </div>
+          <p class="text-gray-400 leading-relaxed mb-4">
+            The problem: multi-session, cross-device purchase paths break
+            last-click attribution. You are making budget decisions based on
+            the channel that closed the sale, not the channel that started the
+            journey. The result is cutting spend where it should be growing.
+          </p>
+          <p class="text-gray-300 leading-relaxed">
+            What gets built: server-side tracking and Conversions API
+            implementation that holds as browser-side signals degrade,
+            attribution modelling that shows the discovery channel and not just
+            the closer, dashboards built around MER rather than platform ROAS.
+            Reporting that gives you confidence to spend into the channels doing
+            the early work.
+          </p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 3: Results ─────────────────────────────────────────────────── -->
+  <section class="bg-black text-white px-6 py-24 border-t border-gray-800">
+    <div class="max-w-5xl mx-auto">
+      <div class="scroll-section mb-16">
+        <div class="overflow-hidden mb-6">
+          <h2 class="reveal-line text-4xl md:text-5xl font-bold">Results</h2>
+        </div>
+        <p class="reveal-fade text-gray-400 text-lg max-w-3xl leading-relaxed">
+          One project. One named client. No invented ROAS figures attached to no
+          named brand.
+        </p>
+      </div>
+
+      <div
+        class="p-8 md:p-12 bg-gray-900/30 rounded-2xl border border-gray-800"
+      >
+        <span
+          class="inline-block px-3 py-1 bg-[#00f19f]/10 border border-[#00f19f]/20 text-[#00f19f] text-xs font-bold rounded-full uppercase tracking-[0.15em] mb-6"
+          >Luxury Home Décor</span
+        >
+
+        <h3 class="text-2xl md:text-3xl font-bold mb-6 leading-snug">
+          Pakistan National Store — Launching a $5,500–$17,000 Bronze Sculpture
+          Brand to International Buyers
+        </h3>
+
+        <p class="text-gray-300 text-lg leading-relaxed mb-6">
+          PNS sells museum-quality handcrafted bronze sculptures — Royal Arabian
+          Stallions at $7,500, Royal Cheetah Companions at $8,500, pieces
+          finished in antique gold — to art collectors, interior designers, and
+          corporate buyers who have never seen the work in person. This is the
+          home decor conversion problem at its most demanding: a $7,500 purchase
+          decision, no showroom, no tactile experience, zero prior brand
+          credibility in the digital space.
+        </p>
+
+        <p class="text-gray-400 leading-relaxed mb-8">
+          The brief required the same decisions your store requires: how do you
+          communicate scale and material quality through a screen? How do you
+          structure a PDP so a buyer spending $7,500 can reach confidence
+          without a sales conversation? How do you build collection architecture
+          around prestige pieces when the category signal has to do the work
+          that a gallery visit would normally do?
+        </p>
+
+        <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+          {
+            [
+              { label: "Collections live at launch", value: "4" },
+              { label: "Price range transacted", value: "$5,500–$17K" },
+              { label: "Markets reached", value: "Global" },
+              { label: "Checkout & shipping", value: "Live day one" },
+            ].map((stat) => (
+              <div class="p-4 bg-black/50 rounded-xl border border-gray-800">
+                <div class="text-2xl font-bold text-[#00f19f] mb-1">
+                  {stat.value}
+                </div>
+                <div class="text-gray-500 text-sm">{stat.label}</div>
+              </div>
+            ))
+          }
+        </div>
+
+        <blockquote class="border-l-2 border-[#00f19f] pl-6 mb-8">
+          <p class="text-gray-300 text-lg italic leading-relaxed">
+            "We came in with world-class product and no way to show it to the
+            world. Hydra Fox built us the platform we needed — a store that
+            makes buyers feel the quality before the piece ever ships. The
+            international launch is everything we hoped it would be."
+          </p>
+          <cite class="block mt-4 text-gray-500 not-italic text-sm">
+            Ahmed & Sons Group LLC — Pakistan National Store
+          </cite>
+        </blockquote>
+
+        <a
+          href="/case-studies/pakistan-national-store/"
+          class="inline-flex items-center gap-2 text-[#00f19f] hover:text-[#00d88a] font-medium transition-colors"
+        >
+          Read the full case study
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 4: Process ─────────────────────────────────────────────────── -->
+  <section class="bg-black text-white px-6 py-24 border-t border-gray-800">
+    <div class="max-w-5xl mx-auto">
+      <div class="scroll-section mb-16">
+        <div class="overflow-hidden mb-6">
+          <h2 class="reveal-line text-4xl md:text-5xl font-bold leading-tight">
+            How we work with<br />home decor brands
+          </h2>
+        </div>
+        <p class="reveal-fade text-gray-400 text-lg max-w-3xl leading-relaxed">
+          Every engagement starts with a Conversion Leak Audit — a systematic
+          teardown of where your store is losing revenue before anything is
+          built or changed.
+        </p>
+      </div>
+
+      <div>
+        {
+          [
+            {
+              step: "01",
+              name: "Conversion Leak Audit",
+              time: "Week 1–2",
+              desc: "A diagnostic review of your PDP, cart, checkout, email flows, and paid attribution. We map where traffic is leaving, why, and what fixing it is worth in revenue terms. This is the deliverable — not a slide deck of industry trends or a list of things we could do.",
+            },
+            {
+              step: "02",
+              name: "Architecture & Brief",
+              time: "Week 2–3",
+              desc: "Collection structure, PDP template, photography brief, and email flow architecture. Decisions are made before execution begins. Scope is locked to what the audit identified as a lever — not expanded to what looks impressive in a proposal.",
+            },
+            {
+              step: "03",
+              name: "Build & Launch",
+              time: "Week 4–10",
+              desc: "Store build or rebuild, email infrastructure, paid media setup, tracking implementation. Timeline depends on audit findings and existing infrastructure. Nothing gets built that the audit did not surface as a constraint on growth.",
+            },
+            {
+              step: "04",
+              name: "Optimise",
+              time: "Month 3 onwards",
+              desc: "Ongoing paid media management, A/B testing on PDPs and checkout, email flow iteration, seasonal budget planning. Reported against MER — not platform ROAS, which flatters the ad account and misleads the budget conversation.",
+            },
+            {
+              step: "05",
+              name: "Review & Scale",
+              time: "Quarterly",
+              desc: "Quarterly review of LTV:CAC, return rate trends, and channel contribution. Decisions about scaling, cutting, and reinvesting are made from first-party data — not from what the ad platforms are claiming they delivered.",
+            },
+          ].map((step) => (
+            <div class="flex gap-6 py-8 border-t border-gray-800">
+              <span class="text-gray-700 font-mono text-xs w-8 flex-shrink-0 mt-1.5">
+                {step.step}
+              </span>
+              <div class="flex-1">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-3">
+                  <h3 class="text-xl font-bold">{step.name}</h3>
+                  <span class="text-[#00f19f] text-sm font-medium">
+                    {step.time}
+                  </span>
+                </div>
+                <p class="text-gray-400 leading-relaxed">{step.desc}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-gray-800">
+        <a
+          href="/audit/"
+          class="inline-flex items-center gap-2 px-8 py-4 bg-[#00f19f] hover:bg-[#00d88a] text-black font-bold rounded-full transition-colors"
+        >
+          Start with a Conversion Audit
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 5: FAQ ─────────────────────────────────────────────────────── -->
+  <section class="bg-black text-white px-6 py-24 border-t border-gray-800">
+    <div class="max-w-5xl mx-auto">
+      <div class="scroll-section mb-16">
+        <div class="overflow-hidden mb-6">
+          <h2 class="reveal-line text-4xl md:text-5xl font-bold">
+            Common questions
+          </h2>
+        </div>
+      </div>
+
+      <div>
+        {
+          faqs.map((faq) => (
+            <div class="py-8 border-t border-gray-800">
+              <h3 class="text-xl font-bold mb-4">{faq.q}</h3>
+              <p class="text-gray-400 leading-relaxed">{faq.a}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Closing CTA ────────────────────────────────────────────────────────── -->
+  <section class="bg-black text-white px-6 py-24 border-t border-gray-800">
+    <div class="max-w-5xl mx-auto">
+      <div class="max-w-2xl">
+        <h2 class="text-4xl md:text-6xl font-bold leading-tight mb-8">
+          Your traffic isn't<br />the problem.<br />Your store is.
+        </h2>
+        <p class="text-gray-400 text-lg leading-relaxed mb-10">
+          The Conversion Leak Audit maps exactly where your store is losing
+          revenue and what fixing it is worth — before anything gets built or
+          changed. Two weeks. One deliverable. A decision you can act on.
+        </p>
+        <a
+          href="/audit/"
+          class="inline-flex items-center gap-2 px-10 py-5 bg-[#00f19f] hover:bg-[#00d88a] text-black font-bold rounded-full text-lg transition-colors"
+        >
+          Get the Audit
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
