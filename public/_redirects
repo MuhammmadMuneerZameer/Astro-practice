@@ -65,6 +65,7 @@
 # ── 8. Legacy URL consolidation ──────────────────────────────────────────────
 /case-studies/                             /work/                             301
 /projects/*                                /work/                             301
+/blog/:slug                                /resources/:slug                   301
 /blog/*                                    /resources/                        410
 
 

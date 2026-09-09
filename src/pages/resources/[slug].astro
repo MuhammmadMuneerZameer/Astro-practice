@@ -123,6 +123,27 @@ const relatedSlugs = new Set([post.slug, ...relatedPosts.map(p => p.slug)]);
 const morePosts = allPosts
   .filter((p) => p.status === "published" && !relatedSlugs.has(p.slug))
   .slice(0, 6);
+
+function extractFaqs(html: string) {
+  const faqs: { question: string; answer: string }[] = [];
+  if (!html) return faqs;
+  // Find the section starting at an h3/h2 that contains "FAQ" or "Frequently Asked"
+  const sectionMatch = html.match(
+    /<h[23][^>]*>[^<]*(?:frequently asked|faq)[^<]*<\/h[23]>([\s\S]*?)(?=<h[23]|$)/i
+  );
+  if (!sectionMatch) return faqs;
+  const section = sectionMatch[1];
+  // Grab each h4 (question) + the first p immediately following (answer)
+  const re = /<h4[^>]*>([\s\S]*?)<\/h4>[\s\S]*?<p[^>]*>([\s\S]*?)<\/p>/gi;
+  let m;
+  while ((m = re.exec(section)) !== null) {
+    const q = m[1].replace(/<[^>]+>/g, '').trim();
+    const a = m[2].replace(/<[^>]+>/g, '').trim();
+    if (q && a) faqs.push({ question: q, answer: a });
+  }
+  return faqs;
+}
+const postFaqs = extractFaqs(renderedContent);
 ---
 
 <Layout
@@ -159,6 +180,46 @@ const morePosts = allPosts
       },
     })}
   />
+  {relatedService && (
+    <script
+      slot="head"
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: relatedService.name,
+        description: relatedService.description,
+        provider: {
+          "@type": "Organization",
+          name: "Hydra Fox Designs",
+          url: "https://hydrafoxdesigns.com",
+        },
+        serviceType: "Digital Marketing Agency",
+        areaServed: ["US", "GB", "AU", "AE"],
+        url: `https://hydrafoxdesigns.com/services/${relatedService.slug}/`,
+      })}
+    />
+  )}
+  {postFaqs.length > 0 && (
+    <script
+      slot="head"
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: postFaqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.answer,
+          },
+        })),
+      })}
+    />
+  )}
 
   <!-- Breadcrumb -->
   <nav class="bg-black pt-24 pb-4 px-6">
