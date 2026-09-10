@@ -41,6 +41,7 @@ const htmlFiles = collectHtmlFiles(distDir);
 const SKIP_PREFIXES = [
   '/_astro/', '/images/', '/fonts/', '/manifest', '/sw.js',
   '/robots', '/sitemap', '/favicon', '/admin',
+  '/blog/', // handled by Netlify _redirects → /resources/:slug (301)
 ];
 
 const linkRe = /href="(\/[^"#?]*[^"#?/])?\/?(?<!https:\/\/)(?=[^"]*")/g;

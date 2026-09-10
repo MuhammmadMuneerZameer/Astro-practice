@@ -148,24 +148,32 @@ const clusterPosts = [
 ];
 
 async function addClusterPosts() {
-  console.log("Publishing 11 ecommerce cluster posts to Firebase...\n");
+  console.log("Upserting 11 ecommerce cluster posts to Firebase...\n");
 
   for (const post of clusterPosts) {
     const { file, ...metadata } = post;
     const content = loadContent(file);
 
-    const docRef = await db.collection("post").add({
-      ...metadata,
-      content,
-      createdAt: FieldValue.serverTimestamp(),
-      updatedAt: FieldValue.serverTimestamp()
-    });
+    // Check for an existing document with this slug
+    const existing = await db.collection("post").where("slug", "==", post.slug).limit(1).get();
 
-    console.log(`✅ ${post.slug}  →  ${docRef.id}`);
+    if (!existing.empty) {
+      const docRef = existing.docs[0].ref;
+      await docRef.update({ ...metadata, content, updatedAt: FieldValue.serverTimestamp() });
+      console.log(`✏️  ${post.slug}  →  updated ${docRef.id}`);
+    } else {
+      const docRef = await db.collection("post").add({
+        ...metadata,
+        content,
+        createdAt: FieldValue.serverTimestamp(),
+        updatedAt: FieldValue.serverTimestamp(),
+      });
+      console.log(`✅ ${post.slug}  →  created ${docRef.id}`);
+    }
   }
 
-  console.log("\nAll 11 posts published.");
-  console.log("They will appear at /resources/[category]/[slug] once the site rebuilds.");
+  console.log("\nAll 11 posts upserted.");
+  console.log("Trigger a Netlify redeploy for pages to go live.");
 }
 
 addClusterPosts().catch(err => {
