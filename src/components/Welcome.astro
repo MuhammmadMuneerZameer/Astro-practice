@@ -1,17 +1,12 @@
 ﻿---
-import LiquidChrome from "./LiquidChrome.jsx";
+import RibbonField from "./RibbonField";
 ---
 
 <div class="hero-container relative min-h-screen flex flex-col justify-end pb-20 md:pb-28 px-4 md:px-8 bg-black overflow-hidden">
 
-  <!-- Background: Liquid Chrome WebGL -->
+  <!-- Background: Ribbon Field WebGL -->
   <div id="hero-bg-layer" class="absolute inset-0 z-0 opacity-40 pointer-events-none">
-    <LiquidChrome
-      client:load
-      baseColor={[0.0, 0.72, 0.48]}
-      speed={0.8}
-      interactive={false}
-    />
+    <RibbonField client:load />
   </div>
 
 
