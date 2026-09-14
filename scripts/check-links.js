@@ -42,6 +42,19 @@ const SKIP_PREFIXES = [
   '/_astro/', '/images/', '/fonts/', '/manifest', '/sw.js',
   '/robots', '/sitemap', '/favicon', '/admin',
   '/blog/', // handled by Netlify _redirects → /resources/:slug (301)
+  // Cluster post short-slug aliases — redirected via _redirects (section 8a).
+  // Long-slug targets added to _redirects as each post is published in Firestore.
+  '/resources/ecommerce-branding-checklist',
+  '/resources/ecommerce-brand-strategy',
+  '/resources/ecommerce-logo-design',
+  '/resources/ecommerce-branding-agency',
+  '/resources/ecommerce-marketing-strategy',
+  '/resources/ecommerce-web-design',
+  '/resources/ecommerce-email-marketing',
+  '/resources/ecommerce-ux-design',
+  '/resources/social-media-ecommerce-brands',
+  '/resources/ecommerce-brand-positioning',
+  '/resources/ecommerce-brand-identity',
 ];
 
 const linkRe = /href="(\/[^"#?]*[^"#?/])?\/?(?<!https:\/\/)(?=[^"]*")/g;

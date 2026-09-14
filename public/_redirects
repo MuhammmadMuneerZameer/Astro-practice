@@ -69,6 +69,23 @@
 /blog/*                                    /resources/                        410
 
 
+# ── 8a. Cluster post short-slug aliases ──────────────────────────────────────
+# Content uses short slugs; Firestore admin auto-generates long slugs from titles.
+# Add long-slug target here as each post is published. Pending posts fall back to
+# /resources/ until the correct slug is known.
+/resources/ecommerce-branding-checklist/   /resources/ecommerce-branding-checklist-15-must-haves-for-every-online-brand/  301
+/resources/ecommerce-brand-strategy/       /resources/                        301
+/resources/ecommerce-logo-design/          /resources/                        301
+/resources/ecommerce-branding-agency/      /resources/                        301
+/resources/ecommerce-marketing-strategy/   /resources/                        301
+/resources/ecommerce-web-design/           /resources/                        301
+/resources/ecommerce-email-marketing/      /resources/                        301
+/resources/ecommerce-ux-design/            /resources/                        301
+/resources/social-media-ecommerce-brands/  /resources/                        301
+/resources/ecommerce-brand-positioning/    /resources/ecommerce-brand-positioning-how-to-stand-out-in-a-saturated-market/  301
+/resources/ecommerce-brand-identity/       /resources/ecommerce-brand-identity-build-one-that-customers-remember/  301
+
+
 # ── 9. Admin SPA rewrite (200 = no redirect, serve the SPA shell) ────────────
 /admin                                     /admin/index.html                  200
 /admin/*                                   /admin/index.html                  200
