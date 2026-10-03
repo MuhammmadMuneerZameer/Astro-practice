@@ -10,7 +10,7 @@ export default function CaseStudyCard({ study, layoutId }) {
 
     return (
         <a
-            href={`/case-studies/${study.slug}`}
+            href={`/case-studies/${study.slug}/`}
             className="group block h-full"
         >
             <motion.div

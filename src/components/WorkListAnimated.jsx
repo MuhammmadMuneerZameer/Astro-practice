@@ -107,7 +107,7 @@ function WorkRow({ study, index, isActive, onHover }) {
     const num = String(index + 1).padStart(2, '0');
     return (
         <motion.a
-            href={`/case-studies/${study.slug}`}
+            href={`/case-studies/${study.slug}/`}
             className={`group flex items-center gap-4 md:gap-8 py-7 md:py-8 border-b transition-colors duration-300 relative cursor-pointer no-underline ${
                 isActive ? 'border-white/30' : 'border-white/10 hover:border-white/30'
             }`}

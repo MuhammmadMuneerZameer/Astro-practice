@@ -19,7 +19,7 @@ function CaseStudyRow({ study, index, onHover, isFiltered }) {
 
     return (
         <motion.a
-            href={`/case-studies/${study.slug}`}
+            href={`/case-studies/${study.slug}/`}
             className="group flex items-center gap-4 md:gap-8 py-6 md:py-8 border-b border-white/10 hover:border-white/30 transition-colors duration-300 relative cursor-pointer no-underline"
             initial={{ opacity: 0, y: 40 }}
             animate={isFiltered ? { opacity: 0, y: 20 } : { opacity: 1, y: 0 }}
