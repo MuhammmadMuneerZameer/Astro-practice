@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
-    "@astrojs/compiler": "^2.13.0",
     "@astrojs/netlify": "^6.6.5",
     "@astrojs/partytown": "^2.1.7",
     "@astrojs/react": "^4.3.0",
@@ -23,21 +22,20 @@
     "@mux/mux-player-react": "^3.12.0",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
-    "clsx": "^2.1.1",
     "dompurify": "^3.3.3",
     "firebase": "^12.12.1",
-    "firebase-admin": "^13.10.0",
     "framer-motion": "^12.38.0",
     "gsap": "^3.13.0",
     "lucide-react": "^0.539.0",
     "ogl": "^1.0.11",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "tailwind-merge": "^3.5.0",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "astro": "^5.17.1"
+    "@astrojs/compiler": "^2.13.0",
+    "astro": "^5.17.1",
+    "firebase-admin": "^13.10.0"
   }
 }

@@ -13,14 +13,11 @@ if (typeof window !== 'undefined') {
 }
 import { db } from '../lib/firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
+import { RESOURCE_CATEGORIES } from '../data/taxonomy';
 
-// Category display names
-const CATEGORY_NAMES = {
-    branding: 'Branding',
-    design: 'Design',
-    marketing: 'Marketing',
-    web: 'Web Development',
-};
+const CATEGORY_NAMES = Object.fromEntries(
+    Object.entries(RESOURCE_CATEGORIES).map(([k, v]) => [k, v.name])
+);
 
 export default function DynamicBlogLoader() {
     const [post, setPost] = useState(null);
@@ -271,7 +268,7 @@ export default function DynamicBlogLoader() {
                             {relatedPosts.map(related => (
                                 <a
                                     key={related.id}
-                                    href={`/resources/${related.category || 'general'}/${related.slug}/`}
+                                    href={`/resources/${related.slug}/`}
                                     className="group block"
                                 >
                                     <div className="aspect-[16/10] rounded-xl overflow-hidden mb-4 bg-gray-900">

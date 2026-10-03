@@ -113,24 +113,3 @@ export async function getPostBySlug(slug) {
   }
 }
 
-// Optional: Get posts by category
-export async function getPostsByCategory(category) {
-  try {
-    const posts = await getPosts();
-    return posts.filter(p => p.category === category);
-  } catch (error) {
-    console.error('💥 Error in getPostsByCategory:', error);
-    return [];
-  }
-}
-
-// Optional: Get posts by tag
-export async function getPostsByTag(tag) {
-  try {
-    const posts = await getPosts();
-    return posts.filter(p => p.tag === tag);
-  } catch (error) {
-    console.error('💥 Error in getPostsByTag:', error);
-    return [];
-  }
-}

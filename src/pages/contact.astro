@@ -4,8 +4,8 @@ import TestimonialSection from '../components/TestimonialSection';
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 
-const pageTitle = "Contact | Hydra Fox Designs — DTC Growth Agency";
-const pageDescription = "Ready to improve your MER, build on Shopify, or launch a Klaviyo retention program? Contact Hydra Fox Designs. We respond within 24–48 hours.";
+const pageTitle = "Contact | Hydra Fox Designs ï¿½ DTC Growth Agency";
+const pageDescription = "Ready to improve your MER, build on Shopify, or launch a Klaviyo retention program? Contact Hydra Fox Designs. We respond within 24ï¿½48 hours.";
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -71,7 +71,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       <div class="flex flex-col gap-4">
         <div class="overflow-hidden">
           <p class="ct-reveal-fade text-gray-500 text-sm font-mono">
-            Karachi, Pakistan · Response within 24 hrs · Same-day for Gulf & UK
+            Karachi, Pakistan ï¿½ Response within 24 hrs ï¿½ Same-day for Gulf & UK
           </p>
         </div>
         <div class="overflow-hidden">
@@ -111,10 +111,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           <p class="text-gray-600 text-xs font-mono tracking-widest uppercase mb-4">Where we are</p>
           <p class="text-white text-sm font-semibold mb-2">Karachi, Pakistan</p>
           <p class="text-gray-500 text-sm leading-relaxed mb-4">
-            We work with brands across the Gulf, UK, and US. Response within 24 hours every working day — same-day for Gulf and UK clients.
+            We work with brands across the Gulf, UK, and US. Response within 24 hours every working day ï¿½ same-day for Gulf and UK clients.
           </p>
           <p class="text-gray-600 text-xs font-mono leading-relaxed">
-            We say this on the first page rather than the last, because you would find out anyway — and how a company handles the things it could have hidden tells you most of what you need to know about it.
+            We say this on the first page rather than the last, because you would find out anyway ï¿½ and how a company handles the things it could have hidden tells you most of what you need to know about it.
           </p>
         </div>
 
@@ -156,7 +156,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         <div class="border border-white/10 rounded-xl p-6 bg-gray-900/20">
           <p class="text-gray-600 text-xs font-mono tracking-widest uppercase mb-3">Not ready for a brief?</p>
           <p class="text-gray-400 text-sm leading-relaxed mb-5">
-            Book a 30-minute strategy call. No prep required — just show up and
+            Book a 30-minute strategy call. No prep required ï¿½ just show up and
             tell us what's not working. We'll tell you what we'd do about it.
           </p>
           <!-- REPLACE with your Cal.com or Calendly URL -->
@@ -255,7 +255,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
             </label>
             <textarea
               id="message" name="message" rows="4"
-              placeholder="Tell us about your project, goals, and timeline…"
+              placeholder="Tell us about your project, goals, and timelineï¿½"
               class="w-full bg-transparent border-0 border-b border-white/20 focus:border-[#00f19f] outline-none py-3 text-white text-base placeholder-gray-700 transition-colors duration-300 resize-none"
             ></textarea>
           </div>
@@ -306,7 +306,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </div>
   </section>
 
-  <!-- -- Why Us — list style -------------------------------------------------- -->
+  <!-- -- Why Us ï¿½ list style -------------------------------------------------- -->
   <section class="bg-black border-t border-white/10 px-4 md:px-8 py-20">
     <div class="max-w-7xl mx-auto">
 
@@ -321,12 +321,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           {
             num: '01',
             title: 'One team. Ads, store, and tracking.',
-            desc: 'No paid media agency blaming the developer. No developer blaming the tracking consultant. One team owns the full stack — one conversation when something\'s wrong.',
+            desc: 'No paid media agency blaming the developer. No developer blaming the tracking consultant. One team owns the full stack ï¿½ one conversation when something\'s wrong.',
           },
           {
             num: '02',
             title: 'Month-to-month. No lock-in.',
-            desc: 'Cancel with 30 days\' notice. We don\'t use contracts to keep clients — we use results. If the numbers aren\'t moving after 90 days, we\'ll tell you why and what to do next.',
+            desc: 'Cancel with 30 days\' notice. We don\'t use contracts to keep clients ï¿½ we use results. If the numbers aren\'t moving after 90 days, we\'ll tell you why and what to do next.',
           },
           {
             num: '03',
@@ -351,7 +351,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 <!-- -- Animations ----------------------------------------------------------- -->
 <script>
-  import { submitContactForm } from '../lib/contactForm';
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  function validateContactForm(data: { _gotcha: string; email: string }) {
+    if (data._gotcha) return { success: false };
+    if (!EMAIL_RE.test(data.email)) return { success: false };
+    return { success: true };
+  }
 
   const EXPO_OUT = 'cubic-bezier(0.19, 1, 0.22, 1)';
   const CUBIC_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
@@ -458,12 +463,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       const now = Date.now();
       if (now - lastSubmitTime < THROTTLE_MS) {
         const remaining = Math.ceil((THROTTLE_MS - (now - lastSubmitTime)) / 1000);
-        if (submitText) submitText.textContent = `Wait ${remaining}s…`;
+        if (submitText) submitText.textContent = `Wait ${remaining}sï¿½`;
         return;
       }
 
       if (submitBtn) submitBtn.disabled = true;
-      if (submitText) submitText.textContent = 'Sending…';
+      if (submitText) submitText.textContent = 'Sendingï¿½';
 
       try {
         const formData = new FormData(contactForm);
@@ -486,7 +491,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
             body: formData,
             headers: { Accept: 'application/json' },
           }),
-          submitContactForm(firebaseData),
+          Promise.resolve(validateContactForm(firebaseData)),
         ]);
 
         if (fsRes.ok && fbRes.success) {

@@ -7,6 +7,12 @@ const SERVICE_LINKS = [
   { label: "Brand & Content",  href: "/services/brand-content/" },
 ];
 
+const INDUSTRY_LINKS = [
+  { label: "Food & Beverage",  href: "/industries/food-beverage-brands/" },
+  { label: "Home Decor",       href: "/industries/home-decor-brands/" },
+  { label: "Ecommerce & DTC",  href: "/industries/ecommerce-dtc/" },
+];
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -105,6 +111,18 @@ export default function Navbar() {
                     {label}
                   </a>
                 ))}
+                <div className="mx-4 my-1 border-t border-white/10" />
+                <span className="block px-4 pt-1.5 pb-1 text-[10px] font-bold tracking-[0.15em] uppercase text-gray-600">Industries</span>
+                {INDUSTRY_LINKS.map(({ label, href }) => (
+                  <a
+                    key={href}
+                    href={href}
+                    className="flex items-center gap-2 px-4 py-2.5 text-gray-300 hover:text-white hover:bg-white/5 text-sm transition-colors duration-150"
+                  >
+                    <span className="w-1 h-1 rounded-full bg-[#00f19f] flex-shrink-0 opacity-0 group-hover:opacity-100" />
+                    {label}
+                  </a>
+                ))}
               </div>
             </div>
           </li>
@@ -173,6 +191,16 @@ export default function Navbar() {
                     <a href={href} className="block text-gray-400 hover:text-white text-sm transition-colors">{label}</a>
                   </li>
                 ))}
+                <li className="pt-1 border-t border-white/10">
+                  <span className="block text-[10px] font-bold tracking-[0.15em] uppercase text-gray-600 mb-2">Industries</span>
+                  <ul className="flex flex-col gap-3">
+                    {INDUSTRY_LINKS.map(({ label, href }) => (
+                      <li key={href}>
+                        <a href={href} className="block text-gray-400 hover:text-white text-sm transition-colors">{label}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
               </ul>
             )}
           </li>

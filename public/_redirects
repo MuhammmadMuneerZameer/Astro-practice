@@ -63,6 +63,8 @@
 
 
 # ── 8. Legacy URL consolidation ──────────────────────────────────────────────
+/ContactUs/                                /contact/                          301
+/ContactUs                                 /contact/                          301
 /case-studies/                             /work/                             301
 /projects/*                                /work/                             301
 /blog/:slug                                /resources/:slug                   301
