@@ -3,7 +3,6 @@ import Layout from "../../layouts/Layout.astro";
 import {
   INDUSTRIES,
   SERVICE_HIERARCHY,
-  getIndustryBySlug,
 } from "../../data/taxonomy.js";
 import { getCaseStudies } from "../../data/caseStudies.js";
 
@@ -14,7 +13,7 @@ export function getStaticPaths() {
 }
 
 const { industry: industrySlug } = Astro.params;
-const industry = getIndustryBySlug(industrySlug);
+const industry = INDUSTRIES[industrySlug] || null;
 
 if (!industry) {
   return Astro.redirect("/industries/");

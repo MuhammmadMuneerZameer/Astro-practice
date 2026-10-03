@@ -2,7 +2,6 @@
 import Layout from "../../layouts/Layout.astro";
 import { getPosts } from "../../data/blogPost.js";
 import { SERVICE_HIERARCHY } from "../../data/taxonomy.js";
-import { categoryToSlug } from "../../lib/utils.js";
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -22,7 +21,12 @@ if (!post) {
 function processContent(content: string): string {
   if (!content) return '';
   const trimmed = content.trim();
-  if (trimmed.startsWith('<')) return content;
+
+  const stampDimensions = (h: string) =>
+    h.replace(/<img\b(?![^>]*\bwidth=)([^>]*?)(\/?>)/gi,
+      (_m, attrs, close) => `<img${attrs} width="1200" height="675" loading="lazy"${close}`);
+
+  if (trimmed.startsWith('<')) return stampDimensions(content);
 
   const escHtml = (s: string) =>
     s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -57,13 +61,13 @@ function processContent(content: string): string {
     if (!t) { flushPara(); closeList(); continue; }
     if (t.match(/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?$/i)) {
       flushPara(); closeList();
-      html += `<figure class="w-full my-8 clear-both"><img src="${safeUrl(t)}" alt="" class="w-full h-auto rounded-xl" /></figure>\n`;
+      html += `<figure class="w-full my-8 clear-both"><img src="${safeUrl(t)}" alt="" width="1200" height="675" loading="lazy" class="w-full h-auto rounded-xl" /></figure>\n`;
       continue;
     }
     const imgM = t.match(/^!\[(.*?)\]\((.+?)\)$/);
     if (imgM) {
       flushPara(); closeList();
-      html += `<figure class="w-full my-8 clear-both"><img src="${safeUrl(imgM[2])}" alt="${escHtml(imgM[1])}" class="w-full h-auto rounded-xl" /></figure>\n`;
+      html += `<figure class="w-full my-8 clear-both"><img src="${safeUrl(imgM[2])}" alt="${escHtml(imgM[1])}" width="1200" height="675" loading="lazy" class="w-full h-auto rounded-xl" /></figure>\n`;
       continue;
     }
     if (t.startsWith('### ')) { flushPara(); closeList(); html += `<h4>${inline(t.slice(4))}</h4>\n`; continue; }
@@ -87,7 +91,7 @@ function processContent(content: string): string {
     paraLines.push(t);
   }
   flushPara(); closeList();
-  return html;
+  return stampDimensions(html);
 }
 
 const renderedContent = processContent(post.content || '');
@@ -105,7 +109,7 @@ const CATEGORY_TO_SERVICE_SLUG: Record<string, string> = {
   'web':                     'store-design-build',
   'video-production':        'brand-content',
 };
-const catSlug = categoryToSlug(post.category);
+const catSlug = post.category ? post.category.toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/[/\\]/g, '-').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') : 'general';
 const serviceSlug = catSlug ? CATEGORY_TO_SERVICE_SLUG[catSlug] : null;
 const relatedService = serviceSlug ? (SERVICE_HIERARCHY as Record<string, any>)[serviceSlug] : null;
 
@@ -144,11 +148,14 @@ function extractFaqs(html: string) {
   return faqs;
 }
 const postFaqs = extractFaqs(renderedContent);
+
+const rawTitle = post.title || post.slug?.replace(/-/g, ' ') || 'Resource';
+const seoTitle = rawTitle.length > 40 ? rawTitle.slice(0, 39).trimEnd() + '…' : rawTitle;
 ---
 
 <Layout
-  title={`${post.title || post.slug?.replace(/-/g, ' ') || 'Resource'} | Hydra Fox Designs`}
-  description={post.description || `Read this resource from Hydra Fox Designs.`}
+  title={`${seoTitle} | Hydra Fox Designs`}
+  description={post.description || `Practical ecommerce insights from Hydra Fox Designs — covering Shopify, paid media, Klaviyo retention, and DTC brand strategy.`}
   image={post.image}
 >
   <script

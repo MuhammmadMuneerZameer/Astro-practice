@@ -12,7 +12,16 @@ import {
 } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { generateSlug, validateImageFile, uploadToImgBB } from '../lib/adminUtils';
-import { SERVICES, getServiceDisplayName } from '../data/caseStudies';
+const SERVICE_OPTIONS = {
+    'ux-ui-design': 'UX/UI Design',
+    'web-development': 'Web Development',
+    'mobile-app': 'Mobile App',
+    'branding': 'Branding',
+    'digital-marketing': 'Digital Marketing',
+    'video-editing': 'Video Editing',
+    'product-design': 'Product Design',
+    'motion-design': 'Motion Design',
+};
 
 const CONSTANTS = {
     COLLECTION_NAME: 'caseStudies',
@@ -283,7 +292,7 @@ export default function CaseStudyAdminPanel() {
                             <div>
                                 <label className="text-sm text-gray-400 block mb-2">Service Categories (Select all that apply)</label>
                                 <div className="flex flex-wrap gap-2 mb-2">
-                                    {Object.values(SERVICES).map(s => {
+                                    {Object.keys(SERVICE_OPTIONS).map(s => {
                                         const isSelected = formData.services?.includes(s) || formData.service === s;
                                         return (
                                             <button
@@ -307,14 +316,14 @@ export default function CaseStudyAdminPanel() {
                                                     : 'bg-gray-900 text-gray-400 border-gray-700 hover:border-gray-500'
                                                     }`}
                                             >
-                                                {getServiceDisplayName(s)}
+                                                {SERVICE_OPTIONS[s] || s}
                                                 {isSelected && <span className="ml-1">✓</span>}
                                             </button>
                                         );
                                     })}
                                 </div>
                                 <div className="text-xs text-gray-500">
-                                    Primary: {formData.service ? getServiceDisplayName(formData.service) : 'None'}
+                                    Primary: {formData.service ? SERVICE_OPTIONS[formData.service] || formData.service : 'None'}
                                 </div>
                             </div>
                             <div>

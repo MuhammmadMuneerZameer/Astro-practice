@@ -1,6 +1,6 @@
 ---
 title: "Pakistan National Store — Launching a Luxury Bronze Sculpture Brand to International Buyers"
-description: "How we built a Shopify store capable of selling $5,500–$17,000 handcrafted bronze sculptures to international buyers who had never seen the pieces in person."
+description: "How we built a Shopify store to sell $5,500–$17,000 handcrafted bronze sculptures to international buyers who had never seen the pieces in person."
 client: "Pakistan National Store (PNS)"
 industry: "Luxury Home Décor & E-commerce"
 services:

@@ -10,10 +10,12 @@ export default function TeamMemberCard({ member }) {
         className="cursor-pointer rounded-lg overflow-hidden shadow-lg"
         onClick={() => setOpen(!open)}
       >
-        <img 
-          src={member.photo} 
-          alt={member.name} 
-          className={`w-full h-auto transition-all duration-300 ${open ? "blur opacity-40" : ""}`} 
+        <img
+          src={member.photo}
+          alt={member.name}
+          width={1080}
+          height={1350}
+          className={`w-full h-auto transition-all duration-300 ${open ? "blur opacity-40" : ""}`}
         />
         <div className="mt-2">
           <p className="text-sm text-gray-400">{member.role}</p>

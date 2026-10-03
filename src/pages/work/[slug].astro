@@ -4,8 +4,6 @@ import { getCaseStudies } from "../../data/caseStudies.js";
 import {
   SERVICE_HIERARCHY,
   INDUSTRIES,
-  getServiceBySlug,
-  getIndustryBySlug,
 } from "../../data/taxonomy.js";
 
 // Components (re-use existing case study modules)
@@ -35,10 +33,8 @@ if (!caseStudy) {
 }
 
 // Get related data for internal linking
-const service = caseStudy.service ? getServiceBySlug(caseStudy.service) : null;
-const industry = caseStudy.industry
-  ? getIndustryBySlug(caseStudy.industry)
-  : null;
+const service = caseStudy.service ? (SERVICE_HIERARCHY[caseStudy.service] || null) : null;
+const industry = caseStudy.industry ? (INDUSTRIES[caseStudy.industry] || null) : null;
 
 // Get related case studies
 const allCaseStudies = await getCaseStudies();

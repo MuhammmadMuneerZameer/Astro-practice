@@ -12,33 +12,6 @@ const COLLECTION_NAME = "caseStudies";
 
 let _caseStudiesCache = null;
 
-// Service types mapping
-export const SERVICES = {
-    UX_UI_DESIGN: 'ux-ui-design',
-    WEB_DEVELOPMENT: 'web-development',
-    MOBILE_APP: 'mobile-app',
-    BRANDING: 'branding',
-    DIGITAL_MARKETING: 'digital-marketing',
-    VIDEO_EDITING: 'video-editing',
-    PRODUCT_DESIGN: 'product-design',
-    MOTION_DESIGN: 'motion-design'
-};
-
-/**
- * Fetch all published case studies from Firebase
- * @returns {Promise<Array>} Array of case study objects
- */
-const FETCH_TIMEOUT_MS = 8000;
-
-function withTimeout(promise) {
-    return Promise.race([
-        promise,
-        new Promise((_, reject) =>
-            setTimeout(() => reject(new Error('Firebase fetch timed out')), FETCH_TIMEOUT_MS)
-        ),
-    ]);
-}
-
 export async function getCaseStudies() {
     if (_caseStudiesCache !== null) return _caseStudiesCache;
 
@@ -57,10 +30,10 @@ export async function getCaseStudies() {
                 where("status", "==", "published"),
                 orderBy("createdAt", "desc")
             );
-            querySnapshot = await withTimeout(getDocs(q));
+            querySnapshot = await Promise.race([getDocs(q), new Promise((_, r) => setTimeout(() => r(new Error('Firebase fetch timed out')), 8000))]);
         } catch (orderError) {
             const q = query(caseStudiesCollection, where("status", "==", "published"));
-            querySnapshot = await withTimeout(getDocs(q));
+            querySnapshot = await Promise.race([getDocs(q), new Promise((_, r) => setTimeout(() => r(new Error('Firebase fetch timed out')), 8000))]);
         }
 
         if (querySnapshot.empty) {
@@ -162,21 +135,3 @@ export async function getCaseStudyBySlug(slug) {
     }
 }
 
-/**
- * Get human-readable service name
- * @param {string} serviceKey - Service key (e.g., 'ux-ui-design')
- * @returns {string} Human-readable service name
- */
-export function getServiceDisplayName(serviceKey) {
-    const names = {
-        [SERVICES.UX_UI_DESIGN]: 'UX/UI Design',
-        [SERVICES.WEB_DEVELOPMENT]: 'Web Development',
-        [SERVICES.MOBILE_APP]: 'Mobile App',
-        [SERVICES.BRANDING]: 'Branding',
-        [SERVICES.DIGITAL_MARKETING]: 'Digital Marketing',
-        [SERVICES.VIDEO_EDITING]: 'Video Editing',
-        [SERVICES.PRODUCT_DESIGN]: 'Product Design',
-        [SERVICES.MOTION_DESIGN]: 'Motion Design'
-    };
-    return names[serviceKey] || serviceKey;
-}

@@ -15,10 +15,6 @@ import { db } from '../lib/firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { RESOURCE_CATEGORIES } from '../data/taxonomy';
 
-const CATEGORY_NAMES = Object.fromEntries(
-    Object.entries(RESOURCE_CATEGORIES).map(([k, v]) => [k, v.name])
-);
-
 export default function DynamicBlogLoader() {
     const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(true);

@@ -9,9 +9,8 @@ const pageDescription = "Ready to improve your MER, build on Shopify, or launch 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
-<Layout title={pageTitle}>
+<Layout title={pageTitle} description={pageDescription}>
   <Fragment slot="head">
-    <meta name="description" content={pageDescription} />
     <meta name="keywords" content="Shopify agency contact, DTC growth agency, ecommerce paid media, Klaviyo retention, server-side tracking" />
     <link rel="canonical" href={canonicalURL} />
     <meta property="og:type" content="website" />

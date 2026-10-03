@@ -1,10 +1,10 @@
 ﻿---
 import Layout from '../../layouts/Layout.astro';
-import { getAllIndustries, getAllServices } from '../../data/taxonomy.js';
+import { INDUSTRIES, SERVICE_HIERARCHY } from '../../data/taxonomy.js';
 import { getCaseStudies } from '../../data/caseStudies.js';
 
-const industries = getAllIndustries();
-const services = getAllServices();
+const industries = Object.values(INDUSTRIES);
+const services = Object.values(SERVICE_HIERARCHY);
 const caseStudies = await getCaseStudies();
 const SERVICE_URL: Record<string, string> = {
   'store-design-build':      '/services/shopify/',

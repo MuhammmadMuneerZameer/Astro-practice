@@ -207,34 +207,3 @@ export const RESOURCE_CATEGORIES = {
     }
 };
 
-// Helper functions
-
-export function getServiceBySlug(slug) {
-    return SERVICE_HIERARCHY[slug] || null;
-}
-
-export function getSubserviceBySlug(serviceSlug, subserviceSlug) {
-    const service = SERVICE_HIERARCHY[serviceSlug];
-    if (!service) return null;
-    return service.subservices[subserviceSlug] || null;
-}
-
-export function getIndustryBySlug(slug) {
-    return INDUSTRIES[slug] || null;
-}
-
-export function getAllServices() {
-    return Object.values(SERVICE_HIERARCHY);
-}
-
-export function getAllIndustries() {
-    return Object.values(INDUSTRIES);
-}
-
-export function getResourceCategoryBySlug(slug) {
-    return RESOURCE_CATEGORIES[slug] || null;
-}
-
-export function getAllResourceCategories() {
-    return Object.values(RESOURCE_CATEGORIES);
-}

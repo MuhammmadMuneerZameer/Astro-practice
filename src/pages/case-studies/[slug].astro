@@ -20,10 +20,13 @@ const serviceLabels: Record<string, string> = {
   'growth-tools-automation': 'Growth Tools & Automation',
   'brand-content':           'Brand & Content',
 };
+
+const rawSeoBase = `${cs.client} Case Study`;
+const seoTitle = rawSeoBase.length > 42 ? rawSeoBase.slice(0, 39).trimEnd() + '…' : rawSeoBase;
 ---
 
 <Layout
-  title={`${cs.client} — ${cs.title} | Hydra Fox Designs`}
+  title={`${seoTitle} | Hydra Fox Designs`}
   description={cs.description}
 >
 
