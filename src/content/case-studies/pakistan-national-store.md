@@ -1,12 +1,13 @@
 ---
 title: "Pakistan National Store — Launching a Luxury Bronze Sculpture Brand to International Buyers"
-description: "How we built a Shopify store to sell $5,500–$17,000 handcrafted bronze sculptures to international buyers who had never seen the pieces in person."
+description: "How we built a Shopify store and ran paid media to sell $5,500–$17,000 handcrafted bronze sculptures to buyers who had never seen the pieces in person."
 client: "Pakistan National Store (PNS)"
 industry: "Luxury Home Décor & E-commerce"
 services:
   - store-design-build
   - brand-content
-timeframe: "Launched 2024 — ongoing"
+  - ecommerce-growth
+timeframe: "Launched 2024 — paid media live Sep 2026"
 featured: true
 image: "/images/PNS%20image.jpg"
 isOwnBrand: false
@@ -38,26 +39,32 @@ baseline:
     value: "$0"
   - label: "International sales channel"
     value: "None"
-  - label: "Digital brand presence"
+  - label: "Paid media"
     value: "None"
   - label: "Ecommerce infrastructure"
     value: "None"
 
 # ── Part 5 — Results ─────────────────────────────────────────────────────────
 results:
-  - label: "Collections live at launch"
+  - label: "Collections live"
     value: "4"
-  - label: "Price range transacted online"
+  - label: "Price range sold online"
     value: "$5,500–$17K"
   - label: "Markets reached"
     value: "Global"
-  - label: "Checkout and international shipping"
-    value: "Live day one"
+  - label: "Meta campaigns tested"
+    value: "38"
+  - label: "Avg. outbound CTR"
+    value: "2.63%"
+  - label: "Avg. CPM"
+    value: "~$3.50"
+  - label: "Purchases (30-day window)"
+    value: "25+"
 
 caveats: >
-  Revenue figures are not disclosed at client request. This case study covers the
-  build and launch phase. The store launched in 2024 and is in active operation.
-  Results reflect the infrastructure delivered, not a tracked sales period.
+  Revenue figures are not disclosed at client request. Paid media metrics reflect
+  a 30-day window (Sep–Oct 2026) on Meta Ads. CPM converted from PKR at prevailing
+  rates. Purchase count reflects Meta-tracked purchase events across 38 campaigns.
 
 # ── Part 6 — Client words ─────────────────────────────────────────────────────
 quote:
@@ -70,15 +77,14 @@ quote:
 
 # ── Part 7 — What we would do next ───────────────────────────────────────────
 nextSteps: >
-  The next phase is driving qualified international traffic to the catalog. Paid
-  search is the priority channel — high-intent buyers searching for luxury bronze
-  sculptures, art collectors researching statement pieces, interior designers
-  sourcing for residential and hospitality projects. Meta prospecting will follow
-  once enough buyer data exists to build reliable lookalike audiences. Email
-  infrastructure is in place; the focus shifts to list-building from product page
-  visitors and abandoned sessions — users who spent significant time on a $7,500
-  product page are a warm segment worth recovering. A B2B outreach sequence for
-  interior designers and real estate staging companies is scoped but not yet live.
+  Paid media is live and accumulating buyer data. The next lever is audience
+  refinement — building lookalike audiences from the confirmed purchase events
+  to reduce prospecting CPM further. Purchase value tracking in Meta needs
+  calibration so ROAS reporting reflects actual AOV; once live, budget scaling
+  decisions will have a real signal to follow. Email infrastructure is in place;
+  abandoned session recovery for users who spent time on a $7,500 product page
+  is the highest-priority flow to build next. A B2B outreach sequence targeting
+  interior designers and real estate staging companies remains scoped for Q4.
 
 galleryImages:
   - "/images/PNS%20image.jpg"
@@ -126,11 +132,39 @@ positioning the highest-value pieces as the brand's signature. Ahd-e-Qadeem grou
 brand in heritage and craftsmanship storytelling. New Arrivals gives the catalog motion,
 encouraging repeat visits in an otherwise static luxury product category.
 
+## Paid Media — Meta Prospecting & Retargeting
+
+With the store live and the brand infrastructure in place, the focus shifted to traffic.
+The challenge in paid media for luxury goods is the same as on the PDP: buyers at this
+price point do not convert in a single session. The media strategy was built around that
+reality — not chasing last-click attribution, but building a qualified audience that
+returns.
+
+We launched Meta campaigns across four structures in parallel:
+
+- **Prospecting (broad and interest-based)** — testing CPMs and creative formats against
+  cold audiences to identify which message architecture earns the click at this price tier
+- **New customer campaigns** — dedicated ad sets for first-time buyers, separated from
+  retargeting to allow clean signal isolation
+- **CBO (Campaign Budget Optimisation)** — automated budget allocation across performing
+  ad sets to shift spend toward the lowest cost-per-purchase in real time
+- **Retargeting** — warm audiences who had visited product pages but not converted,
+  sequenced to apply purchase pressure without discounting the product
+
+Across 38 campaigns tested in the first active period, the account achieved an average
+outbound CTR of 2.63% and an average CPM of approximately $3.50 — efficient by any
+benchmark for cold prospecting on luxury goods. The best-performing campaign reached a
+4.40 website purchase rate and a cost per purchase of Rs3,083 (~$11 USD). At a product
+price floor of $5,500, that unit economics profile is exceptional.
+
+The immediate priority for the next phase is calibrating Meta's purchase value tracking
+so ROAS figures reflect actual AOV and budget-scaling decisions have an accurate signal.
+
 ## Digital Launch Foundation
 
 The store launched with the infrastructure to support paid media and organic growth:
 structured product data, clean URL architecture, SEO-ready metadata across all collections,
-and an enquiry path that routes international buyers efficiently. The foundation is built
-to scale into paid search and Meta advertising as the brand grows its international footprint.
+and an enquiry path that routes international buyers efficiently. That foundation is now
+carrying live paid traffic.
 
 If you sell home decor or high-ticket lifestyle products, the conversion mechanics that shaped this build — room-context photography, considered-purchase PDP structure, and pre-purchase information that reduces return risk — are covered in our [home decor marketing guide](/industries/home-decor-brands/).
